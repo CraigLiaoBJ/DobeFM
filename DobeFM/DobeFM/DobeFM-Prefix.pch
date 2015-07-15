@@ -1,0 +1,22 @@
+//
+//  DobeFM-Prefix.pch
+//  DobeFM
+//
+//  Created by Craig Liao on 15/7/15.
+//  Copyright (c) 2015年 DobeFM. All rights reserved.
+//
+
+#ifndef DobeFM_DobeFM_Prefix_pch
+#define DobeFM_DobeFM_Prefix_pch
+
+
+#import "NetWorking.h"
+#import "UIImageView+WebCache.h"
+#import "AutoView.h"
+
+#define kWIDTH self.view.frame.size.width
+#define kHEIGHT self.view.frame.size.height
+//是否为IOS7
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+#endif
