@@ -12,8 +12,6 @@
 
 @property (nonatomic, retain)UIImageView *cellImageView;
 
-
-
 //表视图上面音频信息
 @property (nonatomic, retain) UIImageView *coverSmImage;
 @property (nonatomic, retain) UILabel *audioTitleLabel;

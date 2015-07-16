@@ -41,9 +41,7 @@
         [self.coverImageView addSubview:self.titleLabel];
         [_titleLabel release];
     }
-    
      return self;
-    
 }
 
 - (void)setSpcItem:(SpecialItem *)spcItem{
@@ -65,8 +63,6 @@
     NSURL *coverUrl = [NSURL URLWithString:coverString];
     NSData *coverData = [NSData dataWithContentsOfURL:coverUrl];
     _coverImageView.image = [UIImage imageWithData:coverData];
-    
-    
     
 //        NSURL *cover = [NSURL URLWithString:coverString];
 //        [_coverImageView sd_setImageWithURL:cover];

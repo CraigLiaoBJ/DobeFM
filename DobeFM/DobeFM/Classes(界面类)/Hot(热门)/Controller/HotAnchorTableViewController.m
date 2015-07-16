@@ -7,9 +7,10 @@
 //
 
 #import "HotAnchorTableViewController.h"
-#import "HotAnchorTableViewCell.h"
+#import "AnchorCell.h"
 #import "MoreViewController.h"
-@interface HotAnchorTableViewController ()<UITableViewDataSource, UITableViewDelegate>
+#import "AnchorInfoTableViewController.h"
+@interface HotAnchorTableViewController ()<UITableViewDataSource, UITableViewDelegate, buttonForPushVC>
 
 @end
 
@@ -24,7 +25,7 @@
     self.tableView.rowHeight = 160;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.tableView registerClass:[HotAnchorTableViewCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AnchorCell class] forCellReuseIdentifier:@"CELL"];
 }
 
 
@@ -45,9 +46,9 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HotAnchorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    AnchorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.delegate = self;
     return cell;
 }
 
@@ -81,6 +82,13 @@
     sepLabel.backgroundColor = [UIColor colorWithWhite:0.736 alpha:1.000];
     [myHeader addSubview:sepLabel];
     return myHeader;
+}
+
+- (void)doClickButton:(UIButton *)btn
+{
+    AnchorInfoTableViewController *an = [[AnchorInfoTableViewController alloc] initWithStyle:(UITableViewStylePlain)];
+    an.view.backgroundColor = [UIColor redColor];
+    [self.navigationController pushViewController:an animated:YES];
 }
 
 - (void)didClickmoreBtn{
