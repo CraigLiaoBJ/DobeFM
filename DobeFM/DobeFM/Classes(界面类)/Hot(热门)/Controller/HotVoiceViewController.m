@@ -6,16 +6,16 @@
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
 
-#import "HotVoiceTableViewController.h"
+#import "HotVoiceViewController.h"
 #import "MoreCell.h"
-@interface HotVoiceTableViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HotVoiceViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-
-@property (nonatomic, strong) NSMutableArray *arr;
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) NSMutableArray *arr;
 
 @end
 
-@implementation HotVoiceTableViewController
+@implementation HotVoiceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,13 +31,13 @@
         [self.arr addObject:string];
     }
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height - 90) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height - 90) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 160;
     self.tableView.backgroundColor = [UIColor colorWithRed:0.675 green:0.629 blue:1.000 alpha:1.000];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self.view addSubview:self.tableView];
     
     [self.tableView registerClass:[MoreCell class] forCellReuseIdentifier:@"CELL"];
     
@@ -96,6 +96,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *playerVC = [[UIViewController alloc]init];
     [self presentViewController:playerVC animated:YES completion:nil];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1;
 }
 
 - (void)didReceiveMemoryWarning {

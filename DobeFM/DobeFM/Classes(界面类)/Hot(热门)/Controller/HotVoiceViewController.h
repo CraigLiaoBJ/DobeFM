@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HotVoiceTableViewController : UITableViewController
+@interface HotVoiceViewController : UIViewController
 
 @end

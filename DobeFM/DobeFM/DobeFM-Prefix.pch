@@ -16,7 +16,12 @@
 
 #define kWIDTH self.view.frame.size.width
 #define kHEIGHT self.view.frame.size.height
+
+
+
 //是否为IOS7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+#import "LORefresh.h"
 
 #endif

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DDEF09E4-E13C-43DA-AC45-E35002819276</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DobeFM</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D62EC1A05CD1244022FE17B23DAC33246C4556C2</key>
+		<string>https://github.com/CraigLiaoBJ/DobeFM.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DobeFM副本/DobeFM.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D62EC1A05CD1244022FE17B23DAC33246C4556C2</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/CraigLiaoBJ/DobeFM.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D62EC1A05CD1244022FE17B23DAC33246C4556C2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D62EC1A05CD1244022FE17B23DAC33246C4556C2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DobeFM</string>
+		</dict>
+	</array>
+</dict>
+</plist>
