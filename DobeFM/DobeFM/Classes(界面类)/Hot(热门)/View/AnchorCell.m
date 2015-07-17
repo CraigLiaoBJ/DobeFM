@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
 
-#import "HotAnchorTableViewCell.h"
-
-@interface HotAnchorTableViewCell ()
+#import "AnchorCell.h"
+#import "AnchorInfoTableViewController.h"
+@interface AnchorCell ()
 
 @end
-@implementation HotAnchorTableViewCell
+@implementation AnchorCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -38,6 +38,8 @@
         UIButton *button = (UIButton *)[self viewWithTag:i + 1000];
         CGFloat WIDTH = [UIScreen mainScreen].bounds.size.width;
         button.frame = CGRectMake(10 + (WIDTH - 40)/3 *i + 10 *i, 10, (WIDTH - 40)/3, (WIDTH - 40)/3);
+        [button addTarget:self action:@selector(didClickButton:) forControlEvents:UIControlEventTouchUpInside];
+        
         [button setBackgroundColor:[UIColor cyanColor]];
         
         UILabel *label = (UILabel *)[self viewWithTag:i + 2000];
@@ -46,6 +48,15 @@
 
     }
 }
+
+- (void)didClickButton:(UIButton *)button{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(doClickButton:)]) {
+        [self.delegate doClickButton:button];
+    }
+}
+
+
+
 
 
 - (void)awakeFromNib {
