@@ -9,6 +9,10 @@
 #ifndef DobeFM_DobeFM_Prefix_pch
 #define DobeFM_DobeFM_Prefix_pch
 
+#define LOADDOWN_MUSIC_PATH
+#define CHOOL_NEWLINE_NUM 50
+#define CORNER_RADIUS_FLOAT 15.0
+
 
 #import "NetWorking.h"
 #import "UIImageView+WebCache.h"
@@ -16,8 +20,6 @@
 
 #define kWIDTH self.view.frame.size.width
 #define kHEIGHT self.view.frame.size.height
-
-
 
 //是否为IOS7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)

@@ -42,17 +42,18 @@
 //    CGFloat width = [UIScreen mainScreen].bounds.size.width;
     
     //轮播图上图片来源数组
-    NSMutableArray *imagesArray = [NSMutableArray array ];
+//    NSMutableArray *imagesArray = [NSMutableArray array ];
+//    
+//    for (HotModel *dic in self.dataArray) {
+//        
+//        [imagesArray addObject:dic.pic];
+//    }
+    NSArray *imagesArray = @[@"http://f.hiphotos.baidu.com/zhidao/pic/item/a08b87d6277f9e2f522ee9e01e30e924b899f33b.jpg", @"http://photos.tuchong.com/300699/f/3882646.jpg", @"http://img4.duitang.com/uploads/item/201301/15/20130115113509_ZfnzA.thumb.600_0.jpeg", @"http://www.ichww.com/uploads/allimg/131127/1-13112G3060Y39.jpg", @"http://pic.baike.soso.com/p/20130528/20130528101014-577571184.jpg", @"http://img05.tooopen.com/images/20150316/tooopen_sy_82590685487.jpg"];
     
-    for (HotModel *dic in self.dataArray) {
-        
-        [imagesArray addObject:dic.pic];
-    }
     
      //创建轮播图试图
-    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
+    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:@"scrollPH.png" pageControlShowStyle:UIPageControlShowStyleCenter];
     //有导航控制器的时候使用这方法控制轮播图的size不会乱变动。
-    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 150, width - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
         __block typeof(self) miao = self;
@@ -75,7 +76,6 @@
  */
 - (void)addHotAnchor{
     UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 255, (kWIDTH - 30) / 2 , 100)];
-    UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 330, 172.5, 100)];
     hotAnchor.backgroundColor = [UIColor orangeColor];
     /**
      占位文字
@@ -113,7 +113,6 @@
  */
 - (void)addHotVoice{
     UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 30) / 2 + 20, 255, (kWIDTH - 30) / 2, 100)];
-    UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake(192.5, 330, 172.5 , 100)];
     hotVoice.backgroundColor = [UIColor orangeColor];
 //占位文字
     UILabel *hotVoiceLabel = [[UILabel alloc]initWithFrame:CGRectMake(11, 40, 150, 20)];
@@ -147,7 +146,6 @@
  */
 - (void)addSpecial{
     UIImageView *special = [[UIImageView alloc]initWithFrame:CGRectMake(10, 365, kWIDTH - 20, 50)];
-    UIImageView *special = [[UIImageView alloc]initWithFrame:CGRectMake(10, 440, 355, 50)];
     special.backgroundColor = [UIColor lightGrayColor];
     
     UILabel *specialLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 15, 200, 20)];

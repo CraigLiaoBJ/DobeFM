@@ -10,7 +10,7 @@
 #import "TabBarViewController.h"
 #import "DiscoverViewControlerViewController.h"
 #import "HotViewController.h"
-#import "DownloadViewController.h"
+#import "LoadingViewController.h"
 #import "MineViewController.h"
 
 @interface TabBarViewController ()
@@ -31,7 +31,7 @@
     [self addOneChildVc:hotVC title:@"热门" imageNamed:@"hot.png" selectedImageName:@"hot-2.png"];
     
     //下载听界面
-    DownloadViewController *downloadVC = [[DownloadViewController alloc]init];
+    LoadingViewController *downloadVC = [[LoadingViewController alloc]init];
     [self addOneChildVc:downloadVC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
     
     //我的 界面

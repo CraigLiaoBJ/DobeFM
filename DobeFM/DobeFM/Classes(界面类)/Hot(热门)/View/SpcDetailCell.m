@@ -17,9 +17,9 @@
         [self addSubview:_cellImageView];
         [_cellImageView release];
         
-        self.coverSmImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, 50, 50)];
+        self.coverSmImage = [[UIImageView alloc]initWithFrame:CGRectMake(5, 15, 60, 60)];
         self.coverSmImage.backgroundColor  = [UIColor colorWithRed:0.359 green:0.672 blue:1.000 alpha:1.000];
-        self.coverSmImage.layer.cornerRadius = 50.f;
+        self.coverSmImage.layer.cornerRadius = 30.f;
         self.coverSmImage.layer.masksToBounds = YES;
         [self.cellImageView addSubview:self.coverSmImage];
         [_coverSmImage release];
