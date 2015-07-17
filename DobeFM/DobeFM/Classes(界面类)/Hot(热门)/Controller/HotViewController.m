@@ -52,6 +52,7 @@
      //创建轮播图试图
     AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
     //有导航控制器的时候使用这方法控制轮播图的size不会乱变动。
+    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 150, width - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
         __block typeof(self) miao = self;
@@ -74,6 +75,7 @@
  */
 - (void)addHotAnchor{
     UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 255, (kWIDTH - 30) / 2 , 100)];
+    UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 330, 172.5, 100)];
     hotAnchor.backgroundColor = [UIColor orangeColor];
     /**
      占位文字
@@ -111,6 +113,7 @@
  */
 - (void)addHotVoice{
     UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 30) / 2 + 20, 255, (kWIDTH - 30) / 2, 100)];
+    UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake(192.5, 330, 172.5 , 100)];
     hotVoice.backgroundColor = [UIColor orangeColor];
 //占位文字
     UILabel *hotVoiceLabel = [[UILabel alloc]initWithFrame:CGRectMake(11, 40, 150, 20)];
@@ -144,6 +147,7 @@
  */
 - (void)addSpecial{
     UIImageView *special = [[UIImageView alloc]initWithFrame:CGRectMake(10, 365, kWIDTH - 20, 50)];
+    UIImageView *special = [[UIImageView alloc]initWithFrame:CGRectMake(10, 440, 355, 50)];
     special.backgroundColor = [UIColor lightGrayColor];
     
     UILabel *specialLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 15, 200, 20)];

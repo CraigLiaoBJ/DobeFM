@@ -6,12 +6,16 @@
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
 
+
 #import "HotVoiceViewController.h"
 #import "MoreCell.h"
 @interface HotVoiceViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *arr;
+#import "HotVoiceTableViewController.h"
+
+@interface HotVoiceTableViewController ()
 
 @end
 
@@ -19,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view, typically from a nib.
     
     self.arr = [NSMutableArray array];
@@ -40,63 +45,52 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView registerClass:[MoreCell class] forCellReuseIdentifier:@"CELL"];
+
     
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"最火", @"本周热门"]];
-    segment.frame = CGRectMake(0, 70, self.view.frame.size.width, 40);
-    [segment addTarget:self action:@selector(dunkengClicked:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segment];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
     
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)dunkengClicked:(UISegmentedControl *)seg
-{
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0;
+}
+
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    NSInteger index = seg.selectedSegmentIndex;
-    switch (index) {
-        case 0:
-            [self.arr removeAllObjects];
-            for (int i = 0; i < 200; i ++) {
-                int index = arc4random() % 2000;
-                
-                NSString *string = [NSString stringWithFormat:@"%d", index];
-                
-                [self.arr addObject:string];
-            }
-            [self.tableView reloadData];
-            break;
-        case 1:
-            [self.arr removeAllObjects];
-            for (int i = 0; i < 200; i ++) {
-                int index = arc4random() % 2000;
-                
-                NSString *string = [NSString stringWithFormat:@"%d", index];
-                
-                [self.arr addObject:string];
-            }
-            [self.tableView reloadData];
-            break;
-        default:
-            break;
-    }
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.arr.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    MoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell.textLabel.text = self.arr[indexPath.row];
+    // Configure the cell...
+    
     return cell;
 }
+*/
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *playerVC = [[UIViewController alloc]init];
-    [self presentViewController:playerVC animated:YES completion:nil];
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
 }
+*/
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 1;
@@ -105,6 +99,40 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
 }
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

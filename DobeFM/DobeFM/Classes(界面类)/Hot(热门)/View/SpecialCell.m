@@ -41,7 +41,9 @@
         [self.coverImageView addSubview:self.titleLabel];
         [_titleLabel release];
     }
+    
      return self;
+    
 }
 
 - (void)layoutSubviews{
@@ -97,6 +99,11 @@
     NSData *coverData = [NSData dataWithContentsOfURL:coverUrl];
     _coverImageView.image = [UIImage imageWithData:coverData];
 
+    
+    
+    
+//        NSURL *cover = [NSURL URLWithString:coverString];
+//        [_coverImageView sd_setImageWithURL:cover];
 }
 
 - (void)awakeFromNib {

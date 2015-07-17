@@ -7,13 +7,13 @@
 //
 
 #import "MoreViewController.h"
-#import "MoreCell.h"
-#import "AnchorInfoTableViewController.h"
-@interface MoreViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
+@interface MoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *arr;
+@property (nonatomic, retain) UITableView *hotTableView;
+//@property (nonatomic, retain) UITableView *newTableView;
+
+@property (nonatomic, retain) NSMutableArray *arr;
 
 @end
 
@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     self.arr = [NSMutableArray array];
     
@@ -32,32 +31,38 @@
         
         [self.arr addObject:string];
     }
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height - 90) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.rowHeight = 160;
-    self.tableView.backgroundColor = [UIColor colorWithRed:0.675 green:0.629 blue:1.000 alpha:1.000];
-        [self.tableView registerClass:[MoreCell class] forCellReuseIdentifier:@"CELL"];
-    
-    UIImageView *placeHold = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 2)];
-    self.tableView.tableHeaderView = placeHold;
-    
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.tableView];
-    
 
+    UISegmentedControl *segControl = [[UISegmentedControl alloc]initWithItems:@[@"最热", @"最新"]];
+    segControl.frame = CGRectMake((kWIDTH - 200) / 2, 5, 200, 30);
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, 40)];
+    imageView.backgroundColor = [UIColor cyanColor];
+    [self.view addSubview:imageView];
+    [imageView addSubview:segControl];
+    imageView.userInteractionEnabled = YES;
+    [segControl addTarget:segControl action:@selector(didClickControl:) forControlEvents:UIControlEventValueChanged];
     
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"蹲坑", @"坐坑"]];
-    segment.frame = CGRectMake(0, 70, self.view.frame.size.width, 40);
-    [segment addTarget:self action:@selector(dunkengClicked:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segment];
+    self.hotTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 104, kWIDTH, kHEIGHT - 64 - 40) style:UITableViewStylePlain];
+    self.hotTableView.dataSource = self;
+    self.hotTableView.delegate = self;
+    self.hotTableView.rowHeight = 160;
+    self.hotTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.hotTableView];
     
+    [self.hotTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    
+//    self.newTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 104, kWIDTH, kHEIGHT - 64 - 40) style:UITableViewStylePlain];
+//    self.newTableView.dataSource = self;
+//    self.newTableView.delegate = self;
+//    self.newTableView.rowHeight = 160;
+//    self.newTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [self.view addSubview:self.newTableView];
+//    
+//    [self.newTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"identifier"];
 }
 
-- (void)dunkengClicked:(UISegmentedControl *)seg
-{
-    
+
+
+- (void)didClickControl:(UISegmentedControl *)seg {
     NSInteger index = seg.selectedSegmentIndex;
     switch (index) {
         case 0:
@@ -69,7 +74,7 @@
                 
                 [self.arr addObject:string];
             }
-            [self.tableView reloadData];
+            [self.hotTableView reloadData];
             break;
         case 1:
             [self.arr removeAllObjects];
@@ -80,34 +85,89 @@
                 
                 [self.arr addObject:string];
             }
-            [self.tableView reloadData];
+            [self.hotTableView reloadData];
             break;
         default:
             break;
     }
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.arr.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    MoreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell.textLabel.text = self.arr[indexPath.row];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    AnchorInfoTableViewController *anchorInfoVC = [[AnchorInfoTableViewController alloc]init];
-    [self.navigationController pushViewController:anchorInfoVC animated:YES];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 100;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.hotTableView) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+        
+        cell.textLabel.text = @"ceshi";
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
+        
+        cell.textLabel.text = @"xiaozi";
+        return cell;
+    }
+    
+}
+
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
