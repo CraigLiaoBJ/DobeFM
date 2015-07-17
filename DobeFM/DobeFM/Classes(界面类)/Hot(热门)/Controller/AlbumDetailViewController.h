@@ -10,8 +10,4 @@
 
 @interface AlbumDetailViewController : UIViewController
 
-@property (nonatomic, retain) UIImageView *imageView;
-@property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) NSMutableArray *dataArray;
-
 @end

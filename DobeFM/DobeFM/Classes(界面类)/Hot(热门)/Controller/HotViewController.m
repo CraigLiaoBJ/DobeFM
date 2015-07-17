@@ -38,7 +38,7 @@
 
     NSArray *imagesArray = @[@"http://f.hiphotos.baidu.com/zhidao/pic/item/a08b87d6277f9e2f522ee9e01e30e924b899f33b.jpg", @"http://photos.tuchong.com/300699/f/3882646.jpg", @"http://img4.duitang.com/uploads/item/201301/15/20130115113509_ZfnzA.thumb.600_0.jpeg", @"http://www.ichww.com/uploads/allimg/131127/1-13112G3060Y39.jpg", @"http://pic.baike.soso.com/p/20130528/20130528101014-577571184.jpg", @"http://img05.tooopen.com/images/20150316/tooopen_sy_82590685487.jpg"];
     
-    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, width - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
+    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 150, width - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
         __block typeof(self) miao = self;
@@ -60,7 +60,7 @@
  *  添加最火主播
  */
 - (void)addHotAnchor{
-    UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 255, 172.5, 100)];
+    UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 330, 172.5, 100)];
     hotAnchor.backgroundColor = [UIColor orangeColor];
     /**
      占位文字
@@ -97,7 +97,7 @@
  *  添加最热声音
  */
 - (void)addHotVoice{
-    UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake(192.5, 255, 172.5 , 100)];
+    UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake(192.5, 330, 172.5 , 100)];
     hotVoice.backgroundColor = [UIColor orangeColor];
 //占位文字
     UILabel *hotVoiceLabel = [[UILabel alloc]initWithFrame:CGRectMake(11, 40, 150, 20)];
@@ -129,7 +129,7 @@
  *  添加专题
  */
 - (void)addSpecial{
-    UIImageView *special = [[UIImageView alloc]initWithFrame:CGRectMake(10, 365, 355, 50)];
+    UIImageView *special = [[UIImageView alloc]initWithFrame:CGRectMake(10, 440, 355, 50)];
     special.backgroundColor = [UIColor lightGrayColor];
     
     UILabel *specialLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 15, 200, 20)];
