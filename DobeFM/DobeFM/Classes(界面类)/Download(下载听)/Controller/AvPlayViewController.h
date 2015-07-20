@@ -22,6 +22,7 @@
 
 - (void) replayMusic;
 
+//albumList 声音list   sAlbum 专辑信息
 - (void) initWithAvplayer:(NSInteger)playCurrent  albumList:(NSMutableArray*)albumList sAlbum:(SearchAlbum *)sAlbum;
 
 @end

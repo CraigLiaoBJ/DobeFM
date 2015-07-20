@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LoadingViewController : UIViewController
-@property (nonatomic, retain) UITableView *loadedTableView;
+@property (nonatomic, strong) UITableView *loadedTableView;
 
-@property (nonatomic, retain) UITableView *loadingTableView;
+@property (nonatomic, strong) UITableView *loadingTableView;
 @end

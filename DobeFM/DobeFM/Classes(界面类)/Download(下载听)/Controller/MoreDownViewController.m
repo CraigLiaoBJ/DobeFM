@@ -34,6 +34,8 @@ static bool isDoading = NO;//是否在下载
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    
     self.title = @"批量下载";
     
     loadDownBase = [[LoadDownBase alloc]init];
