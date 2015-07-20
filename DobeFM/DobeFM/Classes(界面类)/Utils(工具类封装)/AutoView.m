@@ -1,6 +1,5 @@
 //
 //  AutoView.m
-//  轮播图封装
 //
 //  Created by Craig Liao on 15/7/13.
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.

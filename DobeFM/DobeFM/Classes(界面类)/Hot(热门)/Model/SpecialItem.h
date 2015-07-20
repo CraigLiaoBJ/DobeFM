@@ -10,7 +10,7 @@
 
 @interface SpecialItem : NSObject
 
-@property (nonatomic, retain) NSString *contentType;
+@property (nonatomic, retain) NSNumber *contentType;
 @property (nonatomic, retain) NSString *coverPathBig;
 @property (nonatomic, assign) NSNumber *releasedAt;
 @property (nonatomic, assign) NSNumber *specialId;
@@ -18,18 +18,5 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, assign) BOOL isHot;
 
-//- (id)initWithCoverBig:(NSString *)coverBig
-//               releaseAt:(NSNumber *)releaseAt
-//                spcialID:(NSNumber *)spcialID
-//                subTitle:(NSString *)subTitle
-//             titleString:(NSString *)titleString
-//                   hot:(BOOL)hot;
-//
-//+ (id)specialCoverBig:(NSString *)coverBig
-//            releaseAt:(NSNumber *)releaseAt
-//             spcialID:(NSNumber *)spcialID
-//             subTitle:(NSString *)subTitle
-//          titleString:(NSString *)titleString
-//                  hot:(BOOL)hot;
 
 @end

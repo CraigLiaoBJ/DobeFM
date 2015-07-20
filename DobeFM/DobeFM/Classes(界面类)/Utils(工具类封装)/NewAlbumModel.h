@@ -10,4 +10,5 @@
 
 @interface NewAlbumModel : NSObject
 
+
 @end

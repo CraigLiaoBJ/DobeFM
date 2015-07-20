@@ -45,7 +45,7 @@ static  NSInteger i = 1;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"CELL"];
     
-    [self.tableView release];
+//    [self.tableView release];
 }
 
 #pragma mark --- loadData
@@ -63,6 +63,7 @@ static  NSInteger i = 1;
                 [specialItem setValuesForKeysWithDictionary:tempDic];
                 [aSelf.dataArray addObject: specialItem];
 //                NSLog(@"111%@" , specialItem.releasedAt);
+                [specialItem release];
             }
             [self.tableView reloadData];
     }];
@@ -83,7 +84,7 @@ static  NSInteger i = 1;
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
         NSLog(@"asd");
         [weakSelf.dataArray removeAllObjects];
-        [weakSelf loadData];
+//        [weakSelf loadData];
         
         //        for (int i = 0; i < 20; i++) {
         //            NSString *str = [NSString stringWithFormat:@"%d",100 + arc4random()%100];
@@ -132,9 +133,13 @@ static  NSInteger i = 1;
 //}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SpcDetailTableViewController *spcDetail = [[SpcDetailTableViewController alloc]init];
+   
+        SpcDetailTableViewController *spcDetail = [[SpcDetailTableViewController alloc]init];
+        spcDetail.addID = [[self.dataArray[indexPath.row] specialId]stringValue];
+        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType] stringValue];
+        [self.navigationController pushViewController:spcDetail animated:YES];
+        [spcDetail release];
     
-    [self.navigationController pushViewController:spcDetail animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

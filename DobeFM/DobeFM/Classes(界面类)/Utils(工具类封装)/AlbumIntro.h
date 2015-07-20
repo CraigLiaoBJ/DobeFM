@@ -1,13 +1,13 @@
 //
-//  NewAlbumCell.h
+//  AlbumIntro.h
 //  DobeFM
 //
-//  Created by lanou3g on 15/7/16.
+//  Created by Craig Liao on 15/7/17.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-@interface NewAlbumCell : UITableViewCell
 
+@interface AlbumIntro : UIView
 
 @end

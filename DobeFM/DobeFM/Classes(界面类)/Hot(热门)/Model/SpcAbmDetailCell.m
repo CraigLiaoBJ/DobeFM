@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
 
-#import "SpcDetailCell.h"
+#import "SpcAbmDetailCell.h"
 
-@implementation SpcDetailCell
+@implementation SpcAbmDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -69,7 +69,7 @@
         [_createdAtLabel release];
         
         UIImageView *favorite = [[UIImageView alloc]initWithFrame:CGRectMake(320, 50, 20, 20)];
-        favorite.image = [UIImage imageNamed:@"iconfont-shoucang-2.png"];
+        favorite.image = [UIImage imageNamed:@"iconfont-xiazai.png"];
         [self.cellImageView addSubview:favorite];
         [favorite release];
         
@@ -77,7 +77,25 @@
     return self;
 }
 
+#pragma mark --- 重写setter方法
+- (void)setSpcDClModel:(SpcDetailCellModel *)spcDClModel{
+    if (_spcDClModel != spcDClModel) {
+        [_spcDClModel release];
+        [spcDClModel retain];
+        _spcDClModel = spcDClModel;
+    }
+    NSURL *coverUrl = [NSURL URLWithString:spcDClModel.albumCoverUrl290];
+    NSLog(@"cell%@", self.spcDClModel.albumCoverUrl290);
+    [self.coverSmImage sd_setImageWithURL:coverUrl];
+    
+    self.playCountLabel.text = [spcDClModel.playsCounts stringValue];
+    self.createdAtLabel.text = [spcDClModel.lastUptrackAt  stringValue];
+    
+    NSLog(@"%@", spcDClModel.lastUptrackAt);
 
+    
+    
+}
 
 - (void)awakeFromNib {
     // Initialization code

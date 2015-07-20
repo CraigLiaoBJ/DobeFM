@@ -47,6 +47,7 @@ static LoadDownBase *loadDownBase;
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
     
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     //下载完成view
     self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height)];
     self.loadedTableView.rowHeight = 60;

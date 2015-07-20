@@ -23,7 +23,7 @@
         NSData * data = [body dataUsingEncoding:NSUTF8StringEncoding];
         [request setHTTPBody:data];
     }
-//    建立异步链接
+//    建立异步链接    ·
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
 //        将json(文件)转化成对象

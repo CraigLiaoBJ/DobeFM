@@ -10,4 +10,10 @@
 
 @implementation AlbumItem
 
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    if ([key isEqualToString:@"duration"]) {
+        self.durationTm = value;
+    }
+}
 @end

@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface HotModel : NSObject
-
+//轮播图
 @property (nonatomic, retain) NSNumber *clickID;
-@property (nonatomic, retain) NSString *pic;
-@property (nonatomic, retain) NSString *type;
+@property (nonatomic, copy) NSString *pic;
+@property (nonatomic, copy) NSString *type;
+
+
+
+
 
 @end

@@ -1,15 +1,14 @@
 //
-//  SpcDetailCell.h
-//  iTing
+//  SpcAVDetailCell.h
+//  DobeFM
 //
-//  Created by Craig Liao on 15/7/4.
-//  Copyright (c) 2015年 Craig Liao. All rights reserved.
+//  Created by Craig Liao on 15/7/19.
+//  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "SpecialItem.h"
-@interface SpcDetailCell : UITableViewCell
-
+#import "SpcDetailCellModel.h"
+@interface SpcAVDetailCell : UITableViewCell
 @property (nonatomic, retain)UIImageView *cellImageView;
 
 //表视图上面音频信息
@@ -20,7 +19,6 @@
 @property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
 
-
-@property(nonatomic, retain) SpecialItem *specialItem;
+@property(nonatomic, retain) SpcDetailCellModel *spcDtlClModel;
 
 @end

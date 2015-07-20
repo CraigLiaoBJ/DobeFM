@@ -8,6 +8,7 @@
 
 #import "NewAlbumListViewController.h"
 #import "NewAlbumCell.h"
+#import "NewAlbumModel.h"
 @interface NewAlbumListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) UITableView *tableView;
@@ -19,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.arr = [NSMutableArray array];
     
     for (int i = 0; i < 200; i ++) {
@@ -44,9 +44,8 @@
     segment.frame = CGRectMake(0, 70, kWIDTH, 40);
     [segment addTarget:self action:@selector(dunkengClicked:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segment];
-    
-    
 }
+
 
 - (void)dunkengClicked:(UISegmentedControl *)seg
 {

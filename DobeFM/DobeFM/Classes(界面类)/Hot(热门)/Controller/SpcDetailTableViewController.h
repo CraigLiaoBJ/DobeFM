@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SpecialDetailItem.h"
 @interface SpcDetailTableViewController : UIViewController
 
-@property (nonatomic, retain) UIImageView *imageView;
+@property (nonatomic, retain) UIView *headView;
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *dataArray;
+@property (nonatomic, retain) SpecialDetailItem *spclDetlItem;
+@property (nonatomic, copy) NSString *addID;
+@property (nonatomic, retain) NSString *spcTypeID;
 
 @end
+

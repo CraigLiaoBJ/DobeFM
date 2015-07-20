@@ -11,8 +11,8 @@
 #import "DiscoverViewControlerViewController.h"
 #import "HotViewController.h"
 #import "LoadingViewController.h"
-#import "MineViewController.h"
-
+//#import "MineViewController.h"
+#import "ReconmmendAlbumViewController.h"
 @interface TabBarViewController ()
 
 @end
@@ -35,7 +35,8 @@
     [self addOneChildVc:downloadVC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
     
     //我的 界面
-    MineViewController *mineVC = [[MineViewController alloc]init];
+    ReconmmendAlbumViewController *mineVC = [[ReconmmendAlbumViewController alloc]init];
+//    MineViewController *mineVC = [[MineViewController alloc]init];
     [self addOneChildVc:mineVC title:@"我的" imageNamed:@"mine.png" selectedImageName:@"mine-2.png"];
  
     [discoverVC release];
