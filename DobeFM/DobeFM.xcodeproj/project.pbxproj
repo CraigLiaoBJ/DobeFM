@@ -91,7 +91,7 @@
 		5E4954D31B58B66C0023C078 /* ChoolNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CA1B58B66C0023C078 /* ChoolNumView.m */; };
 		5E4954D41B58B66C0023C078 /* MoreDownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CC1B58B66C0023C078 /* MoreDownCell.m */; };
 		5E4954D51B58B66C0023C078 /* LoadedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CE1B58B66C0023C078 /* LoadedCell.m */; };
-		5E4954D61B58B66C0023C078 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954D01B58B66C0023C078 /* DrawerView.m */; };
+		5E4954D61B58B66C0023C078 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954D01B58B66C0023C078 /* DrawerView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954DB1B58B6760023C078 /* AlbumList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954D81B58B6760023C078 /* AlbumList.m */; };
 		5E4954DC1B58B6760023C078 /* SearchAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954DA1B58B6760023C078 /* SearchAlbum.m */; };
 		5E4954F21B58B6A50023C078 /* iconfont-fuxuankuang.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E4954DE1B58B6A50023C078 /* iconfont-fuxuankuang.png */; };
@@ -149,13 +149,14 @@
 		5EE24BA61B59183B00AEB7D2 /* AlbumIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BA51B59183B00AEB7D2 /* AlbumIntro.m */; };
 		5EE24BA81B591F9900AEB7D2 /* album-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24BA71B591F9900AEB7D2 /* album-more.png */; };
 		5EE24BAE1B595AE800AEB7D2 /* SpcAbmDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BAC1B595AE800AEB7D2 /* SpcAbmDetailCell.m */; };
-		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; };
+		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C26742631B57A4F000BB733E /* AlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742621B57A4F000BB733E /* AlbumModel.m */; };
 		C26742661B57A52600BB733E /* AnchorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742651B57A52600BB733E /* AnchorModel.m */; };
 		C267426D1B57AD4A00BB733E /* NewAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C267426C1B57AD4A00BB733E /* NewAlbumListViewController.m */; };
 		C26742701B57AD9700BB733E /* NewAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C267426F1B57AD9700BB733E /* NewAlbumCell.m */; };
 		C26742731B57AED800BB733E /* NewAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742721B57AED800BB733E /* NewAlbumModel.m */; };
 		C26742771B57DB3E00BB733E /* LORefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742761B57DB3E00BB733E /* LORefresh.m */; };
+		C2D41A3A1B5F51660093FE69 /* losePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C2D41A391B5F51660093FE69 /* losePic.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -395,6 +396,7 @@
 		C26742721B57AED800BB733E /* NewAlbumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAlbumModel.m; sourceTree = "<group>"; };
 		C26742751B57DB3E00BB733E /* LORefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORefresh.h; sourceTree = "<group>"; };
 		C26742761B57DB3E00BB733E /* LORefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LORefresh.m; sourceTree = "<group>"; };
+		C2D41A391B5F51660093FE69 /* losePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = losePic.jpg; path = "../../Other(其他类)/icons/tabBar/losePic.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,6 +532,7 @@
 		5E03855F1B566F4B0054E467 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C2D41A391B5F51660093FE69 /* losePic.jpg */,
 				5E4954B91B58B6620023C078 /* MoreDownViewController.h */,
 				5E4954BA1B58B6620023C078 /* MoreDownViewController.m */,
 				5E4954BB1B58B6620023C078 /* LoadingViewController.h */,
@@ -1171,6 +1174,7 @@
 				5E4954F91B58B6A50023C078 /* iconfont-bofangqishangyiqu.png in Resources */,
 				5EE24B841B58D24600AEB7D2 /* 1.png in Resources */,
 				5EE24B8F1B58D24600AEB7D2 /* 2.png in Resources */,
+				C2D41A3A1B5F51660093FE69 /* losePic.jpg in Resources */,
 				5E4955101B58B92E0023C078 /* scrollPH.png in Resources */,
 				5E03860B1B57645A0054E467 /* album-favorite-2.png in Resources */,
 			);

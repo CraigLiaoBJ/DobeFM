@@ -10,7 +10,8 @@
 #import "LoadedCell.h"
 #import "LoadingCell.h"
 #import "LoadDownBase.h"
-
+#import "SingleModel.h"
+#import "AlbumList.h"
 @interface LoadingViewController ()<UITableViewDataSource,UITableViewDelegate,NSURLConnectionDataDelegate>
 
 @property (nonatomic, retain) NSMutableDictionary *dicLoad;
@@ -197,15 +198,17 @@ static int currentLoad = 0;
     for (NSString *allkey in self.dicLoading) {
         
         for (int i = 0; i < saveLoading.count ; i++) {
-            if (allkey == ((SaveLodingDate*)saveLoading[i]).traintId) {
-                break ;
+            if ([allkey isEqualToString:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[i]).traintId]]) {
+                break;
             }
-
+            if (i == saveLoading.count - 1) {
+                SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
+                aSave.traintId = self.dicLoading[allkey][5];
+                aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
+                [saveLoading addObject:aSave];
+            }
         }
-        SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
-        aSave.traintId = self.dicLoading[allkey][5];
-        aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
-        [saveLoading addObject:aSave];
+
     }
    // [NSThread detachNewThreadSelector:@selector(tableViewReloadData) toTarget:self withObject:nil];
 }
@@ -280,9 +283,16 @@ static int currentLoad = 0;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(DrawerTableView:)]) {
-//        [self.delegate DrawerTableView:self.dic[[self.dic allKeys][indexPath.row]]];
-//    }
+    if (tableView.tag == 1001) {
+        NSMutableArray *arr = [[NSMutableArray alloc]init];
+        
+        for (NSArray * aArr in [self.dicLoad allValues]) {
+            
+            [arr addObject:[loadDownBase arrayToAlbumList:aArr]];
+        }
+            [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:arr sAlbum:nil];
+            [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+    }
     
 }
 
@@ -356,7 +366,7 @@ static int currentLoad = 0;
     if (((SaveLodingDate*)saveLoading[currentLoad]).sumLength) return;
     
     //1.创建文件存数路径
-    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *filePath = [caches stringByAppendingPathComponent:@"611.aac"];
     
     
@@ -416,8 +426,9 @@ static int currentLoad = 0;
     [loadDownBase setLoadData:((SaveLodingDate*)saveLoading[currentLoad]).traintId plsitName:@"LoadDownList" albumName:[loadDownBase arrayToAlbumList:self.dicLoading[[self.dicLoading allKeys][currentLoad]]]];
     
     
-    [((SaveLodingDate*)saveLoading[currentLoad]).btn removeFromSuperview];
-    [((SaveLodingDate*)saveLoading[currentLoad]).progress removeFromSuperview];
+//    [((SaveLodingDate*)saveLoading[currentLoad]).btn removeFromSuperview];
+//    [((SaveLodingDate*)saveLoading[currentLoad]).progress removeFromSuperview];
+    [self.loadingTableView reloadData];
     [loadDownBase removeObjOfPlist:((SaveLodingDate*)saveLoading[currentLoad]).traintId splistName:@"BeLoadList"];
     [saveLoading removeObjectAtIndex:currentLoad];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
@@ -449,8 +460,11 @@ static int currentLoad = 0;
 
 -(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    [((SaveLodingDate*)saveLoading[indexPath.row]).btn removeFromSuperview];
-    [((SaveLodingDate*)saveLoading[indexPath.row]).progress removeFromSuperview];
+    if (indexPath.row < saveLoading.count) {
+        [((SaveLodingDate*)saveLoading[indexPath.row]).btn removeFromSuperview];
+        [((SaveLodingDate*)saveLoading[indexPath.row]).progress removeFromSuperview];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
