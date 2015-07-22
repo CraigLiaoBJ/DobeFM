@@ -21,9 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     //发现界面
     DiscoverViewControlerViewController *discoverVC = [[DiscoverViewControlerViewController alloc] init];
+
     [self addOneChildVc:discoverVC title:@"发现" imageNamed:@"discover.png" selectedImageName:@"discover-2.png"];
     
     //热门界面
@@ -69,6 +70,7 @@
     
     //添加导航控制器
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:childVC];
+
     [self addChildViewController:nav];
     [nav release];
 }

@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SpcDetailCellModel.h"
+#import "SpcAlbumDetailCellModel.h"
 @interface SpcAbmDetailCell : UITableViewCell
 
 @property (nonatomic, retain)UIImageView *cellImageView;
 
 //表视图上面音频信息
 @property (nonatomic, retain) UIImageView *coverSmImage;
-@property (nonatomic, retain) UILabel *audioTitleLabel;
+@property (nonatomic, retain) UILabel *albumTitleLabel;
 @property (nonatomic, retain) UILabel *authorLabel;
 @property (nonatomic, assign) UILabel *playCountLabel;
 @property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
 
-@property(nonatomic, retain) SpcDetailCellModel *spcDClModel;
+@property(nonatomic, retain) SpcAlbumDetailCellModel *spcAbmDtlModel;
 
 @end

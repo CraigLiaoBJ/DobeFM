@@ -8,8 +8,10 @@
 
 #import "SpcDetailTableViewController.h"
 #import "SpcAbmDetailCell.h"
-#import "SpcDetailCellModel.h"
+#import "SpcAlbumDetailCellModel.h"
 #import "SpcAVDetailCell.h"
+#import "SpcAudioDetailModel.h"
+#import "AlbumDetailViewController.h"
 
 #define SPCLURL @"http://mobile.ximalaya.com/m/subject_detail?device=iPhone&id="
 @interface SpcDetailTableViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -20,7 +22,8 @@
 @property (nonatomic, retain) UILabel *nickNameLabel;//作者
 @property (nonatomic, retain) UIImageView *icon;//作者头像
 @property (nonatomic, retain) NSMutableArray *splDtlArray;//详情数据数组
-@property (nonatomic, retain) NSMutableArray *spcCellArray;//cell上的数据
+@property (nonatomic, retain) NSMutableArray *spcAlbumArray;//cell上的数据
+@property (nonatomic, retain) NSMutableArray *spcAudioArray;
 
 @end
 
@@ -38,9 +41,11 @@
     NSLog(@"contentType %@", self.spcTypeID);
     self.title = @"专题详情";
     self.dataArray = [NSMutableArray array];
-    [self loadNetData];
-    [self loadCellData];
     [self addTableView];
+
+    [self loadNetData];
+    [self loadAlbumData];
+    [self refreshAndLoad];
     
 }
 
@@ -49,6 +54,7 @@
     self.splDtlArray = [NSMutableArray array];
     NSString *string = [SPCLURL stringByAppendingFormat:@"%@", self.addID];
     __block typeof(self) spcDtl = self;
+    
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
         NSDictionary *introDic = dic[@"info"];
@@ -59,26 +65,70 @@
     }];
 }
 
-#pragma mark --- 加载cell网络数据
-- (void)loadCellData{
-    self.spcCellArray = [NSMutableArray array];
+#pragma mark --- 加载Album网络数据
+- (void)loadAlbumData{
+    self.spcAlbumArray = [NSMutableArray array];
+    self.spcAudioArray = [NSMutableArray array];
+
     NSString *string = [SPCLURL stringByAppendingFormat:@"%@", self.addID];
     __block typeof (self) aSelf = self;
-    [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
-        NSDictionary *dic = (NSDictionary *)object;
-        NSArray *listArray = [NSArray arrayWithArray: dic[@"list"]];
-        for (NSDictionary *tempDic in listArray) {
-           SpcDetailCellModel *spcDtlClModel = [[SpcDetailCellModel alloc]init];
-            [spcDtlClModel setValuesForKeysWithDictionary:tempDic];
-            [aSelf.spcCellArray addObject:spcDtlClModel];
-        }
-        [aSelf.tableView reloadData];
-    }];
+    
+    if ([self.spcTypeID isEqualToString:@"2"]) {
+
+        [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+            NSDictionary *dic = (NSDictionary *)object;
+            NSArray *listArray = [NSArray arrayWithArray: dic[@"list"]];
+            for (NSDictionary *tempDic in listArray) {
+                SpcAudioDetailModel *spcAudioModel = [[SpcAudioDetailModel alloc]init];
+                [spcAudioModel setValuesForKeysWithDictionary:tempDic];
+                [aSelf.spcAudioArray addObject:spcAudioModel];
+            }
+            [aSelf.tableView reloadData];
+        }];
+        
+    } else {
+        [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+            NSDictionary *dic = (NSDictionary *)object;
+            NSArray *listArray = [NSArray arrayWithArray: dic[@"list"]];
+            for (NSDictionary *tempDic in listArray) {
+                SpcAlbumDetailCellModel *spcDtlClModel = [[SpcAlbumDetailCellModel alloc]init];
+                [spcDtlClModel setValuesForKeysWithDictionary:tempDic];
+                [aSelf.spcAlbumArray addObject:spcDtlClModel];
+            }
+            [aSelf.tableView reloadData];
+        }];
+    }
 }
+
+#pragma mark --- refresh and load
+- (void)refreshAndLoad{
+    __block SpcDetailTableViewController *weakSelf = self;
+    
+    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
+        [weakSelf loadAlbumData];
+        [weakSelf.tableView reloadData];
+        //结束刷新
+        [weakSelf.tableView.defaultFooter endRefreshing];
+    }];
+    
+    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+        NSLog(@"asd");
+        [weakSelf.spcAlbumArray removeAllObjects];
+        [weakSelf.spcAudioArray removeAllObjects];
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView.gifHeader endRefreshing];
+    }];
+    
+    [self.tableView.gifHeader setGifName:@"demo.gif"];
+    
+    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
+    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+}
+
 
 #pragma --- 添加表视图
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT ) style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 100;
     self.tableView.dataSource = self;
@@ -91,11 +141,12 @@
     [self.tableView addSubview:self.headView];
     self.tableView.tableHeaderView = self.headView;
 
+    [self.view addSubview:self.tableView];
+
     [self.tableView registerClass:[SpcAbmDetailCell class] forCellReuseIdentifier:@"CELL"];
     [self.tableView registerClass:[SpcAVDetailCell class] forCellReuseIdentifier:@"identifier"];
-    [self.view addSubview:self.tableView];
-    [_headView release];
-    [_tableView release];
+//    [_headView release];
+//    [_tableView release];
 }
 
 #pragma mark --- 添加头部视图中的内容
@@ -160,17 +211,23 @@
 
 #pragma --- 表视图的代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    if ([self.spcTypeID isEqualToString:@"2"]) {
+       
+        return self.spcAudioArray.count;
+    } else {
+        return self.spcAlbumArray.count;
+    }
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.spcTypeID isEqualToString:@"2"]) {
         SpcAVDetailCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
-        cell1.spcDtlClModel = self.spcCellArray[indexPath.row];
+        cell1.spcAudioDtlModel = self.spcAudioArray[indexPath.row];
         return cell1;
     } else {
         SpcAbmDetailCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell2.spcDClModel = self.spcCellArray[indexPath.row];
+    cell2.spcAbmDtlModel = self.spcAlbumArray[indexPath.row];
     return cell2;
     }
 }
@@ -183,6 +240,7 @@
     }
     if ([self.spcTypeID isEqualToString:@"1"]) {
         AlbumDetailViewController *albumDetail = [[AlbumDetailViewController alloc]init];
+        albumDetail.albumId = [[self.spcAlbumArray[indexPath.row] albumID] stringValue];
         [self.navigationController pushViewController:albumDetail animated:YES];
     }
 }

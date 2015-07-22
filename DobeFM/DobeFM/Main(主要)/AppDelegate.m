@@ -39,7 +39,6 @@
      */
     TabBarViewController *tabBar = [[TabBarViewController alloc]init];
     self.window.rootViewController = tabBar;
-    
     [tabBar release];
     
     return YES;

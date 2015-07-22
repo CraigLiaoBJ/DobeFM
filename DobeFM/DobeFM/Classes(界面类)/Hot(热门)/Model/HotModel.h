@@ -14,8 +14,4 @@
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *type;
 
-
-
-
-
 @end

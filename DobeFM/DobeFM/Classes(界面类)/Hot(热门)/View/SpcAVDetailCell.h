@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SpcDetailCellModel.h"
+#import "SpcAudioDetailModel.h"
 @interface SpcAVDetailCell : UITableViewCell
 @property (nonatomic, retain)UIImageView *cellImageView;
 
@@ -19,6 +19,6 @@
 @property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
 
-@property(nonatomic, retain) SpcDetailCellModel *spcDtlClModel;
+@property(nonatomic, retain) SpcAudioDetailModel *spcAudioDtlModel;
 
 @end

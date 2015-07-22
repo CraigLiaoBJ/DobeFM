@@ -51,7 +51,7 @@ static  NSInteger i = 1;
 #pragma mark --- loadData
 - (void)loadData{
  
-        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", i ++];
+        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", i ];
         self.dataArray = [NSMutableArray array];
         __block typeof (self) aSelf = self;
         [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
@@ -74,6 +74,7 @@ static  NSInteger i = 1;
     __block SpecialTableViewController *weakSelf = self;
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
+        i ++;
         [weakSelf loadData];
         [weakSelf.tableView reloadData];
         //结束刷新
@@ -83,13 +84,14 @@ static  NSInteger i = 1;
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
         NSLog(@"asd");
+        if (i == 1) {
+            i = 1;
+        } else {
+            i --;
+        }
         [weakSelf.dataArray removeAllObjects];
-//        [weakSelf loadData];
-        
-        //        for (int i = 0; i < 20; i++) {
-        //            NSString *str = [NSString stringWithFormat:@"%d",100 + arc4random()%100];
-        //            [weakSelf.dataArray addObject:str];
-        //        }
+        [weakSelf loadData];
+
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.gifHeader endRefreshing];
     }];

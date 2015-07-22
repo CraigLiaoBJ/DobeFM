@@ -13,7 +13,6 @@
 #import "AlbumList.h"
 #import "AvPlayViewController.h"
 #import "SingleModel.h"
-#import "AlbumCell.h"
 @interface ReconmmendAlbumViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong)UIView *topView;
 @property(nonatomic,strong)SearchAlbum *sAlbum;
@@ -78,10 +77,21 @@ __block typeof (self)aSelf = self;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.dataArray] sAlbum:self.sAlbum];
+
+    //----下一个页面没有导航栏---
+//    [self presentViewController:self.playC animated:YES completion:^{
+//        
+//    }];
     [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 
 }
+//为播放器赋值
+-(void)setValueForPlayVC:(NSIndexPath *)indexPath{
+    self.playC.playCurrent = indexPath.row;
+    self.playC.albumList = [NSMutableArray arrayWithArray: self.dataArray] ;
+    self.playC.sAlbum = self.sAlbum;
 
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -92,30 +102,18 @@ __block typeof (self)aSelf = self;
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *string = @"aCell";
     if(self.dataArray.count < 1) return nil;
-    AlbumCell *acell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:string];
+    UITableViewCell *acell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:string];
     if (acell == nil) {
-        acell = [[AlbumCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:string];
+        acell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:string];
     }
-    
-    acell.audioTitleLabel.text = [self.dataArray[indexPath.row] title1];
-    acell.durationLabel.text = [self convertTime:[[self.dataArray[indexPath.row] durationTime] floatValue]];
+    acell.textLabel.text = [self.dataArray[indexPath.row] title1];
+    acell.textLabel.font = [UIFont boldSystemFontOfSize:14];
+    acell.textLabel.numberOfLines = 0;
+    acell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] albumId]];
+
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] albumImage]]];
-    [acell.coverSmImage sd_setImageWithURL:url];
+    [acell.imageView sd_setImageWithURL:url];
     return acell;
-}
-
-
-
-- (NSString *)convertTime:(CGFloat)second{
-    NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    if (second/3600 >= 1) {
-        [formatter setDateFormat:@"HH:mm:ss"];
-    } else {
-        [formatter setDateFormat:@"mm:ss"];
-    }
-    NSString *showtimeNew = [formatter stringFromDate:d];
-    return showtimeNew;
 }
 
 - (void)didReceiveMemoryWarning {

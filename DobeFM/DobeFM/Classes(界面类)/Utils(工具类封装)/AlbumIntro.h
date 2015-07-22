@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AlbumItem.h"
 @interface AlbumIntro : UIView
+
+@property (nonatomic, retain) AlbumItem *albumItem;
 
 @end

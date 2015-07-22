@@ -10,6 +10,9 @@
 #import "AlbumCell.h"
 #import "AvPlayViewController.h"
 #import "AlbumIntro.h"
+#import "AlbumItem.h"
+#import "AlbumAudioModel.h"
+#define URLSTR @"http://mobile.ximalaya.com/mobile/others/ca/album/track/"
 @interface AlbumDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) AlbumIntro *albumView;
@@ -18,9 +21,10 @@
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UILabel *batchDnLabel;
 @property (nonatomic, retain) UILabel *relateLabel;
-
+@property (nonatomic, retain) NSMutableArray *albumIntroArray;
+@property (nonatomic, retain) NSMutableArray *albumDataArray;
 @end
-
+static NSInteger n = 1;
 @implementation AlbumDetailViewController
 
 - (void)dealloc{
@@ -33,52 +37,114 @@
     [super viewDidLoad];
     self.title = @"专辑详情";
     self.dataArray = [NSMutableArray array];
+    [self loadData];
     [self addIntroImageView];
     [self addTableView];
 }
 
+#pragma mark --- 介绍部分
 - (void)addIntroImageView{
     self.albumView = [[AlbumIntro alloc]initWithFrame:self.view.bounds];
+    
     [self.view addSubview:self.albumView];
-    [_albumView release];
+    //[_albumView release];
 }
 
+#pragma mark --- 加载tableView
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kHEIGHT / 3, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kHEIGHT / 3, kWIDTH, kHEIGHT - 34 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor cyanColor];
     UIVisualEffectView *bgdEffect = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     [self.tableView addSubview:bgdEffect];
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 100;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    [self.albumView addSubview:self.tableView];
+
     self.functionImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 44)];
     self.functionImageView.backgroundColor = [UIColor cyanColor];
     self.tableView.tableHeaderView = self.functionImageView;
     [self batchButtons];
-    [_functionImageView release];
+
     [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
-    [self.albumView addSubview:self.tableView];
-    [_tableView release];
+    
+    //[_functionImageView release];
+    //[_tableView release];
 }
 
+#pragma mark --- 数据请求
+- (void)loadData{
+    self.albumDataArray = [NSMutableArray array];
+    __block typeof (self) aSelf = self;
+    NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
+    NSLog(@"shujulaiyuan ==== %@", string);
+    [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+        AlbumItem *albumItem = [[AlbumItem alloc]init];
+        NSDictionary *dic = (NSDictionary *)object;
+        NSDictionary *introDic = dic[@"album"];
+        [albumItem setValuesForKeysWithDictionary:introDic];
+        aSelf.albumView.albumItem = albumItem;
+        
+        NSDictionary *tracksDic = dic[@"tracks"];
+        NSArray *listArray = tracksDic[@"list"];
+        for (NSDictionary *tempDic in listArray) {
+            AlbumAudioModel *albumAudioModel = [[AlbumAudioModel alloc]init];
+            [albumAudioModel setValuesForKeysWithDictionary:tempDic];
+            [aSelf.albumDataArray addObject:albumAudioModel];
+        }
+        [aSelf.tableView reloadData];
+    }];
+}
+
+#pragma mark --- refresh and load
+- (void)refreshAndLoad{
+    __block AlbumDetailViewController *weakSelf = self;
+    
+    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
+        n ++;
+        [weakSelf loadData];
+        [weakSelf.tableView reloadData];
+        //结束刷新
+        [weakSelf.tableView.defaultFooter endRefreshing];
+    }];
+    
+    
+    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+        NSLog(@"asd");
+        if (n == 1) {
+            n = 1;
+        } else {
+            n --;
+        }
+        [weakSelf.albumDataArray removeAllObjects];
+        [weakSelf loadData];
+        
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView.gifHeader endRefreshing];
+    }];
+    [self.tableView.gifHeader setGifName:@"demo.gif"];
+    
+    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
+    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+}
+#pragma mark --- 介绍部分信息
 - (void)addintroInfo{
-
-
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25, kWIDTH / 2, 20)];
     self.titleLabel.text = @"百思不得姐";
         self.titleLabel.font = [UIFont systemFontOfSize:16];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.backgroundColor = [UIColor clearColor];
     [self.imageView addSubview:self.titleLabel];
-    [_titleLabel release];
+    //[_titleLabel release];
 
     self.introLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25 + 20 + 5, kWIDTH / 2, 20)];
     self.introLabel.backgroundColor = [UIColor yellowColor];
     self.introLabel.alpha = 0.3;
     self.introLabel.numberOfLines = 0;
     [self.imageView addSubview:self.introLabel];
-    [_introLabel release];
+    //[_introLabel release];
     
     UIView *sepView = [[UIView alloc]initWithFrame:CGRectMake(0, kHEIGHT / 4, kWIDTH, 1)];
     sepView.backgroundColor = [UIColor grayColor];
@@ -94,23 +160,9 @@
     [self batchButtons];
 }
 
+#pragma mark --- 按钮
 - (void)batchButtons{
-
-    
-//    UIButton *favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    favoriteBtn.frame = CGRectMake(0, 0, kWIDTH / 3 - 2, 44);
-//    [favoriteBtn setImage:[UIImage imageNamed:@"album-favorite.png"] forState:UIControlStateNormal];
-//    [favoriteBtn setImage:[UIImage imageNamed:@"album-favorite-2.png"] forState:UIControlStateSelected];
-//    [favoriteBtn setImageEdgeInsets:UIEdgeInsetsMake(0, - kWIDTH / 20, 0, 0)];
-//    
-//    [favoriteBtn setTitle:@"收  藏" forState:UIControlStateNormal];
-//    [favoriteBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    [favoriteBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [favoriteBtn setTitle:@"已收藏" forState:UIControlStateSelected];
-//    [favoriteBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-//    [favoriteBtn addTarget:self action:@selector(doFavoriteBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.functionImageView addSubview:favoriteBtn];
-    
+    //批量下载按钮
     UIButton *batchDn = [UIButton buttonWithType:UIButtonTypeCustom];
     batchDn.frame = CGRectMake(20, 0, kWIDTH / 3, 44);
     [batchDn setImage:[UIImage imageNamed:@"album-download.png"] forState:UIControlStateNormal];
@@ -125,6 +177,7 @@
     [batchDn addTarget:self action:@selector(doBatchBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.functionImageView addSubview:batchDn];
     
+    //相关专辑按钮
     UIButton *relateDn = [UIButton buttonWithType:UIButtonTypeCustom];
     relateDn.frame = CGRectMake(kWIDTH / 2 + 20, 0, kWIDTH / 3, 44);
     [relateDn setImage:[UIImage imageNamed:@"album-relate.png"] forState:UIControlStateNormal];
@@ -140,7 +193,7 @@
     [self.functionImageView addSubview:relateDn];
 }
 
-
+#pragma mark --- 按钮点击事件
 - (void)doFavoriteBtn:(UIButton *)button{
     if (button.selected) {
         button.selected = NO;
@@ -163,13 +216,14 @@
     }
 }
 
+#pragma mark --- 代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.albumDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     AlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    
+    cell.albumAudioModel = self.albumDataArray[indexPath.row];
     return cell;
 }
 
@@ -177,9 +231,7 @@
     AvPlayViewController *albumDetail = [[AvPlayViewController alloc]init];
     
     [self.navigationController pushViewController:albumDetail animated:YES];
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -62,7 +62,7 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.cellImageView.frame = CGRectMake(0, 10, kWD, 90);
-    self.cellImageView.backgroundColor = [UIColor whiteColor];
+    self.cellImageView.backgroundColor = cellImageColor;
     
     self.coverSmImage.frame = CGRectMake(5, 15, 60, 60);
     self.coverSmImage.backgroundColor  = [UIColor colorWithRed:0.359 green:0.672 blue:1.000 alpha:1.000];

@@ -35,8 +35,6 @@ static UIButton *loadedBtn;
 
 static UIButton *loadingBtn;
 
-static UIBarButtonItem *continueLoading;
-
 static UIView *btnChoolView;//选中被这层盖住
 
 static int  currentView = Loading;
@@ -50,6 +48,7 @@ static int currentLoad = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     saveLoading = [[NSMutableArray alloc]init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -57,6 +56,8 @@ static int currentLoad = 0;
     self.view.backgroundColor = [UIColor whiteColor];
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     for (NSString *allkey in self.dicLoading) {
         SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
         aSave.traintId = self.dicLoading[allkey][5];
@@ -64,7 +65,7 @@ static int currentLoad = 0;
         [saveLoading addObject:aSave];
     }
     //下载完成view
-    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48)];
+    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height)];
     self.loadedTableView.rowHeight = 60;
     self.loadedTableView.delegate = self;
     self.loadedTableView.dataSource = self;
@@ -75,6 +76,8 @@ static int currentLoad = 0;
 
     
     //未下载view
+    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.loadingTableView.rowHeight = 60;
     self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height-104 - 48)];
     self.loadingTableView.delegate = self;
     self.loadingTableView.dataSource = self;
@@ -126,18 +129,7 @@ static int currentLoad = 0;
      unDataView.hidden = YES;
     }
     [self.view addSubview: unDataView];
-    
-   continueLoading = [[UIBarButtonItem alloc]initWithTitle:@"全部下载" style:UIBarButtonItemStylePlain target:self action:@selector(continueLoading)];
-    self.navigationItem.rightBarButtonItem = continueLoading;
-    
 }
-
-
--(void)continueLoading{
-    NSLog(@"%@",[NSThread currentThread]);
-
-}
-
 
 -(void)loadingBtnClick:(UIButton *)sender{
     self.dicLoading = [self getSplistList:@"BeLoadList"];
@@ -145,7 +137,13 @@ static int currentLoad = 0;
     currentView = Loading;
     self.loadedTableView.hidden = YES;
     self.loadingTableView.hidden = NO;
-    [self isLoadOrLoading];
+    if (self.dicLoading.count < 1) {
+        unDataView.hidden = NO;
+
+    }
+    else{
+        unDataView.hidden = YES;
+    }
      [self.loadingTableView reloadData];
 }
 
@@ -157,19 +155,25 @@ static int currentLoad = 0;
     currentView = Loaded;
     self.loadedTableView.hidden = NO;
     self.loadingTableView.hidden = YES;
-    [self isLoadOrLoading];
+    if (self.dicLoad.count < 1) {
+        unDataView.hidden = NO;
+
+    }
+    else{
+        unDataView.hidden = YES;
+    }
     [self.loadedTableView reloadData];
 }
 
 
 -(void)layoutSublayersOfLayer:(CALayer *)layer{
     [super layoutSublayersOfLayer:layer];
-//    self.loadedTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104) ;
-//    self.loadingTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104) ;
-    [self isLoadOrLoading];
+    self.loadedTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height) ;
+    self.loadingTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height) ;
     self.btnView.frame = CGRectMake(0, 64, self.view.bounds.size.width, 40);
 
 }
+
 
 //显示界面是否有数据
 - (void)isLoadOrLoading{
@@ -195,6 +199,7 @@ static int currentLoad = 0;
 -(void)viewWillAppear:(BOOL)animated{
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
+
     for (NSString *allkey in self.dicLoading) {
         
         for (int i = 0; i < saveLoading.count ; i++) {
@@ -218,7 +223,11 @@ static int currentLoad = 0;
 
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 60;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return 60;
 }
@@ -249,7 +258,8 @@ static int currentLoad = 0;
         NSData *picData  = [NSData dataWithContentsOfURL:picurl];
         [cell.imageView setImage:[UIImage imageWithData:picData]];
         return cell;
-    }else{
+    }
+    else{
         LoadingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DINGCELL"];
         [cell removeFromSuperview];
         AlbumList *aAlbust = [[AlbumList alloc]init];
