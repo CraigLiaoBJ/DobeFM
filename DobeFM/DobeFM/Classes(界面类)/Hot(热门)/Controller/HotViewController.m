@@ -46,7 +46,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.hidesBottomBarWhenPushed = YES;
 
     
     self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];

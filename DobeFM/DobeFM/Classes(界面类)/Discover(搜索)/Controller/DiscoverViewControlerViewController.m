@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hidesBottomBarWhenPushed = YES;
+
 
     UISearchBar *serch = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 30, 100, 20)];
     serch.placeholder = @"搜索声音、专辑、人";
