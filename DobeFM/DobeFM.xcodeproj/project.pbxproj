@@ -77,17 +77,26 @@
 		5E4954B31B5822BC0023C078 /* retina4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E4954B21B5822BC0023C078 /* retina4.png */; };
 		5E4954B51B5897110023C078 /* special-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E4954B41B5897110023C078 /* special-time.png */; };
 		5E4954B81B58A8A30023C078 /* HotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954B71B58A8A30023C078 /* HotModel.m */; };
+
+		5E4954C11B58B6620023C078 /* MoreDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954BA1B58B6620023C078 /* MoreDownViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+
 		5E4954C11B58B6620023C078 /* MoreDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954BA1B58B6620023C078 /* MoreDownViewController.m */; };
+
 		5E4954C21B58B6620023C078 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954BC1B58B6620023C078 /* LoadingViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954C31B58B6620023C078 /* AvPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954BE1B58B6620023C078 /* AvPlayViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954C41B58B6620023C078 /* ReconmmendAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954C01B58B6620023C078 /* ReconmmendAlbumViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954D11B58B66C0023C078 /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954C61B58B66C0023C078 /* LoadingCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954D21B58B66C0023C078 /* MDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954C81B58B66C0023C078 /* MDownButton.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954D31B58B66C0023C078 /* ChoolNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CA1B58B66C0023C078 /* ChoolNumView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+
+		5E4954D41B58B66C0023C078 /* MoreDownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CC1B58B66C0023C078 /* MoreDownCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E4954D51B58B66C0023C078 /* LoadedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CE1B58B66C0023C078 /* LoadedCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+
 		5E4954D41B58B66C0023C078 /* MoreDownCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CC1B58B66C0023C078 /* MoreDownCell.m */; };
 		5E4954D51B58B66C0023C078 /* LoadedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954CE1B58B66C0023C078 /* LoadedCell.m */; };
+
 		5E4954D61B58B66C0023C078 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954D01B58B66C0023C078 /* DrawerView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		5E4954DB1B58B6760023C078 /* AlbumList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954D81B58B6760023C078 /* AlbumList.m */; };
+		5E4954DB1B58B6760023C078 /* AlbumList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954D81B58B6760023C078 /* AlbumList.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E4954DC1B58B6760023C078 /* SearchAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E4954DA1B58B6760023C078 /* SearchAlbum.m */; };
 		5E4954F21B58B6A50023C078 /* iconfont-fuxuankuang.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E4954DE1B58B6A50023C078 /* iconfont-fuxuankuang.png */; };
 		5E4954F31B58B6A50023C078 /* iconfont-xuankuang.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E4954DF1B58B6A50023C078 /* iconfont-xuankuang.png */; };
@@ -154,6 +163,8 @@
 		5EE24BA61B59183B00AEB7D2 /* AlbumIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BA51B59183B00AEB7D2 /* AlbumIntro.m */; };
 		5EE24BA81B591F9900AEB7D2 /* album-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24BA71B591F9900AEB7D2 /* album-more.png */; };
 		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; };
+		5EE24BAE1B595AE800AEB7D2 /* SpcAbmDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BAC1B595AE800AEB7D2 /* SpcAbmDetailCell.m */; };
+		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C267426D1B57AD4A00BB733E /* NewAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C267426C1B57AD4A00BB733E /* NewAlbumListViewController.m */; };
 		C26742701B57AD9700BB733E /* NewAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C267426F1B57AD9700BB733E /* NewAlbumCell.m */; };
 		C26742731B57AED800BB733E /* NewAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742721B57AED800BB733E /* NewAlbumModel.m */; };

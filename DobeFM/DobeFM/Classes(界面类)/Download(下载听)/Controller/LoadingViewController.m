@@ -48,7 +48,7 @@ static int currentLoad = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    self.title = @"下载";
     saveLoading = [[NSMutableArray alloc]init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -57,7 +57,7 @@ static int currentLoad = 0;
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
     
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
     for (NSString *allkey in self.dicLoading) {
         SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
         aSave.traintId = self.dicLoading[allkey][5];
@@ -65,7 +65,7 @@ static int currentLoad = 0;
         [saveLoading addObject:aSave];
     }
     //下载完成view
-    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height)];
+    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48)];
     self.loadedTableView.rowHeight = 60;
     self.loadedTableView.delegate = self;
     self.loadedTableView.dataSource = self;
@@ -76,9 +76,9 @@ static int currentLoad = 0;
 
     
     //未下载view
-    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height)];
+        self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48)];
     self.loadingTableView.rowHeight = 60;
-    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height-104 - 48)];
+
     self.loadingTableView.delegate = self;
     self.loadingTableView.dataSource = self;
     [self.loadingTableView registerClass:[LoadingCell class] forCellReuseIdentifier:@"DINGCELL"];
@@ -168,8 +168,8 @@ static int currentLoad = 0;
 
 -(void)layoutSublayersOfLayer:(CALayer *)layer{
     [super layoutSublayersOfLayer:layer];
-    self.loadedTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height) ;
-    self.loadingTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height) ;
+    self.loadedTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48) ;
+    self.loadingTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48) ;
     self.btnView.frame = CGRectMake(0, 64, self.view.bounds.size.width, 40);
 
 }
@@ -223,9 +223,7 @@ static int currentLoad = 0;
 
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 60;
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
