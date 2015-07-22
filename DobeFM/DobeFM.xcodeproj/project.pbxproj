@@ -127,6 +127,7 @@
 		5EBB72CA1B5E54E500EF2444 /* AnchorAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72C91B5E54E500EF2444 /* AnchorAlbumModel.m */; };
 		5EBB72D31B5E593A00EF2444 /* AnchorAudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72D21B5E593A00EF2444 /* AnchorAudioModel.m */; };
 		5EBB72D61B5E982D00EF2444 /* AnchorAlumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72D51B5E982D00EF2444 /* AnchorAlumbCell.m */; };
+		5EBB730B1B5F2FDD00EF2444 /* AlbumAudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB730A1B5F2FDD00EF2444 /* AlbumAudioModel.m */; };
 		5EDDDB471B5CA08D007E5619 /* SpcAudioDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDDDB461B5CA08D007E5619 /* SpcAudioDetailModel.m */; };
 		5EE24B841B58D24600AEB7D2 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24B6B1B58D24600AEB7D2 /* 1.png */; };
 		5EE24B851B58D24600AEB7D2 /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24B6C1B58D24600AEB7D2 /* 10.png */; };
@@ -158,10 +159,7 @@
 		5EE24BA61B59183B00AEB7D2 /* AlbumIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BA51B59183B00AEB7D2 /* AlbumIntro.m */; };
 		5EE24BA81B591F9900AEB7D2 /* album-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24BA71B591F9900AEB7D2 /* album-more.png */; };
 		5EE24BAE1B595AE800AEB7D2 /* SpcAbmDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BAC1B595AE800AEB7D2 /* SpcAbmDetailCell.m */; };
-		C26742631B57A4F000BB733E /* AlbumAudioModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742621B57A4F000BB733E /* AlbumAudioModel.m */; };
 		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; };
-		C26742631B57A4F000BB733E /* AlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742621B57A4F000BB733E /* AlbumModel.m */; };
-		C26742661B57A52600BB733E /* AnchorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742651B57A52600BB733E /* AnchorModel.m */; };
 		C267426D1B57AD4A00BB733E /* NewAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C267426C1B57AD4A00BB733E /* NewAlbumListViewController.m */; };
 		C26742701B57AD9700BB733E /* NewAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C267426F1B57AD9700BB733E /* NewAlbumCell.m */; };
 		C26742731B57AED800BB733E /* NewAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742721B57AED800BB733E /* NewAlbumModel.m */; };
@@ -373,6 +371,8 @@
 		5EBB72D21B5E593A00EF2444 /* AnchorAudioModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorAudioModel.m; sourceTree = "<group>"; };
 		5EBB72D41B5E982D00EF2444 /* AnchorAlumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorAlumbCell.h; sourceTree = "<group>"; };
 		5EBB72D51B5E982D00EF2444 /* AnchorAlumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorAlumbCell.m; sourceTree = "<group>"; };
+		5EBB73091B5F2FDD00EF2444 /* AlbumAudioModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlbumAudioModel.h; path = "DobeFM/Classes(界面类)/Hot(热门)/Model/AlbumAudioModel.h"; sourceTree = SOURCE_ROOT; };
+		5EBB730A1B5F2FDD00EF2444 /* AlbumAudioModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlbumAudioModel.m; path = "DobeFM/Classes(界面类)/Hot(热门)/Model/AlbumAudioModel.m"; sourceTree = SOURCE_ROOT; };
 		5EDDDB451B5CA08D007E5619 /* SpcAudioDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpcAudioDetailModel.h; sourceTree = "<group>"; };
 		5EDDDB461B5CA08D007E5619 /* SpcAudioDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpcAudioDetailModel.m; sourceTree = "<group>"; };
 		5EE24B6B1B58D24600AEB7D2 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -409,14 +409,8 @@
 		5EE24BA71B591F9900AEB7D2 /* album-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album-more.png"; sourceTree = "<group>"; };
 		5EE24BAC1B595AE800AEB7D2 /* SpcAbmDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpcAbmDetailCell.m; path = ../Model/SpcAbmDetailCell.m; sourceTree = "<group>"; };
 		5EE24BAD1B595AE800AEB7D2 /* SpcAbmDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpcAbmDetailCell.h; path = ../Model/SpcAbmDetailCell.h; sourceTree = "<group>"; };
-		C26742611B57A4F000BB733E /* AlbumAudioModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumAudioModel.h; sourceTree = "<group>"; };
-		C26742621B57A4F000BB733E /* AlbumAudioModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumAudioModel.m; sourceTree = "<group>"; };
 		C2400D261B5DFD4100B08889 /* SaveLodingDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveLodingDate.h; sourceTree = "<group>"; };
 		C2400D271B5DFD4100B08889 /* SaveLodingDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveLodingDate.m; sourceTree = "<group>"; };
-		C26742611B57A4F000BB733E /* AlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumModel.h; sourceTree = "<group>"; };
-		C26742621B57A4F000BB733E /* AlbumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumModel.m; sourceTree = "<group>"; };
-		C26742641B57A52600BB733E /* AnchorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorModel.h; sourceTree = "<group>"; };
-		C26742651B57A52600BB733E /* AnchorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorModel.m; sourceTree = "<group>"; };
 		C267426B1B57AD4A00BB733E /* NewAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAlbumListViewController.h; sourceTree = "<group>"; };
 		C267426C1B57AD4A00BB733E /* NewAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAlbumListViewController.m; sourceTree = "<group>"; };
 		C267426E1B57AD9700BB733E /* NewAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAlbumCell.h; sourceTree = "<group>"; };
@@ -871,8 +865,8 @@
 			children = (
 				5E0385AE1B5674CE0054E467 /* AlbumItem.h */,
 				5E0385AF1B5674CE0054E467 /* AlbumItem.m */,
-				C26742611B57A4F000BB733E /* AlbumAudioModel.h */,
-				C26742621B57A4F000BB733E /* AlbumAudioModel.m */,
+				5EBB73091B5F2FDD00EF2444 /* AlbumAudioModel.h */,
+				5EBB730A1B5F2FDD00EF2444 /* AlbumAudioModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1356,6 +1350,7 @@
 				5EBB727D1B5DF77F00EF2444 /* MoreAlbumCell.m in Sources */,
 				5E0385EB1B5675610054E467 /* UIButton+WebCache.m in Sources */,
 				5E03854D1B566F420054E467 /* TabBarViewController.m in Sources */,
+				5EBB730B1B5F2FDD00EF2444 /* AlbumAudioModel.m in Sources */,
 				5E23C5C11B5B54C600AC8126 /* SpcAlbumDetailCellModel.m in Sources */,
 				5E4954D41B58B66C0023C078 /* MoreDownCell.m in Sources */,
 				5E0385ED1B5675610054E467 /* UIImage+MultiFormat.m in Sources */,
@@ -1413,7 +1408,6 @@
 				5EBB72C71B5E54D200EF2444 /* AnchorIntroModel.m in Sources */,
 				5EBB72801B5DF88300EF2444 /* MoreAlbumTableViewController.m in Sources */,
 				5E0385E41B5675610054E467 /* SDImageCache.m in Sources */,
-				C26742631B57A4F000BB733E /* AlbumAudioModel.m in Sources */,
 				5E4954C31B58B6620023C078 /* AvPlayViewController.m in Sources */,
 				5EBB72BE1B5E371B00EF2444 /* HotAnchorItem.m in Sources */,
 			);

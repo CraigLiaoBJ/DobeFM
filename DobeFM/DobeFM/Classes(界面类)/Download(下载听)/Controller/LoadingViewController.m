@@ -222,8 +222,9 @@ static int currentLoad = 0;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 60;
-    
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return 60;
 }
@@ -256,11 +257,6 @@ static int currentLoad = 0;
         return cell;
     }
     else{
-//        if(self.dicLoading.count < 1)  {
-//            self.loadingTableView = nil;
-//            return nil;
-//        };
-    }else{
         LoadingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DINGCELL"];
         [cell removeFromSuperview];
         AlbumList *aAlbust = [[AlbumList alloc]init];
