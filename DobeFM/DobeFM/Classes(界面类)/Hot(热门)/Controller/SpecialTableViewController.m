@@ -117,22 +117,8 @@ static  NSInteger i = 1;
     //赋值
     cell.spcItem = self.dataArray[indexPath.row];
     
-//    NSLog(@"%i", cell.spcItem.hot);
-//    if (cell.spcItem.hot == true) {
-//        cell.hotImage.image = [UIImage imageNamed:@"iconfont-remenbiaoqian.png"];
-//    } else {
-//        cell.hotImage = nil;
-//    }
     return cell;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 40;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    self.view = self
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
@@ -141,7 +127,6 @@ static  NSInteger i = 1;
         spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType] stringValue];
         [self.navigationController pushViewController:spcDetail animated:YES];
         [spcDetail release];
-    
 }
 
 - (void)didReceiveMemoryWarning {

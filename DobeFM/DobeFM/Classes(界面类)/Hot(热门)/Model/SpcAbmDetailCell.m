@@ -78,14 +78,13 @@
 }
 
 #pragma mark --- 重写setter方法
-- (void)setSpcAbmDtlModel:(SpcAlbumDetailCellModel *)spcAbmDtlModel{
+- (void)setSpcAbmDtlModel:(SearchAlbum *)spcAbmDtlModel{
     if (_spcAbmDtlModel != spcAbmDtlModel) {
         [_spcAbmDtlModel release];
         [spcAbmDtlModel retain];
         _spcAbmDtlModel = spcAbmDtlModel;
     }
-    NSURL *coverUrl = [NSURL URLWithString:spcAbmDtlModel.albumCoverUrl290];
-    NSLog(@"cell%@", spcAbmDtlModel.albumCoverUrl290);
+    NSURL *coverUrl = [NSURL URLWithString:spcAbmDtlModel.coverOrige];
     [self.coverSmImage sd_setImageWithURL:coverUrl];
     
     self.createdAtLabel.text = [spcAbmDtlModel.lastUptrackAt  stringValue];

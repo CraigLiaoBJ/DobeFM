@@ -8,13 +8,15 @@
 
 #import "AlbumDetailViewController.h"
 #import "AlbumCell.h"
-#import "AvPlayViewController.h"
+//#import "AvPlayViewController.h"
 #import "AlbumIntro.h"
 #import "AlbumItem.h"
-#import "AlbumAudioModel.h"
+#import "AlbumList.h"
+#import "ReconmmendAlbumViewController.h"
+//#import "AlbumAudioModel.h"
 #define URLSTR @"http://mobile.ximalaya.com/mobile/others/ca/album/track/"
 @interface AlbumDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
-
+//@property(nonatomic,strong)AvPlayViewController *playC;
 @property (nonatomic, retain) AlbumIntro *albumView;
 @property (nonatomic, retain) UIImageView *functionImageView;
 @property (nonatomic, retain) UILabel *introLabel;
@@ -23,6 +25,8 @@
 @property (nonatomic, retain) UILabel *relateLabel;
 @property (nonatomic, retain) NSMutableArray *albumIntroArray;
 @property (nonatomic, retain) NSMutableArray *albumDataArray;
+
+@property (nonatomic, retain) AlbumList *albumList;
 @end
 static NSInteger n = 1;
 @implementation AlbumDetailViewController
@@ -90,9 +94,9 @@ static NSInteger n = 1;
         NSDictionary *tracksDic = dic[@"tracks"];
         NSArray *listArray = tracksDic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            AlbumAudioModel *albumAudioModel = [[AlbumAudioModel alloc]init];
-            [albumAudioModel setValuesForKeysWithDictionary:tempDic];
-            [aSelf.albumDataArray addObject:albumAudioModel];
+            aSelf.sAlbum = [[AlbumList alloc]init];
+            [aSelf.sAlbum setValuesForKeysWithDictionary:tempDic];
+            [aSelf.albumDataArray addObject:aSelf.sAlbum];
         }
         [aSelf.tableView reloadData];
     }];
@@ -223,18 +227,33 @@ static NSInteger n = 1;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     AlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell.albumAudioModel = self.albumDataArray[indexPath.row];
+//    cell.albumAudioModel = self.albumDataArray[indexPath.row];
+     cell.albumList = self.albumDataArray[indexPath.row];
     return cell;
 }
 
+//为播放器赋值
+//-(void)setValueForPlayVC:(NSIndexPath *)indexPath{
+//    self.playC.playCurrent = indexPath.row;
+//    self.playC.albumList = [NSMutableArray arrayWithArray: self.albumDataArray] ;
+//    self.playC.sAlbum = self.sAlbum;
+//    
+//}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    AvPlayViewController *albumDetail = [[AvPlayViewController alloc]init];
+    [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.albumDataArray] sAlbum:self.sAlbum];
     
-    [self.navigationController pushViewController:albumDetail animated:YES];
+    NSLog(@"albumdataarry count ====%ld", self.albumDataArray.count);
+    NSLog(@"salbum ==== %@", self.sAlbum);
+
+//    AvPlayViewController *albumDetail = [[AvPlayViewController alloc]init];
+    
+    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 @end

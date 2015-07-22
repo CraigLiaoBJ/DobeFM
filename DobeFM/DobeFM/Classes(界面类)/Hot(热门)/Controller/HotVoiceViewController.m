@@ -8,7 +8,9 @@
 
 #import "HotVoiceViewController.h"
 #import "HotVoiceCell.h"
-#import "HotVoiceModel.h"
+#import "AlbumList.h"
+#import "ReconmmendAlbumViewController.h"
+
 #define URLSTR @"http://mobile.ximalaya.com/m/explore_track_list?category_name=all&condition=daily&device=iPhone&page="
 
 @interface HotVoiceViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -24,29 +26,14 @@ static NSInteger n = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
+    self.title = @"热门声音";
     self.arr = [NSMutableArray array];
     [self loadData];
-//    for (int i = 0; i < 200; i ++) {
-//        int index = arc4random() % 2000;
-//        
-//        NSString *string = [NSString stringWithFormat:@"%d", index];
-//        
-//        [self.arr addObject:string];
-//    }
     [self addTableView];
-
-    
-//    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"最火", @"本周热门"]];
-//    segment.frame = CGRectMake(0, 70, self.view.frame.size.width, 40);
-//    [segment addTarget:self action:@selector(dunkengClicked:) forControlEvents:UIControlEventValueChanged];
-//    [self.view addSubview:segment];
-    
 }
 #pragma mark --- 添加TableView
 - (void)addTableView{
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 120, kWIDTH, kHEIGHT - 120) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 100;
@@ -67,7 +54,7 @@ static NSInteger n = 1;
         NSDictionary *dic = (NSDictionary *)object;
         NSArray *listArray = dic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            HotVoiceModel *voiceModel = [[HotVoiceModel alloc]init];
+            AlbumList *voiceModel = [[AlbumList alloc]init];
             [voiceModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.arr addObject:voiceModel];
             NSLog(@"%ld", aSelf.arr.count);
@@ -89,14 +76,7 @@ static NSInteger n = 1;
     
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
         [weakSelf.arr removeAllObjects];
-        //        [weakSelf loadData];
-        
-        //        for (int i = 0; i < 20; i++) {
-        //            NSString *str = [NSString stringWithFormat:@"%d",100 + arc4random()%100];
-        //            [weakSelf.dataArray addObject:str];
-        //        }
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.gifHeader endRefreshing];
     }];
@@ -105,39 +85,6 @@ static NSInteger n = 1;
     self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
     self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
 }
-
-//- (void)dunkengClicked:(UISegmentedControl *)seg
-//{
-//    
-//    NSInteger index = seg.selectedSegmentIndex;
-//    switch (index) {
-//        case 0:
-//            [self.arr removeAllObjects];
-//            for (int i = 0; i < 200; i ++) {
-//                int index = arc4random() % 2000;
-//                
-//                NSString *string = [NSString stringWithFormat:@"%d", index];
-//                
-//                [self.arr addObject:string];
-//            }
-//            [self.tableView reloadData];
-//            break;
-//        case 1:
-//            [self.arr removeAllObjects];
-//            for (int i = 0; i < 200; i ++) {
-//                int index = arc4random() % 2000;
-//                
-//                NSString *string = [NSString stringWithFormat:@"%d", index];
-//                
-//                [self.arr addObject:string];
-//            }
-//            [self.tableView reloadData];
-//            break;
-//        default:
-//            break;
-//    }
-//}
-//
 
 #pragma mark --- 代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -148,22 +95,24 @@ static NSInteger n = 1;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HotVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell.voiceModel = self.arr[indexPath.row];
+    cell.albumList = self.arr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
+//点击播放
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *playerVC = [[UIViewController alloc]init];
-    [self.navigationController pushViewController:playerVC animated:YES];
+
+//    [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.dataArray] sAlbum:self.sAlbum];
+    
+    UIViewController *vc = [[UIViewController alloc]init];
+    [self.navigationController pushViewController:vc  animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.backgroundColor = CELLCOLOR;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 1;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -14,7 +14,6 @@
         _fileData = [[NSMutableData alloc]init];
         _writeHandle = [[NSFileHandle alloc]init];
         
-        
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
         
         [self.btn setTitle:@"开始" forState:UIControlStateNormal];

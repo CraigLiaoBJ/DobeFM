@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MoreAlbumsModel.h"
+//#import "MoreAlbumsModel.h"
+#import "SearchAlbum.h"
 @interface MoreAlbumCell : UITableViewCell
 
-@property (nonatomic, retain) MoreAlbumsModel *moreAlbumsModel;
+//@property (nonatomic, retain) MoreAlbumsModel *moreAlbumsModel;
+
+@property (nonatomic, retain) SearchAlbum *searchAlbum;
 
 @end

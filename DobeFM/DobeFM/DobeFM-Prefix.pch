@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "AutoView.h"
 
+#import "SingleModel.h"
 #import "AlbumDetailViewController.h"
 #import "AvPlayViewController.h"
 
