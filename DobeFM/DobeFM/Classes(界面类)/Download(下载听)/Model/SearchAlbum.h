@@ -21,9 +21,6 @@
 @property (nonatomic, copy) NSString *smallLogo;
 
 
-
-
-
 //@property (nonatomic, copy) NSString *albumCoverUrl290;//专辑图片
 @property (nonatomic, copy) NSString *albumIntro;//专辑信息
 @property (nonatomic, retain) NSNumber *lastUptrackAt;//最后更新

@@ -18,6 +18,5 @@
 
 @property (nonatomic, retain) SearchAlbum *sAlbum;
 
-//@property (nonatomic, retain) NSMutableArray *
 
 @end

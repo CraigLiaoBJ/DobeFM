@@ -7,7 +7,7 @@
 //
 
 #import "MoreAlbumTableViewController.h"
-#import "MoreAlbumCell.h"
+#import "AlbumCell.h"
 #import "AlbumDetailViewController.h"
 #define URLStr @"http://mobile.ximalaya.com/m/explore_album_list?category_name=all&condition=hot&device=iPhone&page="
 #import "SearchAlbum.h"
@@ -22,14 +22,15 @@ static NSInteger n = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.hidesBottomBarWhenPushed = YES;
+
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.rowHeight = 100;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self loadData];
     [self refreshAndLoad];
-    [self.tableView registerClass:[MoreAlbumCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
 }
 
 #pragma mark --- 加载数据
@@ -63,7 +64,6 @@ static NSInteger n = 0;
     
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
         if (n == 1) {
             n = 1;
         } else {
@@ -99,7 +99,7 @@ static NSInteger n = 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MoreAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    AlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
 //    cell.moreAlbumsModel = self.moreAlbumArray [indexPath.row];
     cell.searchAlbum = self.moreAlbumArray[indexPath.row];
     return cell;

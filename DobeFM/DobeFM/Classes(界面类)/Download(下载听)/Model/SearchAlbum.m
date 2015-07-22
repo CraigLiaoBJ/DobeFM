@@ -15,8 +15,11 @@
     if ([key isEqualToString:@"duration"]) {
         self.durationTm = value;
     }
-    if ([key isEqualToString:@"albumCoverUrl290"]) {
+    if ([key isEqualToString:@"albumCoverUrl290"] ||[key isEqualToString:@"coverMiddle"] ) {
         self.coverOrige = value;
+    }
+    if ([key isEqualToString:@"id"]) {
+        self.albumId = value;
     }
 }
 

@@ -17,5 +17,7 @@
 @property (nonatomic, copy) NSString *addID;
 @property (nonatomic, retain) NSString *spcTypeID;
 
+
+
 @end
 

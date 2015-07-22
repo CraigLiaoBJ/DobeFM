@@ -7,7 +7,7 @@
 //
 
 #import "HotVoiceViewController.h"
-#import "HotVoiceCell.h"
+#import "AudioCell.h"
 #import "AlbumList.h"
 #import "ReconmmendAlbumViewController.h"
 
@@ -42,7 +42,7 @@ static NSInteger n = 1;
     [self.view addSubview:self.tableView];
     [self refreshAndLoad];
     
-    [self.tableView registerClass:[HotVoiceCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
 }
 
 #pragma mark --- 加载网络数据
@@ -94,7 +94,7 @@ static NSInteger n = 1;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HotVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    AudioCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
     cell.albumList = self.arr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -102,11 +102,9 @@ static NSInteger n = 1;
 
 //点击播放
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-//    [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.dataArray] sAlbum:self.sAlbum];
+    [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.arr] sAlbum:nil];
     
-    UIViewController *vc = [[UIViewController alloc]init];
-    [self.navigationController pushViewController:vc  animated:YES];
+    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{

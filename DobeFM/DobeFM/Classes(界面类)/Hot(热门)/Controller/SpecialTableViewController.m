@@ -124,7 +124,7 @@ static  NSInteger i = 1;
    
         SpcDetailTableViewController *spcDetail = [[SpcDetailTableViewController alloc]init];
         spcDetail.addID = [[self.dataArray[indexPath.row] specialId]stringValue];
-        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType] stringValue];
+        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType]stringValue];
         [self.navigationController pushViewController:spcDetail animated:YES];
         [spcDetail release];
 }

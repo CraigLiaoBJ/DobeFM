@@ -7,7 +7,7 @@
 //
 
 #import "AlbumDetailViewController.h"
-#import "AlbumCell.h"
+#import "AudioCell.h"
 //#import "AvPlayViewController.h"
 #import "AlbumIntro.h"
 #import "AlbumItem.h"
@@ -72,7 +72,7 @@ static NSInteger n = 1;
     self.tableView.tableHeaderView = self.functionImageView;
     [self batchButtons];
 
-    [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
     
     //[_functionImageView release];
     //[_tableView release];
@@ -83,7 +83,6 @@ static NSInteger n = 1;
     self.albumDataArray = [NSMutableArray array];
     __block typeof (self) aSelf = self;
     NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
-    NSLog(@"shujulaiyuan ==== %@", string);
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         AlbumItem *albumItem = [[AlbumItem alloc]init];
         NSDictionary *dic = (NSDictionary *)object;
@@ -94,9 +93,9 @@ static NSInteger n = 1;
         NSDictionary *tracksDic = dic[@"tracks"];
         NSArray *listArray = tracksDic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            aSelf.sAlbum = [[AlbumList alloc]init];
-            [aSelf.sAlbum setValuesForKeysWithDictionary:tempDic];
-            [aSelf.albumDataArray addObject:aSelf.sAlbum];
+            aSelf.albumList = [[AlbumList alloc]init];
+            [aSelf.albumList setValuesForKeysWithDictionary:tempDic];
+            [aSelf.albumDataArray addObject:aSelf.albumList];
         }
         [aSelf.tableView reloadData];
     }];
@@ -116,7 +115,6 @@ static NSInteger n = 1;
     
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
         if (n == 1) {
             n = 1;
         } else {
@@ -133,37 +131,37 @@ static NSInteger n = 1;
     self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
     self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
 }
-#pragma mark --- 介绍部分信息
-- (void)addintroInfo{
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25, kWIDTH / 2, 20)];
-    self.titleLabel.text = @"百思不得姐";
-        self.titleLabel.font = [UIFont systemFontOfSize:16];
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.titleLabel.backgroundColor = [UIColor clearColor];
-    [self.imageView addSubview:self.titleLabel];
-    //[_titleLabel release];
-
-    self.introLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25 + 20 + 5, kWIDTH / 2, 20)];
-    self.introLabel.backgroundColor = [UIColor yellowColor];
-    self.introLabel.alpha = 0.3;
-    self.introLabel.numberOfLines = 0;
-    [self.imageView addSubview:self.introLabel];
-    //[_introLabel release];
-    
-    UIView *sepView = [[UIView alloc]initWithFrame:CGRectMake(0, kHEIGHT / 4, kWIDTH, 1)];
-    sepView.backgroundColor = [UIColor grayColor];
-    [self.imageView addSubview:sepView];
-    
-    UILabel *vVLeft = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 3 - 1, kHEIGHT / 4 + 10, 10, 44)];
-    sepView.backgroundColor = [UIColor grayColor];
-    [self.imageView addSubview:vVLeft];
-    
-    UILabel *vVRight = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 3 * 2, kHEIGHT / 4, 1, 44)];
-    sepView.backgroundColor = [UIColor grayColor];
-    [self.imageView addSubview:vVRight];
-    [self batchButtons];
-}
-
+//#pragma mark --- 介绍部分信息
+//- (void)addintroInfo{
+//    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25, kWIDTH / 2, 20)];
+//    self.titleLabel.text = @"百思不得姐";
+//        self.titleLabel.font = [UIFont systemFontOfSize:16];
+//    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+//    self.titleLabel.backgroundColor = [UIColor clearColor];
+//    [self.imageView addSubview:self.titleLabel];
+//    //[_titleLabel release];
+//
+//    self.introLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25 + 20 + 5, kWIDTH / 2, 20)];
+//    self.introLabel.backgroundColor = [UIColor yellowColor];
+//    self.introLabel.alpha = 0.3;
+//    self.introLabel.numberOfLines = 0;
+//    [self.imageView addSubview:self.introLabel];
+//    //[_introLabel release];
+//    
+//    UIView *sepView = [[UIView alloc]initWithFrame:CGRectMake(0, kHEIGHT / 4, kWIDTH, 1)];
+//    sepView.backgroundColor = [UIColor grayColor];
+//    [self.imageView addSubview:sepView];
+//    
+//    UILabel *vVLeft = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 3 - 1, kHEIGHT / 4 + 10, 10, 44)];
+//    sepView.backgroundColor = [UIColor grayColor];
+//    [self.imageView addSubview:vVLeft];
+//    
+//    UILabel *vVRight = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 3 * 2, kHEIGHT / 4, 1, 44)];
+//    sepView.backgroundColor = [UIColor grayColor];
+//    [self.imageView addSubview:vVRight];
+//    [self batchButtons];
+//}
+//
 #pragma mark --- 按钮
 - (void)batchButtons{
     //批量下载按钮
@@ -226,27 +224,14 @@ static NSInteger n = 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    AlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-//    cell.albumAudioModel = self.albumDataArray[indexPath.row];
+    AudioCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    
      cell.albumList = self.albumDataArray[indexPath.row];
     return cell;
 }
 
-//为播放器赋值
-//-(void)setValueForPlayVC:(NSIndexPath *)indexPath{
-//    self.playC.playCurrent = indexPath.row;
-//    self.playC.albumList = [NSMutableArray arrayWithArray: self.albumDataArray] ;
-//    self.playC.sAlbum = self.sAlbum;
-//    
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.albumDataArray] sAlbum:self.sAlbum];
-    
-    NSLog(@"albumdataarry count ====%ld", self.albumDataArray.count);
-    NSLog(@"salbum ==== %@", self.sAlbum);
-
-//    AvPlayViewController *albumDetail = [[AvPlayViewController alloc]init];
     
     [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 }

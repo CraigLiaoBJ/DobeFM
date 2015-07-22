@@ -8,7 +8,7 @@
 
 #import "MoreAlbumCell.h"
 #import "AlbumList.h"
-@interface AnchorAlumbCell : UITableViewCell
+@interface AlbumCell : UITableViewCell
 
 @property (nonatomic, retain) SearchAlbum *searchAlbum;
 
