@@ -60,9 +60,6 @@ static LoadDownBase *loadDownBase;//下载类
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationController.automaticallyAdjustsScrollViewInsets = NO;
-    
     loadDownBase = [[LoadDownBase alloc]init];
     
     //----------------初始化

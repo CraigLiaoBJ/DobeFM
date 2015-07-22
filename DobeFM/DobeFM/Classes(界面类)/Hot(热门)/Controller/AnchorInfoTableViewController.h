@@ -10,4 +10,6 @@
 
 @interface AnchorInfoTableViewController : UITableViewController
 
+@property (nonatomic, copy) NSString *anchorId;
+
 @end

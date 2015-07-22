@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AlbumAudioModel.h"
 @interface AlbumCell : UITableViewCell
 
 @property (nonatomic, retain) UIImageView *cellImageView;
@@ -18,5 +18,8 @@
 @property (nonatomic, assign) UILabel *playCountLabel;
 @property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
+@property (nonatomic, retain) UIImageView *download;
+
+@property (nonatomic, retain) AlbumAudioModel *albumAudioModel;
 
 @end

@@ -23,14 +23,11 @@
         [self.cellImageView addSubview:self.coverSmImage];
         [_coverSmImage release];
         
-        self.audioTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 10, 200, 20)];
-        self.audioTitleLabel.text = @"这里是标题啦";
+        self.audioTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 10, 200, 20)];
         [self.cellImageView addSubview:self.audioTitleLabel];
         [_audioTitleLabel release];
         
         self.authorLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 30, 100 , 20)];
-        NSString *string = @"yello";
-        self.authorLabel.text = [NSString stringWithFormat:@"By%@" , string];
         self.authorLabel.font = [UIFont systemFontOfSize:15];
         self.authorLabel.textColor = [UIColor lightGrayColor];
         self.authorLabel.alpha = 0.5;
@@ -38,7 +35,6 @@
         [_authorLabel release];
         
         self.playCountLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 50, 80, 20)];
-        self.playCountLabel.text = @"123万";
         self.playCountLabel.font = [UIFont systemFontOfSize:15];
         self.playCountLabel.textColor = [UIColor lightGrayColor];
         self.playCountLabel.alpha = 0.5;
@@ -46,7 +42,6 @@
         [_playCountLabel release];
         
         self.durationLabel = [[UILabel alloc]initWithFrame:CGRectMake(160, 50, 80, 20)];
-        self.durationLabel.text = @"03:59";
         self.durationLabel.textColor = [UIColor lightGrayColor];
         self.durationLabel.font = [UIFont systemFontOfSize:15];
         self.durationLabel.alpha = 0.5;
@@ -55,8 +50,6 @@
         
         self.createdAtLabel = [[UILabel alloc]initWithFrame: CGRectMake(70, 70, 200, 20)];
         self.createdAtLabel.textColor = [UIColor blackColor];
-        NSString *string1 = @"2014-2-10";
-        self.createdAtLabel.text = [NSString stringWithFormat:@"最后更新%@", string1];
         self.createdAtLabel.font = [UIFont systemFontOfSize:15];
         self.createdAtLabel.alpha = 0.5;
         [self.cellImageView addSubview:self.createdAtLabel];
@@ -72,13 +65,19 @@
 }
 
 #pragma mark --- 重写setter方法
-- (void)setSpcDtlClModel:(SpcDetailCellModel *)spcDtlClModel{
-    if (_spcDtlClModel != spcDtlClModel) {
-        [_spcDtlClModel release];
-        [spcDtlClModel retain];
-        _spcDtlClModel = spcDtlClModel;
+- (void)setSpcAudioDtlModel:(SpcAudioDetailModel *)spcAudioDtlModel{
+    if (_spcAudioDtlModel != spcAudioDtlModel) {
+        [_spcAudioDtlModel release];
+        [spcAudioDtlModel retain];
+        _spcAudioDtlModel = spcAudioDtlModel;
     }
-    
+    NSURL *url = [NSURL URLWithString:spcAudioDtlModel.coverSmall];
+    [self.coverSmImage sd_setImageWithURL:url];
+    self.audioTitleLabel.text = spcAudioDtlModel.title;
+    self.authorLabel.text = [NSString stringWithFormat:@"By%@", spcAudioDtlModel.nickname];
+    self.playCountLabel.text = [spcAudioDtlModel.playsCounts stringValue];
+    self.createdAtLabel.text = [NSString stringWithFormat:@"最后更新：%@", [spcAudioDtlModel.createdAt stringValue]];
+    self.durationLabel.text = [spcAudioDtlModel.durationTm stringValue];
 }
 
 @end

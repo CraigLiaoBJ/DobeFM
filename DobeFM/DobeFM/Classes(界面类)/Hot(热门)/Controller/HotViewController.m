@@ -7,16 +7,21 @@
 //
 
 #import "HotViewController.h"
-#import "HotAnchorTableViewController.h"
 #import "SpecialTableViewController.h"
 #import "HotVoiceViewController.h"
 #import "AnchorInfoTableViewController.h"
 #import "SpecialModel.h"
+#import "AlbumDetailViewController.h"
+#import "HotAlbumCell.h"
+#import "HotAlbumsModel.h"
+#import "AlbumDetailViewController.h"
+#import "MoreAlbumTableViewController.h"
+#import "HotAnchorViewController.h"
 #define CUSTOMCOLOR [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1]
 
 #define URLSTR @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
 #import "HotModel.h"
-@interface HotViewController ()
+@interface HotViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *dataArray;
 
@@ -28,6 +33,12 @@
 
 @property (nonatomic, retain) SpecialModel *splModel;
 
+@property (nonatomic, retain) UITableView *albumTableView;
+
+@property (nonatomic, retain) NSMutableArray *albumArray;
+
+@property (nonatomic, retain) UIScrollView *wholeScrollView;
+
 @end
 
 @implementation HotViewController
@@ -35,33 +46,30 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.hidesBottomBarWhenPushed = YES;
+
     
-    self.view.backgroundColor = [UIColor cyanColor];
+    self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    self.wholeScrollView.contentSize = CGSizeMake(0, kHEIGHT * 1.5);
+    self.wholeScrollView.pagingEnabled = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    self.wholeScrollView.userInteractionEnabled = YES;
+    [self.view addSubview:self.wholeScrollView];
+    self.view.backgroundColor = [UIColor colorWithRed:0.935 green:0.987 blue:1.000 alpha:1.000];
     // Do any additional setup after loading the view.
     [self loadNetData];
     //[self addScrollView];
     [self addHotAnchor];
     [self addHotVoice];
 //    [self addSpecial];
-    [self loadSpecialData];
+//    [self loadSpecialData];
+    [self addRecommendAlbum];
     
 }
 
 #pragma mark --- 添加轮播图
 - (void)addScrollView{
-
-//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    
-    //轮播图上图片来源数组
-//    NSMutableArray *imagesArray = [NSMutableArray array ];
-//    
-//    for (HotModel *hotMdl in self.dataArray) {
-//        
-//        [imagesArray addObject:hotMdl.pic];
-//    }
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"pic" object:nil userInfo:nil];
-    
-//    NSArray *imagesArray = @[@"http://f.hiphotos.baidu.com/zhidao/pic/item/a08b87d6277f9e2f522ee9e01e30e924b899f33b.jpg", @"http://photos.tuchong.com/300699/f/3882646.jpg", @"http://img4.duitang.com/uploads/item/201301/15/20130115113509_ZfnzA.thumb.600_0.jpeg", @"http://www.ichww.com/uploads/allimg/131127/1-13112G3060Y39.jpg", @"http://pic.baike.soso.com/p/20130528/20130528101014-577571184.jpg", @"http://img05.tooopen.com/images/20150316/tooopen_sy_82590685487.jpg"];
     
      //创建轮播图试图
     AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:self.imageArray placeHolderImageName:@"scrollPH.png" pageControlShowStyle:UIPageControlShowStyleCenter];
@@ -79,7 +87,7 @@
     autoView.isNeedCycleRoll = YES;
     // 计时器定时
     autoView.imageMoveTime = 2.0;
-    [self.view addSubview:autoView];
+    [self.wholeScrollView addSubview:autoView];
 }
 
 #pragma  mark --- 添加最火主播
@@ -101,7 +109,7 @@
     UITapGestureRecognizer *anchorTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(anchorTap)];
     [hotAnchor addGestureRecognizer:anchorTap];
     
-    [self.view addSubview:hotAnchor];
+    [self.wholeScrollView addSubview:hotAnchor];
     
     [hotAnchor release];
     [anchorLabel release];
@@ -111,7 +119,7 @@
 
 #pragma mark --- 最火主播触摸事件
 - (void)anchorTap{
-    HotAnchorTableViewController *AnchorVC = [[HotAnchorTableViewController alloc]init];
+    HotAnchorViewController *AnchorVC = [[HotAnchorViewController alloc]init];
     [self.navigationController pushViewController:AnchorVC animated:YES];
     [AnchorVC release];
 }
@@ -132,7 +140,7 @@
     UITapGestureRecognizer *hotVoiceTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hotVoice)];
     [hotVoice addGestureRecognizer:hotVoiceTap];
     
-    [self.view addSubview:hotVoice];
+    [self.wholeScrollView addSubview:hotVoice];
     
     [hotVoice release];
     [hotVoiceLabel release];
@@ -178,14 +186,15 @@
     UIImageView *moreImage = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4 * 3, 12.5, 25, 25)];
     moreImage.image = [UIImage imageNamed:@"hotView-more.png"];
     [special addSubview:moreImage];
-    
+    [UIColor colorWithRed:0.897 green:1.000 blue:0.937 alpha:1.000];
     
     //触摸
+
     special.userInteractionEnabled = YES;
     UITapGestureRecognizer *specialTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(specialTapAction)];
     [special addGestureRecognizer:specialTap];
     
-    [self.view addSubview:special];
+    [self.wholeScrollView addSubview:special];
     
     [special release];
     [specialLabel release];
@@ -202,16 +211,18 @@
     [specialVC release];
 }
 
-#pragma mark ---  加载轮播图数据
+#pragma mark ---  加载数据
 - (void)loadNetData{
     self.imageArray = [NSMutableArray array];
     self.dataArray  = [NSMutableArray array];
-    
+    self.spcialArray = [NSMutableArray array];
+    self.albumArray = [NSMutableArray array];
+
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:URLSTR method:@"GET" body:nil block:^(id object) {
        
         NSDictionary *dic = (NSDictionary *)object;
-        
+        //轮播图数据
         NSDictionary *bigDic = dic[@"focusImages"];
         NSArray *listArray = bigDic[@"list"];
         
@@ -223,28 +234,106 @@
             [aSelf.imageArray addObject:aSelf.hotModel.pic];
         }
         [self addScrollView];
-    }];
-    
-}
-
-#pragma mark ---  加载专题数据
-- (void)loadSpecialData{
-    self.spcialArray = [NSMutableArray array];
-    __block typeof (self) aSelf = self;
-    [Networking recivedDataWithURLString:URLSTR method:@"GET" body:nil block:^(id object) {
-        NSDictionary *dic = (NSDictionary *)object;
+        
+        //专题数据
         NSDictionary *splDic = dic[@"latest_special"];
         
         aSelf.splModel = [[SpecialModel alloc]init];
         [aSelf.splModel setValuesForKeysWithDictionary:splDic];
         [aSelf addSpecial];
+        
+        //推荐专辑数据
+        NSDictionary *albumDic = dic[@"recommendAlbums"];
+        NSArray *abmArray = albumDic[@"list"];
+        for (NSDictionary *tempDic in abmArray) {
+            HotAlbumsModel *hotAlbumModel = [[HotAlbumsModel alloc]init];
+            [hotAlbumModel setValuesForKeysWithDictionary:tempDic];
+            [aSelf.albumArray addObject:hotAlbumModel];
+        }
+        [aSelf.albumTableView reloadData];
+        
     }];
 }
 
-//- (void)doChange{
-//    [self addScrollView];
+#pragma mark ---  加载专题数据
+//- (void)loadSpecialData{
+//    self.spcialArray = [NSMutableArray array];
+//    __block typeof (self) aSelf = self;
+//    [Networking recivedDataWithURLString:URLSTR method:@"GET" body:nil block:^(id object) {
+//        
+//    }];
 //}
 
+#pragma mark --- 加载推荐专辑
+- (void)addRecommendAlbum{
+    self.albumTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 450) style:UITableViewStylePlain];
+    self.albumTableView.rowHeight = 50;
+    self.albumTableView.dataSource = self;
+    self.albumTableView.delegate = self;
+    self.albumTableView.userInteractionEnabled = YES;
+    [self.wholeScrollView addSubview:self.albumTableView];
+    
+    UIImageView *imageViw = [[UIImageView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 30)];
+    imageViw.userInteractionEnabled = YES;
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, kWIDTH / 2, 20)];
+    label.text = @"推荐专辑";
+    label.font = [UIFont boldSystemFontOfSize:15];
+    [imageViw addSubview:label];
+
+    
+    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    moreBtn.frame = CGRectMake(kWIDTH - 75, 0, 75, 30);
+
+    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(13, 0, 50, 30)];
+    titleLabel.text = @"更多";
+    titleLabel.textColor = [UIColor orangeColor];
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    [moreBtn addSubview:titleLabel];
+    
+    [moreBtn setImage:[UIImage imageNamed:@"iconfont-gengduo-3.png"] forState:UIControlStateNormal];
+    [moreBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+    
+    [moreBtn addTarget:self action:@selector(didClickmoreBtn) forControlEvents:UIControlEventTouchUpInside];
+    [imageViw addSubview:moreBtn];
+
+    
+    self.albumTableView.tableHeaderView = imageViw;
+    self.albumTableView.tableFooterView = nil;
+    
+    [self.albumTableView registerClass:[HotAlbumCell class] forCellReuseIdentifier:@"CELL"];
+}
+
+- (void)didClickmoreBtn{
+    MoreAlbumTableViewController *moreAlbumVC = [[MoreAlbumTableViewController alloc]init];
+    [self.navigationController pushViewController:moreAlbumVC animated:YES];
+}
+#pragma mark --- 代理方法
+
+
+/**
+ *  <#Description#>
+ *
+ *  @param tableView <#tableView description#>
+ *  @param section   <#section description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.albumArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    HotAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    cell.hotAlbumsModel = self.albumArray[indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AlbumDetailViewController *albmDtl = [[AlbumDetailViewController alloc]init];
+    albmDtl.albumId = [self.albumArray[indexPath.row]albumId];
+    [self.navigationController pushViewController:albmDtl animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

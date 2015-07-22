@@ -36,31 +36,26 @@
         
         //专辑图片
         self.coverImage = [[UIImageView alloc]init];
-        self.coverImage.backgroundColor = [UIColor brownColor];
+//        self.coverImage.backgroundColor = [UIColor brownColor];
         [self.bgdEffect addSubview:self.coverImage];
         [_coverImage release];
         
         //作者头像
         self.iconImage = [[UIImageView alloc]init];
-        self.iconImage.backgroundColor = [UIColor brownColor];
-        self.iconImage.layer.cornerRadius = kWW / 16;
-        self.iconImage.layer.masksToBounds = YES;
+//        self.iconImage.backgroundColor = [UIColor brownColor];
         [self.bgdEffect addSubview:self.iconImage];
         [_iconImage release];
         
         //作者名称
         self.authorTitleLbl = [[UILabel alloc]init];
-        self.authorTitleLbl.backgroundColor = [UIColor brownColor];
-        self.authorTitleLbl.font = [UIFont boldSystemFontOfSize:16];
         [self.bgdEffect addSubview:self.authorTitleLbl];
         [_authorTitleLbl release];
         
         //简介
         self.introLabel = [[UILabel alloc]init];
-        self.introLabel.backgroundColor = [UIColor brownColor];
+//        self.introLabel.backgroundColor = [UIColor brownColor];
         [self.bgdEffect addSubview:self.introLabel];
         [_introLabel release];
-        
     }
     return self;
 }
@@ -71,13 +66,11 @@
     //大背景图片
     self.bgdImageView.frame = self.frame;
     self.bgdImageView.userInteractionEnabled = YES;
-    self.bgdImageView.backgroundColor = [UIColor cyanColor];
     self.bgdImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     //毛玻璃
     self.bgdEffect.frame = self.frame;
 
-    
     //专辑图片
     self.coverImage.frame = CGRectMake(20, 100, kWW / 4, kWW / 4);
     
@@ -91,7 +84,29 @@
     self.authorTitleLbl.font = [UIFont boldSystemFontOfSize:16];
 
     //简介
-    self.introLabel.frame = CGRectMake(20 + kWW / 4 + 10, 30 + kWW / 5 + 64, kWW / 2 - 20, 20);
+    self.introLabel.frame = CGRectMake(20 + kWW / 4 + 10, 30 + kWW / 5 + 64, kWW / 2 - 20, 0);
+    self.introLabel.font = [UIFont systemFontOfSize:13];
+    self.introLabel.numberOfLines = 0;
+    CGFloat height = [self getStringHeightBaseFont:13 width:kWW / 2  string:self.introLabel.text];
+    self.introLabel.frame = CGRectMake(20 + kWW / 4 + 10, 30 + kWW / 5 + 64, kWW / 2 - 20, height);
 }
 
+- (CGFloat)getStringHeightBaseFont:(CGFloat)font width:(CGFloat)width string:(NSString *)string{
+    //计算高度的方法
+    CGRect contentRect = [string boundingRectWithSize:CGSizeMake(width, 1000000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil];
+    return contentRect.size.height;
+}
+
+- (void)setAlbumItem:(AlbumItem *)albumItem{
+    NSURL *bgdUrl = [NSURL URLWithString:albumItem.coverLarge];
+    [self.bgdImageView sd_setImageWithURL:bgdUrl];
+    self.authorTitleLbl.text = albumItem.nickname;
+    NSURL *coverUrl = [NSURL URLWithString:albumItem.coverOrigin];
+    [self.coverImage sd_setImageWithURL:coverUrl];
+    NSURL *iconUrl = [NSURL URLWithString:albumItem.avatarPath];
+    [self.iconImage sd_setImageWithURL:iconUrl];
+    self.introLabel.text = albumItem.intro;
+    NSLog(@"coverimage ==== %@", coverUrl);
+    NSLog(@"intro === %@", albumItem.introRich);
+}
 @end

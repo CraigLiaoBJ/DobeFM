@@ -29,10 +29,10 @@
         [self.cellImageView addSubview:albumImage];
         [albumImage release];
         
-        self.audioTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 10, 200, 20)];
-        self.audioTitleLabel.text = @"这里是标题啦";
-        [self.cellImageView addSubview:self.audioTitleLabel];
-        [_audioTitleLabel release];
+        self.albumTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 10, 200, 20)];
+        self.albumTitleLabel.text = @"这里是标题啦";
+        [self.cellImageView addSubview:self.albumTitleLabel];
+        [_albumTitleLabel release];
         
         self.authorLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 30, 100 , 20)];
         NSString *string = @"yello";
@@ -78,23 +78,21 @@
 }
 
 #pragma mark --- 重写setter方法
-- (void)setSpcDClModel:(SpcDetailCellModel *)spcDClModel{
-    if (_spcDClModel != spcDClModel) {
-        [_spcDClModel release];
-        [spcDClModel retain];
-        _spcDClModel = spcDClModel;
+- (void)setSpcAbmDtlModel:(SpcAlbumDetailCellModel *)spcAbmDtlModel{
+    if (_spcAbmDtlModel != spcAbmDtlModel) {
+        [_spcAbmDtlModel release];
+        [spcAbmDtlModel retain];
+        _spcAbmDtlModel = spcAbmDtlModel;
     }
-    NSURL *coverUrl = [NSURL URLWithString:spcDClModel.albumCoverUrl290];
-    NSLog(@"cell%@", self.spcDClModel.albumCoverUrl290);
+    NSURL *coverUrl = [NSURL URLWithString:spcAbmDtlModel.albumCoverUrl290];
+    NSLog(@"cell%@", spcAbmDtlModel.albumCoverUrl290);
     [self.coverSmImage sd_setImageWithURL:coverUrl];
     
-    self.playCountLabel.text = [spcDClModel.playsCounts stringValue];
-    self.createdAtLabel.text = [spcDClModel.lastUptrackAt  stringValue];
-    
-    NSLog(@"%@", spcDClModel.lastUptrackAt);
-
-    
-    
+    self.createdAtLabel.text = [spcAbmDtlModel.lastUptrackAt  stringValue];
+    self.albumTitleLabel.text = spcAbmDtlModel.title;
+    self.playCountLabel.text = [spcAbmDtlModel.playsCounts stringValue];
+    self.createdAtLabel.text = [spcAbmDtlModel.lastUptrackAt stringValue];
+    self.durationLabel.text = [NSString stringWithFormat:@"数量：%@", [spcAbmDtlModel.tracks stringValue]];
 }
 
 - (void)awakeFromNib {

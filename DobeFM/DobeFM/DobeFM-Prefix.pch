@@ -29,6 +29,8 @@
 
 //是否为IOS7
 #define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+#define cellImageColor  [UIColor colorWithRed:0.736 green:0.967 blue:1.000 alpha:0.620]
+#define CELLCOLOR [UIColor colorWithRed:0.999 green:0.951 blue:1.000 alpha:0.540]
 
 #import "LORefresh.h"
 

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HotAnchorCell : UITableViewCell
+@interface HotAnchorCell : UICollectionViewCell
+
+@property (nonatomic, retain) UIImageView *picView;//头像
+@property (nonatomic, retain) UILabel *nameLabel;//名字标题
 
 @end
