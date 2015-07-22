@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *title1;//声音标题
 @property (nonatomic, copy) NSString *playPathAacv164;//播放url
 @property (nonatomic, copy) NSString *trackId;//id
-@property (nonatomic, copy) NSString *durationTime;//播放总时长
+@property (nonatomic, retain) NSNumber *durationTime;//播放总时长
 
 @property (nonatomic, copy) NSString *downloadAacUrl;//下载的URL
 @property (nonatomic, copy) NSString *downloadAacSize;//下载的资源大小
@@ -25,5 +25,18 @@
 
 @property (nonatomic, copy) NSString *playUrl32;//第二播放url
 @property (nonatomic, assign) bool isSelect;//是否被批量选中下载
+
+
+@property (nonatomic, copy) NSString *coverSmall;
+
+@property (nonatomic, copy) NSString *coverLarge;
+@property (nonatomic, copy) NSString *nickname;//作者名字
+@property (nonatomic, retain) NSNumber *durationTm;//时间跨度
+@property (nonatomic, retain) NSNumber *playtimes;//播放次数
+
+@property (nonatomic, retain) NSString *playUrl64;//播放连接
+
+@property (nonatomic, retain) NSNumber *createdAt;//创建时间
+
 //-(id) initWithDictionary:(NSMutableDictionary*) jsonObject;
 @end

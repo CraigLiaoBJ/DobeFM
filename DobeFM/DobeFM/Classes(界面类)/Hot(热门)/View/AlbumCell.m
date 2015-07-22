@@ -74,19 +74,35 @@
     self.download.image = [UIImage imageNamed:@"iconfont-ordinarydownload.png"];
 }
 
-- (void)setAlbumAudioModel:(AlbumAudioModel *)albumAudioModel{
-    if (_albumAudioModel != albumAudioModel) {
-        [_albumAudioModel release];
-        [albumAudioModel retain];
-        _albumAudioModel = albumAudioModel;
+//- (void)setAlbumAudioModel:(AlbumAudioModel *)albumAudioModel{
+//    if (_albumAudioModel != albumAudioModel) {
+//        [_albumAudioModel release];
+//        [albumAudioModel retain];
+//        _albumAudioModel = albumAudioModel;
+//    }
+//    NSURL *coverUrl = [NSURL URLWithString:albumAudioModel.coverLarge];
+//    [self.coverSmImage sd_setImageWithURL:coverUrl];
+//    self.audioTitleLabel.text = albumAudioModel.title;
+//    self.authorLabel.text = [NSString stringWithFormat:@"By%@", albumAudioModel.nickname];
+////    self.playCountLabel.text = [albumAudioModel.playtimes stringValue];
+//    self.createdAtLabel.text = [albumAudioModel.createdAt stringValue];
+//    self.durationLabel.text = [albumAudioModel.durationTm stringValue];
+//}
+
+
+- (void)setAlbumList:(AlbumList *)albumList{
+    if (_albumList != albumList) {
+        [_albumList release];
+        [albumList retain];
+        _albumList = albumList;
     }
-    NSURL *coverUrl = [NSURL URLWithString:albumAudioModel.coverLarge];
+    NSURL *coverUrl = [NSURL URLWithString:albumList.coverLarge];
     [self.coverSmImage sd_setImageWithURL:coverUrl];
-    self.audioTitleLabel.text = albumAudioModel.title;
-    self.authorLabel.text = [NSString stringWithFormat:@"By%@", albumAudioModel.nickname];
-//    self.playCountLabel.text = [albumAudioModel.playtimes stringValue];
-    self.createdAtLabel.text = [albumAudioModel.createdAt stringValue];
-    self.durationLabel.text = [albumAudioModel.durationTm stringValue];
+    self.audioTitleLabel.text = albumList.title1;
+    self.authorLabel.text = [NSString stringWithFormat:@"By%@", albumList.nickname];
+    //    self.playCountLabel.text = [albumAudioModel.playtimes stringValue];
+    self.createdAtLabel.text = [albumList.createdAt stringValue];
+    self.durationLabel.text = [albumList.durationTm stringValue];
 }
 
 - (void)dealloc{

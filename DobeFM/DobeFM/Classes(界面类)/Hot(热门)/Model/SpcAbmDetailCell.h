@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SpcAlbumDetailCellModel.h"
+#import "SearchAlbum.h"
 @interface SpcAbmDetailCell : UITableViewCell
 
 @property (nonatomic, retain)UIImageView *cellImageView;
@@ -20,6 +20,6 @@
 @property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
 
-@property(nonatomic, retain) SpcAlbumDetailCellModel *spcAbmDtlModel;
+@property(nonatomic, retain) SearchAlbum *spcAbmDtlModel;
 
 @end

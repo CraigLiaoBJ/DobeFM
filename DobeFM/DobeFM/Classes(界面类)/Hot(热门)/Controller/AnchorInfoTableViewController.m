@@ -7,8 +7,8 @@
 //
 
 #import "AnchorInfoTableViewController.h"
-#import "AnchorAlbumModel.h"
-#import "AnchorAudioModel.h"
+#import "SearchAlbum.h"
+#import "AlbumList.h"
 #import "AnchorIntroModel.h"
 #import "AnchorAlumbCell.h"
 #import "HotVoiceCell.h"
@@ -100,7 +100,7 @@ static NSInteger i = 1;
         NSString *totalCount = albumDic[@"totalCount"];
         NSArray *listArray = albumDic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            AnchorAlbumModel *anchorAlbumModel = [[AnchorAlbumModel alloc]init];
+            SearchAlbum *anchorAlbumModel = [[SearchAlbum alloc]init];
             [anchorAlbumModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.albumArray addObject:anchorAlbumModel];
         }
@@ -111,7 +111,7 @@ static NSInteger i = 1;
         NSDictionary *audioDic = (NSDictionary *)object;
         NSArray *audioArray = audioDic[@"list"];
         for (NSDictionary *adDic in audioArray) {
-            AnchorAudioModel *anchorAudioModel = [[AnchorAudioModel alloc]init];
+            AlbumList *anchorAudioModel = [[AlbumList alloc]init];
             [anchorAudioModel setValuesForKeysWithDictionary:adDic];
             [aSelf.audioArray addObject:anchorAudioModel];
         }
@@ -177,11 +177,11 @@ static NSInteger i = 1;
 //    return cell;
     if (0 == indexPath.section) {
         AnchorAlumbCell *albumcell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-        albumcell.anchorAlbumModel = self.albumArray[indexPath.row];
+        albumcell.searchAlbum = self.albumArray[indexPath.row];
         return albumcell;
     } else {
         HotVoiceCell *anchorcell = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
-        anchorcell.voiceModel = self.audioArray[indexPath.row];
+        anchorcell.albumList = self.audioArray[indexPath.row];
         return anchorcell;
     }
 }

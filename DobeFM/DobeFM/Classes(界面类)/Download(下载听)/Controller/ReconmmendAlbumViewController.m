@@ -41,36 +41,40 @@
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 
-
 - (void) rightItemClick:( UIBarButtonItem*)sender{
     MoreDownViewController *moreVC = [[MoreDownViewController alloc]init];
     moreVC.view.backgroundColor = [UIColor whiteColor];
     moreVC.audioArray =[[NSMutableArray alloc]initWithArray: self.dataArray];
     [moreVC  reloadView];
     [self.navigationController pushViewController:moreVC animated:YES];
-
 }
-
 
 //数据解析
 -(void)requestData{
 __block typeof (self)aSelf = self;
 [Nework recivedDataWithURLString:self.idString method:@"GET" body:nil Block:^(id objeck) {
     NSDictionary *dic = (NSDictionary *)objeck;
-    NSDictionary *dicAlibum =dic[@"album"];
-    aSelf.sAlbum = [[SearchAlbum alloc]initWithSearchAlbum:[NSString stringWithFormat:@"%@",dicAlibum[@"albumId"]] avataPath:dicAlibum[@"avatarPath"] coverLarge:dicAlibum[@"coverLarge"]  coverOrige:dicAlibum[@"coverOrigin"] coverSmall:dicAlibum[@"coverSmall"] categoryId:[NSString stringWithFormat:@"%@",dicAlibum[@"categoryId"]] categoryName:dicAlibum[@"categoryName"] categoryAt:[dicAlibum[@"categoryAt"] intValue]];
-    NSArray *AListArray =dic[@"tracks"][@"list"];
-    for (int i = 0 ; i < AListArray.count;i++) {
-        AlbumList *alist = [[AlbumList alloc]init];
-        [alist setValuesForKeysWithDictionary:AListArray[i]];
-        [aSelf.dataArray addObject:alist];
+    NSDictionary *tracksDic = dic[@"tracks"];
+    NSArray *listArray = tracksDic[@"list"];
+    for (NSDictionary *tempDic in listArray) {
+        aSelf.sAlbum = [[SearchAlbum alloc]init];
+        [aSelf.sAlbum setValuesForKeysWithDictionary:tempDic];
+        [aSelf.dataArray addObject:aSelf.sAlbum];
     }
+    
+//    NSDictionary *dicAlibum =dic[@"album"];
+//    
+//    
+//    aSelf.sAlbum = [[SearchAlbum alloc]initWithSearchAlbum:[NSString stringWithFormat:@"%@",dicAlibum[@"albumId"]] avataPath:dicAlibum[@"avatarPath"] coverLarge:dicAlibum[@"coverLarge"]  coverOrige:dicAlibum[@"coverOrigin"] coverSmall:dicAlibum[@"coverSmall"] categoryId:[NSString stringWithFormat:@"%@",dicAlibum[@"categoryId"]] categoryName:dicAlibum[@"categoryName"] categoryAt:[dicAlibum[@"categoryAt"] intValue]];
+//    NSArray *AListArray =dic[@"tracks"][@"list"];
+//    for (int i = 0 ; i < AListArray.count;i++) {
+//        AlbumList *alist = [[AlbumList alloc]init];
+//        [alist setValuesForKeysWithDictionary:AListArray[i]];
+//        [aSelf.dataArray addObject:alist];
+//    }
     
     [aSelf.tableView reloadData];
 }];
-    
-
-
 }
 
 //按钮事件

@@ -31,8 +31,6 @@
         self.playPathAacv164 = value;
         self.downloadUrl = value;
     }
-
-
 }
 
 

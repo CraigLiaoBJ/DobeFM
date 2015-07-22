@@ -224,8 +224,6 @@ static LoadDownBase *loadDownBase;//下载类
     }
 }
 
-
-
 //数值转化成时间格式
 - (NSString *)convertTime:(CGFloat)second{
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];

@@ -21,6 +21,7 @@ static NSInteger n = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"最火主播";
     [self addCollectionView];
     [self loadData];
     [self refreshAndLoad];
@@ -59,7 +60,6 @@ static NSInteger n = 1;
         }
         [aSelf.collectionView reloadData];
     }];
-    
 }
 
 #pragma mark --- refresh and load

@@ -111,24 +111,38 @@
 
 
 #pragma mark --- 重写setter方法
-- (void)setMoreAlbumsModel:(MoreAlbumsModel *)moreAlbumsModel{
-    if (_moreAlbumsModel != moreAlbumsModel) {
-        [_moreAlbumsModel release];
-        [moreAlbumsModel retain];
-        _moreAlbumsModel = moreAlbumsModel;
+//- (void)setMoreAlbumsModel:(MoreAlbumsModel *)moreAlbumsModel{
+//    if (_moreAlbumsModel != moreAlbumsModel) {
+//        [_moreAlbumsModel release];
+//        [moreAlbumsModel retain];
+//        _moreAlbumsModel = moreAlbumsModel;
+//    }
+//    NSURL *url = [NSURL URLWithString:moreAlbumsModel.albumCoverUrl290];
+//    [self.coverSmImage sd_setImageWithURL:url];
+//    
+//    _audioTitleLabel.text = moreAlbumsModel.title;
+//    _authorLabel.text = [NSString stringWithFormat:@"By%@" , moreAlbumsModel.nickname];
+//    _playCountLabel.text = [NSString stringWithFormat:@"播放次数：%@", [moreAlbumsModel.playsCounts stringValue]];
+//    _createdAtLabel.text = [NSString stringWithFormat:@"最后更新%@", [moreAlbumsModel.lastUptrackAt stringValue]];
+//    _durationLabel.text = [NSString stringWithFormat:@"音频：%@" ,[moreAlbumsModel.tracks stringValue]];
+//    }
+
+
+- (void)setSearchAlbum:(SearchAlbum *)searchAlbum{
+    if (_searchAlbum != searchAlbum) {
+        [_searchAlbum release];
+        [searchAlbum retain];
+        _searchAlbum = searchAlbum;
     }
-    NSURL *url = [NSURL URLWithString:moreAlbumsModel.albumCoverUrl290];
+    NSURL *url = [NSURL URLWithString:searchAlbum.coverOrige];
     [self.coverSmImage sd_setImageWithURL:url];
     
-    _audioTitleLabel.text = moreAlbumsModel.title;
-    _authorLabel.text = [NSString stringWithFormat:@"By%@" , moreAlbumsModel.nickname];
-    _playCountLabel.text = [NSString stringWithFormat:@"播放次数：%@", [moreAlbumsModel.playsCounts stringValue]];
-    _createdAtLabel.text = [NSString stringWithFormat:@"最后更新%@", [moreAlbumsModel.lastUptrackAt stringValue]];
-    _durationLabel.text = [NSString stringWithFormat:@"音频：%@" ,[moreAlbumsModel.tracks stringValue]];
-    
-    
+    _audioTitleLabel.text = searchAlbum.title;
+    _authorLabel.text = [NSString stringWithFormat:@"By%@" , searchAlbum.nickname];
+    _playCountLabel.text = [NSString stringWithFormat:@"播放次数：%@", [searchAlbum.playsCounts stringValue]];
+    _createdAtLabel.text = [NSString stringWithFormat:@"最后更新%@", [searchAlbum.lastUptrackAt stringValue]];
+    _durationLabel.text = [NSString stringWithFormat:@"音频：%@" ,[searchAlbum.tracks stringValue]];
 }
-
 - (void)awakeFromNib {
     // Initialization code
 }

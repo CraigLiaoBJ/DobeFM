@@ -10,11 +10,11 @@
 #import "MoreAlbumCell.h"
 #import "AlbumDetailViewController.h"
 #define URLStr @"http://mobile.ximalaya.com/m/explore_album_list?category_name=all&condition=hot&device=iPhone&page="
-#import "MoreAlbumsModel.h"
+#import "SearchAlbum.h"
 @interface MoreAlbumTableViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *moreAlbumArray;
-
+@property (nonatomic, retain) SearchAlbum *searchAlbum;
 @end
 
 static NSInteger n = 0;
@@ -41,10 +41,9 @@ static NSInteger n = 0;
         NSDictionary *dic = (NSDictionary *)object;
         NSArray *listArray = dic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            MoreAlbumsModel *moreAlbumsModel = [[MoreAlbumsModel alloc]init];
-            [moreAlbumsModel setValuesForKeysWithDictionary:tempDic];
-            [aSelf.moreAlbumArray addObject:moreAlbumsModel];
-            NSLog(@"%@deee", moreAlbumsModel.nickname);
+            aSelf.searchAlbum = [[SearchAlbum alloc]init];
+            [aSelf.searchAlbum setValuesForKeysWithDictionary:tempDic];
+            [aSelf.moreAlbumArray addObject:aSelf.searchAlbum];
         }
         [aSelf.tableView reloadData];
     }];
@@ -101,8 +100,8 @@ static NSInteger n = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MoreAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell.moreAlbumsModel = self.moreAlbumArray [indexPath.row];
-    NSLog(@"cell === %@", cell.moreAlbumsModel.nickname);
+//    cell.moreAlbumsModel = self.moreAlbumArray [indexPath.row];
+    cell.searchAlbum = self.moreAlbumArray[indexPath.row];
     return cell;
 }
 
@@ -113,6 +112,7 @@ static NSInteger n = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
     albumVC.albumId = [self.moreAlbumArray[indexPath.row]albumId];
+    albumVC.sAlbum = self.moreAlbumArray[indexPath.row];
     [self.navigationController pushViewController:albumVC animated:YES];
 }
 

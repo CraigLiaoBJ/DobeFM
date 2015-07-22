@@ -8,11 +8,6 @@
 
 #import "HotVoiceCell.h"
 
-#define kORIGINX self.frame.origin.x
-#define kORIGINY self.frame.origin.y
-#define kWD self.frame.size.width
-#define kHT self.frame.size.height
-
 @interface HotVoiceCell ()
 
 
@@ -38,68 +33,41 @@
         [self.cellImageView addSubview:self.authorLabel];
         [_authorLabel release];
         
-        self.playCountLabel = [[UILabel alloc]init];
-        [self.cellImageView addSubview:self.playCountLabel];
-        [_playCountLabel release];
-        
         self.durationLabel = [[UILabel alloc]init];
         [self.cellImageView addSubview:self.durationLabel];
         [_durationLabel release];
-        
-        self.createdAtLabel = [[UILabel alloc]init];
-        [self.cellImageView addSubview:self.createdAtLabel];
-        [_createdAtLabel release];
-        
-        self.download = [[UIImageView alloc]init];
-        [self.cellImageView addSubview:self.download];
-        [_download release];
-        
     }
     return self;
 }
 
-
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.cellImageView.frame = CGRectMake(0, 10, kWD, 90);
+    self.cellImageView.frame = CGRectMake(0, 10, kWW, 90);
     self.cellImageView.backgroundColor = cellImageColor;
-    
+    //音频图片
     self.coverSmImage.frame = CGRectMake(5, 15, 60, 60);
     self.coverSmImage.backgroundColor  = [UIColor colorWithRed:0.359 green:0.672 blue:1.000 alpha:1.000];
     self.coverSmImage.layer.cornerRadius = 30.f;
     self.coverSmImage.layer.masksToBounds = YES;
-    
-    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW, 30);
-    self.audioTitleLabel.font = [UIFont systemFontOfSize:13];
-//    CGFloat height = [self getStringHeightBaseFont:14 width:kWW / 2 string:self.audioTitleLabel.text];
-//    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, height);
+    //音频标题
+    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, 20);
+    self.audioTitleLabel.font = [UIFont boldSystemFontOfSize:13];
+    CGFloat height = [self getStringHeightBaseFont:13 width:kWW - 90 string:self.audioTitleLabel.text];
+    self.audioTitleLabel.frame = CGRectMake(90, 15, kWW - 90, height);
     self.audioTitleLabel.numberOfLines = 0;
-    
-    self.authorLabel.frame = CGRectMake(90, 30 + 5, kWW / 4 * 3 , 12);
-    self.authorLabel.font = [UIFont systemFontOfSize:12];
+    //音频作者
+    self.authorLabel.frame = CGRectMake(90, height + 20, kWW / 4 * 3 , 12);
+    self.authorLabel.font = [UIFont systemFontOfSize:13];
     self.authorLabel.textColor = [UIColor lightGrayColor];
     self.authorLabel.alpha = 0.5;
-
-    self.playCountLabel.frame = CGRectMake(90, 30 + 25, 80, 12);
-    self.playCountLabel.font = [UIFont systemFontOfSize:12];
-    self.playCountLabel.textColor = [UIColor lightGrayColor];
-    self.playCountLabel.alpha = 0.5;
-    
-    self.durationLabel.frame = CGRectMake(200, 30 + 25, 80, 12);
+    //时长
+    self.durationLabel.frame = CGRectMake(90, height + 40, kWW - 90, 12);
     self.durationLabel.textColor = [UIColor lightGrayColor];
-    self.durationLabel.font = [UIFont systemFontOfSize:12];
+    self.durationLabel.font = [UIFont systemFontOfSize:13];
     self.durationLabel.alpha = 0.5;
 
-    
-    self.createdAtLabel.frame = CGRectMake(90, 30 + 45, kWW / 4 * 3, 12);
-    self.createdAtLabel.textColor = [UIColor blackColor];
-    self.createdAtLabel.font = [UIFont systemFontOfSize:12];
-    self.createdAtLabel.alpha = 0.5;
-
-    self.download.frame = CGRectMake(320, 30 + 25, 20, 20);
-    self.download.image = [UIImage imageNamed:@"iconfont-xiazai.png"];
-
 }
+#pragma mark --- 自适应高度的方法
 - (CGFloat)getStringHeightBaseFont:(CGFloat)font width:(CGFloat)width string:(NSString *)string{
     //计算高度的方法
     CGRect contentRect = [string boundingRectWithSize:CGSizeMake(width, 1000000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil];
@@ -108,22 +76,22 @@
 
 
 #pragma mark --- 重写setter方法
-- (void)setVoiceModel:(HotVoiceModel *)voiceModel{
-    if (_voiceModel != voiceModel) {
-        [_voiceModel release];
-        [voiceModel retain];
-        _voiceModel = voiceModel;
+- (void)setAlbumList:(AlbumList *)albumList{
+    if (_albumList != albumList) {
+        [_albumList release];
+        [albumList retain];
+        _albumList = albumList;
     }
-    NSURL *url = [NSURL URLWithString:voiceModel.coverSmall];
+    //音频图片
+    NSURL *url = [NSURL URLWithString:albumList.coverSmall];
     [self.coverSmImage sd_setImageWithURL:url];
-    
-    _audioTitleLabel.text = voiceModel.title;
-    _authorLabel.text = [NSString stringWithFormat:@"By%@" , voiceModel.nickname];
-    _playCountLabel.text = [NSString stringWithFormat:@"播放次数：%@", [voiceModel.playsCounts stringValue]];
-    _createdAtLabel.text = [NSString stringWithFormat:@"最后更新%@", [voiceModel.createdAt stringValue]];
-    _durationLabel.text = [NSString stringWithFormat:@"时长：%@" ,[voiceModel.durationTM stringValue]];
+    //标题
+    _audioTitleLabel.text = albumList.title1;
+    //作者
+    _authorLabel.text = [NSString stringWithFormat:@"By%@" , albumList.nickname];
+    //时长
+    _durationLabel.text = [NSString stringWithFormat:@"时长：%@" ,[albumList.durationTime stringValue]];
 
-    
 }
 - (void)awakeFromNib {
     // Initialization code
