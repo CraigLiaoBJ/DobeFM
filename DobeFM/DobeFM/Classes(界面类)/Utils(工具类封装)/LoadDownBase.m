@@ -79,20 +79,7 @@
     NSString *plistPath1 = [paths objectAtIndex:0];
     NSMutableDictionary *a = [self getLoadDownPlish:@"BeLoadList" plistPath:plistPath1];
     NSArray *arr = [a valueForKey:[NSString stringWithFormat:@"%@",[a.allKeys firstObject]]];
-    AlbumList *alist = [[AlbumList alloc]init];
-    alist.albumId = [NSString stringWithFormat:@"%@",arr[0]];
-    alist.albumImage = [NSString stringWithFormat:@"%@",arr[1]];
-    alist.albumTitle = [NSString stringWithFormat:@"%@",arr[2]];
-    alist.title1 = [NSString stringWithFormat:@"%@",arr[3]];
-    alist.playPathAacv164 = [NSString stringWithFormat:@"%@",arr[4]];
-    alist.trackId = [NSString stringWithFormat:@"%@",arr[5]];
-    alist.durationTime = [NSString stringWithFormat:@"%@",arr[6]];
-    alist.downloadAacUrl = [NSString stringWithFormat:@"%@",arr[7]];
-    alist.downloadAacSize = [NSString stringWithFormat:@"%@",arr[8]];
-    alist.downloadUrl = [NSString stringWithFormat:@"%@",arr[9]];
-    alist.downloadSize = [NSString stringWithFormat:@"%@",arr[10]];
-    alist.playUrl32 = [NSString stringWithFormat:@"%@",arr[11]];
-    return alist;
+    return [self arrayToAlbumList:arr];
     
 }
 //获下载列表 是否为空
@@ -115,6 +102,7 @@
         type = stype;
     }
     else{
+        
         if ([album downloadAacUrl] != nil && [[album downloadAacUrl] isEqualToString:@""]) {
             urlString = [album downloadAacUrl];
         }
@@ -147,6 +135,26 @@
     NSString *filename=[NSString stringWithFormat:@"%@/%@%@",plistPathFirst,plistName,@".plist"];
     [dataList writeToFile:filename atomically:YES];
     
+}
+
+
+
+-(AlbumList*)arrayToAlbumList:(NSArray*)arr{
+    
+    AlbumList *alist = [[AlbumList alloc]init];
+    alist.albumId = [NSString stringWithFormat:@"%@",arr[0]];
+    alist.albumImage = [NSString stringWithFormat:@"%@",arr[1]];
+    alist.albumTitle = [NSString stringWithFormat:@"%@",arr[2]];
+    alist.title1 = [NSString stringWithFormat:@"%@",arr[3]];
+    alist.playPathAacv164 = [NSString stringWithFormat:@"%@",arr[4]];
+    alist.trackId = [NSString stringWithFormat:@"%@",arr[5]];
+    alist.durationTime = [NSString stringWithFormat:@"%@",arr[6]];
+    alist.downloadAacUrl = [NSString stringWithFormat:@"%@",arr[7]];
+    alist.downloadAacSize = [NSString stringWithFormat:@"%@",arr[8]];
+    alist.downloadUrl = [NSString stringWithFormat:@"%@",arr[9]];
+    alist.downloadSize = [NSString stringWithFormat:@"%@",arr[10]];
+    alist.playUrl32 = [NSString stringWithFormat:@"%@",arr[11]];
+    return alist;
 }
 
 @end

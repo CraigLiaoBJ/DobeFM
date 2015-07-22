@@ -5,6 +5,7 @@
 //  Created by lanou3g on 15/6/29.
 //  Copyright (c) 2015年 lanou3g. All rights reserved.
 //
+
 #import "LoadDownBase.h"
 #import "DrawerView.h"
 #import "UIImageView+WebCache.h"
@@ -41,7 +42,6 @@ static DrawerView *drawerView;
 static NSThread *aThread;
 static NSTimer *drawerTimer;
 static bool isDrawerOut = NO;//是否显示抽屉效果
-
 static LoadDownBase *loadDownBase;//下载类
 
 - (void) initWithAvplayer:(NSInteger)playCurrent  albumList:(NSMutableArray*)albumList sAlbum:(SearchAlbum *)sAlbum{
@@ -60,6 +60,9 @@ static LoadDownBase *loadDownBase;//下载类
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.navigationController.automaticallyAdjustsScrollViewInsets = NO;
+    
     loadDownBase = [[LoadDownBase alloc]init];
     
     //----------------初始化
@@ -425,6 +428,16 @@ static LoadDownBase *loadDownBase;//下载类
     dView.frame = frame;
     [UIView commitAnimations];//提交动画
     isDrawerOut = !isDrawerOut;
+    
+    
+    
+//    [UIView animateWithDuration:0.5f animations:^{
+//        [self moveToStart ];
+//        dView.frame = frame ;
+//        isDrawerOut = !isDrawerOut;
+//        [self moveToStop ];
+//    }];
+
 
 }
 

@@ -99,14 +99,7 @@ static bool isDoading = NO;//是否在下载
 
 //多线程下载
 - (void) threadLoadDownAction{
-//    AlbumList *oneList = [[AlbumList alloc]init];
-//    oneList = [loadDownBase getLoadingList];
-//    for (AlbumList *albumListId in showArray) {
-//        if (albumListId.isSelect == YES) {
-//            [self threadLoad:albumListId];
-//            [loadDownBase removeObjOfPlist:[albumListId trackId] splistName:@"BeLoadList"];
-//        }
-//    }
+
     while ([loadDownBase isLoadingList]) {
         AlbumList *oneList = [[AlbumList alloc]init];
         oneList = [loadDownBase getLoadingList];
