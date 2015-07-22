@@ -50,11 +50,17 @@ static LoadDownBase *loadDownBase;//下载类
     }
     if (_albumList != albumList ){
         _albumList = albumList;
+        [_idArray removeAllObjects];
+        for (int i = 0; i < _albumList.count; i++) {
+            [_idArray addObject:[_albumList[i] playPathAacv164]];
+        }
     }
     
     if(_playCurrent != playCurrent) {
         _playCurrent = playCurrent;
     }
+    
+    [self cutMusic];
 }
 
 
@@ -183,16 +189,22 @@ static LoadDownBase *loadDownBase;//下载类
 
 -(void )loadImage{
     //中间添加图片
+    NSURL *picurl ;
+    if([self.albumList[self.playCurrent] albumImage] != nil &&  ![[self.albumList[self.playCurrent] albumImage]isEqualToString:@""]){
+      picurl = [NSURL URLWithString:[self.albumList[self.playCurrent] albumImage]];
+        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
+        [imageView setImage:[UIImage imageWithData:picData]];
 
-    NSURL *picurl = [NSURL URLWithString:self.sAlbum.coverOrige];
-    NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-    [imageView setImage:[UIImage imageWithData:picData]];
+    }
+    else{
+     // picurl = [NSURL URLWithString:@"losePic.jpg"];
+        [imageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
+    }
+
     imageView.layer.cornerRadius = imageView.bounds.size.width/2;
     //设置masksToBounds才能设置圆角
     imageView.layer.masksToBounds = YES;
     
-
-
 }
 
 //kvo 检测
@@ -241,26 +253,32 @@ static LoadDownBase *loadDownBase;//下载类
 -(void)cutMusic{
     [self lastNextIsEnble];
 
-    if (self.idArray.count != 0 || (self.idArray[self.playCurrent]!=nil && ![self.idArray[self.playCurrent] isEqualToString: @""])) {
-    }
-    else
-    {
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:@"网络不给力啊!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
-        
-    }
+    //检测本地
+    if(![self playLocationAudio:[self.albumList[self.playCurrent] trackId]]){
         NSURL * songUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", self.idArray[self.playCurrent]]];
         AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
         [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
+        
+    }
+    else{
+        if (self.idArray.count != 0 || (self.idArray[self.playCurrent]!=nil && ![self.idArray[self.playCurrent] isEqualToString: @""])) {
+        }
+        else
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:@"网络不给力啊!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+            
+        }
+    }
     
-        //重置图片
-        [self loadImage];
-    
-        [self.mp3Player addObserver:self forKeyPath:@"status" options:0 context:NULL];
-        //记录播放历史
-        [self. mp3Player setAllowsExternalPlayback:YES];
-        [self setListerHistoryList];
+
+    //重置图片
+    [self loadImage];
+
+    [self.mp3Player addObserver:self forKeyPath:@"status" options:0 context:NULL];
+    //记录播放历史
+    [self. mp3Player setAllowsExternalPlayback:YES];
+    [self setListerHistoryList];
 
 
 }
@@ -458,6 +476,31 @@ static LoadDownBase *loadDownBase;//下载类
 
 }
 
+-(bool)playLocationAudio:(NSString*) audioId{
+    if ([self isAudioExist:[NSString stringWithFormat:@"%@.%@",audioId,@"aac"]]) {
+        return YES;
+    }
+    else if ([self isAudioExist:[NSString stringWithFormat:@"%@.%@",audioId,@"mp3"]]) {
+        return YES;
+    }
+    else if  ([self isAudioExist:[NSString stringWithFormat:@"%@.%@",audioId,@"m4a"]]) {
+        return YES;
+    }
+    return false;
+
+}
+
+//本地是否有这数据
+-(bool)isAudioExist:(NSString*)audioName{
+    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *filePath = [caches stringByAppendingPathComponent:audioName];
+    NSURL * songUrl = [NSURL URLWithString:filePath];
+    NSData *data = [[NSData alloc]initWithContentsOfURL:songUrl];
+    if(data == nil) return NO;
+    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:songUrl];
+    [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
+    return YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
