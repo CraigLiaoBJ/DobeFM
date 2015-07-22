@@ -7,7 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AlbumList.h"
+
+@protocol LoadingCellDelegate<NSObject>
+@optional
+- (void) star:(int)sender;
+
+@end
 
 @interface LoadingCell : UITableViewCell
+
+@property(nonatomic, strong) id<LoadingCellDelegate> delegate1;
+
+@property(nonatomic, assign) int indexNum;//在那个cell
+//下载
+@property(nonatomic,copy)NSString *stringUrl;
+//专辑
+@property(nonatomic,strong)AlbumList *aAlbum;
+
+
+//获取按钮
+@property (strong, nonatomic) UIButton *btn;
+//获取进度条
+@property (strong, nonatomic) UIProgressView *progress;
+
 
 @end

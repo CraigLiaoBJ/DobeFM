@@ -22,6 +22,7 @@
 
 - (bool) isLoadingList;//获下载列表 是否为空
 
+-(AlbumList*)arrayToAlbumList:(NSArray*)arr;//array 转化 AlbumList
 //获取plist的歌曲列表 p
 - (NSMutableDictionary*)getLoadDownPlish:(NSString*)plistName plistPath:(NSString*) plistPath;
 @end
