@@ -66,12 +66,12 @@ __block typeof (self)aSelf = self;
 //    
 //    
 //    aSelf.sAlbum = [[SearchAlbum alloc]initWithSearchAlbum:[NSString stringWithFormat:@"%@",dicAlibum[@"albumId"]] avataPath:dicAlibum[@"avatarPath"] coverLarge:dicAlibum[@"coverLarge"]  coverOrige:dicAlibum[@"coverOrigin"] coverSmall:dicAlibum[@"coverSmall"] categoryId:[NSString stringWithFormat:@"%@",dicAlibum[@"categoryId"]] categoryName:dicAlibum[@"categoryName"] categoryAt:[dicAlibum[@"categoryAt"] intValue]];
-//    NSArray *AListArray =dic[@"tracks"][@"list"];
-//    for (int i = 0 ; i < AListArray.count;i++) {
-//        AlbumList *alist = [[AlbumList alloc]init];
-//        [alist setValuesForKeysWithDictionary:AListArray[i]];
-//        [aSelf.dataArray addObject:alist];
-//    }
+    NSArray *AListArray =dic[@"tracks"][@"list"];
+    for (int i = 0 ; i < AListArray.count;i++) {
+        AlbumList *alist = [[AlbumList alloc]init];
+        [alist setValuesForKeysWithDictionary:AListArray[i]];
+        [aSelf.dataArray addObject:alist];
+    }
     
     [aSelf.tableView reloadData];
 }];
@@ -110,12 +110,12 @@ __block typeof (self)aSelf = self;
     if (acell == nil) {
         acell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:string];
     }
-    acell.textLabel.text = [self.dataArray[indexPath.row] title1];
+    acell.textLabel.text = [self.dataArray[indexPath.row] nickname];
     acell.textLabel.font = [UIFont boldSystemFontOfSize:14];
     acell.textLabel.numberOfLines = 0;
     acell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] albumId]];
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] albumImage]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[self.dataArray[indexPath.row] coverLarge]]];
     [acell.imageView sd_setImageWithURL:url];
     return acell;
 }

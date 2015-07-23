@@ -5,12 +5,13 @@
 //  Created by lanou3g on 15/7/9.
 //  Copyright (c) 2015年 lanou3g. All rights reserved.
 //
+#import "TbarSingleModel.h"
 #import "LoadDownBase.h"
 #import "ChoolNumView.h"
 #import "MoreDownViewController.h"
 #import "MoreDownCell.h"
 #import "AlbumList.h"
-
+#import "SingleModel.h"
 @interface MoreDownViewController ()<UITableViewDelegate,UITableViewDataSource,ChoolNumDelegate>
 
 @property (nonatomic, strong) UITableView *moreDownTableView;
@@ -90,24 +91,34 @@ static bool isDoading = NO;//是否在下载
            [loadDownBase setLoadData:[albumListId trackId] plsitName:@"BeLoadList" albumName:albumListId];
         }
     }
-    if (!isDoading) {
-        [NSThread detachNewThreadSelector:@selector(threadLoadDownAction) toTarget:self withObject:nil];
-        isDoading = YES;
-    }
+    
+    [TbarSingleModel shareSingleModel].tabBar.selectedIndex = 2;
+    
+    
+    
+    
+    [SingleModel shareSingleModel].loadingC.addLoadData = YES;
+    //NSLog(@"%@",SingleModel shareSingleModel].loadingC);
+    //[self.navigationController pushViewController:[SingleModel shareSingleModel].loadingC animated:YES];
+    
+//    if (!isDoading) {
+//        [NSThread detachNewThreadSelector:@selector(threadLoadDownAction) toTarget:self withObject:nil];
+//        isDoading = YES;
+//    }
    
 }
 
 //多线程下载
-- (void) threadLoadDownAction{
-
-    while ([loadDownBase isLoadingList]) {
-        AlbumList *oneList = [[AlbumList alloc]init];
-        oneList = [loadDownBase getLoadingList];
-        [self threadLoad:oneList];
-        [loadDownBase removeObjOfPlist:[oneList trackId] splistName:@"BeLoadList"];
-    }
-    isDoading = NO;
-}
+//- (void) threadLoadDownAction{
+//
+//    while ([loadDownBase isLoadingList]) {
+//        AlbumList *oneList = [[AlbumList alloc]init];
+//        oneList = [loadDownBase getLoadingList];
+//        [self threadLoad:oneList];
+//        [loadDownBase removeObjOfPlist:[oneList trackId] splistName:@"BeLoadList"];
+//    }
+//    isDoading = NO;
+//}
 
 -(void)viewWillAppear:(BOOL)animated{
     isAllCheck = NO;

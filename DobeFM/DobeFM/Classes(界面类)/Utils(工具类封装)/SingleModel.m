@@ -18,8 +18,10 @@ static SingleModel *manger = nil;
     if(self = [super init ]){
         
         self.playC = [[AvPlayViewController alloc]init];
-        
+        self.loadingC = [[LoadingViewController alloc]init];
+        //self.tabBar = [[TabBarViewController alloc]init];
     }
+
     return self;
 }
 
@@ -35,5 +37,12 @@ static SingleModel *manger = nil;
     
 }
 
+//-(void)loadContinu{
+//    if(manger == nil){
+//        [SingleModel shareSingleModel];
+//    }
+//    [_loadingC continuDown];
+//
+//}
 
 @end

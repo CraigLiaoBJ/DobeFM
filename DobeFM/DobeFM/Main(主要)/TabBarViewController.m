@@ -7,12 +7,12 @@
 //
 
 #import "TabBarViewController.h"
-#import "TabBarViewController.h"
 #import "DiscoverViewControlerViewController.h"
 #import "HotViewController.h"
 #import "LoadingViewController.h"
 //#import "MineViewController.h"
 #import "ReconmmendAlbumViewController.h"
+#import "SingleModel.h"
 @interface TabBarViewController ()
 
 @end
@@ -32,8 +32,8 @@
     [self addOneChildVc:hotVC title:@"热门" imageNamed:@"hot.png" selectedImageName:@"hot-2.png"];
     
     //下载听界面
-    LoadingViewController *downloadVC = [[LoadingViewController alloc]init];
-    [self addOneChildVc:downloadVC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
+
+    [self addOneChildVc:[SingleModel shareSingleModel].loadingC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
     
     //我的 界面
     ReconmmendAlbumViewController *mineVC = [[ReconmmendAlbumViewController alloc]init];
@@ -42,7 +42,6 @@
  
     [discoverVC release];
     [hotVC release];
-    [downloadVC release];
     [mineVC release];
 }
 
