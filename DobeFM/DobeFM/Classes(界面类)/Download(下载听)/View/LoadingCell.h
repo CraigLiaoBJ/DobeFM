@@ -25,7 +25,10 @@
 //专辑
 @property(nonatomic,strong)AlbumList *aAlbum;
 
-
+//imageView
+@property (nonatomic, strong) UIImageView *coverImage;
+//label
+@property (nonatomic, strong) UILabel *titleLabel;
 //获取按钮
 @property (strong, nonatomic) UIButton *btn;
 //获取进度条

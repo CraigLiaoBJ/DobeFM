@@ -31,7 +31,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.backgroundColor = [UIColor cyanColor];
+    self.backgroundColor = cellImageColor;
     
     self.picView.frame = CGRectMake(0, 0, kWW, kWW);
     self.picView.layer.cornerRadius = kWW / 2;

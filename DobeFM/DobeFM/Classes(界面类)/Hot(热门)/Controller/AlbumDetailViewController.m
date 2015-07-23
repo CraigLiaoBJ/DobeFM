@@ -5,15 +5,14 @@
 //  Created by Craig Liao on 15/7/5.
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
-#import "MoreDownViewController.h"
 #import "AlbumDetailViewController.h"
 #import "AudioCell.h"
 //#import "AvPlayViewController.h"
 #import "AlbumIntro.h"
 #import "AlbumItem.h"
 #import "AlbumList.h"
-#import "ReconmmendAlbumViewController.h"
 //#import "AlbumAudioModel.h"
+#import "MoreDownViewController.h"
 #define URLSTR @"http://mobile.ximalaya.com/mobile/others/ca/album/track/"
 @interface AlbumDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 //@property(nonatomic,strong)AvPlayViewController *playC;
@@ -80,7 +79,7 @@ static NSInteger n = 1;
 
     self.functionImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 44)];
     self.functionImageView.backgroundColor = [UIColor cyanColor];
-    self.tableView.tableHeaderView = self.functionImageView;
+//    self.tableView.tableHeaderView = self.functionImageView;
     self.functionImageView.userInteractionEnabled = YES;
     [self batchButtons];
 
@@ -159,32 +158,18 @@ static NSInteger n = 1;
 - (void)batchButtons{
     //批量下载按钮
     UIButton *batchDn = [UIButton buttonWithType:UIButtonTypeCustom];
-    batchDn.frame = CGRectMake(20, 0, kWIDTH / 3, 44);
-    [batchDn setImage:[UIImage imageNamed:@"album-download.png"] forState:UIControlStateNormal];
-    [batchDn setImage:[UIImage imageNamed:@"album-download-2.png"] forState:UIControlStateSelected];
-    [batchDn setImageEdgeInsets:UIEdgeInsetsMake(0, - kWIDTH / 20, 0, 0)];
+    batchDn.frame = CGRectMake(kWIDTH / 3 * 2, 80 + kWIDTH / 4, kWIDTH / 3, 25);
+    [batchDn setImage:[UIImage imageNamed:@"iconfont-xiazai01"] forState:UIControlStateNormal];
+
+    [batchDn setImageEdgeInsets:UIEdgeInsetsMake(0, - kWIDTH / 35, 0, 0)];
     
     [batchDn setTitle:@"批量下载" forState:UIControlStateNormal];
+    batchDn.titleLabel.font = [UIFont systemFontOfSize:12];
     [batchDn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [batchDn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [batchDn setTitle:@"批量下载" forState:UIControlStateSelected];
-    [batchDn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     [batchDn addTarget:self action:@selector(doBatchBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.functionImageView addSubview:batchDn];
-    //相关专辑按钮
-    UIButton *relateDn = [UIButton buttonWithType:UIButtonTypeCustom];
-    relateDn.frame = CGRectMake(kWIDTH / 2 + 20, 0, kWIDTH / 3, 44);
-    [relateDn setImage:[UIImage imageNamed:@"album-relate.png"] forState:UIControlStateNormal];
-    [relateDn setImage:[UIImage imageNamed:@"album-relate-2.png"] forState:UIControlStateSelected];
-    [relateDn setImageEdgeInsets:UIEdgeInsetsMake(0, - kWIDTH / 20, 0, 0)];
+    [self.albumView addSubview:batchDn];
     
-    [relateDn setTitle:@"相关专辑" forState:UIControlStateNormal];
-    [relateDn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [relateDn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [relateDn setTitle:@"相关专辑" forState:UIControlStateSelected];
-    [relateDn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-    [relateDn addTarget:self action:@selector(doRelateBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.functionImageView addSubview:relateDn];
 }
 
 #pragma mark --- 按钮点击事件
@@ -196,13 +181,6 @@ static NSInteger n = 1;
     [moreVC  reloadView];
     [self.navigationController pushViewController:moreVC animated:YES];
     [moreVC release];
-}
-- (void)doRelateBtn:(UIButton *)button{
-    if (button.selected) {
-        button.selected = NO;
-    } else {
-        button.selected = YES;
-    }
 }
 
 #pragma mark --- 代理方法

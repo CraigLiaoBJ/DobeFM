@@ -62,7 +62,6 @@ static NSInteger i = 1;
         [weakSelf.tableView.defaultFooter endRefreshing];
     }];
     
-    
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
         if (n == 1) {
             n = 1;
@@ -82,7 +81,6 @@ static NSInteger i = 1;
     self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
 }
 
-
 #pragma mark --- 加载数据
 - (void)loadData{
     self.introArray = [NSMutableArray array];
@@ -92,7 +90,6 @@ static NSInteger i = 1;
     NSString *introString = [URLIntro stringByAppendingFormat:@"%@", self.anchorId];
     NSString *albumString = [URLAlbum stringByAppendingFormat:@"%@/%ld/2", self.anchorId, i];
     NSString *audioString = [URLAudio stringByAppendingFormat:@"%@/%ld/30", self.anchorId, n];
-    NSLog(@"daiyiyixia%@",audioString);
     __block typeof(self) aSelf = self;
     [Networking recivedDataWithURLString:introString method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
@@ -130,10 +127,10 @@ static NSInteger i = 1;
 
 #pragma mark --- 头视图
 - (void)addHeaderImage{
-    UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2 - 44)];
+    UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2)];
     self.tableView.tableHeaderView = headerImageView;
     
-    UIImageView *bgdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2 - 44)];
+    UIImageView *bgdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2)];
     bgdImageView.backgroundColor = [UIColor purpleColor];
 
     [headerImageView addSubview:bgdImageView];
@@ -148,17 +145,18 @@ static NSInteger i = 1;
     [bgdImageView addSubview:iconImage];
     [iconImage release];
     
-    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 85, kWIDTH / 2, 20)];
-    nameLabel.font = [UIFont boldSystemFontOfSize:17];
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 85, kWIDTH / 2, 15)];
+    nameLabel.font = [UIFont boldSystemFontOfSize:15];
     nameLabel.text = self.anchorIntroModel.nickname;
     nameLabel.textAlignment = NSTextAlignmentCenter;
     [bgdImageView addSubview:nameLabel];
     [nameLabel release];
     
-    UILabel *tagLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 110, kWIDTH / 2, 20)];
-    tagLabel.font = [UIFont systemFontOfSize:14];
+    UILabel *tagLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, kWIDTH, 50)];
+    tagLabel.font = [UIFont systemFontOfSize:12];
     tagLabel.textAlignment = NSTextAlignmentCenter;
     tagLabel.text = self.anchorIntroModel.personalSignature;
+    tagLabel.numberOfLines = 0;
     [bgdImageView addSubview:tagLabel];
     [tagLabel release];
 }

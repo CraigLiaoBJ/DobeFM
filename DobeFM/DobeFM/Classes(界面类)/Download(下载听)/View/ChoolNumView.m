@@ -14,6 +14,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.frame = CGRectMake(0, 0,frame.size.width, 0 );
+        self.backgroundColor = CELLCOLOR;
     }
     return self;
 
@@ -42,8 +43,9 @@
                         float endNum = self.num - startNum < CHOOL_NEWLINE_NUM ? self.num  : startNum + CHOOL_NEWLINE_NUM - 1;
             //NSLog(@"%ld-%ld--%f--%.0f~%.0f",(long)r,(long)i,anum,startNum,endNum);
                         MDownButton *label = [MDownButton buttonWithType:UIButtonTypeCustom];
-            
-                        label.backgroundColor = [UIColor colorWithRed:0.01 green:0.01 blue:0.01 alpha:0.1];
+            label.layer.cornerRadius = 10.0f;
+            label.layer.masksToBounds = YES;
+                        label.backgroundColor = cellImageColor;
                         label.frame =  CGRectMake(
                             WINWIDTH - WINWIDTH*0.2*(i-anum) - (i-anum)*WINWIDTH*0.04
                             , 5 + r * 20 + 2 * r * 5,
@@ -56,9 +58,7 @@
                         label.starNum = startNum;
                         label.endNum = endNum;
                         [self addSubview:label];
-            
         }
- 
     }
 }
 

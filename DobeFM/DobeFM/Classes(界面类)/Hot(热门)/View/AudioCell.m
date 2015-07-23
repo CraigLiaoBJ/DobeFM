@@ -64,7 +64,7 @@
     self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, 20);
     self.audioTitleLabel.font = [UIFont boldSystemFontOfSize:13];
     CGFloat height = [self getStringHeightBaseFont:13 width:kWW - 90 string:self.audioTitleLabel.text];
-    self.audioTitleLabel.frame = CGRectMake(90, 15, kWW - 90, height);
+    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, height);
     self.audioTitleLabel.numberOfLines = 0;
     //音频作者
     self.authorLabel.frame = CGRectMake(90, height + 20, kWW / 4 * 3 , 12);
@@ -102,7 +102,6 @@
     _authorLabel.text = [NSString stringWithFormat:@"By%@" , albumList.nickname];
     //时长
     _durationLabel.text = [NSString stringWithFormat:@"时长：%@" ,[albumList.durationTime stringValue]];
-
 }
 - (void)awakeFromNib {
     // Initialization code

@@ -31,19 +31,20 @@ const CGFloat HMTopViewH = 350;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH, 0, 0, 0);
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     UIImageView *topView = [[UIImageView alloc] init];
-    topView.image = [UIImage imageNamed:@"minehead.png"];
-    topView.frame = CGRectMake(0, -HMTopViewH, kWIDTH, HMTopViewH);
+    topView.image = [UIImage imageNamed:@"dobe"];
+    topView.frame = CGRectMake(0, -HMTopViewH, kWIDTH, HMTopViewH - 150);
     topView.contentMode = UIViewContentModeScaleAspectFill;
     [self.tableView addSubview:topView];
     
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     // 设置内边距(让cell往下移动一段距离)
-    self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH , 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH - 200 , 0, 0, 0);
     [self.tableView insertSubview:topView atIndex:0];
     self.topView = topView;
     
@@ -74,6 +75,9 @@ const CGFloat HMTopViewH = 350;
     if (1 == indexPath.row) {
         [self addAboutView];
     }
+    if (3 == indexPath.row) {
+        [self addContactView];
+    }
 }
 
 
@@ -95,11 +99,12 @@ const CGFloat HMTopViewH = 350;
 
 - (void)addAlertView{
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"免责声明" message:@"该软件仅供学习使用，不得用于任何商业用途。如有侵犯您版权的，请联系我们，我们将在第一时间修改。软件所有资料，版权归提供者所有。" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+
     [alertView show];
 }
 
 - (void)addContactView{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"DobeFM开发者团队" message:@"craigliao@foxmail.com" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"DobeFM开发者团队" message:@"craigliao@foxmail.com;\n330360233@qq.com;\n985595975@qq.com" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
     [alertView show];
 }
 

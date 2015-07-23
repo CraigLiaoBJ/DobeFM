@@ -15,11 +15,6 @@
     // Initialization code
 }
 
-
-
-
-
-
 //- (void)initLayer {
 //    // Do any additional setup after loading the view, typically from a nib.
 //
@@ -36,10 +31,15 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
        //[self initLayer];
+        self.backgroundColor = CELLCOLOR;
+        self.coverImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 50, 50)];
+        [self addSubview:self.coverImage];
+        
+        self.titleLabel = [[UILabel alloc]initWithFrame: CGRectMake(70, 10, kWW - 110, 25)];
+        [self addSubview:self.titleLabel];
 
     }
     return self;
-    
 }
 
 

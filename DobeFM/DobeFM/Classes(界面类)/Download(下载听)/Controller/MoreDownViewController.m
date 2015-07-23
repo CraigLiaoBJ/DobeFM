@@ -34,40 +34,48 @@ static bool isDoading = NO;//是否在下载
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"批量下载";
-    
+    self.view.backgroundColor = CELLCOLOR;
+    //上面条目显示按钮
     loadDownBase = [[LoadDownBase alloc]init];
     choolView = [[ChoolNumView alloc]initWithFrame:self.view.frame];
-    choolView.backgroundColor = [UIColor whiteColor];
+    choolView.backgroundColor = CELLCOLOR;
     choolView.delegate = self;
     [self.view addSubview:choolView];
     
+    //选择的tableView
     self.moreDownTableView = [[UITableView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:self.moreDownTableView];
     self.moreDownTableView.delegate = self;
     self.moreDownTableView.dataSource = self;
+    self.moreDownTableView.backgroundColor = CELLCOLOR;
+    self.moreDownTableView.separatorColor = [UIColor whiteColor];
     [self.moreDownTableView registerClass:[MoreDownCell class] forCellReuseIdentifier:@"moreCell"];
+    
+    //全选
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     self.cellArray = [[NSMutableArray alloc]init];
     
+    //下载按钮
     UIView *loadDownBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height - 78, self.view.bounds.size.width, 30)];
-    loadDownBtnView.backgroundColor  = [UIColor grayColor];
+    loadDownBtnView.backgroundColor  = CELLCOLOR;
     [self.view addSubview:loadDownBtnView];
     
     UIButton *loadDownBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - self.view.bounds.size.width*0.2, 2, self.view.bounds.size.width*0.2, 26)];
-    [loadDownBtn setTitle:@"下载" forState:UIControlStateNormal];
+//    [loadDownBtn setTitle:@"下载" forState:UIControlStateNormal];
+    [loadDownBtn setImage:[UIImage imageNamed:@"iconfont-xiazai.png"] forState:UIControlStateNormal];
     [loadDownBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [loadDownBtn addTarget:self action:@selector(loadDownAction:) forControlEvents:UIControlEventTouchUpInside];
     [loadDownBtn.layer setCornerRadius:10];
     loadDownBtn.layer.borderWidth = 1;
+    
     //设置按钮的边界颜色
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
     CGColorRef color = CGColorCreate(colorSpaceRef, (CGFloat[]){0,0,0,1});
     loadDownBtn.layer.borderColor = color;
-    loadDownBtn.backgroundColor = [UIColor whiteColor];
+    loadDownBtn.backgroundColor = CELLCOLOR;
     [loadDownBtnView addSubview:loadDownBtn];
 }
 
@@ -99,26 +107,11 @@ static bool isDoading = NO;//是否在下载
     
     [SingleModel shareSingleModel].loadingC.addLoadData = YES;
     //NSLog(@"%@",SingleModel shareSingleModel].loadingC);
-    //[self.navigationController pushViewController:[SingleModel shareSingleModel].loadingC animated:YES];
-    
-//    if (!isDoading) {
-//        [NSThread detachNewThreadSelector:@selector(threadLoadDownAction) toTarget:self withObject:nil];
-//        isDoading = YES;
-//    }
+
    
 }
 
-//多线程下载
-//- (void) threadLoadDownAction{
-//
-//    while ([loadDownBase isLoadingList]) {
-//        AlbumList *oneList = [[AlbumList alloc]init];
-//        oneList = [loadDownBase getLoadingList];
-//        [self threadLoad:oneList];
-//        [loadDownBase removeObjOfPlist:[oneList trackId] splistName:@"BeLoadList"];
-//    }
-//    isDoading = NO;
-//}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     isAllCheck = NO;
@@ -166,6 +159,7 @@ static bool isDoading = NO;//是否在下载
 
     acell.checkbox.selected = ((AlbumList*)showArray[indexPath.row]).isSelect == YES;
     [self.cellArray addObject:acell];
+    acell.selectionStyle = UITableViewCellSelectionStyleNone;
     return acell;
     
 }
@@ -190,6 +184,10 @@ static bool isDoading = NO;//是否在下载
 -(void)threadLoad:(AlbumList*)sender{
     [loadDownBase loadAudioToLocation:[sender downloadAacUrl] styp:@".mp3" albumName:sender];
     [loadDownBase setLoadData:[sender trackId] plsitName:@"LoadDownList" albumName:sender];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    cell.backgroundColor = CELLCOLOR;
 }
 
 - (void)didReceiveMemoryWarning {

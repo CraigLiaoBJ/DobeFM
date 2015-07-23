@@ -15,8 +15,9 @@
         _writeHandle = [[NSFileHandle alloc]init];
         
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+    
         [self.btn setTitle:@"开始" forState:UIControlStateNormal];
+        self.btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         
         [self.btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         self.progress = [[UIProgressView alloc]init];

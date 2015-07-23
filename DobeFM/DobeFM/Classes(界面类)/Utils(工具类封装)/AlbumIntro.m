@@ -82,30 +82,24 @@
     self.bgdEffect.frame = self.frame;
 
     //专辑图片
-    self.coverImage.frame = CGRectMake(20, 100, kWW / 4, kWW / 4);
+    self.coverImage.frame = CGRectMake(20, 74, kWW / 4, kWW / 4);
     
     //作者头像
-    self.iconImage.frame = CGRectMake(kWW / 4 + 30, 30 + 64, kWW / 8, kWW / 8);
+    self.iconImage.frame = CGRectMake(kWW / 4 + 30, 74, kWW / 8, kWW / 8);
     self.iconImage.layer.cornerRadius = kWW / 16;
     self.iconImage.layer.masksToBounds = YES;
     
     //作者名称
-    self.authorTitleLbl.frame = CGRectMake(kWW / 4 + 30 + kWW / 8 + 5, 30 + 64 + 15, kWW / 3, 20);
+    self.authorTitleLbl.frame = CGRectMake(kWW / 4 + 30 + kWW / 8 + 5, 74 + kWW / 16 - 10, kWW / 3, 20);
     self.authorTitleLbl.font = [UIFont boldSystemFontOfSize:16];
 
     //简介
-    self.introLabel.frame = CGRectMake(20 + kWW / 4 + 10, 30 + kWW / 5 + 64, kWW / 2 - 20, 0);
-    self.introLabel.font = [UIFont systemFontOfSize:13];
+    self.introLabel.frame = CGRectMake(30 + kWW / 4, 74 + kWW / 8, kWW  - kWW / 4 - 35, 50);
+    self.introLabel.font = [UIFont systemFontOfSize:12];
     self.introLabel.numberOfLines = 0;
-    CGFloat height = [self getStringHeightBaseFont:13 width:kWW / 2  string:self.introLabel.text];
-    self.introLabel.frame = CGRectMake(20 + kWW / 4 + 10, 30 + kWW / 5 + 64, kWW / 2 - 20, height);
+
 }
 
-- (CGFloat)getStringHeightBaseFont:(CGFloat)font width:(CGFloat)width string:(NSString *)string{
-    //计算高度的方法
-    CGRect contentRect = [string boundingRectWithSize:CGSizeMake(width, 1000000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil];
-    return contentRect.size.height;
-}
 
 - (void)setAlbumItem:(AlbumItem *)albumItem{
     if (_albumItem != albumItem) {

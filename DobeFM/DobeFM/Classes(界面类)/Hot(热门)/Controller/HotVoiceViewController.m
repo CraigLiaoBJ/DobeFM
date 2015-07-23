@@ -9,7 +9,6 @@
 #import "HotVoiceViewController.h"
 #import "AudioCell.h"
 #import "AlbumList.h"
-#import "ReconmmendAlbumViewController.h"
 
 #define URLSTR @"http://mobile.ximalaya.com/m/explore_track_list?category_name=all&condition=daily&device=iPhone&page="
 
