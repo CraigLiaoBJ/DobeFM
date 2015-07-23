@@ -14,9 +14,9 @@
 #import "AlbumList.h"
 @interface LoadingViewController ()<UITableViewDataSource,UITableViewDelegate,NSURLConnectionDataDelegate>
 
-@property (nonatomic, retain) NSMutableDictionary *dicLoad;
+@property (nonatomic, strong) NSMutableDictionary *dicLoad;
 
-@property (nonatomic, retain) NSMutableDictionary *dicLoading;
+@property (nonatomic, strong) NSMutableDictionary *dicLoading;
 
 @property (nonatomic, strong) UIView *btnView;
 
@@ -48,6 +48,7 @@ static int currentLoad = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.isLoading = NO;
     self.title = @"下载";
     saveLoading = [[NSMutableArray alloc]init];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -197,6 +198,10 @@ static int currentLoad = 0;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    if (self.addLoadData) {
+        self.addLoadData = NO;
+        [self continueDown];
+    }
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
 
@@ -215,6 +220,8 @@ static int currentLoad = 0;
         }
 
     }
+    
+
    // [NSThread detachNewThreadSelector:@selector(tableViewReloadData) toTarget:self withObject:nil];
 }
 
@@ -324,6 +331,11 @@ static int currentLoad = 0;
 
 - (void)star:(UIButton*)sender
     {
+        if(self.isLoading) {
+            [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
+            ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
+            self.isLoading = NO;
+        }
     //当下载完成后，点击按钮文字变为已下载
     currentLoad = sender.tag - 1000;
         [self LoadBegan];
@@ -334,7 +346,7 @@ static int currentLoad = 0;
     if ([saveLoading[currentLoad] isdownLoading]) {//如果当前正在下载，那么点击按钮，按钮变为暂停状态
         [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
         ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
-        
+        self.isLoading = NO;
         //取消发送请求
         [[saveLoading[currentLoad] cnnt] cancel];
         
@@ -345,6 +357,7 @@ static int currentLoad = 0;
     {//如果当前没有下载，那么点击按钮，开始或者是继续下载
         [((SaveLodingDate*)saveLoading[currentLoad]).btn setTitle:@"暂停" forState:UIControlStateNormal];
         ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = YES;
+        self.isLoading = YES;
         //创建下载路径
         NSURL *url = [NSURL URLWithString:((SaveLodingDate*)saveLoading[currentLoad]).stringUrl];
         
@@ -371,11 +384,15 @@ static int currentLoad = 0;
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
 #warning 判断是否是第一次连接
+    if(currentLoad >= saveLoading.count) return;
     if (((SaveLodingDate*)saveLoading[currentLoad]).sumLength) return;
     
     //1.创建文件存数路径
     NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *filePath = [caches stringByAppendingPathComponent:@"611.aac"];
+    NSString *type = [@"."stringByAppendingString:[[((SaveLodingDate*)saveLoading[currentLoad]).stringUrl componentsSeparatedByString:@"."] lastObject]];
+    NSString *fileName = [[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[currentLoad]).traintId] stringByAppendingString:type];
+    
+    NSString *filePath = [caches stringByAppendingPathComponent:fileName];
     
     
     
@@ -396,6 +413,7 @@ static int currentLoad = 0;
  */
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    if(currentLoad >= saveLoading.count) return;
     //累加接收到的数据长度
     ((SaveLodingDate*)saveLoading[currentLoad]).currentLength += data.length;
     //计算进度值
@@ -417,6 +435,7 @@ static int currentLoad = 0;
  */
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    if(currentLoad >= saveLoading.count) return;
     NSLog(@"下载完毕----%lld",((SaveLodingDate*)saveLoading[currentLoad]).sumLength);
     //关闭连接，不再输入数据在文件中
     [((SaveLodingDate*)saveLoading[currentLoad]).writeHandle closeFile];
@@ -433,7 +452,7 @@ static int currentLoad = 0;
     //清空数组与本地下载列表数据
     [loadDownBase setLoadData:((SaveLodingDate*)saveLoading[currentLoad]).traintId plsitName:@"LoadDownList" albumName:[loadDownBase arrayToAlbumList:self.dicLoading[[self.dicLoading allKeys][currentLoad]]]];
     
-    
+    self.isLoading = NO;
 //    [((SaveLodingDate*)saveLoading[currentLoad]).btn removeFromSuperview];
 //    [((SaveLodingDate*)saveLoading[currentLoad]).progress removeFromSuperview];
     [self.loadingTableView reloadData];
@@ -474,6 +493,19 @@ static int currentLoad = 0;
     }
 
 }
+
+
+-(void)continueDown{
+    if(self.isLoading) return;
+    currentLoad = self.dicLoading.count;
+    self.dicLoading = [self getSplistList:@"BeLoadList"];
+    if (currentLoad >= self.dicLoading.count) {
+        currentLoad = 0;
+    }
+    [self LoadBegan];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -5,7 +5,7 @@
 //  Created by Craig Liao on 15/7/5.
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
-
+#import "MoreDownViewController.h"
 #import "AlbumDetailViewController.h"
 #import "AudioCell.h"
 //#import "AvPlayViewController.h"
@@ -81,6 +81,7 @@ static NSInteger n = 1;
     self.functionImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 44)];
     self.functionImageView.backgroundColor = [UIColor cyanColor];
     self.tableView.tableHeaderView = self.functionImageView;
+    self.functionImageView.userInteractionEnabled = YES;
     [self batchButtons];
 
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
@@ -189,11 +190,12 @@ static NSInteger n = 1;
 #pragma mark --- 按钮点击事件
 
 - (void)doBatchBtn:(UIButton *)button{
-    if (button.selected) {
-        button.selected = NO;
-    } else {
-        button.selected = YES;
-    }
+    MoreDownViewController *moreVC = [[MoreDownViewController alloc]init];
+    moreVC.view.backgroundColor = [UIColor whiteColor];
+    moreVC.audioArray =[[NSMutableArray alloc]initWithArray: self.albumDataArray];
+    [moreVC  reloadView];
+    [self.navigationController pushViewController:moreVC animated:YES];
+    [moreVC release];
 }
 - (void)doRelateBtn:(UIButton *)button{
     if (button.selected) {

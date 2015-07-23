@@ -5,7 +5,7 @@
 //  Created by Craig Liao on 15/7/15.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
-
+#import "TbarSingleModel.h"
 #import "AppDelegate.h"
 #import "TabBarViewController.h"
 //#import "DiscoverViewControlerViewController.h"
@@ -37,9 +37,8 @@
     /**
      标签控制器
      */
-    TabBarViewController *tabBar = [[TabBarViewController alloc]init];
-    self.window.rootViewController = tabBar;
-    [tabBar release];
+    //TabBarViewController *tabBar = [[TabBarViewController alloc]init];
+    self.window.rootViewController = [TbarSingleModel shareSingleModel].tabBar;
     
     return YES;
 }
