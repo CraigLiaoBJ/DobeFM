@@ -20,6 +20,11 @@
 static NSInteger n = 0;
 @implementation MoreAlbumTableViewController
 
+- (void)dealloc{
+    [_searchAlbum release];
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.hidesBottomBarWhenPushed = YES;
@@ -45,6 +50,7 @@ static NSInteger n = 0;
             aSelf.searchAlbum = [[SearchAlbum alloc]init];
             [aSelf.searchAlbum setValuesForKeysWithDictionary:tempDic];
             [aSelf.moreAlbumArray addObject:aSelf.searchAlbum];
+            [_searchAlbum release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -84,7 +90,6 @@ static NSInteger n = 0;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -94,7 +99,6 @@ static NSInteger n = 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"shuzu wei %ld", self.moreAlbumArray.count);
     return self.moreAlbumArray.count;
 }
 
@@ -114,6 +118,7 @@ static NSInteger n = 0;
     albumVC.albumId = [self.moreAlbumArray[indexPath.row]albumId];
     albumVC.sAlbum = self.moreAlbumArray[indexPath.row];
     [self.navigationController pushViewController:albumVC animated:YES];
+    [albumVC release];
 }
 
 @end

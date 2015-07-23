@@ -15,6 +15,17 @@
 
 @implementation AudioCell
 
+- (void)dealloc{
+    [_cellImageView release];
+    
+    [_coverSmImage release];
+    [_audioTitleLabel release];
+    [_authorLabel release];
+    [_durationLabel release];
+    [_albumList release];
+    [super dealloc];
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.cellImageView = [[UIImageView alloc]init];

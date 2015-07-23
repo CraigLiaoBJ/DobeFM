@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
-#import "MoreAlbumCell.h"
 #import "AlbumList.h"
 @interface AlbumCell : UITableViewCell
 

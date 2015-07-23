@@ -21,19 +21,28 @@
 @property (nonatomic, retain) UIImageView *functionImageView;
 @property (nonatomic, retain) UILabel *introLabel;
 @property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UILabel *batchDnLabel;
-@property (nonatomic, retain) UILabel *relateLabel;
+
 @property (nonatomic, retain) NSMutableArray *albumIntroArray;
 @property (nonatomic, retain) NSMutableArray *albumDataArray;
 
 @property (nonatomic, retain) AlbumList *albumList;
 @end
 static NSInteger n = 1;
+//static NSInteger count = 0;
 @implementation AlbumDetailViewController
 
 - (void)dealloc{
+    [_albumId release];
     [_imageView release];
     [_tableView release];
+    [_dataArray release];
+    [_albumView release];
+    [_functionImageView release];
+    [_introLabel release];
+    [_titleLabel release];
+
+    [_sAlbum release];
+
     [super dealloc];
 }
 
@@ -42,8 +51,10 @@ static NSInteger n = 1;
     self.title = @"专辑详情";
     self.dataArray = [NSMutableArray array];
     [self loadData];
+    [self loadAudioData];
     [self addIntroImageView];
     [self addTableView];
+    [self refreshAndLoad];
 }
 
 #pragma mark --- 介绍部分
@@ -51,7 +62,7 @@ static NSInteger n = 1;
     self.albumView = [[AlbumIntro alloc]initWithFrame:self.view.bounds];
     
     [self.view addSubview:self.albumView];
-    //[_albumView release];
+    [_albumView release];
 }
 
 #pragma mark --- 加载tableView
@@ -74,33 +85,43 @@ static NSInteger n = 1;
 
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
     
-    //[_functionImageView release];
-    //[_tableView release];
+    [_functionImageView release];
+//    [_tableView release];
 }
 
 #pragma mark --- 数据请求
 - (void)loadData{
-    self.albumDataArray = [NSMutableArray array];
     __block typeof (self) aSelf = self;
-    NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
+    NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/1/15", self.albumId];
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         AlbumItem *albumItem = [[AlbumItem alloc]init];
         NSDictionary *dic = (NSDictionary *)object;
         NSDictionary *introDic = dic[@"album"];
         [albumItem setValuesForKeysWithDictionary:introDic];
         aSelf.albumView.albumItem = albumItem;
+        [albumItem release];
+    }];
+}
+
+- (void)loadAudioData{
+    self.albumDataArray = [NSMutableArray array];
+    __block typeof (self) audioSelf = self;
+    NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
+    [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+        NSDictionary *dic = (NSDictionary *)object;
         
         NSDictionary *tracksDic = dic[@"tracks"];
         NSArray *listArray = tracksDic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            aSelf.albumList = [[AlbumList alloc]init];
-            [aSelf.albumList setValuesForKeysWithDictionary:tempDic];
-            [aSelf.albumDataArray addObject:aSelf.albumList];
+            audioSelf.albumList = [[AlbumList alloc]init];
+            [audioSelf.albumList setValuesForKeysWithDictionary:tempDic];
+            [audioSelf.albumDataArray addObject:audioSelf.albumList];
+            [_albumList release];
         }
-        [aSelf.tableView reloadData];
+        [audioSelf.tableView reloadData];
     }];
-}
 
+}
 #pragma mark --- refresh and load
 - (void)refreshAndLoad{
     __block AlbumDetailViewController *weakSelf = self;
@@ -112,7 +133,6 @@ static NSInteger n = 1;
         //结束刷新
         [weakSelf.tableView.defaultFooter endRefreshing];
     }];
-    
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
         if (n == 1) {
@@ -131,37 +151,7 @@ static NSInteger n = 1;
     self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
     self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
 }
-//#pragma mark --- 介绍部分信息
-//- (void)addintroInfo{
-//    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25, kWIDTH / 2, 20)];
-//    self.titleLabel.text = @"百思不得姐";
-//        self.titleLabel.font = [UIFont systemFontOfSize:16];
-//    self.titleLabel.textAlignment = NSTextAlignmentCenter;
-//    self.titleLabel.backgroundColor = [UIColor clearColor];
-//    [self.imageView addSubview:self.titleLabel];
-//    //[_titleLabel release];
-//
-//    self.introLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 4 + 20, 25 + 20 + 5, kWIDTH / 2, 20)];
-//    self.introLabel.backgroundColor = [UIColor yellowColor];
-//    self.introLabel.alpha = 0.3;
-//    self.introLabel.numberOfLines = 0;
-//    [self.imageView addSubview:self.introLabel];
-//    //[_introLabel release];
-//    
-//    UIView *sepView = [[UIView alloc]initWithFrame:CGRectMake(0, kHEIGHT / 4, kWIDTH, 1)];
-//    sepView.backgroundColor = [UIColor grayColor];
-//    [self.imageView addSubview:sepView];
-//    
-//    UILabel *vVLeft = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 3 - 1, kHEIGHT / 4 + 10, 10, 44)];
-//    sepView.backgroundColor = [UIColor grayColor];
-//    [self.imageView addSubview:vVLeft];
-//    
-//    UILabel *vVRight = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 3 * 2, kHEIGHT / 4, 1, 44)];
-//    sepView.backgroundColor = [UIColor grayColor];
-//    [self.imageView addSubview:vVRight];
-//    [self batchButtons];
-//}
-//
+
 #pragma mark --- 按钮
 - (void)batchButtons{
     //批量下载按钮
@@ -178,7 +168,7 @@ static NSInteger n = 1;
     [batchDn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     [batchDn addTarget:self action:@selector(doBatchBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.functionImageView addSubview:batchDn];
-    
+    [batchDn release];
     //相关专辑按钮
     UIButton *relateDn = [UIButton buttonWithType:UIButtonTypeCustom];
     relateDn.frame = CGRectMake(kWIDTH / 2 + 20, 0, kWIDTH / 3, 44);
@@ -193,16 +183,11 @@ static NSInteger n = 1;
     [relateDn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     [relateDn addTarget:self action:@selector(doRelateBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.functionImageView addSubview:relateDn];
+    [relateDn release];
 }
 
 #pragma mark --- 按钮点击事件
-- (void)doFavoriteBtn:(UIButton *)button{
-    if (button.selected) {
-        button.selected = NO;
-    } else {
-        button.selected = YES;
-    }
-}
+
 - (void)doBatchBtn:(UIButton *)button{
     if (button.selected) {
         button.selected = NO;

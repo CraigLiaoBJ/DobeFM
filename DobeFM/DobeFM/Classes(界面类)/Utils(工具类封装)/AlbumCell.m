@@ -8,7 +8,6 @@
 
 #import "AlbumCell.h"
 
-
 @interface AlbumCell ()
 @property (nonatomic, retain)UIImageView *cellImageView;
 //
@@ -16,14 +15,21 @@
 @property (nonatomic, retain) UIImageView *coverSmImage;
 @property (nonatomic, retain) UILabel *audioTitleLabel;
 @property (nonatomic, retain) UILabel *authorLabel;
-@property (nonatomic, assign) UILabel *playCountLabel;
-@property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
 //@property (nonatomic, retain) UIImageView *download;
 
 @end
 
 @implementation AlbumCell
+
+- (void)dealloc{
+//    [_searchAlbum release];
+    [_coverSmImage release];
+    [_audioTitleLabel release];
+    [_authorLabel release];
+    [_durationLabel release];
+    [super dealloc];
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {

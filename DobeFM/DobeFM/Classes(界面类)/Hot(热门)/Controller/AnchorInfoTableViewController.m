@@ -28,6 +28,14 @@ static NSInteger n = 1;
 static NSInteger i = 1;
 @implementation AnchorInfoTableViewController
 
+- (void)dealloc{
+    [_anchorId release];
+    [_anchorIntroModel release];
+    [_introArray release];
+    [_audioArray release];
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主播详情";

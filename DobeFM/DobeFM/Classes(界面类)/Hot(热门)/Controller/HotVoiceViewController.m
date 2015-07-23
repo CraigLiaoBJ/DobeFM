@@ -24,6 +24,11 @@ static NSInteger n = 1;
 
 @implementation HotVoiceViewController
 
+- (void)dealloc{
+    [_tableView release];
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热门声音";
@@ -43,6 +48,7 @@ static NSInteger n = 1;
     [self refreshAndLoad];
     
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
+//    [_tableView release];
 }
 
 #pragma mark --- 加载网络数据
@@ -57,7 +63,7 @@ static NSInteger n = 1;
             AlbumList *voiceModel = [[AlbumList alloc]init];
             [voiceModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.arr addObject:voiceModel];
-            NSLog(@"%ld", aSelf.arr.count);
+            [voiceModel release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -73,7 +79,6 @@ static NSInteger n = 1;
         //结束刷新
         [weakSelf.tableView.defaultFooter endRefreshing];
     }];
-    
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
         [weakSelf.arr removeAllObjects];
@@ -110,7 +115,6 @@ static NSInteger n = 1;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.backgroundColor = CELLCOLOR;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
