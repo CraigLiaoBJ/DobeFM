@@ -8,30 +8,99 @@
 
 #import "MineViewController.h"
 
-@interface MineViewController ()
+const CGFloat HMTopViewH = 350;
+
+@interface MineViewController ()<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+
+@property (nonatomic, retain) UITableView *tableView;
+
+@property (nonatomic, retain) UIImageView *topView;
+
+@property (nonatomic, retain) NSArray *dataArray;
 
 @end
 
 @implementation MineViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.dataArray = [NSMutableArray array];
+    
+    self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH, 0, 0, 0);
+    [self.view addSubview:self.tableView];
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    
+    UIImageView *topView = [[UIImageView alloc] init];
+    topView.image = [UIImage imageNamed:@"minehead.png"];
+    topView.frame = CGRectMake(0, -HMTopViewH, kWIDTH, HMTopViewH);
+    topView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.tableView addSubview:topView];
+    
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
+    // 设置内边距(让cell往下移动一段距离)
+    self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH , 0, 0, 0);
+    [self.tableView insertSubview:topView atIndex:0];
+    self.topView = topView;
+    
+    for (int i = 0; i < 3; i ++) {
+        self.dataArray = @[@"清除缓存", @"关于", @"免责声明", @"联系我们", @"版本号 v1.0"];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - 数据源方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    
+    cell.textLabel.text = self.dataArray[indexPath.row];
+    
+    return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (2 == indexPath.row) {
+        [self addAlertView];
+    }
+    if (1 == indexPath.row) {
+        [self addAboutView];
+    }
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat y = scrollView.contentOffset.y + 64;
+    if (y < HMTopViewH){
+        CGRect frame = self.topView.frame;
+        frame.origin.y = y;
+        frame.size.height = -y;
+        self.topView.frame = frame;
+    }
+}
+
+- (void)addAboutView{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"关于DobeFM" message:@"一款充满喜感的FM。" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [alertView show];
+}
+
+- (void)addAlertView{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"免责声明" message:@"该软件仅供学习使用，不得用于任何商业用途。如有侵犯您版权的，请联系我们，我们将在第一时间修改。软件所有资料，版权归提供者所有。" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [alertView show];
+}
+
+- (void)addContactView{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"DobeFM开发者团队" message:@"craigliao@foxmail.com" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [alertView show];
+}
 
 @end

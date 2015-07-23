@@ -65,6 +65,7 @@
 		5E0D4A7A1B5BEC9F00390135 /* HotAnchorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0D4A791B5BEC9F00390135 /* HotAnchorModel.m */; };
 		5E0D4A7D1B5BECB300390135 /* HotAnchorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0D4A7C1B5BECB300390135 /* HotAnchorCell.m */; };
 		5E0D4A801B5BF08100390135 /* HotAcrListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0D4A7F1B5BF08100390135 /* HotAcrListModel.m */; };
+		5E0D90571B60CBBE0018A868 /* minehead.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E0D90561B60CBBD0018A868 /* minehead.png */; };
 		5E23C5BB1B5B387F00AC8126 /* SpecialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E23C5BA1B5B387F00AC8126 /* SpecialModel.m */; };
 		5E23C5BD1B5B3E1500AC8126 /* hotView-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E23C5BC1B5B3E1500AC8126 /* hotView-more.png */; };
 		5E23C5C71B5B994400AC8126 /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E23C5C61B5B994400AC8126 /* AudioCell.m */; };
@@ -264,6 +265,7 @@
 		5E0D4A7C1B5BECB300390135 /* HotAnchorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotAnchorCell.m; sourceTree = "<group>"; };
 		5E0D4A7E1B5BF08100390135 /* HotAcrListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotAcrListModel.h; sourceTree = "<group>"; };
 		5E0D4A7F1B5BF08100390135 /* HotAcrListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotAcrListModel.m; sourceTree = "<group>"; };
+		5E0D90561B60CBBD0018A868 /* minehead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minehead.png; sourceTree = "<group>"; };
 		5E23C5B91B5B387F00AC8126 /* SpecialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialModel.h; sourceTree = "<group>"; };
 		5E23C5BA1B5B387F00AC8126 /* SpecialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialModel.m; sourceTree = "<group>"; };
 		5E23C5BC1B5B3E1500AC8126 /* hotView-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotView-more.png"; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 			children = (
 				5E03856C1B566F4B0054E467 /* MineViewController.h */,
 				5E03856D1B566F4B0054E467 /* MineViewController.m */,
+				5E0D90561B60CBBD0018A868 /* minehead.png */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1148,6 +1151,7 @@
 				5EE24B8B1B58D24600AEB7D2 /* 16.png in Resources */,
 				5E8CD06E1B6078EA00D2DF4A /* LaunchScreen.xib in Resources */,
 				5E0385831B566FF40054E467 /* discover.png in Resources */,
+				5E0D90571B60CBBE0018A868 /* minehead.png in Resources */,
 				5E4955001B58B6A50023C078 /* iconfont-suijibofang.png in Resources */,
 				5E4954F21B58B6A50023C078 /* iconfont-fuxuankuang.png in Resources */,
 				5E0384E11B565AD10054E467 /* Images.xcassets in Resources */,

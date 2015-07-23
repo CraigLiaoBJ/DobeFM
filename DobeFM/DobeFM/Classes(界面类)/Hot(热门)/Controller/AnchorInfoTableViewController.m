@@ -31,8 +31,7 @@ static NSInteger i = 1;
 - (void)dealloc{
     [_anchorId release];
     [_anchorIntroModel release];
-    [_introArray release];
-    [_audioArray release];
+
     [super dealloc];
 }
 
@@ -101,6 +100,7 @@ static NSInteger i = 1;
         [aSelf.anchorIntroModel setValuesForKeysWithDictionary:dic];
 //        [aSelf.introArray addObject:aSelf.anchorIntroModel];
         [aSelf addHeaderImage];
+        [_anchorIntroModel release];
     }];
     
     [Networking recivedDataWithURLString:albumString method:@"GET" body:nil block:^(id object) {
@@ -110,6 +110,7 @@ static NSInteger i = 1;
             SearchAlbum *anchorAlbumModel = [[SearchAlbum alloc]init];
             [anchorAlbumModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.albumArray addObject:anchorAlbumModel];
+            [anchorAlbumModel release];
         }
 //        [aSelf.tableView reloadData];
     }];
@@ -121,6 +122,7 @@ static NSInteger i = 1;
             AlbumList *anchorAudioModel = [[AlbumList alloc]init];
             [anchorAudioModel setValuesForKeysWithDictionary:adDic];
             [aSelf.audioArray addObject:anchorAudioModel];
+            [anchorAudioModel release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -135,6 +137,7 @@ static NSInteger i = 1;
     bgdImageView.backgroundColor = [UIColor purpleColor];
 
     [headerImageView addSubview:bgdImageView];
+    [bgdImageView release];
     
     UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 60) / 2, 20, 60, 60)];
     iconImage.backgroundColor = [UIColor grayColor];
@@ -143,18 +146,21 @@ static NSInteger i = 1;
     iconImage.layer.cornerRadius = 30;
     iconImage.layer.masksToBounds = YES;
     [bgdImageView addSubview:iconImage];
+    [iconImage release];
     
     UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 85, kWIDTH / 2, 20)];
     nameLabel.font = [UIFont boldSystemFontOfSize:17];
     nameLabel.text = self.anchorIntroModel.nickname;
     nameLabel.textAlignment = NSTextAlignmentCenter;
     [bgdImageView addSubview:nameLabel];
+    [nameLabel release];
     
     UILabel *tagLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 110, kWIDTH / 2, 20)];
     tagLabel.font = [UIFont systemFontOfSize:14];
     tagLabel.textAlignment = NSTextAlignmentCenter;
     tagLabel.text = self.anchorIntroModel.personalSignature;
     [bgdImageView addSubview:tagLabel];
+    [tagLabel release];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -188,7 +188,6 @@
     [UIColor colorWithRed:0.897 green:1.000 blue:0.937 alpha:1.000];
     
     //触摸
-
     special.userInteractionEnabled = YES;
     UITapGestureRecognizer *specialTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(specialTapAction)];
     [special addGestureRecognizer:specialTap];
@@ -291,8 +290,6 @@
     
     [self.albumTableView registerClass:[HotAlbumCell class] forCellReuseIdentifier:@"CELL"];
     [_albumTableView release];
-    
-    
 }
 
 - (void)didClickmoreBtn{

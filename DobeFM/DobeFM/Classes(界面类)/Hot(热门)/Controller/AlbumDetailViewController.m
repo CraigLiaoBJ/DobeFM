@@ -124,27 +124,29 @@ static NSInteger n = 1;
 }
 #pragma mark --- refresh and load
 - (void)refreshAndLoad{
-    __block AlbumDetailViewController *weakSelf = self;
+    __block AlbumDetailViewController *thisSelf = self;
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
         n ++;
-        [weakSelf loadData];
-        [weakSelf.tableView reloadData];
+        [thisSelf loadData];
+        [thisSelf.tableView reloadData];
         //结束刷新
-        [weakSelf.tableView.defaultFooter endRefreshing];
+        [thisSelf.tableView.defaultFooter endRefreshing];
     }];
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+//        NSLog(@"asd");
+
         if (n == 1) {
             n = 1;
         } else {
             n --;
         }
-        [weakSelf.albumDataArray removeAllObjects];
-        [weakSelf loadData];
+        [thisSelf.albumDataArray removeAllObjects];
+        [thisSelf loadData];
         
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.gifHeader endRefreshing];
+        [thisSelf.tableView reloadData];
+        [thisSelf.tableView.gifHeader endRefreshing];
     }];
     [self.tableView.gifHeader setGifName:@"demo.gif"];
     
@@ -168,7 +170,6 @@ static NSInteger n = 1;
     [batchDn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     [batchDn addTarget:self action:@selector(doBatchBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.functionImageView addSubview:batchDn];
-    [batchDn release];
     //相关专辑按钮
     UIButton *relateDn = [UIButton buttonWithType:UIButtonTypeCustom];
     relateDn.frame = CGRectMake(kWIDTH / 2 + 20, 0, kWIDTH / 3, 44);
@@ -183,7 +184,6 @@ static NSInteger n = 1;
     [relateDn setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
     [relateDn addTarget:self action:@selector(doRelateBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.functionImageView addSubview:relateDn];
-    [relateDn release];
 }
 
 #pragma mark --- 按钮点击事件

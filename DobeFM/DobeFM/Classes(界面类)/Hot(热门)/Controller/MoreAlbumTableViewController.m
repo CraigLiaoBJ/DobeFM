@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSMutableArray *moreAlbumArray;
 @property (nonatomic, retain) SearchAlbum *searchAlbum;
+
 @end
 
 static NSInteger n = 0;

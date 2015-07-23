@@ -267,10 +267,8 @@ static LoadDownBase *loadDownBase;//下载类
         {
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:@"网络不给力啊!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
-            
         }
     }
-    
 
     //重置图片
     [self loadImage];

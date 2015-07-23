@@ -80,7 +80,6 @@ static  NSInteger i = 1;
     
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
         if (i == 1) {
             i = 1;
         } else {

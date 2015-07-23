@@ -74,6 +74,7 @@ static NSInteger n = 1;
     __block HotVoiceViewController *weakSelf = self;
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
+        n ++;
         [weakSelf loadData];
         [weakSelf.tableView reloadData];
         //结束刷新
@@ -81,6 +82,11 @@ static NSInteger n = 1;
     }];
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+        if (n == 1) {
+            n = 1;
+        } else {
+            n --;
+        }
         [weakSelf.arr removeAllObjects];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.gifHeader endRefreshing];
