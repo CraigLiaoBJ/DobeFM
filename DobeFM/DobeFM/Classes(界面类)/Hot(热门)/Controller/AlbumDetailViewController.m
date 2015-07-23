@@ -12,7 +12,6 @@
 #import "AlbumIntro.h"
 #import "AlbumItem.h"
 #import "AlbumList.h"
-#import "ReconmmendAlbumViewController.h"
 //#import "AlbumAudioModel.h"
 #define URLSTR @"http://mobile.ximalaya.com/mobile/others/ca/album/track/"
 @interface AlbumDetailViewController ()<UITableViewDataSource, UITableViewDelegate>

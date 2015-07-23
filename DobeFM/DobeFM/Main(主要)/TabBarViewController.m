@@ -12,7 +12,6 @@
 #import "LoadingViewController.h"
 //#import "MineViewController.h"
 #import "MineViewController.h"
-#import "ReconmmendAlbumViewController.h"
 #import "SingleModel.h"
 @interface TabBarViewController ()
 

@@ -43,7 +43,7 @@ static NSThread *aThread;
 static NSTimer *drawerTimer;
 static bool isDrawerOut = NO;//是否显示抽屉效果
 static LoadDownBase *loadDownBase;//下载类
-
+static UIImageView *backImageView;
 - (void) initWithAvplayer:(NSInteger)playCurrent  albumList:(NSMutableArray*)albumList sAlbum:(SearchAlbum *)sAlbum{
     if (_sAlbum != sAlbum ){
         _sAlbum = sAlbum;
@@ -69,6 +69,14 @@ static LoadDownBase *loadDownBase;//下载类
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.navigationController.automaticallyAdjustsScrollViewInsets = NO;
     
+    backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:backImageView];
+    //模糊效果
+    UIVisualEffectView *backgroundView = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:backgroundView];
+    
+    
     loadDownBase = [[LoadDownBase alloc]init];
     
     //----------------初始化
@@ -83,7 +91,7 @@ static LoadDownBase *loadDownBase;//下载类
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.playView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height*0.7)];
+    self.playView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-48)];
     self.playView.backgroundColor = [UIColor colorWithRed:20/255.0 green:20/255.0 blue:20/255.0 alpha:0.3];
     [self.view addSubview:self.playView];
     
@@ -94,11 +102,7 @@ static LoadDownBase *loadDownBase;//下载类
     [self.playView addSubview:buttonView];
 
     
-    //模糊效果
-//    UIVisualEffectView *backgroundView = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-//    backgroundView.frame = CGRectMake(0, 0, 130, 150);
-//    backgroundView.center = self.playView.center;
-//    [self.view addSubview:backgroundView];
+
     //中间添加图片
     imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 190, 190)];
     imageView.center = self.playView.center;
@@ -194,11 +198,13 @@ static LoadDownBase *loadDownBase;//下载类
       picurl = [NSURL URLWithString:[self.albumList[self.playCurrent] albumImage]];
         NSData *picData  = [NSData dataWithContentsOfURL:picurl];
         [imageView setImage:[UIImage imageWithData:picData]];
-
+        [backImageView setImage:[UIImage imageWithData:picData]];
     }
     else{
      // picurl = [NSURL URLWithString:@"losePic.jpg"];
         [imageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
+        [backImageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
+
     }
 
     imageView.layer.cornerRadius = imageView.bounds.size.width/2;
@@ -259,6 +265,8 @@ static LoadDownBase *loadDownBase;//下载类
         AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
         [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
         
+        
+        
     }
     else{
         if (self.idArray.count != 0 || (self.idArray[self.playCurrent]!=nil && ![self.idArray[self.playCurrent] isEqualToString: @""])) {
@@ -269,7 +277,7 @@ static LoadDownBase *loadDownBase;//下载类
             [alert show];
         }
     }
-
+    self.title = [self.albumList[self.playCurrent] title1];
     //重置图片
     [self loadImage];
 
@@ -399,6 +407,7 @@ static LoadDownBase *loadDownBase;//下载类
 //保存播放历史
 -(void)setListerHistoryList{
     [loadDownBase loadAudioToLocation:[self.albumList[self.playCurrent] albumImage] styp:@".jpg" albumName:(AlbumList *)self.albumList[self.playCurrent]];
+    NSLog(@"%@",[self.albumList[self.playCurrent] coverLarge]);
     [loadDownBase setLoadData:[self.albumList[self.playCurrent] trackId] plsitName:@"ListerHistory" albumName:(AlbumList *)self.albumList[self.playCurrent]];
 
 }
@@ -467,11 +476,21 @@ static LoadDownBase *loadDownBase;//下载类
 //历史替换
 -(void)DrawerTableView:(NSArray *)horitoryAudio{
     NSLog(@"%@",horitoryAudio);
+    self.title = [NSString stringWithFormat:@"%@",horitoryAudio[3]];
     NSString *urlStr = [NSString stringWithFormat:@"%@",horitoryAudio[4]];
     NSURL * songUrl = [NSURL URLWithString:urlStr];
     AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
     [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
+    [self setLoactionImg:horitoryAudio[5]];
 
+}
+
+-(void)setLoactionImg:(NSString*)imgId{
+    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *filePath = [caches stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",imgId]];
+    NSString * songUrl = [NSString stringWithFormat:@"%@%@",filePath,@".jpg"];
+    [imageView setImage:[UIImage imageWithContentsOfFile:songUrl]];
+    [backImageView setImage:[UIImage imageWithContentsOfFile:songUrl]];
 }
 
 -(bool)playLocationAudio:(NSString*) audioId{
