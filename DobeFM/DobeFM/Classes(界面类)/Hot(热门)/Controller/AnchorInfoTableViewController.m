@@ -10,8 +10,8 @@
 #import "SearchAlbum.h"
 #import "AlbumList.h"
 #import "AnchorIntroModel.h"
-#import "AnchorAlumbCell.h"
-#import "HotVoiceCell.h"
+#import "AlbumCell.h"
+#import "AudioCell.h"
 
 #define URLIntro @"http://mobile.ximalaya.com/mobile/others/ca/homePage?device=iPhone&toUid="
 #define URLAlbum @"http://mobile.ximalaya.com/mobile/others/ca/album/"
@@ -28,6 +28,14 @@ static NSInteger n = 1;
 static NSInteger i = 1;
 @implementation AnchorInfoTableViewController
 
+- (void)dealloc{
+    [_anchorId release];
+    [_anchorIntroModel release];
+    [_introArray release];
+    [_audioArray release];
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主播详情";
@@ -39,8 +47,8 @@ static NSInteger i = 1;
     
 //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
 
-    [self.tableView registerClass:[AnchorAlumbCell class] forCellReuseIdentifier:@"CELL"];
-    [self.tableView registerClass:[HotVoiceCell class] forCellReuseIdentifier:@"identifier"];
+    [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"identifier"];
 }
 
 - (void)refreshAndLoad{
@@ -97,7 +105,6 @@ static NSInteger i = 1;
     
     [Networking recivedDataWithURLString:albumString method:@"GET" body:nil block:^(id object) {
         NSDictionary *albumDic = (NSDictionary *)object;
-        NSString *totalCount = albumDic[@"totalCount"];
         NSArray *listArray = albumDic[@"list"];
         for (NSDictionary *tempDic in listArray) {
             SearchAlbum *anchorAlbumModel = [[SearchAlbum alloc]init];
@@ -176,11 +183,11 @@ static NSInteger i = 1;
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
 //    return cell;
     if (0 == indexPath.section) {
-        AnchorAlumbCell *albumcell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+        AlbumCell *albumcell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
         albumcell.searchAlbum = self.albumArray[indexPath.row];
         return albumcell;
     } else {
-        HotVoiceCell *anchorcell = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
+        AudioCell *anchorcell = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
         anchorcell.albumList = self.audioArray[indexPath.row];
         return anchorcell;
     }

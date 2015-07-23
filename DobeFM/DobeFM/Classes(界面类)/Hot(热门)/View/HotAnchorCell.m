@@ -10,13 +10,21 @@
 
 @implementation HotAnchorCell
 
+- (void)dealloc{
+    [_picView release];
+    [_nameLabel release];
+    [super dealloc];
+
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.picView = [[UIImageView alloc]init];
         [self.contentView addSubview:self.picView];
-        
+        [_picView release];
         self.nameLabel = [[UILabel alloc]init];
         [self.contentView addSubview:self.nameLabel];
+        [_nameLabel release];
     }
     return self;
 }
@@ -33,8 +41,6 @@
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:14];
     self.nameLabel.textColor = [UIColor blackColor];
-    
-    
 }
 
 @end

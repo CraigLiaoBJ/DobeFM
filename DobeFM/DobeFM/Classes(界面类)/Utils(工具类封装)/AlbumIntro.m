@@ -22,6 +22,16 @@
 
 @implementation AlbumIntro
 
+//- (void)dealloc{
+////    [_albumItem release];
+//    [_bgdImageView release];
+//    [_bgdEffect release];
+//    [_coverImage release];
+//    [_iconImage release];
+//    [_authorTitleLbl release];
+//    [_introLabel release];
+//    [super dealloc];
+//}
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         //大背景图片
@@ -98,6 +108,11 @@
 }
 
 - (void)setAlbumItem:(AlbumItem *)albumItem{
+    if (_albumItem != albumItem) {
+        [_albumItem release];
+        [albumItem retain];
+        _albumItem = albumItem;
+    }
     NSURL *bgdUrl = [NSURL URLWithString:albumItem.coverLarge];
     [self.bgdImageView sd_setImageWithURL:bgdUrl];
     self.authorTitleLbl.text = albumItem.nickname;
@@ -106,7 +121,5 @@
     NSURL *iconUrl = [NSURL URLWithString:albumItem.avatarPath];
     [self.iconImage sd_setImageWithURL:iconUrl];
     self.introLabel.text = albumItem.intro;
-    NSLog(@"coverimage ==== %@", coverUrl);
-    NSLog(@"intro === %@", albumItem.introRich);
-}
+ }
 @end

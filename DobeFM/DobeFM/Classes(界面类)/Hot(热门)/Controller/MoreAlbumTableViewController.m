@@ -7,7 +7,7 @@
 //
 
 #import "MoreAlbumTableViewController.h"
-#import "MoreAlbumCell.h"
+#import "AlbumCell.h"
 #import "AlbumDetailViewController.h"
 #define URLStr @"http://mobile.ximalaya.com/m/explore_album_list?category_name=all&condition=hot&device=iPhone&page="
 #import "SearchAlbum.h"
@@ -20,16 +20,22 @@
 static NSInteger n = 0;
 @implementation MoreAlbumTableViewController
 
+- (void)dealloc{
+    [_searchAlbum release];
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.hidesBottomBarWhenPushed = YES;
+
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.rowHeight = 100;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self loadData];
     [self refreshAndLoad];
-    [self.tableView registerClass:[MoreAlbumCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
 }
 
 #pragma mark --- 加载数据
@@ -44,6 +50,7 @@ static NSInteger n = 0;
             aSelf.searchAlbum = [[SearchAlbum alloc]init];
             [aSelf.searchAlbum setValuesForKeysWithDictionary:tempDic];
             [aSelf.moreAlbumArray addObject:aSelf.searchAlbum];
+            [_searchAlbum release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -63,7 +70,6 @@ static NSInteger n = 0;
     
     
     [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
         if (n == 1) {
             n = 1;
         } else {
@@ -84,7 +90,6 @@ static NSInteger n = 0;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -94,12 +99,11 @@ static NSInteger n = 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"shuzu wei %ld", self.moreAlbumArray.count);
     return self.moreAlbumArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MoreAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    AlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
 //    cell.moreAlbumsModel = self.moreAlbumArray [indexPath.row];
     cell.searchAlbum = self.moreAlbumArray[indexPath.row];
     return cell;
@@ -114,6 +118,7 @@ static NSInteger n = 0;
     albumVC.albumId = [self.moreAlbumArray[indexPath.row]albumId];
     albumVC.sAlbum = self.moreAlbumArray[indexPath.row];
     [self.navigationController pushViewController:albumVC animated:YES];
+    [albumVC release];
 }
 
 @end

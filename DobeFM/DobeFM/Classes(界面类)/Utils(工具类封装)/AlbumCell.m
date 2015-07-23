@@ -6,24 +6,30 @@
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
-#import "AnchorAlumbCell.h"
+#import "AlbumCell.h"
 
-
-@interface AnchorAlumbCell ()
+@interface AlbumCell ()
 @property (nonatomic, retain)UIImageView *cellImageView;
 //
 ////表视图上面音频信息
 @property (nonatomic, retain) UIImageView *coverSmImage;
 @property (nonatomic, retain) UILabel *audioTitleLabel;
 @property (nonatomic, retain) UILabel *authorLabel;
-@property (nonatomic, assign) UILabel *playCountLabel;
-@property (nonatomic, assign) UILabel *createdAtLabel;
 @property (nonatomic, assign) UILabel *durationLabel;
 //@property (nonatomic, retain) UIImageView *download;
 
 @end
 
-@implementation AnchorAlumbCell
+@implementation AlbumCell
+
+- (void)dealloc{
+//    [_searchAlbum release];
+    [_coverSmImage release];
+    [_audioTitleLabel release];
+    [_authorLabel release];
+    [_durationLabel release];
+    [super dealloc];
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -62,8 +68,13 @@
     self.coverSmImage.layer.cornerRadius = 30.f;
     self.coverSmImage.layer.masksToBounds = YES;
     
+    UIImageView *albumImage = [[UIImageView alloc]initWithFrame:CGRectMake(70, 15, 20, 20)];
+    albumImage.image = [UIImage imageNamed:@"iconfont-zhuanji.png"];
+    [self.cellImageView addSubview:albumImage];
+    [albumImage release];
+    
     self.audioTitleLabel.frame = CGRectMake(90, 20, kWW, 20);
-    self.audioTitleLabel.font = [UIFont systemFontOfSize:18];
+    self.audioTitleLabel.font = [UIFont systemFontOfSize:15];
     //    CGFloat height = [self getStringHeightBaseFont:14 width:kWW / 2 string:self.audioTitleLabel.text];
     //    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, height);
     self.audioTitleLabel.numberOfLines = 0;
@@ -81,7 +92,7 @@
         [searchAlbum retain];
         _searchAlbum = searchAlbum;
     }
-    NSURL *url = [NSURL URLWithString:searchAlbum.coverSmall];
+    NSURL *url = [NSURL URLWithString:searchAlbum.coverOrige];
     [self.coverSmImage sd_setImageWithURL:url];
     
     _audioTitleLabel.text = searchAlbum.title;

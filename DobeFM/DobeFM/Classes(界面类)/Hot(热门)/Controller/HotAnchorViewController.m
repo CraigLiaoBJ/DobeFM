@@ -27,6 +27,11 @@ static NSInteger n = 1;
     [self refreshAndLoad];
 }
 
+- (void)dealloc{
+    [_collectionView release];
+    [super dealloc];
+}
+
 - (void)addCollectionView{
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake(kWIDTH / 3.2, kHEIGHT / 4.5);
@@ -43,6 +48,8 @@ static NSInteger n = 1;
     
     [self.collectionView registerClass:[HotAnchorCell class] forCellWithReuseIdentifier:@"CELL"];
      [self.view addSubview:self.collectionView];
+    [flowLayout release];
+//    [_collectionView release];
 }
 
 - (void)loadData{
@@ -57,6 +64,7 @@ static NSInteger n = 1;
             HotAnchorItem *hotAnchorItem = [[HotAnchorItem alloc]init];
             [hotAnchorItem setValuesForKeysWithDictionary:tempDic];
             [aSelf.dataArray addObject:hotAnchorItem];
+            [hotAnchorItem release];
         }
         [aSelf.collectionView reloadData];
     }];
@@ -116,6 +124,7 @@ static NSInteger n = 1;
     AnchorInfoTableViewController *anchorDetail = [[AnchorInfoTableViewController alloc]init];
     anchorDetail.anchorId = [[self.dataArray[indexPath.row]uid]stringValue];
     [self.navigationController pushViewController:anchorDetail animated:YES];
+    [anchorDetail release];
 }
      
 - (void)didReceiveMemoryWarning {

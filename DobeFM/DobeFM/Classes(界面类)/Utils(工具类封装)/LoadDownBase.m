@@ -30,17 +30,17 @@
     //-------h获取专辑信息- 将地址转化成数据----
     NSMutableArray* obj = [[NSMutableArray alloc]init];
     
-    [obj addObject:[album albumId]] ;
-    [obj addObject:[album albumImage]] ;
-    [obj addObject:[album albumTitle]] ;
-    [obj addObject:[album title1]] ;
+    [obj addObject:[album albumId] == nil ? @"": [album albumId]];
+    [obj addObject:[album albumImage] == nil ? @"": [album albumImage]] ;
+    [obj addObject:[album albumTitle] == nil ? @"": [album albumTitle]] ;
+    [obj addObject:[album title1] == nil ? @"": [album title1]] ;
     [obj addObject:[album playPathAacv164] == nil ? @"": [album playPathAacv164]] ;
-    [obj addObject:[album trackId]] ;
-    [obj addObject:[album durationTime]] ;
+    [obj addObject:[album trackId] == nil ? @"":[album trackId]] ;
+    [obj addObject:[album durationTime] == nil ? @"":[album durationTime]] ;
     [obj addObject:[album downloadAacUrl] == nil ? @"":[album downloadAacUrl]] ;
-    [obj addObject:[album downloadAacSize] ] ;
+    [obj addObject:[album downloadAacSize] == nil ? @"":[album downloadAacSize]] ;
     [obj addObject:[album downloadUrl] == nil ? @"": [album downloadUrl]] ;
-    [obj addObject:[album downloadSize]] ;
+    [obj addObject:[album downloadSize] == nil ? @"": [album downloadSize]] ;
     [obj addObject:[album playUrl32] == nil ? @"": [album playUrl32]] ;
     //NSLog(@"----%@", obj);
     

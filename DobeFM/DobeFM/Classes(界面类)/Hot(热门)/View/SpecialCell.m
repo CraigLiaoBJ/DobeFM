@@ -8,10 +8,18 @@
 
 #import "SpecialCell.h"
 #import "SpecialItem.h"
-//cell的长宽宏定义
-#define kW self.frame.size.width
-#define kH self.frame.size.height
+
 @implementation SpecialCell
+
+- (void)dealloc{
+    [_imageview release];
+    [_coverImageView release];
+    [_titleLabel release];
+    [_releaseAtLabel release];
+    [_hotImage release];
+    [_timeImage release];
+    [_spcItem release];
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -19,10 +27,12 @@
         self.imageview = [[UIImageView alloc]init];
         [self addSubview:self.imageview];
         [_imageview release];
+        
         //cell上直接加的时间标签
         self.releaseAtLabel = [[UILabel alloc]init];
         [self.imageview addSubview:self.releaseAtLabel];
         [_releaseAtLabel release];
+        
         //cell上直接加的时间图片
         self.timeImage = [[UIImageView alloc]init];
         [self.imageview addSubview:self.timeImage];
@@ -32,10 +42,12 @@
         self.coverImageView = [[UIImageView alloc]init];
         [self.imageview addSubview:self.coverImageView];
         [_coverImageView release];
+        
         //专题封面图片上的热门图标
         self.hotImage = [[UIImageView alloc]init];
         [self.coverImageView addSubview:self.hotImage];
         [_hotImage release];
+        
         //专题封面上的专题名称
         self.titleLabel = [[UILabel alloc]init];
         [self.coverImageView addSubview:self.titleLabel];
@@ -47,22 +59,22 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     //cell图片设置
-    self.imageview.frame = CGRectMake(0, 0, kW, 150);
+    self.imageview.frame = CGRectMake(0, 0, kWW, 150);
     self.imageview.backgroundColor = [UIColor colorWithRed:1.000 green:0.945 blue:0.975 alpha:1.000];
     //时间图片设置
     self.timeImage.frame = CGRectMake(5, 5, 20, 20);
     self.timeImage.image = [UIImage imageNamed:@"special-time.png"];
     //时间标签设置
-    self.releaseAtLabel.frame = CGRectMake(30, 0, kW / 2, 30);
+    self.releaseAtLabel.frame = CGRectMake(30, 0, kWW / 2, 30);
     self.releaseAtLabel.font = [UIFont systemFontOfSize:15];
     self.releaseAtLabel.textAlignment = NSTextAlignmentLeft;
     //专题图片设置
-    self.coverImageView.frame = CGRectMake(0, 30, kW, 140);
+    self.coverImageView.frame = CGRectMake(0, 30, kWW, 140);
     self.coverImageView.backgroundColor = [UIColor yellowColor];
     //热门图标设置
     self.hotImage.frame = CGRectMake(0, 0, 40, 40);
     //专题名称设置
-    self.titleLabel.frame = CGRectMake(0, 100, kW, 40);
+    self.titleLabel.frame = CGRectMake(0, 100, kWW, 40);
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.backgroundColor = [UIColor lightGrayColor];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;

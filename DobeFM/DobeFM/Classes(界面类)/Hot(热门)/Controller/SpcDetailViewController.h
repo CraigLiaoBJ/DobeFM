@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SpecialDetailItem.h"
-@interface SpcDetailTableViewController : UIViewController
+@interface SpcDetailViewController : UIViewController
 
 @property (nonatomic, retain) UIView *headView;
 @property (nonatomic, retain) UITableView *tableView;

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HotVoiceModel.h"
-@interface HotVoiceCell : UITableViewCell
+#import "AlbumList.h"
+@interface AudioCell : UITableViewCell
 //cell图片
 @property (nonatomic, retain)UIImageView *cellImageView;
 

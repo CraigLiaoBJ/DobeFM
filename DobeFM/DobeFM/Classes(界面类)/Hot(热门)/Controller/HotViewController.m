@@ -43,18 +43,28 @@
 
 @implementation HotViewController
 
+- (void)dealloc{
+    [_hotModel release];
+    [_splModel release];
+    [_albumTableView release];
+    [_wholeScrollView release];
+    
+    [super dealloc];
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+//    self.hidesBottomBarWhenPushed = YES;
 
-    
     self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
-    self.wholeScrollView.contentSize = CGSizeMake(0, kHEIGHT * 1.5);
+    self.wholeScrollView.contentSize = CGSizeMake(0, 900);
     self.wholeScrollView.pagingEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.wholeScrollView.userInteractionEnabled = YES;
     [self.view addSubview:self.wholeScrollView];
+    [_wholeScrollView release];
     self.view.backgroundColor = [UIColor colorWithRed:0.935 green:0.987 blue:1.000 alpha:1.000];
     // Do any additional setup after loading the view.
     [self loadNetData];
@@ -92,15 +102,11 @@
 #pragma  mark --- 添加最火主播
 - (void)addHotAnchor{
     UIImageView *hotAnchor = [[UIImageView alloc]initWithFrame:CGRectMake(10, 255, (kWIDTH - 30) / 2 , 100)];
+    
     hotAnchor.backgroundColor = [UIColor orangeColor];
-    /**
-     占位文字
-     */
-    UILabel *anchorLabel = [[UILabel alloc]initWithFrame:CGRectMake(11, 40, 150, 20)];
-    anchorLabel.text = @"Hot Anchor";
-    anchorLabel.textColor = [UIColor purpleColor];
-    anchorLabel.textAlignment = NSTextAlignmentCenter;
-    [hotAnchor addSubview:anchorLabel];
+    //添加图片
+    hotAnchor.image = [UIImage imageNamed:@"hotanchor.png"];
+ 
     hotAnchor.userInteractionEnabled = YES;
     /**
      触摸按钮
@@ -111,7 +117,6 @@
     [self.wholeScrollView addSubview:hotAnchor];
     
     [hotAnchor release];
-    [anchorLabel release];
     [anchorTap release];
 
 }
@@ -126,13 +131,9 @@
 #pragma mark -- 最热声音
 - (void)addHotVoice{
     UIImageView *hotVoice = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 30) / 2 + 20, 255, (kWIDTH - 30) / 2, 100)];
+    hotVoice.image = [UIImage imageNamed:@"hotvoice.png"];
+    //添加图片
     hotVoice.backgroundColor = [UIColor orangeColor];
-    //占位文字
-    UILabel *hotVoiceLabel = [[UILabel alloc]initWithFrame:CGRectMake(11, 40, 150, 20)];
-    hotVoiceLabel.text = @"Hot Voice";
-    hotVoiceLabel.textColor = [UIColor purpleColor];
-    hotVoiceLabel.textAlignment = NSTextAlignmentCenter;
-    [hotVoice addSubview:hotVoiceLabel];
     
     //触摸
     hotVoice.userInteractionEnabled = YES;
@@ -142,7 +143,6 @@
     [self.wholeScrollView addSubview:hotVoice];
     
     [hotVoice release];
-    [hotVoiceLabel release];
     [hotVoiceTap release];
 }
 
@@ -175,14 +175,14 @@
     [special addSubview:splImage];
     
     //专题名字
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 25, kWIDTH / 3, 20)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 25, kWIDTH / 3 * 2, 20)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:13];
     titleLabel.text = self.splModel.title;
     [special addSubview:titleLabel];
     
     //展开图标
-    UIImageView *moreImage = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4 * 3, 12.5, 25, 25)];
+    UIImageView *moreImage = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 3 * 2.5 + 10, 15, 20, 20)];
     moreImage.image = [UIImage imageNamed:@"hotView-more.png"];
     [special addSubview:moreImage];
     [UIColor colorWithRed:0.897 green:1.000 blue:0.937 alpha:1.000];
@@ -226,11 +226,11 @@
         NSArray *listArray = bigDic[@"list"];
         
         for (NSDictionary *tempDic in listArray) {
-            
             aSelf.hotModel = [[HotModel alloc]init];
             [aSelf.hotModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.dataArray addObject:aSelf.hotModel];
             [aSelf.imageArray addObject:aSelf.hotModel.pic];
+            [_hotModel release];
         }
         [self addScrollView];
         
@@ -240,7 +240,7 @@
         aSelf.splModel = [[SpecialModel alloc]init];
         [aSelf.splModel setValuesForKeysWithDictionary:splDic];
         [aSelf addSpecial];
-        
+        [_splModel release];
         //推荐专辑数据
         NSDictionary *albumDic = dic[@"recommendAlbums"];
         NSArray *abmArray = albumDic[@"list"];
@@ -248,24 +248,15 @@
             HotAlbumsModel *hotAlbumModel = [[HotAlbumsModel alloc]init];
             [hotAlbumModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.albumArray addObject:hotAlbumModel];
+            [hotAlbumModel release];
         }
         [aSelf.albumTableView reloadData];
-        
     }];
 }
 
-#pragma mark ---  加载专题数据
-//- (void)loadSpecialData{
-//    self.spcialArray = [NSMutableArray array];
-//    __block typeof (self) aSelf = self;
-//    [Networking recivedDataWithURLString:URLSTR method:@"GET" body:nil block:^(id object) {
-//        
-//    }];
-//}
-
 #pragma mark --- 加载推荐专辑
 - (void)addRecommendAlbum{
-    self.albumTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 450) style:UITableViewStylePlain];
+    self.albumTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 430) style:UITableViewStylePlain];
     self.albumTableView.rowHeight = 50;
     self.albumTableView.dataSource = self;
     self.albumTableView.delegate = self;
@@ -280,7 +271,6 @@
     label.font = [UIFont boldSystemFontOfSize:15];
     [imageViw addSubview:label];
 
-    
     UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     moreBtn.frame = CGRectMake(kWIDTH - 75, 0, 75, 30);
 
@@ -296,28 +286,21 @@
     [moreBtn addTarget:self action:@selector(didClickmoreBtn) forControlEvents:UIControlEventTouchUpInside];
     [imageViw addSubview:moreBtn];
 
-    
     self.albumTableView.tableHeaderView = imageViw;
     self.albumTableView.tableFooterView = nil;
     
     [self.albumTableView registerClass:[HotAlbumCell class] forCellReuseIdentifier:@"CELL"];
+    [_albumTableView release];
+    
+    
 }
 
 - (void)didClickmoreBtn{
     MoreAlbumTableViewController *moreAlbumVC = [[MoreAlbumTableViewController alloc]init];
     [self.navigationController pushViewController:moreAlbumVC animated:YES];
 }
+
 #pragma mark --- 代理方法
-
-
-/**
- *  <#Description#>
- *
- *  @param tableView <#tableView description#>
- *  @param section   <#section description#>
- *
- *  @return <#return value description#>
- */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.albumArray.count;
 }

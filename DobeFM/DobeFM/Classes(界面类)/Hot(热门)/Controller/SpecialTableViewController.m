@@ -8,7 +8,7 @@
 
 #import "SpecialTableViewController.h"
 #import "SpecialCell.h"
-#import "SpcDetailTableViewController.h"
+#import "SpcDetailViewController.h"
 #import "SpecialItem.h"
 #define URLSTR @"http://mobile.ximalaya.com/m/subject_list?device=iPhone"
 
@@ -44,8 +44,6 @@ static  NSInteger i = 1;
     self.tableView.rowHeight = 170;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"CELL"];
-    
-//    [self.tableView release];
 }
 
 #pragma mark --- loadData
@@ -62,7 +60,6 @@ static  NSInteger i = 1;
                 SpecialItem *specialItem = [[SpecialItem alloc]init];
                 [specialItem setValuesForKeysWithDictionary:tempDic];
                 [aSelf.dataArray addObject: specialItem];
-//                NSLog(@"111%@" , specialItem.releasedAt);
                 [specialItem release];
             }
             [self.tableView reloadData];
@@ -122,9 +119,9 @@ static  NSInteger i = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
-        SpcDetailTableViewController *spcDetail = [[SpcDetailTableViewController alloc]init];
+        SpcDetailViewController *spcDetail = [[SpcDetailViewController alloc]init];
         spcDetail.addID = [[self.dataArray[indexPath.row] specialId]stringValue];
-        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType] stringValue];
+        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType]stringValue];
         [self.navigationController pushViewController:spcDetail animated:YES];
         [spcDetail release];
 }

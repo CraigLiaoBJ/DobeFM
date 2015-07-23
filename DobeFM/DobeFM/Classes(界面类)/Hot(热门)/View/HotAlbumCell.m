@@ -19,6 +19,15 @@
 @end
 @implementation HotAlbumCell
 
+- (void)dealloc{
+    [_hotAlbumsModel release];
+    [_cellImageView release];
+    [_hotAlbumLabel release];
+    [_titleLabel release];
+    [_nameLabel release];
+    [super dealloc];
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 //        self.cellImageView = [[UIImageView alloc]init];
@@ -27,14 +36,17 @@
         //专题标题
         self.hotAlbumLabel = [[UILabel alloc]init];
         [self addSubview:self.hotAlbumLabel];
+        [_hotAlbumLabel release];
         
         //专题小图片
         self.coverImage = [[UIImageView alloc]init];
         [self addSubview:self.coverImage];
+        [_coverImage release];
         
         //专题名字
         self.titleLabel = [[UILabel alloc]init];
         [self addSubview:self.titleLabel];
+        [_titleLabel release];
         
         //展开图标
 //        UIImageView *moreImage = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4 * 3, 12.5, 25, 25)];

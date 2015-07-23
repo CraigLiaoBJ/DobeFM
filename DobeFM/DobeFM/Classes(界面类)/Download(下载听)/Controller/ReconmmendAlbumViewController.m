@@ -62,8 +62,8 @@ __block typeof (self)aSelf = self;
         [aSelf.dataArray addObject:aSelf.sAlbum];
     }
     
-//    NSDictionary *dicAlibum =dic[@"album"];
-//    
+    NSDictionary *dicAlibum =dic[@"album"];
+//
 //    
 //    aSelf.sAlbum = [[SearchAlbum alloc]initWithSearchAlbum:[NSString stringWithFormat:@"%@",dicAlibum[@"albumId"]] avataPath:dicAlibum[@"avatarPath"] coverLarge:dicAlibum[@"coverLarge"]  coverOrige:dicAlibum[@"coverOrigin"] coverSmall:dicAlibum[@"coverSmall"] categoryId:[NSString stringWithFormat:@"%@",dicAlibum[@"categoryId"]] categoryName:dicAlibum[@"categoryName"] categoryAt:[dicAlibum[@"categoryAt"] intValue]];
     NSArray *AListArray =dic[@"tracks"][@"list"];

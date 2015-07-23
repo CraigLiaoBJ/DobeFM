@@ -6,15 +6,14 @@
 //  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
 
-#import "SpcDetailTableViewController.h"
-#import "SpcAbmDetailCell.h"
-#import "SpcAlbumDetailCellModel.h"
-#import "SpcAVDetailCell.h"
-#import "SpcAudioDetailModel.h"
+#import "SpcDetailViewController.h"
+#import "AlbumCell.h"
+#import "AudioCell.h"
 #import "AlbumDetailViewController.h"
-
+#import "SearchAlbum.h"
+#import "AlbumList.h"
 #define SPCLURL @"http://mobile.ximalaya.com/m/subject_detail?device=iPhone&id="
-@interface SpcDetailTableViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface SpcDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) UIImageView *introCoverImage;//详情头部封面图片
 @property (nonatomic, retain) UILabel *titleLabel;//专题名称
@@ -23,38 +22,44 @@
 @property (nonatomic, retain) UIImageView *icon;//作者头像
 @property (nonatomic, retain) NSMutableArray *splDtlArray;//详情数据数组
 @property (nonatomic, retain) NSMutableArray *spcAlbumArray;//cell上的数据
-@property (nonatomic, retain) NSMutableArray *spcAudioArray;
+@property (nonatomic, retain) NSMutableArray *spcAudioArray;//cell上的音频数据
 
 @end
 
-@implementation SpcDetailTableViewController
+@implementation SpcDetailViewController
 
 - (void)dealloc{
-    [_headView release];
+
     [_tableView release];
+    [_headView release];
+    [_spclDetlItem release];
+    [_spcTypeID release];
+    [_introCoverImage release];
+    [_titleLabel release];
+    [_introLabel release];
+    [_nickNameLabel release];
+    [_icon release];
     [super dealloc];
 }
 
 #pragma mark -- viewDidLoad方法
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"contentType %@", self.spcTypeID);
     self.title = @"专题详情";
     self.dataArray = [NSMutableArray array];
     [self addTableView];
 
     [self loadNetData];
     [self loadAlbumData];
-    [self refreshAndLoad];
-    
+//    [self refreshAndLoad];
 }
 
 #pragma mark ---  加载介绍网络数据
 - (void)loadNetData{
     self.splDtlArray = [NSMutableArray array];
     NSString *string = [SPCLURL stringByAppendingFormat:@"%@", self.addID];
-    __block typeof(self) spcDtl = self;
     
+    __block typeof(self) spcDtl = self;
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
         NSDictionary *introDic = dic[@"info"];
@@ -62,6 +67,7 @@
 
         [spcDtl.spclDetlItem setValuesForKeysWithDictionary:introDic];
         [spcDtl addintroInfo];
+        [_spclDetlItem release];
     }];
 }
 
@@ -79,9 +85,10 @@
             NSDictionary *dic = (NSDictionary *)object;
             NSArray *listArray = [NSArray arrayWithArray: dic[@"list"]];
             for (NSDictionary *tempDic in listArray) {
-                SpcAudioDetailModel *spcAudioModel = [[SpcAudioDetailModel alloc]init];
+                AlbumList *spcAudioModel = [[AlbumList alloc]init];
                 [spcAudioModel setValuesForKeysWithDictionary:tempDic];
                 [aSelf.spcAudioArray addObject:spcAudioModel];
+                [spcAudioModel release];
             }
             [aSelf.tableView reloadData];
         }];
@@ -91,9 +98,10 @@
             NSDictionary *dic = (NSDictionary *)object;
             NSArray *listArray = [NSArray arrayWithArray: dic[@"list"]];
             for (NSDictionary *tempDic in listArray) {
-                SpcAlbumDetailCellModel *spcDtlClModel = [[SpcAlbumDetailCellModel alloc]init];
+                SearchAlbum *spcDtlClModel = [[SearchAlbum alloc]init];
                 [spcDtlClModel setValuesForKeysWithDictionary:tempDic];
                 [aSelf.spcAlbumArray addObject:spcDtlClModel];
+                [spcDtlClModel release];
             }
             [aSelf.tableView reloadData];
         }];
@@ -101,29 +109,29 @@
 }
 
 #pragma mark --- refresh and load
-- (void)refreshAndLoad{
-    __block SpcDetailTableViewController *weakSelf = self;
-    
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-        [weakSelf loadAlbumData];
-        [weakSelf.tableView reloadData];
-        //结束刷新
-        [weakSelf.tableView.defaultFooter endRefreshing];
-    }];
-    
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
-        [weakSelf.spcAlbumArray removeAllObjects];
-        [weakSelf.spcAudioArray removeAllObjects];
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.gifHeader endRefreshing];
-    }];
-    
-    [self.tableView.gifHeader setGifName:@"demo.gif"];
-    
-    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
-}
+//- (void)refreshAndLoad{
+//    __block SpcDetailTableViewController *weakSelf = self;
+//    
+//    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
+//        [weakSelf loadAlbumData];
+//        [weakSelf.tableView reloadData];
+//        //结束刷新
+//        [weakSelf.tableView.defaultFooter endRefreshing];
+//    }];
+//    
+//    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+//     
+//        [weakSelf.spcAlbumArray removeAllObjects];
+//        [weakSelf.spcAudioArray removeAllObjects];
+//        [weakSelf.tableView reloadData];
+//        [weakSelf.tableView.gifHeader endRefreshing];
+//    }];
+//    
+//    [self.tableView.gifHeader setGifName:@"demo.gif"];
+//    
+//    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
+//    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+//}
 
 
 #pragma --- 添加表视图
@@ -143,9 +151,9 @@
 
     [self.view addSubview:self.tableView];
 
-    [self.tableView registerClass:[SpcAbmDetailCell class] forCellReuseIdentifier:@"CELL"];
-    [self.tableView registerClass:[SpcAVDetailCell class] forCellReuseIdentifier:@"identifier"];
-//    [_headView release];
+    [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
+    [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"identifier"];
+    [_headView release];
 //    [_tableView release];
 }
 
@@ -219,29 +227,31 @@
     }
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.spcTypeID isEqualToString:@"2"]) {
-        SpcAVDetailCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
-        cell1.spcAudioDtlModel = self.spcAudioArray[indexPath.row];
+        AudioCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
+        cell1.albumList = self.spcAudioArray[indexPath.row];
         return cell1;
     } else {
-        SpcAbmDetailCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell2.spcAbmDtlModel = self.spcAlbumArray[indexPath.row];
+        AlbumCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
+    cell2.searchAlbum = self.spcAlbumArray[indexPath.row];
     return cell2;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.spcTypeID isEqualToString:@"2"]) {
-        AvPlayViewController *avPlayerVC = [[AvPlayViewController alloc]init];
-//        avPlayerVC.playCurrent = self.spcCellArray[indexPath.row];
-        [self.navigationController pushViewController:avPlayerVC animated:YES];
+        
+        [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.spcAudioArray] sAlbum:nil];
+        
+        [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+
     }
     if ([self.spcTypeID isEqualToString:@"1"]) {
         AlbumDetailViewController *albumDetail = [[AlbumDetailViewController alloc]init];
-        albumDetail.albumId = [[self.spcAlbumArray[indexPath.row] albumID] stringValue];
+        albumDetail.albumId = [self.spcAlbumArray[indexPath.row] albumId];
         [self.navigationController pushViewController:albumDetail animated:YES];
+        [albumDetail release];
     }
 }
 
