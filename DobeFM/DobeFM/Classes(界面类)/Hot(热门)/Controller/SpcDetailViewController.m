@@ -243,8 +243,9 @@
     if ([self.spcTypeID isEqualToString:@"2"]) {
         
         [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.spcAudioArray] sAlbum:nil];
-        
-        [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+        self.navigationController.tabBarController.selectedIndex = 2;
+
+//        [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 
     }
     if ([self.spcTypeID isEqualToString:@"1"]) {

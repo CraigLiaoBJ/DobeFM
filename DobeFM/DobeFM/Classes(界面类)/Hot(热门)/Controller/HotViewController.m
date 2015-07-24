@@ -61,10 +61,7 @@
     self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     self.wholeScrollView.contentSize = CGSizeMake(0, 900);
     self.wholeScrollView.pagingEnabled = NO;
-<<<<<<< HEAD
     self.wholeScrollView.showsVerticalScrollIndicator = NO;
-=======
->>>>>>> 803204b1a93d4ed950858a33c083a3696ffd2c66
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.wholeScrollView.userInteractionEnabled = YES;

@@ -19,6 +19,7 @@
     [_hotImage release];
     [_timeImage release];
     [_spcItem release];
+    [super dealloc];
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{

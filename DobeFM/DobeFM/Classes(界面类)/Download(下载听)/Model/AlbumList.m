@@ -20,8 +20,8 @@
     if ([key isEqualToString:@"id"]) {
         self.trackId = value;
     }
-    if ([key isEqualToString:@"coverSmall"]) {
-        self.albumImage = value;
+    if ([key isEqualToString:@"coverSmall"]||[key isEqualToString:@"coverLarge"]) {
+        self.coverLarge = value;
     }
     if ([key isEqualToString:@"playPath32"]) {
         self.playUrl32 = value;

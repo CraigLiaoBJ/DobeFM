@@ -27,7 +27,7 @@
 @property (nonatomic, assign) bool isSelect;//是否被批量选中下载
 
 
-@property (nonatomic, copy) NSString *coverSmall;
+//@property (nonatomic, copy) NSString *coverSmall;
 
 @property (nonatomic, copy) NSString *coverLarge;
 @property (nonatomic, copy) NSString *nickname;//作者名字

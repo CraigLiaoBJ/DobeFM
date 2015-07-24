@@ -94,7 +94,7 @@
         _albumList = albumList;
     }
     //音频图片
-    NSURL *url = [NSURL URLWithString:albumList.coverSmall];
+    NSURL *url = [NSURL URLWithString:albumList.coverLarge];
     [self.coverSmImage sd_setImageWithURL:url];
     //标题
     _audioTitleLabel.text = albumList.title1;

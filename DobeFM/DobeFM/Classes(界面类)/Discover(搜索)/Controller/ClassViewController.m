@@ -5,7 +5,6 @@
 //  Created by lanou3g on 15/7/17.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
-#define Width (self.view.frame.size.width/4)
 #import "ClassViewController.h"
 #import "CustomCell.h"
 #import "AnchorInfoTableViewController.h"
@@ -50,11 +49,11 @@ static NSInteger h = 172;
     //轮播图上图片来源数组
     
     [self reData];
+    [self addLayer];
     [self reCellData];
     
+    
 }
-
-
 
 #pragma mark --- 加载轮播图数据
 - (void)reData{
@@ -70,17 +69,14 @@ static NSInteger h = 172;
             
             [aSelf.scrollArray addObject:scrollModel];
             if ((4 == scrollModel.thisType)||(7 == scrollModel.thisType)||(5 == scrollModel.thisType)||(8 == scrollModel.thisType)||(6 == scrollModel.thisType)) {
-                
                 continue;
-                
             }
             [imagesArray addObject:scrollModel.pic];
-
         }
-        [aSelf addLayer];
-//        [CollectionVC reloadData];
+        [CollectionVC reloadData];
     }];
 }
+
 - (void)reLayout{
     if (imagesArray.count < 1) {
         autoView.frame = CGRectMake(0, 0, 0, 0);
@@ -97,7 +93,7 @@ static NSInteger h = 172;
     
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc]init];
     
-    flowlayout.itemSize = CGSizeMake(Width, 80);
+    flowlayout.itemSize = CGSizeMake(kWIDTH / 4, 80);
     flowlayout.minimumInteritemSpacing = 10;
     flowlayout.minimumLineSpacing = 10;
     flowlayout.scrollDirection = UICollectionViewScrollDirectionVertical;

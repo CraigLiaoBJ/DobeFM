@@ -113,8 +113,8 @@ static NSInteger n = 1;
 //点击播放
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.arr] sAlbum:nil];
-    
-    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+    self.navigationController.tabBarController.selectedIndex = 2;
+//    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{

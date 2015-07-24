@@ -197,8 +197,8 @@ static UIImageView *backImageView;
 -(void )loadImage{
     //中间添加图片
     NSURL *picurl ;
-    if([self.albumList[self.playCurrent] albumImage] != nil &&  ![[self.albumList[self.playCurrent] albumImage]isEqualToString:@""]){
-      picurl = [NSURL URLWithString:[self.albumList[self.playCurrent] albumImage]];
+    if([self.albumList[self.playCurrent] coverLarge] != nil &&  ![[self.albumList[self.playCurrent] coverLarge]isEqualToString:@""]){
+      picurl = [NSURL URLWithString:[self.albumList[self.playCurrent] coverLarge]];
         NSData *picData  = [NSData dataWithContentsOfURL:picurl];
         [imageView setImage:[UIImage imageWithData:picData]];
         [backImageView setImage:[UIImage imageWithData:picData]];
@@ -415,16 +415,14 @@ static UIImageView *backImageView;
 
 }
 
-
-
 //显示播放历史tableView
 -(void)listerHistoryList{
     NSMutableDictionary *history = [loadDownBase getListerHistoryList];
     [drawerView setDic: history];
     listerListBtn.enabled = NO;
     [self drawerOutInTimeer];
-
 }
+
 //抽屉进出
 -(void)drawerOutInTimeer{
     if (!isDrawerOut) {//YES 打开抽屉
@@ -434,13 +432,10 @@ static UIImageView *backImageView;
     else//no 关闭抽屉
     {
         [self moveTo:drawerView frame:CGRectMake( - self.playView.frame.size.width*(3.0/4.0), 64, self.playView.frame.size.width*(3.0/4.0), self.playView.frame.size.height - 64)];
-
     }
 }
 
-
 - (void)moveTo:(DrawerView*)dView frame:(CGRect)frame{
-   
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];//动画时长
     [UIView setAnimationDelay:0];//动画前延迟
@@ -454,17 +449,12 @@ static UIImageView *backImageView;
     dView.frame = frame;
     [UIView commitAnimations];//提交动画
     isDrawerOut = !isDrawerOut;
-    
-    
-    
 //    [UIView animateWithDuration:0.5f animations:^{
 //        [self moveToStart ];
 //        dView.frame = frame ;
 //        isDrawerOut = !isDrawerOut;
 //        [self moveToStop ];
 //    }];
-
-
 }
 
 -(void)moveToStart{
