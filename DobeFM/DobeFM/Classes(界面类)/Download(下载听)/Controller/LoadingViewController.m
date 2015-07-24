@@ -208,7 +208,7 @@ static int currentLoad = 0;
         [self continueDown];
     }
     self.dicLoad = [self getSplistList:@"LoadDownList"];
-    self.dicLoading = [self getSplistList:@"BeLoadList"];
+    self.dicLoading = [self getSplistList:@"BeLoadList"];   
 
     for (NSString *allkey in self.dicLoading) {
         
@@ -333,6 +333,9 @@ static int currentLoad = 0;
             [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
             ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
             self.isLoading = NO;
+            //取消发送请求
+            [[saveLoading[currentLoad] cnnt] cancel];
+            ((SaveLodingDate*)saveLoading[currentLoad]).cnnt = nil;
         }
     //当下载完成后，点击按钮文字变为已下载
     currentLoad = sender.tag - 1000;

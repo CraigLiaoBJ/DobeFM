@@ -12,7 +12,6 @@
 -(instancetype)init{
     if (self = [super init]) {
         _fileData = [[NSMutableData alloc]init];
-        _writeHandle = [[NSFileHandle alloc]init];
         
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -21,6 +20,12 @@
         
         [self.btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         self.progress = [[UIProgressView alloc]init];
+        
+        self.writeHandle = [[NSFileHandle alloc]init];
+        
+        self.cnnt = [[NSURLConnection alloc]init];
+        
+    
         //self.progress.frame = CGRectMake((self.bounds.size.width - 240)/2 + 40, self.bounds.size.height - 10, 240, 10);
 
     }
