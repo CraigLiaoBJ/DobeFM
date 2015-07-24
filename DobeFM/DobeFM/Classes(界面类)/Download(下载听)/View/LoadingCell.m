@@ -45,13 +45,7 @@
 
 
 
-- (void) star{
-    if (self.delegate1 && [self.delegate1 respondsToSelector:@selector(star:)]) {
-        [self.delegate1 star:self.indexNum];
-    }
 
-
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

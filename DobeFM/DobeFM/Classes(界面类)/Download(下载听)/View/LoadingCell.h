@@ -9,15 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AlbumList.h"
 
-@protocol LoadingCellDelegate<NSObject>
-@optional
-- (void) star:(int)sender;
 
-@end
 
 @interface LoadingCell : UITableViewCell
 
-@property(nonatomic, strong) id<LoadingCellDelegate> delegate1;
 
 @property(nonatomic, assign) int indexNum;//在那个cell
 //下载

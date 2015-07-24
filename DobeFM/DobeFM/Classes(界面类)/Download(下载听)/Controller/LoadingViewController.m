@@ -208,7 +208,7 @@ static int currentLoad = 0;
         [self continueDown];
     }
     self.dicLoad = [self getSplistList:@"LoadDownList"];
-    self.dicLoading = [self getSplistList:@"BeLoadList"];
+    self.dicLoading = [self getSplistList:@"BeLoadList"];   
 
     for (NSString *allkey in self.dicLoading) {
         
@@ -245,13 +245,13 @@ static int currentLoad = 0;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
- if(tableView.tag == 1001){//下载完成
-     return self.dicLoad.count;
- }
- else{
-     return self.dicLoading.count;
- 
- }
+     if(tableView.tag == 1001){//下载完成
+         return self.dicLoad.count;
+     }
+     else{
+         return self.dicLoading.count;
+     
+     }
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -333,6 +333,9 @@ static int currentLoad = 0;
             [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
             ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
             self.isLoading = NO;
+            //取消发送请求
+            [[saveLoading[currentLoad] cnnt] cancel];
+            ((SaveLodingDate*)saveLoading[currentLoad]).cnnt = nil;
         }
     //当下载完成后，点击按钮文字变为已下载
     currentLoad = sender.tag - 1000;
@@ -341,7 +344,7 @@ static int currentLoad = 0;
 
 - (void)LoadBegan{
     //判断当前是否正在下载
-    if ([saveLoading[currentLoad] isdownLoading]) {//如果当前正在下载，那么点击按钮，按钮变为暂停状态
+    if (((SaveLodingDate*)saveLoading[currentLoad]).downLoading) {//如果当前正在下载，那么点击按钮，按钮变为暂停状态
         [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
         [saveLoading[currentLoad] btn].titleLabel.font = [UIFont boldSystemFontOfSize:12];
         ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
@@ -456,7 +459,7 @@ static int currentLoad = 0;
 //    [((SaveLodingDate*)saveLoading[currentLoad]).btn removeFromSuperview];
 //    [((SaveLodingDate*)saveLoading[currentLoad]).progress removeFromSuperview];
     [self.loadingTableView reloadData];
-    [loadDownBase removeObjOfPlist:((SaveLodingDate*)saveLoading[currentLoad]).traintId splistName:@"BeLoadList"];
+    [loadDownBase removeObjOfPlist:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[currentLoad]).traintId] splistName:@"BeLoadList"];
     [saveLoading removeObjectAtIndex:currentLoad];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
     
@@ -468,14 +471,14 @@ static int currentLoad = 0;
 /*
  *请求错误（失败）的时候调用（请求超时\断网\没有网\，一般指客户端错误）
  */
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
      NSLog(@"下载ERROR");
 }
 
 - (bool)nextCellTagIsHave{
     
-    for(int i = 1; i <= self.dicLoading.count; i++ ){
+    for(int i = 0; i <= self.dicLoading.count; i++ ){
       UIButton *button = (UIButton*)[self.view viewWithTag:currentLoad + i + 1000];
         if (button != nil) {
             currentLoad += i;
@@ -485,7 +488,7 @@ static int currentLoad = 0;
     return NO;
 }
 
--(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.row < saveLoading.count) {
         [((SaveLodingDate*)saveLoading[indexPath.row]).btn removeFromSuperview];
@@ -495,7 +498,7 @@ static int currentLoad = 0;
 }
 
 
--(void)continueDown{
+- (void)continueDown{
     if(self.isLoading) return;
     currentLoad = self.dicLoading.count;
     self.dicLoading = [self getSplistList:@"BeLoadList"];
@@ -507,6 +510,37 @@ static int currentLoad = 0;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.backgroundColor = CELLCOLOR;
+}
+
+
+//为指定的行指定编辑格式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //为指定的行指定编辑格式
+    if(tableView.tag == 1001){
+            return  UITableViewCellEditingStyleNone;
+        
+    }
+    return UITableViewCellEditingStyleDelete;//删除单元格
+}
+
+//编辑格式  用于删除
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //通过delegate协议 为方法指定其编辑格式
+    if(tableView.tag == 1002){
+        if (editingStyle == UITableViewCellEditingStyleDelete) {
+            
+            //如果要删除数据要先删除对应行的数据
+            //再将单元格删除
+            [loadDownBase removeObjOfPlist:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[indexPath.row]).traintId] splistName:@"BeLoadList"];
+            [self.dicLoading removeObjectForKey:[self.dicLoading allKeys][indexPath.row]];
+            [saveLoading removeObjectAtIndex:indexPath.row];
+            //删除单元格
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+            [self.loadingTableView reloadData];
+        }
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -5,7 +5,6 @@
 //  Created by lanou3g on 15/7/9.
 //  Copyright (c) 2015年 lanou3g. All rights reserved.
 //
-#import "TbarSingleModel.h"
 #import "LoadDownBase.h"
 #import "ChoolNumView.h"
 #import "MoreDownViewController.h"
@@ -100,10 +99,7 @@ static bool isDoading = NO;//是否在下载
         }
     }
     
-    [TbarSingleModel shareSingleModel].tabBar.selectedIndex = 2;
-    
-    
-    
+     self.navigationController.tabBarController.selectedIndex = 3;
     
     [SingleModel shareSingleModel].loadingC.addLoadData = YES;
     //NSLog(@"%@",SingleModel shareSingleModel].loadingC);

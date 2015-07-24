@@ -31,9 +31,14 @@
     HotViewController *hotVC = [[HotViewController alloc]init];
     [self addOneChildVc:hotVC title:@"热门" imageNamed:@"hot.png" selectedImageName:@"hot-2.png"];
     
+<<<<<<< HEAD
     //播放
 //    [self addOneChildVc:[SingleModel shareSingleModel].playC title:nil imageNamed:@"playaudio" selectedImageName:@"playaudio"];
     
+=======
+    
+    [self addOneChildVc:[SingleModel shareSingleModel].playC title:@"" imageNamed:@"zhongjian2" selectedImageName:@"zhongjian2"];
+>>>>>>> 803204b1a93d4ed950858a33c083a3696ffd2c66
     //下载听界面
 
     [self addOneChildVc:[SingleModel shareSingleModel].loadingC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];

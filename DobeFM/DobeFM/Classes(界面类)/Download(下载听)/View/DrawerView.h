@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol DrawerViewDelegate<NSObject>
 @optional
--(void)DrawerTableView:(NSArray *) horitoryAudio;
+-(void)DrawerTableView:(NSMutableArray *) horitoryAudio;
 
 @end
 

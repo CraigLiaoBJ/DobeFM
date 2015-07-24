@@ -85,9 +85,7 @@ static UIImageView *backImageView;
         for (int i = 0; i<self.albumList.count; i++) {
             [self.idArray addObject:[self.albumList[i] playPathAacv164]];
         }
-    
-    self.title = [self.albumList[self.playCurrent] title1];
-    
+    self.navigationItem.title = [self.albumList[self.playCurrent] title1];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -121,12 +119,14 @@ static UIImageView *backImageView;
     [self.lastButton setFrame:CGRectMake(self.playView.bounds.size.width*0.35-10, self.playView.bounds.size.height*0.8+10, 20, 20)];
     [self.lastButton setBackgroundImage:[UIImage imageNamed:@"iconfont-bofangqishangyiqu.png"] forState:UIControlStateNormal];
     [self.lastButton addTarget:self action:@selector(lastButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    //self.lastButton.enabled = NO;
     [self.playView addSubview:self.lastButton];
 
     self.nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.nextButton setFrame:CGRectMake(self.playView.bounds.size.width*0.65-10, self.playView.bounds.size.height*0.8+10, 20, 20)];
     [self.nextButton setBackgroundImage:[UIImage imageNamed:@"iconfont-bofangqixiayiqu.png"] forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    //self.nextButton.enabled = NO;
     [self.playView addSubview:self.nextButton];
     
     
@@ -186,8 +186,11 @@ static UIImageView *backImageView;
         self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self
                                                     selector:@selector(playProgress)
                                                     userInfo:nil repeats:YES];
+   // if(self.albumList.count > 0){
         [self cutMusic];
-    
+       // self.playView.userInteractionEnabled = NO;
+    //}
+
 }
 
 
@@ -258,7 +261,7 @@ static UIImageView *backImageView;
 //切换音乐 -1 上一曲 1 下一曲
 -(void)cutMusic{
     [self lastNextIsEnble];
-
+    if(self.albumList.count < 1) return ;
     //检测本地
     if(![self playLocationAudio:[self.albumList[self.playCurrent] trackId]]){
         NSURL * songUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", self.idArray[self.playCurrent]]];
@@ -277,7 +280,7 @@ static UIImageView *backImageView;
             [alert show];
         }
     }
-    self.title = [self.albumList[self.playCurrent] title1];
+    self.navigationItem.title = [self.albumList[self.playCurrent] title1];
     //重置图片
     [self loadImage];
 
@@ -364,11 +367,11 @@ static UIImageView *backImageView;
     self.lastButton.alpha = 0.4;
     [self.nextButton setEnabled:false];
     self.nextButton.alpha = 0.4;
-        if (self.idArray.count > 1 && self.playCurrent-1>=0) {
-            [self.lastButton setEnabled:true];
-            self.lastButton.alpha = 1;
-        }
-    if ( self.playCurrent < self.idArray.count-1) {
+    if ( self.idArray.count > 1 && self.playCurrent-1>=0) {
+        [self.lastButton setEnabled:true];
+        self.lastButton.alpha = 1;
+    }
+    if (self.idArray.count > 1 && self.playCurrent < self.idArray.count-1) {
         [self.nextButton setEnabled:true];
         self.nextButton.alpha = 1;
     }
@@ -474,13 +477,15 @@ static UIImageView *backImageView;
 }
 
 //历史替换
--(void)DrawerTableView:(NSArray *)horitoryAudio{
-    NSLog(@"%@",horitoryAudio);
-    self.title = [NSString stringWithFormat:@"%@",horitoryAudio[3]];
-    NSString *urlStr = [NSString stringWithFormat:@"%@",horitoryAudio[4]];
-    NSURL * songUrl = [NSURL URLWithString:urlStr];
-    AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
-    [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
+-(void)DrawerTableView:(NSMutableArray *)horitoryAudio{
+    NSMutableArray *arr = [[NSMutableArray alloc]init];
+    [arr addObject:[loadDownBase arrayToAlbumList:horitoryAudio]];
+    [self initWithAvplayer:0 albumList:arr sAlbum:nil];
+//    self.title = [NSString stringWithFormat:@"%@",horitoryAudio[3]];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@",horitoryAudio[4]];
+//    NSURL * songUrl = [NSURL URLWithString:urlStr];
+//    AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
+//    [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
     [self setLoactionImg:horitoryAudio[5]];
 
 }

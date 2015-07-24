@@ -205,7 +205,9 @@ static NSInteger n = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.albumDataArray] sAlbum:self.sAlbum];
-    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+    self.navigationController.tabBarController.selectedIndex = 2;
+       // [TbarSingleModel shareSingleModel].tabBar.selectedIndex = 2;
+//    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
