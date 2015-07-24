@@ -8,23 +8,31 @@
 
 #import "SpecialTableViewController.h"
 #import "SpecialCell.h"
-#import "SpcDetailTableViewController.h"
+#import "SpcDetailViewController.h"
 #import "SpecialItem.h"
+#define URLSTR @"http://mobile.ximalaya.com/m/subject_list?device=iPhone"
 
 @interface SpecialTableViewController ()<UITableViewDataSource , UITableViewDelegate>
 
 @property (nonatomic, retain)NSMutableArray *dataArray;
 
 @end
-
+static  NSInteger i = 1;
 @implementation SpecialTableViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     self.title = @"专题";
+    
+    //加载tableview
     [self addTableView];
+    //加载数据
     [self loadData];
+    
+    //数据刷新和加载
+    [self refreshAndLoad];
+   
 }
 
 #pragma mark --- addTableView
@@ -36,28 +44,57 @@
     self.tableView.rowHeight = 170;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"CELL"];
-    
-    [self.tableView release];
 }
 
+#pragma mark --- loadData
 - (void)loadData{
-    self.dataArray = [NSMutableArray array];
-    __block typeof (self) aSelf = self;
-    [Networking recivedDataWithURLString:@"http://mobile.ximalaya.com/m/subject_list?device=iPhone&page=1&per_page=10" method:@"GET" body:nil block:^(id object) {
-        NSDictionary *dic = (NSDictionary *)object;
-        NSArray *listArray = [dic valueForKey:@"list"];
-        for (NSDictionary *tempDic in listArray) {
-            SpecialItem *specialItem = [SpecialItem specialCoverBig:[tempDic valueForKey:@"coverPathBig"] releaseAt:[tempDic valueForKey:@"releasedAt"] spcialID:[tempDic valueForKey:@"specialId"] subTitle:[tempDic valueForKey:@"subtitle"] titleString:[tempDic valueForKey:@"title"] hot:[tempDic valueForKey:@"isHot"]];
-            [aSelf.dataArray addObject: specialItem];
-            NSLog(@"111%ld" , aSelf.dataArray.count);
-        }
-        [self.tableView reloadData];
+ 
+        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", i ];
+        self.dataArray = [NSMutableArray array];
+        __block typeof (self) aSelf = self;
+        [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+            NSDictionary *dic = (NSDictionary *)object;
+            NSArray *listArray = [dic valueForKey:@"list"];
+            
+            for (NSDictionary *tempDic in listArray) {
+                SpecialItem *specialItem = [[SpecialItem alloc]init];
+                [specialItem setValuesForKeysWithDictionary:tempDic];
+                [aSelf.dataArray addObject: specialItem];
+                [specialItem release];
+            }
+            [self.tableView reloadData];
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark --- refresh and load
+- (void)refreshAndLoad{
+    __block SpecialTableViewController *weakSelf = self;
+    
+    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
+        i ++;
+        [weakSelf loadData];
+        [weakSelf.tableView reloadData];
+        //结束刷新
+        [weakSelf.tableView.defaultFooter endRefreshing];
+    }];
+    
+    
+    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+        if (i == 1) {
+            i = 1;
+        } else {
+            i --;
+        }
+        [weakSelf.dataArray removeAllObjects];
+        [weakSelf loadData];
+
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView.gifHeader endRefreshing];
+    }];
+    [self.tableView.gifHeader setGifName:@"demo.gif"];
+    
+    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
+    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
 }
 
 #pragma mark - Table view data source
@@ -67,82 +104,30 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.dataArray.count;
 }
 
-
+//重用机制
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SpecialCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    
+    //赋值
     cell.spcItem = self.dataArray[indexPath.row];
-//    SpecialItem *item = self.dataArray[indexPath.row];
     
-    NSLog(@"%i", cell.spcItem.hot);
-    if (cell.spcItem.hot == true) {
-        cell.hotImage.image = [UIImage imageNamed:@"iconfont-remenbiaoqian.png"];
-    } else {
-        cell.hotImage = nil;
-    }
     return cell;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 40;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    self.view = self
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SpcDetailTableViewController *spcDetail = [[SpcDetailTableViewController alloc]init];
-    
-    [self.navigationController pushViewController:spcDetail animated:YES];
+   
+        SpcDetailViewController *spcDetail = [[SpcDetailViewController alloc]init];
+        spcDetail.addID = [[self.dataArray[indexPath.row] specialId]stringValue];
+        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType]stringValue];
+        [self.navigationController pushViewController:spcDetail animated:YES];
+        [spcDetail release];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

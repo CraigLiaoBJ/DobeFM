@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     UISearchBar *serch = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 30, 100, 20)];
     serch.placeholder = @"搜索声音、专辑、人";
     self.navigationItem.titleView = serch;
@@ -63,12 +63,6 @@
     ClassVC.title = self.array[tempTag-1];
 
 }
-
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

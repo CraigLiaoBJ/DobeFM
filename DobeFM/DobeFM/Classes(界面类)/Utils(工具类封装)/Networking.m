@@ -23,13 +23,18 @@
         NSData * data = [body dataUsingEncoding:NSUTF8StringEncoding];
         [request setHTTPBody:data];
     }
-//    建立异步链接
+//    建立异步链接    ·
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError == nil) {
         
 //        将json(文件)转化成对象
         id tempObj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 //        使用block将此对象传回到视图控制器类里面
         block(tempObj);
+            
+        } else {
+            
+        }
         
     }];
     

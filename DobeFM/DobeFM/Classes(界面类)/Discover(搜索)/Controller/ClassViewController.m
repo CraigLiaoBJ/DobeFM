@@ -11,6 +11,9 @@
 #import "MoreViewController.h"
 #import "Networking.h"
 @interface ClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+#import "AnchorInfoTableViewController.h"
+
+@interface ClassViewController ()
 
 @end
 static NSMutableArray *imagesArray;
@@ -44,14 +47,14 @@ static UICollectionView *CollectionVC;
 -(void)addLayer{
     
     //创建轮播图试图
-    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:nil pageControlShowStyle:UIPageControlShowStyleCenter];
+    AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:@"scrollPH.png" pageControlShowStyle:UIPageControlShowStyleCenter];
     //有导航控制器的时候使用这方法控制轮播图的size不会乱变动。
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     __block typeof(self) miao = self;
     //图片被点击后的回调方法，点击进入一个页面。
     autoView.callBack = ^(NSInteger index, NSString *imageURL){
-        UIViewController *sendView = [[UIViewController alloc]init];
+        AnchorInfoTableViewController *sendView = [[AnchorInfoTableViewController alloc]init];
         sendView.view.backgroundColor = [UIColor cyanColor];
         [miao.navigationController pushViewController:sendView animated:YES];
         NSLog(@"被点中图片的索引：%ld ---- 地址：%@", index, imageURL);
@@ -110,6 +113,8 @@ static UICollectionView *CollectionVC;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MoreViewController *SonVC = [[MoreViewController alloc]init];
     [self.navigationController pushViewController:SonVC animated:YES];
+=======
+>>>>>>> 6fa4c0aba9bce78e7e1e610780745d911174803c
 }
 
 - (void)didReceiveMemoryWarning {

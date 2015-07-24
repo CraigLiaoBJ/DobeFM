@@ -10,37 +10,13 @@
 
 @interface SpecialDetailItem : NSObject
 //专题内容简介
-@property (nonatomic, retain) NSString *introString;
-@property (nonatomic, retain) NSString *nickNameString;
-@property (nonatomic, retain) NSString *iconString;
-
-//表视图上面音频信息
-@property (nonatomic, retain) NSString *coverSmallString;
-@property (nonatomic, retain) NSString *audioTitle;
-@property (nonatomic, retain) NSString *authorString;
-@property (nonatomic, assign) NSNumber *playCount;
-@property (nonatomic, assign) NSNumber *createdAt;
-@property (nonatomic, assign) NSNumber *duration;
-
-- (id)initWithIntroString:(NSString *)introString
-           nickNameString:(NSString *)nickNameString
-               iconString:(NSString *)iconString;
-+ (id)specialDetailIntroString:(NSString *)introString
-                nickNameString:(NSString *)nickNameString
-                    iconString:(NSString *)iconString;
-
-- (id)initWithCoverSmallString:(NSString *)coverSmallString
-                   audioString:(NSString *)audioString
-                  authorString:(NSString *)authorString
-               playCount:(NSNumber *)playCount
-                 creatAt:(NSNumber *)creatAt
-                duration:(NSNumber *)duration;
-
-+ (id)specialAudioCoverSmallString:(NSString *)coverSmallString
-                       audioString:(NSString *)audioString
-                      authorString:(NSString *)authorString
-                         playCount:(NSNumber *)playCount
-                           creatAt:(NSNumber *)creatAt
-                          duration:(NSNumber *)duration;
+@property (nonatomic, copy) NSString *contentType;
+//封面图片
+@property (nonatomic, copy) NSString *coverPathBig;//专题封面图片
+@property (nonatomic, copy) NSString *title;//专题名字
+@property (nonatomic, copy) NSString *intro;//内容介绍
+@property (nonatomic, copy) NSString *nickname;//专题作者
+@property (nonatomic, copy) NSString *smallLogo;//专题作者图片
+@property (nonatomic, copy) NSString *personalSignature;//专辑签名
 
 @end

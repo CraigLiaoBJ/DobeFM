@@ -7,12 +7,12 @@
 //
 
 #import "TabBarViewController.h"
-#import "TabBarViewController.h"
 #import "DiscoverViewControlerViewController.h"
 #import "HotViewController.h"
-#import "DownloadViewController.h"
+#import "LoadingViewController.h"
+//#import "MineViewController.h"
 #import "MineViewController.h"
-
+#import "SingleModel.h"
 @interface TabBarViewController ()
 
 @end
@@ -21,9 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     //发现界面
     DiscoverViewControlerViewController *discoverVC = [[DiscoverViewControlerViewController alloc] init];
+
     [self addOneChildVc:discoverVC title:@"发现" imageNamed:@"discover.png" selectedImageName:@"discover-2.png"];
     
     //热门界面
@@ -31,16 +32,16 @@
     [self addOneChildVc:hotVC title:@"热门" imageNamed:@"hot.png" selectedImageName:@"hot-2.png"];
     
     //下载听界面
-    DownloadViewController *downloadVC = [[DownloadViewController alloc]init];
-    [self addOneChildVc:downloadVC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
+
+    [self addOneChildVc:[SingleModel shareSingleModel].loadingC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
     
     //我的 界面
+//    ReconmmendAlbumViewController *mineVC = [[ReconmmendAlbumViewController alloc]init];
     MineViewController *mineVC = [[MineViewController alloc]init];
     [self addOneChildVc:mineVC title:@"我的" imageNamed:@"mine.png" selectedImageName:@"mine-2.png"];
  
     [discoverVC release];
     [hotVC release];
-    [downloadVC release];
     [mineVC release];
 }
 
@@ -68,6 +69,7 @@
     
     //添加导航控制器
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:childVC];
+
     [self addChildViewController:nav];
     [nav release];
 }

@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchAlbum.h"
 
 @interface AlbumDetailViewController : UIViewController
+
+@property (nonatomic, copy) NSString *albumId;
+@property (nonatomic, retain) UIImageView *imageView;
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) NSMutableArray *dataArray;
+
+@property (nonatomic, retain) SearchAlbum *sAlbum;
+
 
 @end
