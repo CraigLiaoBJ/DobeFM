@@ -12,6 +12,11 @@
 //轮播图
 @property (nonatomic, retain) NSNumber *clickID;
 @property (nonatomic, copy) NSString *pic;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic, assign) NSInteger typeId;
+@property (nonatomic, retain) NSString *albumId;
+@property (nonatomic, retain) NSString *uid;
+@property (nonatomic, retain) NSString *specialId;
+
+
 
 @end

@@ -1,23 +1,21 @@
 //
-//  HotModel.m
+//  ScrollModel.m
 //  DobeFM
 //
-//  Created by Craig Liao on 15/7/17.
+//  Created by Craig Liao on 15/7/24.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
-#import "HotModel.h"
+#import "ScrollModel.h"
 
-@implementation HotModel
+@implementation ScrollModel
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"id"]) {
-        self.clickID = value;
+        self.scrollId = value;
     }
     if ([key isEqualToString:@"type"]) {
-        self.typeId = [value intValue];
+        self.thisType = [value intValue];
     }
-    
-  }
-
+}
 @end

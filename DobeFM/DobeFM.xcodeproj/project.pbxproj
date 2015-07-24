@@ -152,6 +152,12 @@
 		5EE24BA81B591F9900AEB7D2 /* album-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24BA71B591F9900AEB7D2 /* album-more.png */; };
 		5EFED9F01B61CF1500C99AF4 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9EF1B61CF1500C99AF4 /* CustomCell.m */; };
 		5EFED9F31B61CFE700C99AF4 /* 123456.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFED9F21B61CFE700C99AF4 /* 123456.png */; };
+		5EFED9F51B61DCA500C99AF4 /* playaudio.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFED9F41B61DCA500C99AF4 /* playaudio.png */; };
+		5EFED9F81B61ED9B00C99AF4 /* ScrollModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9F71B61ED9B00C99AF4 /* ScrollModel.m */; };
+		5EFED9FB1B61F47700C99AF4 /* DiscoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9FA1B61F47700C99AF4 /* DiscoverModel.m */; };
+		5EFEDA001B62156E00C99AF4 /* DiscoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9FF1B62156E00C99AF4 /* DiscoverCell.m */; };
+		5EFEDA031B62216E00C99AF4 /* CellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFEDA021B62216E00C99AF4 /* CellModel.m */; };
+		5EFEDA091B62305B00C99AF4 /* MainAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFEDA081B62305B00C99AF4 /* MainAlbumTableViewController.m */; };
 		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C26742771B57DB3E00BB733E /* LORefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742761B57DB3E00BB733E /* LORefresh.m */; };
 		C2D314901B6220A900A3AB6C /* zhongjian.png in Resources */ = {isa = PBXBuildFile; fileRef = C2D3148E1B6220A900A3AB6C /* zhongjian.png */; };
@@ -383,6 +389,17 @@
 		5EFED9EF1B61CF1500C99AF4 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CustomCell.m"; sourceTree = SOURCE_ROOT; };
 		5EFED9F11B61CF8900C99AF4 /* CustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CustomCell.m"; sourceTree = "<group>"; };
 		5EFED9F21B61CFE700C99AF4 /* 123456.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 123456.png; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/123456.png"; sourceTree = "<group>"; };
+		5EFED9F41B61DCA500C99AF4 /* playaudio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playaudio.png; sourceTree = "<group>"; };
+		5EFED9F61B61ED9B00C99AF4 /* ScrollModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollModel.h; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/ScrollModel.h"; sourceTree = SOURCE_ROOT; };
+		5EFED9F71B61ED9B00C99AF4 /* ScrollModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollModel.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/ScrollModel.m"; sourceTree = SOURCE_ROOT; };
+		5EFED9F91B61F47700C99AF4 /* DiscoverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscoverModel.h; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/DiscoverModel.h"; sourceTree = SOURCE_ROOT; };
+		5EFED9FA1B61F47700C99AF4 /* DiscoverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiscoverModel.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/DiscoverModel.m"; sourceTree = SOURCE_ROOT; };
+		5EFED9FE1B62156E00C99AF4 /* DiscoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiscoverCell.h; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/DiscoverCell.h"; sourceTree = SOURCE_ROOT; };
+		5EFED9FF1B62156E00C99AF4 /* DiscoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DiscoverCell.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/DiscoverCell.m"; sourceTree = SOURCE_ROOT; };
+		5EFEDA011B62216E00C99AF4 /* CellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CellModel.h; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CellModel.h"; sourceTree = SOURCE_ROOT; };
+		5EFEDA021B62216E00C99AF4 /* CellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CellModel.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CellModel.m"; sourceTree = SOURCE_ROOT; };
+		5EFEDA071B62305B00C99AF4 /* MainAlbumTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAlbumTableViewController.h; sourceTree = "<group>"; };
+		5EFEDA081B62305B00C99AF4 /* MainAlbumTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainAlbumTableViewController.m; sourceTree = "<group>"; };
 		C2400D261B5DFD4100B08889 /* SaveLodingDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveLodingDate.h; sourceTree = "<group>"; };
 		C2400D271B5DFD4100B08889 /* SaveLodingDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveLodingDate.m; sourceTree = "<group>"; };
 		C26742751B57DB3E00BB733E /* LORefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORefresh.h; sourceTree = "<group>"; };
@@ -505,6 +522,12 @@
 		5E03855C1B566F4B0054E467 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5EFED9F91B61F47700C99AF4 /* DiscoverModel.h */,
+				5EFED9FA1B61F47700C99AF4 /* DiscoverModel.m */,
+				5EFED9F61B61ED9B00C99AF4 /* ScrollModel.h */,
+				5EFED9F71B61ED9B00C99AF4 /* ScrollModel.m */,
+				5EFEDA011B62216E00C99AF4 /* CellModel.h */,
+				5EFEDA021B62216E00C99AF4 /* CellModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -514,6 +537,8 @@
 			children = (
 				5EFED9EE1B61CF1500C99AF4 /* CustomCell.h */,
 				5EFED9EF1B61CF1500C99AF4 /* CustomCell.m */,
+				5EFED9FE1B62156E00C99AF4 /* DiscoverCell.h */,
+				5EFED9FF1B62156E00C99AF4 /* DiscoverCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -674,6 +699,7 @@
 		5E0385761B566FF40054E467 /* tabBar */ = {
 			isa = PBXGroup;
 			children = (
+				5EFED9F41B61DCA500C99AF4 /* playaudio.png */,
 				5E0385771B566FF40054E467 /* discover-2.png */,
 				5E0385781B566FF40054E467 /* discover.png */,
 				5E0385791B566FF40054E467 /* download-2.png */,
@@ -1048,10 +1074,12 @@
 		5EE24B9D1B58D25A00AEB7D2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5EE24B9E1B58D25A00AEB7D2 /* ClassViewController.h */,
-				5EE24B9F1B58D25A00AEB7D2 /* ClassViewController.m */,
 				5EE24BA01B58D25A00AEB7D2 /* DiscoverViewControlerViewController.h */,
 				5EE24BA11B58D25A00AEB7D2 /* DiscoverViewControlerViewController.m */,
+				5EE24B9E1B58D25A00AEB7D2 /* ClassViewController.h */,
+				5EE24B9F1B58D25A00AEB7D2 /* ClassViewController.m */,
+				5EFEDA071B62305B00C99AF4 /* MainAlbumTableViewController.h */,
+				5EFEDA081B62305B00C99AF4 /* MainAlbumTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1154,6 +1182,7 @@
 				5EE24B971B58D24600AEB7D2 /* 4.png in Resources */,
 				5E4954F31B58B6A50023C078 /* iconfont-xuankuang.png in Resources */,
 				5E4954FC1B58B6A50023C078 /* iconfont-gujianxiazai.png in Resources */,
+				5EFED9F51B61DCA500C99AF4 /* playaudio.png in Resources */,
 				5E0385861B566FF40054E467 /* hot-2.png in Resources */,
 				5E936B031B61051C000350B5 /* iconfont-xiazai.png in Resources */,
 				5EE24B9A1B58D24600AEB7D2 /* 7.png in Resources */,
@@ -1253,6 +1282,7 @@
 				5E4954D21B58B66C0023C078 /* MDownButton.m in Sources */,
 				5E49550A1B58B6DF0023C078 /* LoadDownBase.m in Sources */,
 				5E0385BC1B56753D0054E467 /* AutoView.m in Sources */,
+				5EFED9FB1B61F47700C99AF4 /* DiscoverModel.m in Sources */,
 				5E0D4A801B5BF08100390135 /* HotAcrListModel.m in Sources */,
 				5E4954D31B58B66C0023C078 /* ChoolNumView.m in Sources */,
 				5E0385951B5673E50054E467 /* HotVoiceViewController.m in Sources */,
@@ -1261,12 +1291,14 @@
 				5E0385A71B5674B50054E467 /* SpecialCell.m in Sources */,
 				5E0D4A7A1B5BEC9F00390135 /* HotAnchorModel.m in Sources */,
 				5E0385A41B5674AC0054E467 /* SpecialItem.m in Sources */,
+				5EFEDA001B62156E00C99AF4 /* DiscoverCell.m in Sources */,
 				5EE24BA21B58D25A00AEB7D2 /* ClassViewController.m in Sources */,
 				5E0385EB1B5675610054E467 /* UIButton+WebCache.m in Sources */,
 				5E03854D1B566F420054E467 /* TabBarViewController.m in Sources */,
 				5E0D90591B60E25B0018A868 /* MoreDownViewController.m in Sources */,
 				5EBB730B1B5F2FDD00EF2444 /* AlbumAudioModel.m in Sources */,
 				5E4954D41B58B66C0023C078 /* MoreDownCell.m in Sources */,
+				5EFEDA091B62305B00C99AF4 /* MainAlbumTableViewController.m in Sources */,
 				5E0385ED1B5675610054E467 /* UIImage+MultiFormat.m in Sources */,
 				5E0385921B5673D30054E467 /* HotViewController.m in Sources */,
 				5E4954DB1B58B6760023C078 /* AlbumList.m in Sources */,
@@ -1275,6 +1307,7 @@
 				5E0385F01B5675610054E467 /* UIImageView+WebCache.m in Sources */,
 				5E49550B1B58B6DF0023C078 /* SingleModel.m in Sources */,
 				5E0385A11B56749E0054E467 /* SpecialTableViewController.m in Sources */,
+				5EFEDA031B62216E00C99AF4 /* CellModel.m in Sources */,
 				5E0385B31B5674E20054E467 /* SpecialDetailItem.m in Sources */,
 				5E4954DC1B58B6760023C078 /* SearchAlbum.m in Sources */,
 				5E0385E31B5675610054E467 /* NSData+ImageContentType.m in Sources */,
@@ -1305,6 +1338,7 @@
 				5E0385731B566F4B0054E467 /* MineViewController.m in Sources */,
 				5E0385E81B5675610054E467 /* SDWebImageDownloaderOperation.m in Sources */,
 				5E0385E91B5675610054E467 /* SDWebImageManager.m in Sources */,
+				5EFED9F81B61ED9B00C99AF4 /* ScrollModel.m in Sources */,
 				5E0385EE1B5675610054E467 /* UIImage+WebP.m in Sources */,
 				5E0385AA1B5674BF0054E467 /* AlbumDetailViewController.m in Sources */,
 				5EBB72C71B5E54D200EF2444 /* AnchorIntroModel.m in Sources */,
