@@ -8,11 +8,12 @@
 #define Width (self.view.frame.size.width/4)
 #import "ClassViewController.h"
 #import "CustomCell.h"
-#import "MoreViewController.h"
+#import "AnchorInfoTableViewController.h"
 #import "Networking.h"
 @interface ClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 #import "AnchorInfoTableViewController.h"
 
+@end
 @interface ClassViewController ()
 
 @end
@@ -111,10 +112,8 @@ static UICollectionView *CollectionVC;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    MoreViewController *SonVC = [[MoreViewController alloc]init];
+    AnchorInfoTableViewController *SonVC = [[AnchorInfoTableViewController alloc]init];
     [self.navigationController pushViewController:SonVC animated:YES];
-=======
->>>>>>> 6fa4c0aba9bce78e7e1e610780745d911174803c
 }
 
 - (void)didReceiveMemoryWarning {
