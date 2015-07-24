@@ -5,21 +5,47 @@
 //  Created by lanou3g on 15/7/17.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
-
+#define Width (self.view.frame.size.width/4)
 #import "ClassViewController.h"
+#import "CustomCell.h"
+#import "AnchorInfoTableViewController.h"
+#import "Networking.h"
+@interface ClassViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 #import "AnchorInfoTableViewController.h"
 
+@end
 @interface ClassViewController ()
 
 @end
-
+static NSMutableArray *imagesArray;
+static NSMutableArray *image;
+static UICollectionView *CollectionVC;
 @implementation ClassViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor brownColor];
+    imagesArray = [[NSMutableArray alloc]init];
+    image = [[NSMutableArray alloc]init];
+    
     //轮播图上图片来源数组
-    NSArray *imagesArray = @[@"http://f.hiphotos.baidu.com/zhidao/pic/item/a08b87d6277f9e2f522ee9e01e30e924b899f33b.jpg", @"http://photos.tuchong.com/300699/f/3882646.jpg", @"http://img4.duitang.com/uploads/item/201301/15/20130115113509_ZfnzA.thumb.600_0.jpeg", @"http://www.ichww.com/uploads/allimg/131127/1-13112G3060Y39.jpg", @"http://pic.baike.soso.com/p/20130528/20130528101014-577571184.jpg", @"http://img05.tooopen.com/images/20150316/tooopen_sy_82590685487.jpg"];
+    
+    [self reData];
+    [self reCellData];
+   
+  
+}
+- (void)reData{
+    [Networking recivedDataWithURLString:@"http://mobile.ximalaya.com/m/category_focus_image?categoryId=3&device=iPhone&version=3.1.43"method:@"GET" body:nil block:^(id object) {
+        for (NSDictionary *arr in object[@"list"]) {
+            [imagesArray addObject:arr[@"pic"]];
+        }
+        [self addLayer];
+    }];
+}
+
+-(void)addLayer{
     
     //创建轮播图试图
     AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:@"scrollPH.png" pageControlShowStyle:UIPageControlShowStyleCenter];
@@ -38,12 +64,56 @@
     autoView.isNeedCycleRoll = YES;
     // 计时器定时
     autoView.imageMoveTime = 2.0;
-    [self.view addSubview:autoView];
     
     
+  
+    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc]init];
+  
+    flowlayout.itemSize = CGSizeMake(Width, 80);
+    flowlayout.minimumInteritemSpacing = 10;
+    flowlayout.minimumLineSpacing = 10;
+    flowlayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    flowlayout.sectionInset = UIEdgeInsetsMake(172 + 74 + 10,10,10,10);
+    CollectionVC = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 48) collectionViewLayout:flowlayout];
+    CollectionVC.dataSource = self;
+    CollectionVC.delegate = self;
+    [CollectionVC registerClass:[CustomCell class] forCellWithReuseIdentifier:@"CELL"];
+    CollectionVC.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:CollectionVC];
+    [CollectionVC addSubview:autoView];
+}
+
+-(void)reCellData{
+    [Networking recivedDataWithURLString:@"http://mobile.ximalaya.com/m/category_tag_list?category=book&device=iPhone&type=album"method:@"GET" body:nil block:^(id object) {
+        for (NSArray *arr in object[@"list"]) {
+        [image addObject:arr];
+        }
+        [CollectionVC reloadData];
+    }];
+
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    
-    
+    return 1;
+}
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+
+    return image.count;
+}
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    CustomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:image[indexPath.row][@"cover_path"]]];
+    cell.imageView.image = [UIImage imageWithData:data];
+
+    cell.titilelabel.text = image[indexPath.row][@"tname"];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    AnchorInfoTableViewController *SonVC = [[AnchorInfoTableViewController alloc]init];
+    [self.navigationController pushViewController:SonVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

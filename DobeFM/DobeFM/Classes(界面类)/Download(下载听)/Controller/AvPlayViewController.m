@@ -111,8 +111,8 @@ static UIImageView *backImageView;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(self.playView.bounds.size.width*0.50-20, self.playView.bounds.size.height*0.8, 40, 40)];
-    [button setBackgroundImage:[UIImage imageNamed:@"iconfont-bofang.png"] forState:UIControlStateNormal];
-    [button setBackgroundImage:[UIImage imageNamed:@"iconfont-bofangqizanting"] forState:UIControlStateSelected];
+    [button setBackgroundImage:[UIImage imageNamed:@"iconfont-bofangqizanting.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"iconfont-bofang.png"] forState:UIControlStateSelected];
     [button addTarget:self action:@selector(plays:) forControlEvents:UIControlEventTouchUpInside];
     [self.playView addSubview:button];
 
@@ -133,7 +133,7 @@ static UIImageView *backImageView;
     //下载;
     downLoad = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [downLoad setFrame:CGRectMake(self.playView.bounds.size.width*0.1-10, self.playView.bounds.size.height*0.8+10, 20, 20)];
-    [downLoad setBackgroundImage:[UIImage imageNamed:@"iconfont-gujianxiazai.png"] forState:UIControlStateNormal];
+    [downLoad setBackgroundImage:[UIImage imageNamed:@"iconfont-ordinarydownload.png"] forState:UIControlStateNormal];
     [downLoad addTarget:self action:@selector(loadingMusic) forControlEvents:UIControlEventTouchUpInside];
     [self.playView addSubview:downLoad];
     

@@ -38,7 +38,9 @@ static NSInteger i = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主播详情";
+    self.view.backgroundColor = CELLCOLOR;
     [self loadData];
+    
 //    [self refreshAndLoad];
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [self addHeaderImage];
@@ -127,17 +129,17 @@ static NSInteger i = 1;
 
 #pragma mark --- 头视图
 - (void)addHeaderImage{
-    UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2)];
+    UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)];
     self.tableView.tableHeaderView = headerImageView;
     
     UIImageView *bgdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2)];
-    bgdImageView.backgroundColor = [UIColor purpleColor];
+    bgdImageView.backgroundColor = [UIColor colorWithRed:0.654 green:0.487 blue:0.596 alpha:0.500];
 
     [headerImageView addSubview:bgdImageView];
     [bgdImageView release];
     
-    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 60) / 2, 20, 60, 60)];
-    iconImage.backgroundColor = [UIColor grayColor];
+    UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 60) / 2, 5, 60, 60)];
+    iconImage.backgroundColor = cellImageColor;
     NSURL *coverUrl = [NSURL URLWithString:self.anchorIntroModel.mobileMiddleLogo];
     [iconImage sd_setImageWithURL:coverUrl];
     iconImage.layer.cornerRadius = 30;
@@ -145,16 +147,16 @@ static NSInteger i = 1;
     [bgdImageView addSubview:iconImage];
     [iconImage release];
     
-    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 85, kWIDTH / 2, 15)];
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake((kWIDTH - kWIDTH / 2) / 2, 75, kWIDTH / 2, 15)];
     nameLabel.font = [UIFont boldSystemFontOfSize:15];
     nameLabel.text = self.anchorIntroModel.nickname;
     nameLabel.textAlignment = NSTextAlignmentCenter;
     [bgdImageView addSubview:nameLabel];
     [nameLabel release];
     
-    UILabel *tagLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, kWIDTH, 50)];
+    UILabel *tagLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 100, kWIDTH - 20, 50)];
     tagLabel.font = [UIFont systemFontOfSize:12];
-    tagLabel.textAlignment = NSTextAlignmentCenter;
+    tagLabel.textAlignment = NSTextAlignmentLeft;
     tagLabel.text = self.anchorIntroModel.personalSignature;
     tagLabel.numberOfLines = 0;
     [bgdImageView addSubview:tagLabel];
@@ -216,5 +218,15 @@ static NSInteger i = 1;
     return 1;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.audioArray] sAlbum:nil];
+    
+    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    cell.backgroundColor = CELLCOLOR;
+}
 
 @end

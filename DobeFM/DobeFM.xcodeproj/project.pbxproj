@@ -150,6 +150,8 @@
 		5EE24BA31B58D25A00AEB7D2 /* DiscoverViewControlerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BA11B58D25A00AEB7D2 /* DiscoverViewControlerViewController.m */; };
 		5EE24BA61B59183B00AEB7D2 /* AlbumIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE24BA51B59183B00AEB7D2 /* AlbumIntro.m */; };
 		5EE24BA81B591F9900AEB7D2 /* album-more.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24BA71B591F9900AEB7D2 /* album-more.png */; };
+		5EFED9F01B61CF1500C99AF4 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9EF1B61CF1500C99AF4 /* CustomCell.m */; };
+		5EFED9F31B61CFE700C99AF4 /* 123456.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFED9F21B61CFE700C99AF4 /* 123456.png */; };
 		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C26742771B57DB3E00BB733E /* LORefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742761B57DB3E00BB733E /* LORefresh.m */; };
 		C2801B9A1B60D5C2003E654E /* TbarSingleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C2801B991B60D5C2003E654E /* TbarSingleModel.m */; };
@@ -376,6 +378,10 @@
 		5EE24BA41B59183B00AEB7D2 /* AlbumIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumIntro.h; sourceTree = "<group>"; };
 		5EE24BA51B59183B00AEB7D2 /* AlbumIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumIntro.m; sourceTree = "<group>"; };
 		5EE24BA71B591F9900AEB7D2 /* album-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album-more.png"; sourceTree = "<group>"; };
+		5EFED9EE1B61CF1500C99AF4 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCell.h; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CustomCell.h"; sourceTree = SOURCE_ROOT; };
+		5EFED9EF1B61CF1500C99AF4 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CustomCell.m"; sourceTree = SOURCE_ROOT; };
+		5EFED9F11B61CF8900C99AF4 /* CustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CustomCell.m; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/CustomCell.m"; sourceTree = "<group>"; };
+		5EFED9F21B61CFE700C99AF4 /* 123456.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 123456.png; path = "DobeFM/Classes(界面类)/Discover(搜索)/Controller/123456.png"; sourceTree = "<group>"; };
 		C2400D261B5DFD4100B08889 /* SaveLodingDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveLodingDate.h; sourceTree = "<group>"; };
 		C2400D271B5DFD4100B08889 /* SaveLodingDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveLodingDate.m; sourceTree = "<group>"; };
 		C26742751B57DB3E00BB733E /* LORefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORefresh.h; sourceTree = "<group>"; };
@@ -406,6 +412,8 @@
 		5E0384CB1B565AD10054E467 = {
 			isa = PBXGroup;
 			children = (
+				5EFED9F21B61CFE700C99AF4 /* 123456.png */,
+				5EFED9F11B61CF8900C99AF4 /* CustomCell.m */,
 				5E0384D61B565AD10054E467 /* DobeFM */,
 				5E0384EC1B565AD20054E467 /* DobeFMTests */,
 				5E0384D51B565AD10054E467 /* Products */,
@@ -501,6 +509,8 @@
 		5E03855D1B566F4B0054E467 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5EFED9EE1B61CF1500C99AF4 /* CustomCell.h */,
+				5EFED9EF1B61CF1500C99AF4 /* CustomCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1135,6 +1145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EFED9F31B61CFE700C99AF4 /* 123456.png in Resources */,
 				5EE24B9B1B58D24600AEB7D2 /* 8.png in Resources */,
 				5E0385821B566FF40054E467 /* discover-2.png in Resources */,
 				5EE24B911B58D24600AEB7D2 /* 21.png in Resources */,
@@ -1232,6 +1243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EFED9F01B61CF1500C99AF4 /* CustomCell.m in Sources */,
 				5E0385EC1B5675610054E467 /* UIImage+GIF.m in Sources */,
 				5E4954B81B58A8A30023C078 /* HotModel.m in Sources */,
 				5E508EB71B5D4CDC002D7662 /* HotAlbumsModel.m in Sources */,
@@ -1411,7 +1423,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DobeFM/DobeFM-Prefix.pch";
 				INFOPLIST_FILE = DobeFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1428,7 +1440,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DobeFM/DobeFM-Prefix.pch";
 				INFOPLIST_FILE = DobeFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
