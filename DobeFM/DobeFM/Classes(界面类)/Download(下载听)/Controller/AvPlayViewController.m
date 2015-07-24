@@ -186,6 +186,7 @@ static UIImageView *backImageView;
         self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self
                                                     selector:@selector(playProgress)
                                                     userInfo:nil repeats:YES];
+    if(self.albumList.count > 0)
         [self cutMusic];
     
 }

@@ -154,7 +154,8 @@
 		5EFED9F31B61CFE700C99AF4 /* 123456.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EFED9F21B61CFE700C99AF4 /* 123456.png */; };
 		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C26742771B57DB3E00BB733E /* LORefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C26742761B57DB3E00BB733E /* LORefresh.m */; };
-		C2801B9A1B60D5C2003E654E /* TbarSingleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C2801B991B60D5C2003E654E /* TbarSingleModel.m */; };
+		C2D314901B6220A900A3AB6C /* zhongjian.png in Resources */ = {isa = PBXBuildFile; fileRef = C2D3148E1B6220A900A3AB6C /* zhongjian.png */; };
+		C2D314911B6220A900A3AB6C /* zhongjian2.png in Resources */ = {isa = PBXBuildFile; fileRef = C2D3148F1B6220A900A3AB6C /* zhongjian2.png */; };
 		C2D41A3A1B5F51660093FE69 /* losePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C2D41A391B5F51660093FE69 /* losePic.jpg */; };
 /* End PBXBuildFile section */
 
@@ -386,8 +387,8 @@
 		C2400D271B5DFD4100B08889 /* SaveLodingDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveLodingDate.m; sourceTree = "<group>"; };
 		C26742751B57DB3E00BB733E /* LORefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORefresh.h; sourceTree = "<group>"; };
 		C26742761B57DB3E00BB733E /* LORefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LORefresh.m; sourceTree = "<group>"; };
-		C2801B981B60D5C1003E654E /* TbarSingleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TbarSingleModel.h; sourceTree = "<group>"; };
-		C2801B991B60D5C2003E654E /* TbarSingleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TbarSingleModel.m; sourceTree = "<group>"; };
+		C2D3148E1B6220A900A3AB6C /* zhongjian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhongjian.png; sourceTree = "<group>"; };
+		C2D3148F1B6220A900A3AB6C /* zhongjian2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhongjian2.png; sourceTree = "<group>"; };
 		C2D41A391B5F51660093FE69 /* losePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = losePic.jpg; path = "../../Other(其他类)/icons/tabBar/losePic.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -412,6 +413,8 @@
 		5E0384CB1B565AD10054E467 = {
 			isa = PBXGroup;
 			children = (
+				C2D3148E1B6220A900A3AB6C /* zhongjian.png */,
+				C2D3148F1B6220A900A3AB6C /* zhongjian2.png */,
 				5EFED9F21B61CFE700C99AF4 /* 123456.png */,
 				5EFED9F11B61CF8900C99AF4 /* CustomCell.m */,
 				5E0384D61B565AD10054E467 /* DobeFM */,
@@ -697,8 +700,6 @@
 			children = (
 				5E03861D1B579A010054E467 /* Album(专辑详情界面) */,
 				5E0386061B575A860054E467 /* Ahchor(主播信息界面) */,
-				C2801B981B60D5C1003E654E /* TbarSingleModel.h */,
-				C2801B991B60D5C2003E654E /* TbarSingleModel.m */,
 				5E4955061B58B6DF0023C078 /* LoadDownBase.h */,
 				5E4955071B58B6DF0023C078 /* LoadDownBase.m */,
 				5E4955081B58B6DF0023C078 /* SingleModel.h */,
@@ -1217,11 +1218,13 @@
 				5EE24B861B58D24600AEB7D2 /* 11.png in Resources */,
 				5EE24B881B58D24600AEB7D2 /* 13.png in Resources */,
 				5E0D905C1B60EF4D0018A868 /* iconfont-xiazai01.png in Resources */,
+				C2D314901B6220A900A3AB6C /* zhongjian.png in Resources */,
 				5EE24B8E1B58D24600AEB7D2 /* 19.png in Resources */,
 				5E4954F91B58B6A50023C078 /* iconfont-bofangqishangyiqu.png in Resources */,
 				5EE24B841B58D24600AEB7D2 /* 1.png in Resources */,
 				5EE24B8F1B58D24600AEB7D2 /* 2.png in Resources */,
 				C2D41A3A1B5F51660093FE69 /* losePic.jpg in Resources */,
+				C2D314911B6220A900A3AB6C /* zhongjian2.png in Resources */,
 				5E4955101B58B92E0023C078 /* scrollPH.png in Resources */,
 				5E03860B1B57645A0054E467 /* album-favorite-2.png in Resources */,
 			);
@@ -1273,7 +1276,6 @@
 				5E49550B1B58B6DF0023C078 /* SingleModel.m in Sources */,
 				5E0385A11B56749E0054E467 /* SpecialTableViewController.m in Sources */,
 				5E0385B31B5674E20054E467 /* SpecialDetailItem.m in Sources */,
-				C2801B9A1B60D5C2003E654E /* TbarSingleModel.m in Sources */,
 				5E4954DC1B58B6760023C078 /* SearchAlbum.m in Sources */,
 				5E0385E31B5675610054E467 /* NSData+ImageContentType.m in Sources */,
 				5E0385E71B5675610054E467 /* SDWebImageDownloader.m in Sources */,
@@ -1423,13 +1425,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DobeFM/DobeFM-Prefix.pch";
 				INFOPLIST_FILE = DobeFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system/introspection",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1440,13 +1443,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DobeFM/DobeFM-Prefix.pch";
 				INFOPLIST_FILE = DobeFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system/introspection",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
