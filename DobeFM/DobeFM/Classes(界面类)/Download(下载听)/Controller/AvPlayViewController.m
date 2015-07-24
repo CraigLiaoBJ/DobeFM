@@ -389,6 +389,7 @@ static UIImageView *backImageView;
 }
 //多线程下载
 -(void)loadingMusic{
+    if(self.idArray.count < 1) return ;
     [aThread start];
     downLoad.enabled = NO;
     downLoad.alpha = 0.4;
