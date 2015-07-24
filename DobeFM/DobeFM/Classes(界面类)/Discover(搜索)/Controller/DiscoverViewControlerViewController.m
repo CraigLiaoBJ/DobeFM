@@ -5,6 +5,7 @@
 //  Created by Craig Liao on 15/7/15.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
+#define WINWIDTH (self.view.frame.size.width/6)
 
 #import "DiscoverViewControlerViewController.h"
 #import "ClassViewController.h"
@@ -22,11 +23,11 @@
     UISearchBar *serch = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 30, 100, 20)];
     serch.placeholder = @"搜索声音、专辑、人";
     self.navigationItem.titleView = serch;
-   
-
-    self.navigationItem.title = @"发现";
+ 
+    //self.navigationItem.title = @"发现";
     self.view.backgroundColor = [UIColor whiteColor];
-    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 70, self.view.frame.size.width, 300)];
+    
+    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
     ImageView.userInteractionEnabled = YES;
     ImageView.image = nil;
     [self.view addSubview:ImageView];
@@ -35,15 +36,15 @@
     NSInteger temp = 1;
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
-            UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(40 * j + 30 * (j + 1), 40 * i + 15 * (i + 1), 40, 40)];
+            UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(WINWIDTH/6 + j*(WINWIDTH/6) + j*WINWIDTH,WINWIDTH/6 + i*(WINWIDTH/6) + i*WINWIDTH + WINWIDTH,WINWIDTH,WINWIDTH)];
             [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld.png",temp]] forState:UIControlStateNormal];
             button.tag = 200 + temp;
             button.imageView.layer.masksToBounds = YES;
-            button.imageView.layer.cornerRadius = 20;
+            button.imageView.layer.cornerRadius = 16;
             [ImageView addSubview:button];
             [button addTarget:self action:@selector(Button:) forControlEvents:UIControlEventTouchUpInside];
             
-            self.label = [[UILabel alloc]initWithFrame:CGRectMake(30 + 40 * j +  30 * j , 40 + 55 * i + 15, 40, 10)];
+            self.label = [[UILabel alloc]initWithFrame:CGRectMake(WINWIDTH/6 + j*(WINWIDTH/6) + j*WINWIDTH , WINWIDTH/6 + i*(WINWIDTH/6) + i*WINWIDTH + WINWIDTH*2 , WINWIDTH, WINWIDTH/6)];
             self.label.font = [UIFont systemFontOfSize:10];
             self.label.text = self.array[temp - 1];
             self.label.textAlignment = NSTextAlignmentCenter;
@@ -57,111 +58,10 @@
 -(void)Button:(UIButton *)sender{
     NSInteger tempTag = sender.tag - 200;
     ClassViewController *ClassVC = [[ClassViewController alloc]init];
-    switch (tempTag ) {
-        case 1:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 2:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 3:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 4:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 5:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 6:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 7:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 8:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 9:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 10:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 11:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 12:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 13:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 14:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 15:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 16:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 17:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 18:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 19:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 20:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 21:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 22:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 23:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 24:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-        case 25:
-            [self.navigationController pushViewController:ClassVC animated:YES];
-            ClassVC.title = self.array[tempTag-1];
-            break;
-            
-        default:
-            break;
-    }
+
+    [self.navigationController pushViewController:ClassVC animated:YES];
+    ClassVC.title = self.array[tempTag-1];
+
 }
 
 

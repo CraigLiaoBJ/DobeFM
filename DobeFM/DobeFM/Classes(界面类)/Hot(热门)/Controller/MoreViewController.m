@@ -46,10 +46,11 @@
     self.hotTableView.delegate = self;
     self.hotTableView.rowHeight = 160;
     self.hotTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.hotTableView];
+    [self.view  addSubview:self.hotTableView];
     
     [self.hotTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-    
+   
+ 
 //    self.newTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 104, kWIDTH, kHEIGHT - 64 - 40) style:UITableViewStylePlain];
 //    self.newTableView.dataSource = self;
 //    self.newTableView.delegate = self;
@@ -59,6 +60,7 @@
 //    
 //    [self.newTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"identifier"];
 }
+
 
 
 
@@ -106,19 +108,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 100;
+    return 30;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.hotTableView) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-        
-        cell.textLabel.text = @"ceshi";
+        cell.textLabel.text = @"ddag";
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"identifier" forIndexPath:indexPath];
-        
         cell.textLabel.text = @"xiaozi";
         return cell;
     }

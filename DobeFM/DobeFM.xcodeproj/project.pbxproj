@@ -88,6 +88,8 @@
 		C2AD10291B5763950039D788 /* 23.png in Resources */ = {isa = PBXBuildFile; fileRef = C2AD10281B5763950039D788 /* 23.png */; };
 		C2DE62B71B5896770003D5C9 /* ClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DE62B61B5896770003D5C9 /* ClassViewController.m */; };
 		C2DE62B91B58A09E0003D5C9 /* 25.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DE62B81B58A09E0003D5C9 /* 25.png */; };
+		C2DE62BE1B58E0900003D5C9 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DE62BD1B58E0900003D5C9 /* CustomCell.m */; };
+		C2DE62C01B58E4E80003D5C9 /* 123456.png in Resources */ = {isa = PBXBuildFile; fileRef = C2DE62BF1B58E4E80003D5C9 /* 123456.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +227,9 @@
 		C2DE62B51B5896770003D5C9 /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
 		C2DE62B61B5896770003D5C9 /* ClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassViewController.m; sourceTree = "<group>"; };
 		C2DE62B81B58A09E0003D5C9 /* 25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 25.png; sourceTree = "<group>"; };
+		C2DE62BC1B58E0890003D5C9 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		C2DE62BD1B58E0900003D5C9 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		C2DE62BF1B58E4E80003D5C9 /* 123456.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 123456.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +350,9 @@
 				5E03855B1B566F4B0054E467 /* DiscoverViewControlerViewController.m */,
 				C2DE62B51B5896770003D5C9 /* ClassViewController.h */,
 				C2DE62B61B5896770003D5C9 /* ClassViewController.m */,
+				C2DE62BC1B58E0890003D5C9 /* CustomCell.h */,
+				C2DE62BD1B58E0900003D5C9 /* CustomCell.m */,
+				C2DE62BF1B58E4E80003D5C9 /* 123456.png */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -718,6 +726,7 @@
 				C2AD10191B5762B30039D788 /* 17.png in Resources */,
 				C2AD10231B5762B30039D788 /* 5.png in Resources */,
 				5E0385861B566FF40054E467 /* hot-2.png in Resources */,
+				C2DE62C01B58E4E80003D5C9 /* 123456.png in Resources */,
 				C2AD10171B5762B30039D788 /* 15.png in Resources */,
 				5E0385831B566FF40054E467 /* discover.png in Resources */,
 				C2AD10291B5763950039D788 /* 23.png in Resources */,
@@ -797,6 +806,7 @@
 				5E0385EA1B5675610054E467 /* SDWebImagePrefetcher.m in Sources */,
 				5E0385731B566F4B0054E467 /* MineViewController.m in Sources */,
 				5E0385E81B5675610054E467 /* SDWebImageDownloaderOperation.m in Sources */,
+				C2DE62BE1B58E0900003D5C9 /* CustomCell.m in Sources */,
 				5E03859B1B5673F10054E467 /* MoreViewController.m in Sources */,
 				5E0385E91B5675610054E467 /* SDWebImageManager.m in Sources */,
 				5E0385EE1B5675610054E467 /* UIImage+WebP.m in Sources */,
