@@ -61,18 +61,18 @@
     self.coverSmImage.layer.cornerRadius = 30.f;
     self.coverSmImage.layer.masksToBounds = YES;
     //音频标题
-    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, 20);
+    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, 30);
     self.audioTitleLabel.font = [UIFont boldSystemFontOfSize:13];
-    CGFloat height = [self getStringHeightBaseFont:13 width:kWW - 90 string:self.audioTitleLabel.text];
-    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, height);
+//    CGFloat height = [self getStringHeightBaseFont:13 width:kWW - 90 string:self.audioTitleLabel.text];
+//    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, height);
     self.audioTitleLabel.numberOfLines = 0;
     //音频作者
-    self.authorLabel.frame = CGRectMake(90, height + 20, kWW / 4 * 3 , 12);
+    self.authorLabel.frame = CGRectMake(90, 40, kWW / 4 * 3 , 12);
     self.authorLabel.font = [UIFont systemFontOfSize:13];
     self.authorLabel.textColor = [UIColor lightGrayColor];
     self.authorLabel.alpha = 0.5;
     //时长
-    self.durationLabel.frame = CGRectMake(90, height + 40, kWW - 90, 12);
+    self.durationLabel.frame = CGRectMake(90, 62, kWW - 90, 12);
     self.durationLabel.textColor = [UIColor lightGrayColor];
     self.durationLabel.font = [UIFont systemFontOfSize:13];
     self.durationLabel.alpha = 0.5;

@@ -10,4 +10,7 @@
 
 @interface ClassViewController : UIViewController
 
+@property (nonatomic, copy) NSString *sortId;
+@property (nonatomic, copy) NSString *sortName;
+
 @end

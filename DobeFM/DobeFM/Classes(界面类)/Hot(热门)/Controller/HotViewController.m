@@ -17,6 +17,7 @@
 #import "AlbumDetailViewController.h"
 #import "MoreAlbumTableViewController.h"
 #import "HotAnchorViewController.h"
+#import "SpcDetailViewController.h"
 #define CUSTOMCOLOR [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1]
 
 #define URLSTR @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
@@ -59,7 +60,8 @@
 
     self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     self.wholeScrollView.contentSize = CGSizeMake(0, 900);
-    self.wholeScrollView.pagingEnabled = YES;
+    self.wholeScrollView.pagingEnabled = NO;
+    self.wholeScrollView.showsVerticalScrollIndicator = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.wholeScrollView.userInteractionEnabled = YES;
@@ -88,10 +90,26 @@
         __block typeof(self) miao = self;
         //图片被点击后的回调方法，点击进入一个页面。
         autoView.callBack = ^(NSInteger index, NSString *imageURL){
-            AnchorInfoTableViewController *sendView = [[AnchorInfoTableViewController alloc]init];
-            sendView.view.backgroundColor = [UIColor cyanColor];
-            [miao.navigationController pushViewController:sendView animated:YES];
-        };
+//            for (int i = 0; i < miao.imageArray.count; i ++) {
+          
+            if (2 == [miao.dataArray[index] typeId]) {
+                AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
+                albumVC.albumId = [miao.dataArray[index] albumId];
+                [miao.navigationController pushViewController:albumVC animated:YES];
+            }
+            if (3 == [miao.dataArray[index] typeId]) {
+                AnchorInfoTableViewController *anchorVC = [[AnchorInfoTableViewController alloc]init];
+                anchorVC.anchorId = [miao.dataArray[index] uid];
+                [miao.navigationController pushViewController:anchorVC animated:YES];
+            }
+            if (9 == [miao.dataArray[index] typeId]) {
+                SpcDetailViewController *spcVC = [[SpcDetailViewController alloc]init];
+                spcVC.addID = [miao.dataArray[index] specialId];
+                [miao.navigationController pushViewController:spcVC animated:YES];
+//            }
+                NSLog(@"dianjide shisha %ld", [miao.dataArray[index] typeId]);
+        }
+    };
     // 是否使用定时
     autoView.isNeedCycleRoll = YES;
     // 计时器定时
@@ -118,7 +136,6 @@
     
     [hotAnchor release];
     [anchorTap release];
-
 }
 
 #pragma mark --- 最火主播触摸事件
@@ -148,7 +165,6 @@
 
 #pragma mark --- 最热声音触摸事件
 - (void)hotVoice{
-    
     HotVoiceViewController *hotVoiceVC = [[HotVoiceViewController alloc]init];
     [self.navigationController pushViewController:hotVoiceVC animated:YES];
     [hotVoiceVC release];

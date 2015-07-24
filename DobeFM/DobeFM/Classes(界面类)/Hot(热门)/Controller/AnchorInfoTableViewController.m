@@ -38,10 +38,13 @@ static NSInteger i = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主播详情";
+    self.introArray = [NSMutableArray array];
+    self.albumArray = [NSMutableArray array];
+    self.audioArray = [NSMutableArray array];
+
     self.view.backgroundColor = CELLCOLOR;
     [self loadData];
-    
-//    [self refreshAndLoad];
+   //    [self refreshAndLoad];
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [self addHeaderImage];
     self.tableView.rowHeight = 100;
@@ -85,9 +88,7 @@ static NSInteger i = 1;
 
 #pragma mark --- 加载数据
 - (void)loadData{
-    self.introArray = [NSMutableArray array];
-    self.albumArray = [NSMutableArray array];
-    self.audioArray = [NSMutableArray array];
+
     
     NSString *introString = [URLIntro stringByAppendingFormat:@"%@", self.anchorId];
     NSString *albumString = [URLAlbum stringByAppendingFormat:@"%@/%ld/2", self.anchorId, i];
@@ -111,7 +112,7 @@ static NSInteger i = 1;
             [aSelf.albumArray addObject:anchorAlbumModel];
             [anchorAlbumModel release];
         }
-//        [aSelf.tableView reloadData];
+        [aSelf.tableView reloadData];
     }];
 //
     [Networking recivedDataWithURLString:audioString method:@"GET" body:nil block:^(id object) {
@@ -132,7 +133,7 @@ static NSInteger i = 1;
     UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)];
     self.tableView.tableHeaderView = headerImageView;
     
-    UIImageView *bgdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kWIDTH / 2)];
+    UIImageView *bgdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)];
     bgdImageView.backgroundColor = [UIColor colorWithRed:0.654 green:0.487 blue:0.596 alpha:0.500];
 
     [headerImageView addSubview:bgdImageView];
@@ -200,7 +201,7 @@ static NSInteger i = 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    return 30;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

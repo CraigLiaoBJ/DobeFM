@@ -13,18 +13,24 @@
 -(id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         //开始布局
-        self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-20)];
+        self.imageView = [[UIImageView alloc]init];
         [self.contentView addSubview:self.imageView];
-        //label
-        self.titilelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-10, self.frame.size.width,10)];
-        self.titilelabel.backgroundColor = [UIColor brownColor];
-        self.titilelabel.textAlignment = NSTextAlignmentCenter;
-        self.titilelabel.textColor = [UIColor blackColor];
-        self.titilelabel.font = [UIFont systemFontOfSize:10];
-        [self.contentView addSubview:self.titilelabel];
+        
+        self.titleLabel = [[UILabel alloc]init];
+        [self.contentView addSubview:self.titleLabel];
+
     }
     return self;
 }
 
+- (void)layoutSubviews{
+    
+    self.imageView.frame = CGRectMake(0, 0, kWW, kHH-20);
+    
+    self.titleLabel.frame = CGRectMake(0, kHH - 20, kWW, 20);
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.font = [UIFont systemFontOfSize:15];
+
+}
 
 @end

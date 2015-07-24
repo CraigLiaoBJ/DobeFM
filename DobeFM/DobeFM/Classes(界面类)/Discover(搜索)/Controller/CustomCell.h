@@ -10,5 +10,5 @@
 
 @interface CustomCell : UICollectionViewCell
 @property(nonatomic , retain)UIImageView *imageView;
-@property(nonatomic , retain)UILabel *titilelabel;
+@property(nonatomic , retain)UILabel *titleLabel;
 @end
