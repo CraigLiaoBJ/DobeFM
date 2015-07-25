@@ -346,6 +346,7 @@ static int currentLoad = 0;
 
 - (void)LoadBegan{
     //判断当前是否正在下载
+    if(currentLoad >= saveLoading.count) return;
     if (((SaveLodingDate*)saveLoading[currentLoad]).downLoading) {//如果当前正在下载，那么点击按钮，按钮变为暂停状态
         [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
         [saveLoading[currentLoad] btn].titleLabel.font = [UIFont boldSystemFontOfSize:12];
