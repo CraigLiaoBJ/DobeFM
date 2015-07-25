@@ -5,7 +5,7 @@
 //  Created by lanou3g on 15/7/8.
 //  Copyright (c) 2015年 lanou3g. All rights reserved.
 //
-
+#import "UIImageView+WebCache.h"
 #import "LoadingViewController.h"
 #import "LoadedCell.h"
 #import "LoadingCell.h"
@@ -293,8 +293,7 @@ static int currentLoad = 0;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:10];
         cell.textLabel.numberOfLines = 0;
         NSURL *picurl = [NSURL URLWithString:self.dicLoad[[self.dicLoad allKeys][indexPath.row]][1]];
-        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-        [cell.imageView setImage:[UIImage imageWithData:picData]];
+        [cell.imageView sd_setImageWithURL:picurl];
         return cell;
     }
     else{
@@ -308,10 +307,10 @@ static int currentLoad = 0;
      
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).progress];
 
-        ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake((cell.bounds.size.width * .4) / 2 + 40, 50, cell.bounds.size.width * 0.5, 10);
+        ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake(70, 50, cell.bounds.size.width - 70 - 60, 10);
         
         //cell.btn =
-        ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(cell.bounds.size.width - 40, 20, 40, 20) ;
+        ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(cell.bounds.size.width - 40 - 10, 20, 40, 20) ;
         ((SaveLodingDate*)saveLoading[indexPath.row]).btn.tag = 1000+indexPath.row;
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).btn];
         [((SaveLodingDate*)saveLoading[indexPath.row]).btn addTarget:self action:@selector(star:) forControlEvents:UIControlEventTouchUpInside];
@@ -320,8 +319,9 @@ static int currentLoad = 0;
         cell.titleLabel.font = [UIFont boldSystemFontOfSize:10];
         cell.titleLabel.numberOfLines = 0;
         NSURL *picurl = [NSURL URLWithString:self.dicLoading[[self.dicLoading allKeys][indexPath.row]][1]];
-        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-        [cell.coverImage setImage:[UIImage imageWithData:picData]];
+//        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
+//        [cell.coverImage setImage:[UIImage imageWithData:picData]];
+        [cell.coverImage sd_setImageWithURL:picurl];
         return cell;
     }
 }
