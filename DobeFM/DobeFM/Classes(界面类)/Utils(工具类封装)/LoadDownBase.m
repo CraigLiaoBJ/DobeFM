@@ -42,7 +42,6 @@
     [obj addObject:[album downloadUrl] == nil ? @"": [album downloadUrl]] ;
     [obj addObject:[album downloadSize] == nil ? @"": [album downloadSize]] ;
     [obj addObject:[album playUrl32] == nil ? @"": [album playUrl32]] ;
-    //NSLog(@"----%@", obj);
     
     [dataList setObject:obj forKey:[NSString stringWithFormat:@"%@", sender]];
     

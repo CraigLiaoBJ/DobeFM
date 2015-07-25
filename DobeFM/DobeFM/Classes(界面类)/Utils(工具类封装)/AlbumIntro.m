@@ -90,11 +90,11 @@
     self.iconImage.layer.masksToBounds = YES;
     
     //作者名称
-    self.authorTitleLbl.frame = CGRectMake(kWW / 4 + 30 + kWW / 8 + 5, 74 + kWW / 16 - 10, kWW / 3, 20);
+    self.authorTitleLbl.frame = CGRectMake(kWW / 4 + 30 + kWW / 8 + 5, 90, kWW / 3, 20);
     self.authorTitleLbl.font = [UIFont boldSystemFontOfSize:16];
 
     //简介
-    self.introLabel.frame = CGRectMake(30 + kWW / 4, 74 + kWW / 8, kWW  - kWW / 4 - 35, 50);
+    self.introLabel.frame = CGRectMake(30 + kWW / 4, 120, kWW  - kWW / 4 - 35, 50);
     self.introLabel.font = [UIFont systemFontOfSize:12];
     self.introLabel.numberOfLines = 0;
 

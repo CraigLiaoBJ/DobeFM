@@ -39,13 +39,13 @@
 #pragma mark ---  添加collectionView
 - (void)addCollectionView{
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    flowLayout.itemSize = CGSizeMake(80, 80);
-    flowLayout.minimumLineSpacing = 10;
+    flowLayout.itemSize = CGSizeMake(kWIDTH / 5.3, kHEIGHT / 8.2);
+    flowLayout.minimumLineSpacing = 5;
     flowLayout.minimumInteritemSpacing = 5;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.sectionInset = UIEdgeInsetsMake(5, 10, 10, 10);
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, kHEIGHT - 64) collectionViewLayout:flowLayout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout];
     
     self.collectionView.backgroundColor = cellImageColor;
     self.collectionView.delegate = self;

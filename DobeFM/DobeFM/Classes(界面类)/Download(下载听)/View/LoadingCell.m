@@ -31,7 +31,6 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
        //[self initLayer];
-        self.backgroundColor = CELLCOLOR;
         self.coverImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 50, 50)];
         [self addSubview:self.coverImage];
         

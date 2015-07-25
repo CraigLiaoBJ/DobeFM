@@ -75,6 +75,8 @@ static int currentLoad = 0;
     self.loadedTableView.tag = 1001;
     self.loadedTableView.backgroundColor = CELLCOLOR;
     self.loadedTableView.tableFooterView = [[UIView alloc]init];
+    self.loadedTableView.showsVerticalScrollIndicator = NO;
+
     [self.view addSubview:self.loadedTableView];
 
     //未下载view
@@ -86,18 +88,31 @@ static int currentLoad = 0;
     [self.loadingTableView registerClass:[LoadingCell class] forCellReuseIdentifier:@"DINGCELL"];
     self.loadingTableView.tag = 1002;
     self.loadingTableView.tableFooterView = [[UIView alloc]init];
+    self.loadingTableView.showsVerticalScrollIndicator = NO;
 
     [self.view addSubview:self.loadingTableView];
     
     self.btnView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, 40)];
     self.btnView.layer.borderWidth = 2;
-    
-    //设置按钮的边界颜色
-//    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-//    CGColorRef color = CGColorCreate(colorSpaceRef, (CGFloat[]){0,0,0,1});
-//    self.btnView.layer.borderColor = color;
-//    [self.btnView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
+//
+//    //设置按钮的边界颜色
+////    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+////    CGColorRef color = CGColorCreate(colorSpaceRef, (CGFloat[]){0,0,0,1});
+////    self.btnView.layer.borderColor = color;
+////    [self.btnView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
     [self.view addSubview:self.btnView];
+    
+    
+//    UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 8, kWIDTH, 30)];
+//    [segmentedControl insertSegmentWithTitle:@"未下载" atIndex:0 animated:YES];
+//    [segmentedControl insertSegmentWithTitle:@"已下载" atIndex:1 animated:YES];
+//    segmentedControl.momentary = YES;
+//    segmentedControl.multipleTouchEnabled=NO;
+//    [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
+//    [self.view addSubview:segmentedControl];
+//    [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
+
+    
     
     loadingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     loadingBtn.frame = CGRectMake(2, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
@@ -134,6 +149,21 @@ static int currentLoad = 0;
     }
     [self.view addSubview: unDataView];
 }
+
+//- (void)Selectbutton:(UISegmentedControl *)seg{
+//    NSInteger index = seg.selectedSegmentIndex;
+//    switch (index) {
+//        case 0:
+//            [self.loadingTableView reloadData];
+//
+//            break;
+//        case 1:
+//            [self.loadedTableView reloadData];
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
 -(void)loadingBtnClick:(UIButton *)sender{
     self.dicLoading = [self getSplistList:@"BeLoadList"];
@@ -277,7 +307,6 @@ static int currentLoad = 0;
         cell.indexNum = indexPath.row ;
      
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).progress];
-        NSLog(@"cell.frame ======= %f", cell.frame.size.height);
         ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake((cell.bounds.size.width * .4) / 2 + 40, 50, cell.bounds.size.width * 0.5, 10);
         
         //cell.btn =
@@ -306,7 +335,8 @@ static int currentLoad = 0;
             [arr addObject:[loadDownBase arrayToAlbumList:aArr]];
         }
             [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:arr sAlbum:nil];
-            [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+        self.navigationController.tabBarController.selectedIndex = 2;
+//            [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
     }
 }
 
@@ -425,7 +455,6 @@ static int currentLoad = 0;
     
     
     //一点一点接收数据。
-    NSLog(@"接收到服务器的数据！--%@--%ld",connection,data.length);
     //把data写入到创建的空文件中，但是不能使用writeTofile(会覆盖)
     //移动到文件的尾部
     [((SaveLodingDate*)saveLoading[currentLoad]).writeHandle seekToEndOfFile];
@@ -439,7 +468,6 @@ static int currentLoad = 0;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     if(currentLoad >= saveLoading.count) return;
-    NSLog(@"下载完毕----%lld",((SaveLodingDate*)saveLoading[currentLoad]).sumLength);
     //关闭连接，不再输入数据在文件中
     [((SaveLodingDate*)saveLoading[currentLoad]).writeHandle closeFile];
     ((SaveLodingDate*)saveLoading[currentLoad]).writeHandle = nil;
@@ -509,7 +537,13 @@ static int currentLoad = 0;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.backgroundColor = CELLCOLOR;
+    if(tableView.tag == 1001){
+         cell.backgroundColor = CELLCOLOR;
+    }
+    else{
+         cell.backgroundColor = cellImageColor;
+    }
+   
 }
 
 
@@ -542,6 +576,7 @@ static int currentLoad = 0;
     }
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

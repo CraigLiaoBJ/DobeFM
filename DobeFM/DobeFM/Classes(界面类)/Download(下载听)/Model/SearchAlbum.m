@@ -18,9 +18,9 @@
     if ([key isEqualToString:@"albumCoverUrl290"] ||[key isEqualToString:@"coverMiddle"] ) {
         self.coverOrige = value;
     }
-    if ([key isEqualToString:@"id"]) {
-        self.albumId = value;
-    }
+//    if ([key isEqualToString:@"id"]) {
+//        self.albumId = value;
+//    }
 }
 
 

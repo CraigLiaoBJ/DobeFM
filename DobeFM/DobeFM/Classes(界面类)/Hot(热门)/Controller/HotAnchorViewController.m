@@ -45,7 +45,8 @@ static NSInteger n = 1;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    
+    self.collectionView.showsVerticalScrollIndicator = NO;
+
     [self.collectionView registerClass:[HotAnchorCell class] forCellWithReuseIdentifier:@"CELL"];
      [self.view addSubview:self.collectionView];
     [flowLayout release];
@@ -84,7 +85,6 @@ static NSInteger n = 1;
     
     
     [self.collectionView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
         if (n == 1) {
             n = 1;
         } else {

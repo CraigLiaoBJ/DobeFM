@@ -107,7 +107,6 @@
                 spcVC.addID = [miao.dataArray[index] specialId];
                 [miao.navigationController pushViewController:spcVC animated:YES];
 //            }
-                NSLog(@"dianjide shisha %ld", [miao.dataArray[index] typeId]);
         }
     };
     // 是否使用定时
@@ -123,7 +122,7 @@
     
     hotAnchor.backgroundColor = [UIColor orangeColor];
     //添加图片
-    hotAnchor.image = [UIImage imageNamed:@"hotanchor.png"];
+    hotAnchor.image = [UIImage imageNamed:@"hotAnchor.png"];
  
     hotAnchor.userInteractionEnabled = YES;
     /**

@@ -220,9 +220,16 @@ static NSInteger i = 1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (0 == indexPath.section) {
+        AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
+        albumVC.albumId = [self.albumArray[indexPath.row] albumId];
+        [self.navigationController pushViewController:albumVC animated:YES];
+    } else {
+        
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.audioArray] sAlbum:nil];
     self.navigationController.tabBarController.selectedIndex = 2;
 //    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
