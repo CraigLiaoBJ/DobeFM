@@ -8,20 +8,19 @@
 
 #import "HotViewController.h"
 #import "SpecialTableViewController.h"
-#import "HotVoiceViewController.h"
 #import "AnchorInfoTableViewController.h"
-#import "SpecialModel.h"
-#import "AlbumDetailViewController.h"
-#import "HotAlbumCell.h"
-#import "HotAlbumsModel.h"
-#import "AlbumDetailViewController.h"
 #import "MoreAlbumTableViewController.h"
 #import "HotAnchorViewController.h"
 #import "SpcDetailViewController.h"
-#define CUSTOMCOLOR [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1]
-
-#define URLSTR @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
+#import "AlbumDetailViewController.h"
+#import "HotVoiceViewController.h"
+#import "HotAlbumCell.h"
+#import "SpecialModel.h"
+#import "HotAlbumsModel.h"
 #import "HotModel.h"
+#define CUSTOMCOLOR [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1]
+#define URLSTR @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
+
 @interface HotViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *dataArray;
@@ -49,13 +48,15 @@
     [_splModel release];
     [_albumTableView release];
     [_wholeScrollView release];
-    
     [super dealloc];
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    self.imageArray = [NSMutableArray array];
+    self.dataArray  = [NSMutableArray array];
+    self.spcialArray = [NSMutableArray array];
+    self.albumArray = [NSMutableArray array];
 //    self.hidesBottomBarWhenPushed = YES;
 
     self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
@@ -67,8 +68,8 @@
     self.wholeScrollView.userInteractionEnabled = YES;
     [self.view addSubview:self.wholeScrollView];
     [_wholeScrollView release];
-    self.view.backgroundColor = [UIColor colorWithRed:0.935 green:0.987 blue:1.000 alpha:1.000];
-    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = CELLCOLOR;
     [self loadNetData];
     //[self addScrollView];
     [self addHotAnchor];
@@ -81,7 +82,6 @@
 
 #pragma mark --- 添加轮播图
 - (void)addScrollView{
-    
      //创建轮播图试图
     AutoView *autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:self.imageArray placeHolderImageName:@"scrollPH.png" pageControlShowStyle:UIPageControlShowStyleCenter];
     //有导航控制器的时候使用这方法控制轮播图的size不会乱变动。
@@ -106,8 +106,6 @@
                 SpcDetailViewController *spcVC = [[SpcDetailViewController alloc]init];
                 spcVC.addID = [miao.dataArray[index] specialId];
                 [miao.navigationController pushViewController:spcVC animated:YES];
-//            }
-
         }
     };
     // 是否使用定时
@@ -227,11 +225,6 @@
 
 #pragma mark ---  加载数据
 - (void)loadNetData{
-    self.imageArray = [NSMutableArray array];
-    self.dataArray  = [NSMutableArray array];
-    self.spcialArray = [NSMutableArray array];
-    self.albumArray = [NSMutableArray array];
-
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:URLSTR method:@"GET" body:nil block:^(id object) {
        
@@ -311,6 +304,7 @@
 - (void)didClickmoreBtn{
     MoreAlbumTableViewController *moreAlbumVC = [[MoreAlbumTableViewController alloc]init];
     [self.navigationController pushViewController:moreAlbumVC animated:YES];
+    [moreAlbumVC release];
 }
 
 #pragma mark --- 代理方法
@@ -328,7 +322,9 @@
     AlbumDetailViewController *albmDtl = [[AlbumDetailViewController alloc]init];
     albmDtl.albumId = [self.albumArray[indexPath.row]albumId];
     [self.navigationController pushViewController:albmDtl animated:YES];
+    [albmDtl release];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

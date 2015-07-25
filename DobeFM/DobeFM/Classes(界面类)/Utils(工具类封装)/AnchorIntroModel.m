@@ -10,7 +10,14 @@
 
 @implementation AnchorIntroModel
 
+- (void)dealloc{
+    [_mobileMiddleLogo release];
+    [_nickname release];
+    [_personalSignature release];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
 }
+
 @end

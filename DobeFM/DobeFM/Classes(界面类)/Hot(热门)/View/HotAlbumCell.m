@@ -10,7 +10,6 @@
 
 @interface HotAlbumCell ()
 
-@property (nonatomic, retain) UIImageView *cellImageView;
 @property (nonatomic, retain) UILabel *hotAlbumLabel;
 @property (nonatomic, retain) UIImageView *coverImage;
 @property (nonatomic, retain) UILabel *titleLabel;
@@ -21,7 +20,7 @@
 
 - (void)dealloc{
     [_hotAlbumsModel release];
-    [_cellImageView release];
+    [_coverImage release];
     [_hotAlbumLabel release];
     [_titleLabel release];
     [_nameLabel release];
@@ -30,9 +29,6 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-//        self.cellImageView = [[UIImageView alloc]init];
-//        [self addSubview:self.cellImageView];
-        
         //专题标题
         self.hotAlbumLabel = [[UILabel alloc]init];
         [self addSubview:self.hotAlbumLabel];
@@ -47,27 +43,20 @@
         self.titleLabel = [[UILabel alloc]init];
         [self addSubview:self.titleLabel];
         [_titleLabel release];
-        
-        //展开图标
-//        UIImageView *moreImage = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4 * 3, 12.5, 25, 25)];
-//        moreImage.image = [UIImage imageNamed:@"hotView-more.png"];
-//        [special addSubview:moreImage];
-
-    }
+   }
     return self;
 }
 
 - (void)layoutSubviews{
     //专题小图片
     self.coverImage.frame = CGRectMake(20, 5, 30, 30);
-//    self.coverImage.layer.cornerRadius = 15.f;
-//    self.coverImage.layer.masksToBounds = YES;
     
     //专题名字
     self.titleLabel.frame = CGRectMake(60, 12, kWW / 3 * 2, 20);
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     self.titleLabel.font = [UIFont systemFontOfSize:15];
-}
+    
+    }
 
 - (void)setHotAlbumsModel:(HotAlbumsModel *)hotAlbumsModel{
     if (_hotAlbumsModel != hotAlbumsModel) {

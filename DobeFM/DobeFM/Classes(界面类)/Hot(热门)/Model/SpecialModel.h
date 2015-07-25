@@ -12,4 +12,5 @@
 //专题
 @property (nonatomic, copy) NSString *coverPathSmall;
 @property (nonatomic, copy) NSString *title;
+
 @end

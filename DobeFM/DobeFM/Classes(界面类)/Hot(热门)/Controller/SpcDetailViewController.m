@@ -33,6 +33,7 @@
     [_tableView release];
     [_headView release];
     [_spclDetlItem release];
+    [_addID release];
     [_spcTypeID release];
     [_introCoverImage release];
     [_titleLabel release];
@@ -48,19 +49,18 @@
       self.title = @"专题详情";
     self.spcAlbumArray = [NSMutableArray array];
     self.spcAudioArray = [NSMutableArray array];
-
-  
     self.dataArray = [NSMutableArray array];
-    [self addTableView];
+    self.splDtlArray = [NSMutableArray array];
+    self.view.backgroundColor = CELLCOLOR;
 
+    
+    [self addTableView];
     [self loadNetData];
     [self loadAlbumData];
-//    [self refreshAndLoad];
 }
 
 #pragma mark ---  加载介绍网络数据
 - (void)loadNetData{
-    self.splDtlArray = [NSMutableArray array];
     NSString *string = [SPCLURL stringByAppendingFormat:@"%@", self.addID];
     
     __block typeof(self) spcDtl = self;
@@ -68,7 +68,6 @@
         NSDictionary *dic = (NSDictionary *)object;
         NSDictionary *introDic = dic[@"info"];
         spcDtl.spclDetlItem = [[SpecialDetailItem alloc]init];
-
         [spcDtl.spclDetlItem setValuesForKeysWithDictionary:introDic];
         [spcDtl addintroInfo];
         [_spclDetlItem release];
@@ -77,7 +76,6 @@
 
 #pragma mark --- 加载Album网络数据
 - (void)loadAlbumData{
-
     NSString *string = [SPCLURL stringByAppendingFormat:@"%@", self.addID];
     __block typeof (self) aSelf = self;
     
@@ -94,7 +92,6 @@
             }
             [aSelf.tableView reloadData];
         }];
-        
     } else {
         [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
             NSDictionary *dic = (NSDictionary *)object;
@@ -110,41 +107,15 @@
     }
 }
 
-#pragma mark --- refresh and load
-//- (void)refreshAndLoad{
-//    __block SpcDetailTableViewController *weakSelf = self;
-//    
-//    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-//        [weakSelf loadAlbumData];
-//        [weakSelf.tableView reloadData];
-//        //结束刷新
-//        [weakSelf.tableView.defaultFooter endRefreshing];
-//    }];
-//    
-//    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-//     
-//        [weakSelf.spcAlbumArray removeAllObjects];
-//        [weakSelf.spcAudioArray removeAllObjects];
-//        [weakSelf.tableView reloadData];
-//        [weakSelf.tableView.gifHeader endRefreshing];
-//    }];
-//    
-//    [self.tableView.gifHeader setGifName:@"demo.gif"];
-//    
-//    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-//    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
-//}
-
-
 #pragma --- 添加表视图
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT ) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) style:UITableViewStylePlain];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 100;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = [UIColor colorWithRed:0.911 green:0.889 blue:0.948 alpha:1.000];
-    
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.headView = [[UIImageView alloc]init];
     self.headView.frame = CGRectMake(0, 0, kWIDTH, 365);
     
@@ -156,7 +127,7 @@
     [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"identifier"];
     [_headView release];
-//    [_tableView release];
+    [_tableView release];
 }
 
 #pragma mark --- 添加头部视图中的内容
@@ -165,9 +136,9 @@
     self.introCoverImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, kWIDTH, 170)];
     NSURL *bigUrl = [NSURL URLWithString:self.spclDetlItem.coverPathBig];
     [self.introCoverImage sd_setImageWithURL:bigUrl];
-
     [self.headView addSubview:self.introCoverImage];
     [_introCoverImage release];
+    
     //标题
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 185, kWIDTH, 20)];
     self.titleLabel.text = self.spclDetlItem.title;
@@ -188,12 +159,14 @@
     self.introLabel.numberOfLines = 0;
     [self.headView addSubview:self.introLabel];
     [_introLabel release];
+    
     //专题作者
     UILabel *specialLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 2.5, 326, 70, 30)];
     specialLabel.text = @"专题作者";
     specialLabel.font = [UIFont systemFontOfSize:13];
     [self.headView addSubview:specialLabel];
     [specialLabel release];
+    
     //作者图标
     self.icon = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 2.5 + 55, 320, 40 , 40)];
     self.icon.layer.cornerRadius = 20.f;
@@ -202,19 +175,18 @@
     [self.icon sd_setImageWithURL:iconUrl];
     [self.headView addSubview:self.icon];
     [_icon release];
+    
     //专题作者
     self.nickNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 2.5 + 97.5, 326, 100, 30)];
     self.nickNameLabel.text = self.spclDetlItem.nickname;
     self.nickNameLabel.font = [UIFont systemFontOfSize: 13];
     [self.headView addSubview:self.nickNameLabel];
     [_nickNameLabel release];
-    
 }
 
 #pragma --- 表视图的代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if ([self.spcTypeID isEqualToString:@"2"]) {
-       
         return self.spcAudioArray.count;
     } else {
         return self.spcAlbumArray.count;
@@ -228,19 +200,16 @@
         return cell1;
     } else {
         AlbumCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    cell2.searchAlbum = self.spcAlbumArray[indexPath.row];
+        cell2.searchAlbum = self.spcAlbumArray[indexPath.row];
     return cell2;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.spcTypeID isEqualToString:@"2"]) {
-        
         [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.spcAudioArray] sAlbum:nil];
         self.navigationController.tabBarController.selectedIndex = 2;
-
 //        [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
-
     }
     if ([self.spcTypeID isEqualToString:@"1"]) {
         AlbumDetailViewController *albumDetail = [[AlbumDetailViewController alloc]init];
@@ -254,4 +223,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 @end

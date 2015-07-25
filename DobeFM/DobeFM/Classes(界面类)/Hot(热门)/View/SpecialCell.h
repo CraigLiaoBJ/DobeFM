@@ -10,12 +10,6 @@
 #import "SpecialItem.h"
 @interface SpecialCell : UITableViewCell
 
-@property (nonatomic, retain) UIImageView *imageview;
-@property (nonatomic, retain) UIImageView *coverImageView;
-@property (nonatomic, retain) UILabel *titleLabel;
-@property (nonatomic, retain) UILabel *releaseAtLabel;
-@property (nonatomic, retain) UIImageView *hotImage;
-@property (nonatomic, retain) UIImageView *timeImage;
 @property (nonatomic, retain) SpecialItem *spcItem;
 
 @end

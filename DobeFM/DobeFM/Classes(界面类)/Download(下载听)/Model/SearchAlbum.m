@@ -10,6 +10,27 @@
 
 @implementation SearchAlbum
 
+- (void)dealloc{
+    [_albumId release];
+    [_avataPath release];
+    [_coverLarge release];
+    [_coverOrige release];
+    [_coverSmall release];
+    [_categoryId release];
+    [_categoryName release];
+    [_title release];
+    [_smallLogo release];
+    [_albumIntro release];
+    [_lastUptrackAt release];
+    [_createdAt release];
+    [_durationTm release];
+    [_playsCounts release];
+    [_intro release];
+    [_tracks release];
+    [_nickname release];
+    [super dealloc];
+}
+
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"duration"]) {
@@ -23,20 +44,4 @@
 //    }
 }
 
-
-//-(id)initWithSearchAlbum:(NSString*)albumId avataPath:(NSString*)avataPath coverLarge:(NSString*)coverLarge
-//                coverOrige:(NSString*)coverOrige coverSmall:(NSString*)coverSmall categoryId:(NSString*)categoryId categoryName:(NSString*)categoryName categoryAt:(int)categoryAt{
-//    if (self = [super init]) {
-//        self.albumId = albumId;
-//        self.avataPath = avataPath;
-//        self.coverLarge = coverLarge;
-//        self.coverOrige = coverOrige;
-//        self.coverSmall = coverSmall;
-//        self.categoryId = categoryId;
-//        self.categoryName = categoryName;
-//        self.categoryAt = categoryAt;
-//    }
-//    return self;
-//
-//}
 @end

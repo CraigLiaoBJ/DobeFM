@@ -22,16 +22,17 @@
 
 @implementation AlbumIntro
 
-//- (void)dealloc{
-////    [_albumItem release];
-//    [_bgdImageView release];
-//    [_bgdEffect release];
-//    [_coverImage release];
-//    [_iconImage release];
-//    [_authorTitleLbl release];
-//    [_introLabel release];
-//    [super dealloc];
-//}
+- (void)dealloc{
+    [_albumItem release];
+    [_bgdImageView release];
+    [_bgdEffect release];
+    [_coverImage release];
+    [_iconImage release];
+    [_authorTitleLbl release];
+    [_introLabel release];
+    [super dealloc];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         //大背景图片
@@ -46,13 +47,11 @@
         
         //专辑图片
         self.coverImage = [[UIImageView alloc]init];
-//        self.coverImage.backgroundColor = [UIColor brownColor];
         [self.bgdEffect addSubview:self.coverImage];
         [_coverImage release];
         
         //作者头像
         self.iconImage = [[UIImageView alloc]init];
-//        self.iconImage.backgroundColor = [UIColor brownColor];
         [self.bgdEffect addSubview:self.iconImage];
         [_iconImage release];
         
@@ -63,7 +62,6 @@
         
         //简介
         self.introLabel = [[UILabel alloc]init];
-//        self.introLabel.backgroundColor = [UIColor brownColor];
         [self.bgdEffect addSubview:self.introLabel];
         [_introLabel release];
     }
@@ -97,9 +95,7 @@
     self.introLabel.frame = CGRectMake(30 + kWW / 4, 120, kWW  - kWW / 4 - 35, 50);
     self.introLabel.font = [UIFont systemFontOfSize:12];
     self.introLabel.numberOfLines = 0;
-
 }
-
 
 - (void)setAlbumItem:(AlbumItem *)albumItem{
     if (_albumItem != albumItem) {
@@ -116,4 +112,5 @@
     [self.iconImage sd_setImageWithURL:iconUrl];
     self.introLabel.text = albumItem.intro;
  }
+
 @end

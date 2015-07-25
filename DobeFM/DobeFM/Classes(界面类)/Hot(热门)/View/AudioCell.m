@@ -10,6 +10,18 @@
 
 @interface AudioCell ()
 
+//cell图片
+@property (nonatomic, retain)UIImageView *cellImageView;
+
+//表视图上面音频信息
+//音频图片
+@property (nonatomic, retain) UIImageView *coverSmImage;
+//音频标题
+@property (nonatomic, retain) UILabel *audioTitleLabel;
+//音频作者
+@property (nonatomic, retain) UILabel *authorLabel;
+//时长
+@property (nonatomic, retain) UILabel *durationLabel;
 
 @end
 
@@ -17,12 +29,10 @@
 
 - (void)dealloc{
     [_cellImageView release];
-    
     [_coverSmImage release];
     [_audioTitleLabel release];
     [_authorLabel release];
     [_durationLabel release];
-    [_albumList release];
     [super dealloc];
 }
 
@@ -63,8 +73,6 @@
     //音频标题
     self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, 30);
     self.audioTitleLabel.font = [UIFont boldSystemFontOfSize:13];
-//    CGFloat height = [self getStringHeightBaseFont:13 width:kWW - 90 string:self.audioTitleLabel.text];
-//    self.audioTitleLabel.frame = CGRectMake(90, 5, kWW - 90, height);
     self.audioTitleLabel.numberOfLines = 0;
     //音频作者
     self.authorLabel.frame = CGRectMake(90, 40, kWW / 4 * 3 , 12);
@@ -78,13 +86,6 @@
     self.durationLabel.alpha = 0.5;
 
 }
-#pragma mark --- 自适应高度的方法
-- (CGFloat)getStringHeightBaseFont:(CGFloat)font width:(CGFloat)width string:(NSString *)string{
-    //计算高度的方法
-    CGRect contentRect = [string boundingRectWithSize:CGSizeMake(width, 1000000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil];
-    return contentRect.size.height;
-}
-
 
 #pragma mark --- 重写setter方法
 - (void)setAlbumList:(AlbumList *)albumList{
@@ -122,12 +123,9 @@
 }
 
 - (void)awakeFromNib {
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
 }
 @end

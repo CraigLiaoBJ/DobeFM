@@ -11,27 +11,33 @@
 #import "HotAnchorItem.h"
 #import "AnchorInfoTableViewController.h"
 #define URLStr @"http://mobile.ximalaya.com/m/explore_user_list?category_name=all&condition=hot&device=android&page="
+
 @interface HotAnchorViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *dataArray;
 
 @end
+
 static NSInteger n = 1;
 @implementation HotAnchorViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = @"最火主播";
-    [self addCollectionView];
-    [self loadData];
-    [self refreshAndLoad];
-}
 
 - (void)dealloc{
     [_collectionView release];
     [super dealloc];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.dataArray = [NSMutableArray array];
+    self.view.backgroundColor = cellImageColor;
+    
+    self.title = @"最火主播";
+    [self addCollectionView];
+    [self loadData];
+    [self refreshData];
+}
+
+#pragma mark --- 添加集合视图
 - (void)addCollectionView{
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake(kWIDTH / 3.2, kHEIGHT / 4.5);
@@ -50,11 +56,11 @@ static NSInteger n = 1;
     [self.collectionView registerClass:[HotAnchorCell class] forCellWithReuseIdentifier:@"CELL"];
      [self.view addSubview:self.collectionView];
     [flowLayout release];
-//    [_collectionView release];
+    [_collectionView release];
 }
 
+#pragma mark --- 获取数据
 - (void)loadData{
-    self.dataArray = [NSMutableArray array];
     NSString *string = [URLStr stringByAppendingFormat:@"%ld&per_page=20", n];
     
     __block typeof(self) aSelf = self;
@@ -71,38 +77,34 @@ static NSInteger n = 1;
     }];
 }
 
-#pragma mark --- refresh and load
-- (void)refreshAndLoad{
-    __block HotAnchorViewController *weakSelf = self;
+#pragma mark --- 刷新数据
+- (void)refreshData{
+    __block HotAnchorViewController *blockSelf = self;
     
-    [self.collectionView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-        n ++;
-        [weakSelf loadData];
-        [weakSelf.collectionView reloadData];
-        //结束刷新
-        [weakSelf.collectionView.defaultFooter endRefreshing];
+    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (n == 1) {
+                n = 1;
+            } else {
+                n --;
+            }
+            [blockSelf loadData];
+            [blockSelf.collectionView reloadData];
+            [blockSelf.collectionView.header endRefreshing];
+        });
     }];
+    blockSelf.collectionView.header.autoChangeAlpha = YES;
     
-    
-    [self.collectionView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-
-        if (n == 1) {
-            n = 1;
-        } else {
-            n --;
-        }
-        [weakSelf.dataArray removeAllObjects];
-        [weakSelf loadData];
-        
-        [weakSelf.collectionView reloadData];
-        [weakSelf.collectionView.gifHeader endRefreshing];
+    blockSelf.collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             n ++;
+            [blockSelf loadData];
+            [blockSelf.collectionView reloadData];
+            [blockSelf.collectionView.footer endRefreshing];
+        });
     }];
-    [self.collectionView.gifHeader setGifName:@"demo.gif"];
-    
-    self.collectionView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-    self.collectionView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+    blockSelf.collectionView.footer.autoChangeAlpha = YES;
 }
-
 
 #pragma mark --- 代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -111,13 +113,13 @@ static NSInteger n = 1;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     HotAnchorCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
+    //给item上添加信息
     for (int i = 0; i < self.dataArray.count; i ++) {
         NSURL *url = [NSURL URLWithString:[self.dataArray[indexPath.row]largeLogo]];
         [cell.picView sd_setImageWithURL:url];
         
         cell.nameLabel.text = [self.dataArray[indexPath.row]nickname];
     }
-    
     return cell;
 }
 
@@ -126,6 +128,10 @@ static NSInteger n = 1;
     anchorDetail.anchorId = [[self.dataArray[indexPath.row]uid]stringValue];
     [self.navigationController pushViewController:anchorDetail animated:YES];
     [anchorDetail release];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    cell.backgroundColor = cellImageColor;
 }
      
 - (void)didReceiveMemoryWarning {

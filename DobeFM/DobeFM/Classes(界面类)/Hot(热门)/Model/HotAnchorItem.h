@@ -13,4 +13,5 @@
 @property (nonatomic, copy) NSString *largeLogo;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, retain) NSNumber *uid;
+
 @end

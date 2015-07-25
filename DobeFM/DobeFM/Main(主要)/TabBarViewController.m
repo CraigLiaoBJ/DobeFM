@@ -40,8 +40,6 @@
 
     [self addOneChildVc:[SingleModel shareSingleModel].loadingC title:@"下载听" imageNamed:@"download.png" selectedImageName:@"download-2.png"];
     
-
-    
     //我的 界面
 //    ReconmmendAlbumViewController *mineVC = [[ReconmmendAlbumViewController alloc]init];
     MineViewController *mineVC = [[MineViewController alloc]init];
@@ -76,8 +74,16 @@
     
     //添加导航控制器
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:childVC];
-
     [self addChildViewController:nav];
+    
+    //设置文字样式
+    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
+    textAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
+    NSMutableDictionary *selectTextAttrs = [NSMutableDictionary dictionary];
+    selectTextAttrs[NSForegroundColorAttributeName] = [UIColor orangeColor];
+    [childVC.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
+    [childVC.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
+    
     [nav release];
 }
 

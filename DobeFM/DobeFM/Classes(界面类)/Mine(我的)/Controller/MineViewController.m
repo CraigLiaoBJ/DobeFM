@@ -22,11 +22,17 @@ const CGFloat HMTopViewH = 350;
 
 @implementation MineViewController
 
-- (void)viewDidLoad
-{
+- (void)dealloc{
+    [_tableView release];
+    [_topView release];
+    [super dealloc];
+}
+
+- (void)viewDidLoad{
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
-    
+    self.view.backgroundColor = CELLCOLOR;
+
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -41,12 +47,13 @@ const CGFloat HMTopViewH = 350;
     topView.contentMode = UIViewContentModeScaleAspectFill;
     [self.tableView addSubview:topView];
     
-    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     // 设置内边距(让cell往下移动一段距离)
     self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH - 150 , 0, 0, 0);
     [self.tableView insertSubview:topView atIndex:0];
     self.topView = topView;
+    [topView release];
+    [_tableView release];
     
     for (int i = 0; i < 3; i ++) {
         self.dataArray = @[@"清除缓存", @"关于", @"免责声明", @"联系我们", @"版本号 v1.0"];
@@ -64,7 +71,6 @@ const CGFloat HMTopViewH = 350;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
     
     cell.textLabel.text = self.dataArray[indexPath.row];
-    
     return cell;
 }
 
@@ -81,12 +87,9 @@ const CGFloat HMTopViewH = 350;
     if (0 == indexPath.row) {
         [self addClearView];
     }
-    
 }
 
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat y = scrollView.contentOffset.y + 64;
     if (y < HMTopViewH){
         CGRect frame = self.topView.frame;
@@ -99,23 +102,25 @@ const CGFloat HMTopViewH = 350;
 - (void)addAboutView{
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"关于DobeFM" message:@"一款充满喜感的FM。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alertView show];
+    [alertView release];
 }
 
 - (void)addAlertView{
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"免责声明" message:@"该软件仅供学习使用，不得用于任何商业用途。如有侵犯您版权的，请联系我们，我们将在第一时间修改。软件所有资料，版权归提供者所有。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-
     [alertView show];
+    [alertView release];
 }
 
 - (void)addContactView{
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"DobeFM开发者团队" message:@"craigliao@foxmail.com;\n330360233@qq.com;\n985595975@qq.com" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alertView show];
+    [alertView release];
 }
 
 - (void)addClearView{
-    
-    
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"清除缓存" message:@"缓存已清理" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alertView show];
+    [alertView release];
 }
+
 @end

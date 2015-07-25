@@ -8,13 +8,18 @@
 
 #import "HotAnchorCell.h"
 
+@interface HotAnchorCell ()
+
+
+
+@end
+
 @implementation HotAnchorCell
 
 - (void)dealloc{
     [_picView release];
     [_nameLabel release];
     [super dealloc];
-
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -22,6 +27,7 @@
         self.picView = [[UIImageView alloc]init];
         [self.contentView addSubview:self.picView];
         [_picView release];
+        
         self.nameLabel = [[UILabel alloc]init];
         [self.contentView addSubview:self.nameLabel];
         [_nameLabel release];

@@ -9,6 +9,17 @@
 #import "SpecialCell.h"
 #import "SpecialItem.h"
 
+@interface SpecialCell ()
+
+@property (nonatomic, retain) UIImageView *imageview;
+@property (nonatomic, retain) UIImageView *coverImageView;
+@property (nonatomic, retain) UILabel *titleLabel;
+@property (nonatomic, retain) UILabel *releaseAtLabel;
+@property (nonatomic, retain) UIImageView *hotImage;
+@property (nonatomic, retain) UIImageView *timeImage;
+
+@end
+
 @implementation SpecialCell
 
 - (void)dealloc{

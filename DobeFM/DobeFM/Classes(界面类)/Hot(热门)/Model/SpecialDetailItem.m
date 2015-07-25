@@ -10,8 +10,18 @@
 
 @implementation SpecialDetailItem
 
+- (void)dealloc{
+    [_contentType release];
+    [_coverPathBig release];
+    [_title release];
+    [_intro release];
+    [_nickname release];
+    [_smallLogo release];
+    [_personalSignature release];
+    [super dealloc];
+}
+
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
- 
     
 }
 

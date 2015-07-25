@@ -10,7 +10,14 @@
 
 @implementation SpecialModel
 
+- (void)dealloc{
+    [_coverPathSmall release];
+    [_title release];
+    [super dealloc];
+}
+
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
 }
+
 @end
