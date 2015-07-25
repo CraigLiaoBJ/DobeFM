@@ -53,7 +53,7 @@ static NSInteger n = 1;
 #pragma mark --- 加载网络数据
 - (void)loadData{
     NSString *string = [URLSTR stringByAppendingFormat:@"%ld&per_page=15&tag_name=", n];
-    NSLog(@"%@", string);
+
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;

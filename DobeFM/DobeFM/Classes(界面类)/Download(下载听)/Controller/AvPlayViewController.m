@@ -376,6 +376,12 @@ static UIImageView *backImageView;
         self.nextButton.alpha = 1;
     }
 
+    [downLoad setEnabled:NO];
+    downLoad.alpha = 0.4;
+    if(self.idArray.count > 0){
+        [downLoad setEnabled:YES];
+        downLoad.alpha = 1;
+    }
 }
 -(void)playMusic{
 [self cutMusic];
@@ -389,7 +395,7 @@ static UIImageView *backImageView;
 }
 //多线程下载
 -(void)loadingMusic{
-    if(self.idArray.count < 1) return ;
+    
     [aThread start];
     downLoad.enabled = NO;
     downLoad.alpha = 0.4;
@@ -411,7 +417,7 @@ static UIImageView *backImageView;
 //保存播放历史
 -(void)setListerHistoryList{
     [loadDownBase loadAudioToLocation:[self.albumList[self.playCurrent] albumImage] styp:@".jpg" albumName:(AlbumList *)self.albumList[self.playCurrent]];
-    NSLog(@"%@",[self.albumList[self.playCurrent] coverLarge]);
+
     [loadDownBase setLoadData:[self.albumList[self.playCurrent] trackId] plsitName:@"ListerHistory" albumName:(AlbumList *)self.albumList[self.playCurrent]];
 
 }

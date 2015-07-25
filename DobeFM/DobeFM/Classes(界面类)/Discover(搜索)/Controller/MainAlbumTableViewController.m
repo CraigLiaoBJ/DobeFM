@@ -43,7 +43,7 @@ static NSInteger n = 0;
 - (void)loadData{
     self.moreAlbumArray = [NSMutableArray array];
     NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=", self.name, n];
-    NSLog(@"%@", string);
+
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;

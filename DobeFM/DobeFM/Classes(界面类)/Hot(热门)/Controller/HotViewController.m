@@ -107,7 +107,7 @@
                 spcVC.addID = [miao.dataArray[index] specialId];
                 [miao.navigationController pushViewController:spcVC animated:YES];
 //            }
-                NSLog(@"dianjide shisha %ld", [miao.dataArray[index] typeId]);
+
         }
     };
     // 是否使用定时

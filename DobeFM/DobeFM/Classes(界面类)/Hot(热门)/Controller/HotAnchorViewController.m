@@ -84,7 +84,7 @@ static NSInteger n = 1;
     
     
     [self.collectionView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        NSLog(@"asd");
+
         if (n == 1) {
             n = 1;
         } else {

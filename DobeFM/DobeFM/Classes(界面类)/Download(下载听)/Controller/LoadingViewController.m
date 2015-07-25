@@ -277,7 +277,7 @@ static int currentLoad = 0;
         cell.indexNum = indexPath.row ;
      
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).progress];
-        NSLog(@"cell.frame ======= %f", cell.frame.size.height);
+
         ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake((cell.bounds.size.width * .4) / 2 + 40, 50, cell.bounds.size.width * 0.5, 10);
         
         //cell.btn =
@@ -306,7 +306,7 @@ static int currentLoad = 0;
             [arr addObject:[loadDownBase arrayToAlbumList:aArr]];
         }
             [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:arr sAlbum:nil];
-            [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
+        self.navigationController.tabBarController.selectedIndex = 2;
     }
 }
 
@@ -329,13 +329,15 @@ static int currentLoad = 0;
 
 - (void)star:(UIButton*)sender
     {
-        if(self.isLoading) {
-            [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
-            ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
-            self.isLoading = NO;
-            //取消发送请求
-            [[saveLoading[currentLoad] cnnt] cancel];
-            ((SaveLodingDate*)saveLoading[currentLoad]).cnnt = nil;
+        if(currentLoad != sender.tag - 1000){
+            if(((SaveLodingDate*)saveLoading[currentLoad]).downLoading) {
+                [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
+                ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
+                self.isLoading = NO;
+                //取消发送请求
+                [[saveLoading[currentLoad] cnnt] cancel];
+                ((SaveLodingDate*)saveLoading[currentLoad]).cnnt = nil;
+            }
         }
     //当下载完成后，点击按钮文字变为已下载
     currentLoad = sender.tag - 1000;
@@ -425,7 +427,7 @@ static int currentLoad = 0;
     
     
     //一点一点接收数据。
-    NSLog(@"接收到服务器的数据！--%@--%ld",connection,data.length);
+    //NSLog(@"接收到服务器的数据！--%@--%ld",connection,data.length);
     //把data写入到创建的空文件中，但是不能使用writeTofile(会覆盖)
     //移动到文件的尾部
     [((SaveLodingDate*)saveLoading[currentLoad]).writeHandle seekToEndOfFile];
@@ -439,7 +441,7 @@ static int currentLoad = 0;
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     if(currentLoad >= saveLoading.count) return;
-    NSLog(@"下载完毕----%lld",((SaveLodingDate*)saveLoading[currentLoad]).sumLength);
+
     //关闭连接，不再输入数据在文件中
     [((SaveLodingDate*)saveLoading[currentLoad]).writeHandle closeFile];
     ((SaveLodingDate*)saveLoading[currentLoad]).writeHandle = nil;
@@ -449,7 +451,7 @@ static int currentLoad = 0;
     ((SaveLodingDate*)saveLoading[currentLoad]).sumLength = 0;
     
     //设置按钮文字为“已经下载完成”
-    [((SaveLodingDate*)saveLoading[currentLoad]).btn setTitle:@"已经下载完成" forState:UIControlStateNormal];
+    [((SaveLodingDate*)saveLoading[currentLoad]).btn setTitle:@"完成" forState:UIControlStateNormal];
     [((SaveLodingDate*)saveLoading[currentLoad]).btn setEnabled:NO];
     
     //清空数组与本地下载列表数据
@@ -464,6 +466,7 @@ static int currentLoad = 0;
     self.dicLoading = [self getSplistList:@"BeLoadList"];
     
     [self.loadingTableView reloadData];
+    
     if ([self nextCellTagIsHave ]) {
         [self LoadBegan];
     }
@@ -473,19 +476,21 @@ static int currentLoad = 0;
  */
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-     NSLog(@"下载ERROR");
+
 }
 
 - (bool)nextCellTagIsHave{
+    return currentLoad < saveLoading.count;
+
+//    for(int i = 0; i <= self.dicLoading.count; i++ ){
+//      UIButton *button = (UIButton*)[self.view viewWithTag:currentLoad + i + 1000];
+//        if (button != nil) {
+//            currentLoad += i;
+//            return YES;
+//        }
+//    }
+//    return NO;
     
-    for(int i = 0; i <= self.dicLoading.count; i++ ){
-      UIButton *button = (UIButton*)[self.view viewWithTag:currentLoad + i + 1000];
-        if (button != nil) {
-            currentLoad += i;
-            return YES;
-        }
-    }
-    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{

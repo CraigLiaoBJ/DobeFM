@@ -120,7 +120,7 @@
     NSURL *musicUrl=[NSURL URLWithString:urlString];
     NSData *mp3Data = [NSData dataWithContentsOfURL:musicUrl];
     [mp3Data writeToFile:musicPath atomically:YES];
-    NSLog(@"----%@",musicPath);
+
     
 }
 

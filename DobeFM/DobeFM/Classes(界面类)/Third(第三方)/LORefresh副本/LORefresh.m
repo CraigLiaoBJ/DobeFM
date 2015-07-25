@@ -208,21 +208,21 @@ typedef NS_ENUM(NSUInteger, LORefreshFooterState){
     
     //header 完全出现时的contentOffset.y
     CGFloat headerCompleteDisplayContentOffsetY = happenOffsetY - kHeaderHeight;
-    NSLog(@"%f  %f  %f",contentOffsetY,happenOffsetY,headerCompleteDisplayContentOffsetY);
+
     if (self.scrollView.isDragging == YES) {//如果正在拖拽
         //如果当前状态是 LORefreshStateIdle(闲置状态或者叫正常状态) && header 已经全部显示
         if (_headerState == LORefreshHeaderStateIdle && contentOffsetY < headerCompleteDisplayContentOffsetY) {
             //将状态设置为  松开就可以进行刷新的状态
             self.headerState = LORefreshHeaderStatePulling;
-            NSLog(@"下拉状态");
+
         }else if (_headerState == LORefreshHeaderStatePulling && contentOffsetY > headerCompleteDisplayContentOffsetY){//如果当前状态是 LORefreshStatePulling(松开就可以进行刷新的状态) && header只显示了一部分(用户往上滑动了)
             self.headerState = LORefreshHeaderStateIdle;
-            NSLog(@"常态");
+
         }
     }else{//如果松开了手
         if (_headerState == LORefreshHeaderStatePulling) {//如果状态是1,下拉状态.让它进入刷新状态
             self.headerState = LORefreshHeaderStateRefreshing;
-            NSLog(@"刷新中");
+
         }
     }
 }
@@ -456,21 +456,21 @@ typedef NS_ENUM(NSUInteger, LORefreshFooterState){
     
     //header 完全出现时的contentOffset.y
     CGFloat headerCompleteDisplayContentOffsetY = happenOffsetY - kHeaderHeight;
-    NSLog(@"%f  %f  %f",contentOffsetY,happenOffsetY,headerCompleteDisplayContentOffsetY);
+
     if (self.scrollView.isDragging == YES) {//如果正在拖拽
         //如果当前状态是 LORefreshStateIdle(闲置状态或者叫正常状态) && header 已经全部显示
         if (_headerState == LORefreshHeaderStateIdle && contentOffsetY < headerCompleteDisplayContentOffsetY) {
             //将状态设置为  松开就可以进行刷新的状态
             self.headerState = LORefreshHeaderStatePulling;
-            NSLog(@"下拉状态");
+       
         }else if (_headerState == LORefreshHeaderStatePulling && contentOffsetY > headerCompleteDisplayContentOffsetY){//如果当前状态是 LORefreshStatePulling(松开就可以进行刷新的状态) && header只显示了一部分(用户往上滑动了)
             self.headerState = LORefreshHeaderStateIdle;
-            NSLog(@"常态");
+          
         }
     }else{//如果松开了手
         if (_headerState == LORefreshHeaderStatePulling) {//如果状态是1,下拉状态.让它进入刷新状态
             self.headerState = LORefreshHeaderStateRefreshing;
-            NSLog(@"刷新中");
+            
         }
     }
 }
@@ -635,7 +635,7 @@ typedef NS_ENUM(NSUInteger, LORefreshFooterState){
     if ([keyPath isEqualToString:@"contentSize"]) {
         CGFloat width = self.scrollView.bounds.size.width;
         CGFloat y = self.scrollView.contentSize.height;
-        NSLog(@"%g",y);
+  
         self.frame = CGRectMake(0, y, width, kFooterHeight);
     }
     
@@ -665,15 +665,15 @@ typedef NS_ENUM(NSUInteger, LORefreshFooterState){
     if (self.scrollView.dragging) {
         if(maxOffsetY > footerCompleteDisplayY && _footerState == LORefreshFooterStateIdle){
             self.footerState = LORefreshFooterStatePulling;
-            NSLog(@"上拉");
+
         }else if(_footerState == LORefreshFooterStatePulling && maxOffsetY < footerCompleteDisplayY){
             self.footerState = LORefreshFooterStateIdle;
-            NSLog(@"正常");
+
         }
     }else{
         if(_footerState == LORefreshFooterStatePulling){
             self.footerState = LORefreshFooterStateRefreshing;
-            NSLog(@"加载更多");
+
         }
     }
 }
