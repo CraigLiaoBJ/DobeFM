@@ -44,7 +44,6 @@ static NSInteger n = 0;
     self.moreAlbumArray = [NSMutableArray array];
     NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=%@", self.name, n, self.tagName];
     NSString *str =  [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=", self.name, n];
 
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:str method:@"GET" body:nil block:^(id object) {
