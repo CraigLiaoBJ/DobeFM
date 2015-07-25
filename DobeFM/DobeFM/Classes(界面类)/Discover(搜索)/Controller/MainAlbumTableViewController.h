@@ -11,5 +11,6 @@
 @interface MainAlbumTableViewController : UITableViewController
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *tagName;
 
 @end

@@ -49,7 +49,6 @@ static NSInteger h = 172;
     //轮播图上图片来源数组
     
     [self reData];
-    [self addLayer];
     [self reCellData];
     
     
@@ -58,6 +57,8 @@ static NSInteger h = 172;
 #pragma mark --- 加载轮播图数据
 - (void)reData{
     NSString *string = [URLSTR stringByAppendingFormat:@"%@&device=iPhone&version=3.1.43", self.sortId];
+
+    
     __block typeof(self) aSelf = self;
 
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
@@ -73,21 +74,23 @@ static NSInteger h = 172;
             }
             [imagesArray addObject:scrollModel.pic];
         }
+        [self addLayer];
+
         [CollectionVC reloadData];
     }];
 }
 
-- (void)reLayout{
-    if (imagesArray.count < 1) {
-        autoView.frame = CGRectMake(0, 0, 0, 0);
-        h = 0;
-        [CollectionVC reloadData];
-    } else{
-        h = 172;
-         [CollectionVC reloadData];;
-    }
-    
-}
+//- (void)reLayout{
+//    if (imagesArray.count < 1) {
+//        autoView.frame = CGRectMake(0, 0, 0, 0);
+//        h = 0;
+//        [CollectionVC reloadData];
+//    } else{
+//        h = 172;
+//         [CollectionVC reloadData];;
+//    }
+//    
+//}
 #pragma mark --- 视图
 -(void)addLayer{
     
@@ -106,6 +109,8 @@ static NSInteger h = 172;
          autoView = [AutoView imageScrollViewWithFrame:CGRectMake(10, 74, kWIDTH - 20, 172) imageLinkURL:imagesArray placeHolderImageName:@"scrollPH.png" pageControlShowStyle:UIPageControlShowStyleCenter];
         [CollectionVC addSubview:autoView];
 
+    } else {
+        flowlayout.sectionInset = UIEdgeInsetsMake( 74,10,10,10);
     }
   
     //有导航控制器的时候使用这方法控制轮播图的size不会乱变动。
@@ -120,13 +125,8 @@ static NSInteger h = 172;
             albumVC.albumId = [miao.scrollArray[index] albumId];
             [miao.navigationController pushViewController:albumVC animated:YES];
         }
-        
-//        if ((4 == [miao.scrollArray[index] thisType])||(7 == [self.scrollArray[index] thisType])||(5 == [self.scrollArray[index] thisType])||(8 == [self.scrollArray[index] thisType])||(6 == [self.scrollArray[index] thisType])) {
-//            UIViewController *newVC = [[UIViewController alloc]init];
-//            newVC.title = @"这里没有任何东西哦～，请返回";
-//            [miao.navigationController pushViewController:newVC animated:YES];
-//        }
-        
+
+
         if ((3 == [miao.scrollArray[index] thisType]) || (1 == [self.scrollArray[index] thisType])) {
             AnchorInfoTableViewController *sendView = [[AnchorInfoTableViewController alloc]init];
             sendView.anchorId = [[miao.scrollArray[index] uid]stringValue];
@@ -164,7 +164,7 @@ static NSInteger h = 172;
             [self.cellDataArray addObject:cellModel];
         }
         [CollectionVC reloadData];
-        [self reLayout];
+//        [self reLayout];
     }];
 
 }
@@ -196,6 +196,7 @@ static NSInteger h = 172;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MainAlbumTableViewController *SonVC = [[MainAlbumTableViewController alloc]init];
     SonVC.name = self.sortName;
+    SonVC.tagName = [self.cellDataArray[indexPath.row] tname];
     [self.navigationController pushViewController:SonVC animated:YES];
 }
 

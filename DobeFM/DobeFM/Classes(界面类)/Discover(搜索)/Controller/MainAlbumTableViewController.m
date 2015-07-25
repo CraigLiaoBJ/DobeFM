@@ -42,10 +42,12 @@ static NSInteger n = 0;
 #pragma mark --- 加载数据
 - (void)loadData{
     self.moreAlbumArray = [NSMutableArray array];
+    NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=%@", self.name, n, self.tagName];
+    NSString *str =  [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=", self.name, n];
 
     __block typeof (self) aSelf = self;
-    [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+    [Networking recivedDataWithURLString:str method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
         NSArray *listArray = dic[@"list"];
         for (NSDictionary *tempDic in listArray) {

@@ -41,7 +41,6 @@
         for (NSInteger i = labelNum - 4*r + 1; i > anum ; i--) {
                         float startNum = r*CHOOL_NEWLINE_NUM*4 + CHOOL_NEWLINE_NUM * (labelNum - 4*r + 1 - i) +1;
                         float endNum = self.num - startNum < CHOOL_NEWLINE_NUM ? self.num  : startNum + CHOOL_NEWLINE_NUM - 1;
-            //NSLog(@"%ld-%ld--%f--%.0f~%.0f",(long)r,(long)i,anum,startNum,endNum);
                         MDownButton *label = [MDownButton buttonWithType:UIButtonTypeCustom];
             label.layer.cornerRadius = 10.0f;
             label.layer.masksToBounds = YES;

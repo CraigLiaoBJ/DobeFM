@@ -102,9 +102,7 @@ static bool isDoading = NO;//是否在下载
      self.navigationController.tabBarController.selectedIndex = 3;
     
     [SingleModel shareSingleModel].loadingC.addLoadData = YES;
-    //NSLog(@"%@",SingleModel shareSingleModel].loadingC);
 
-   
 }
 
 
@@ -168,7 +166,6 @@ static bool isDoading = NO;//是否在下载
 
 //换显示集数段位
 -(void)labelClick:(MDownButton *)sender{
-   // NSLog(@"%f--%f",sender.starNum,sender.endNum);
     [showArray removeAllObjects];
     for (int  i = sender.starNum - 1 ; i < sender.endNum ; i++) {
         [showArray addObject:self.audioArray[i]];

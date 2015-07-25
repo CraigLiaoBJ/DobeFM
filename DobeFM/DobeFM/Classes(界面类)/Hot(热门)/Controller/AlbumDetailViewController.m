@@ -66,11 +66,12 @@ static NSInteger n = 1;
 
 #pragma mark --- 加载tableView
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 180, kWIDTH, kHEIGHT - 34 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, kWIDTH, kHEIGHT - 34 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
     self.tableView.backgroundColor = CELLCOLOR;
     UIVisualEffectView *bgdEffect = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     [self.tableView addSubview:bgdEffect];
-    
+    self.tableView.showsVerticalScrollIndicator = NO;
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 100;
     self.tableView.dataSource = self;
@@ -167,7 +168,7 @@ static NSInteger n = 1;
 - (void)batchButtons{
     //批量下载按钮
     UIButton *batchDn = [UIButton buttonWithType:UIButtonTypeCustom];
-    batchDn.frame = CGRectMake(kWIDTH / 3 * 2, 80 + kWIDTH / 4, kWIDTH / 3, 25);
+    batchDn.frame = CGRectMake(kWIDTH / 3 * 2, 175, kWIDTH / 3, 25);
     [batchDn setImage:[UIImage imageNamed:@"iconfont-xiazai01"] forState:UIControlStateNormal];
 
     [batchDn setImageEdgeInsets:UIEdgeInsetsMake(0, - kWIDTH / 35, 0, 0)];

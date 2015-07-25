@@ -89,7 +89,7 @@ static UIImageView *backImageView;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.playView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-48)];
+    self.playView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT-48)];
     self.playView.backgroundColor = [UIColor colorWithRed:20/255.0 green:20/255.0 blue:20/255.0 alpha:0.3];
     [self.view addSubview:self.playView];
     
@@ -147,7 +147,7 @@ static UIImageView *backImageView;
     
     
     curTime = [[UILabel alloc]initWithFrame:CGRectMake(20, self.playView.bounds.size.height-30, 40, 20)];
-    durTime = [[UILabel alloc]initWithFrame:CGRectMake(self.playView.bounds.size.width-50, self.playView.bounds.size.height-30, 40, 20)];
+    durTime = [[UILabel alloc]initWithFrame:CGRectMake(self.playView.bounds.size.width-50, self.playView.bounds.size.height-30, 50, 20)];
     curTime.font = [UIFont boldSystemFontOfSize:12];
     durTime.font = [UIFont boldSystemFontOfSize:12];
     [self.playView addSubview: curTime];
@@ -314,7 +314,6 @@ static UIImageView *backImageView;
         durTime.text = [self convertTime:duration];
         //设置进度条
         self.volumeSlider.value = currentTimeToSecond/(int)duration;
-        ///NSLog(@"%f",self.volumeSlider.value);
         if (self.volumeSlider.value >= 1.0f)
         {
             [self nextButtonClick];

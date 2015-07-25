@@ -38,7 +38,7 @@ static  NSInteger i = 1;
 #pragma mark --- addTableView
 - (void)addTableView{
     self.tableView  = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 170;

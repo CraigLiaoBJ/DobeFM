@@ -123,7 +123,7 @@
     
     hotAnchor.backgroundColor = [UIColor orangeColor];
     //添加图片
-    hotAnchor.image = [UIImage imageNamed:@"hotanchor.png"];
+    hotAnchor.image = [UIImage imageNamed:@"hotAnchor.png"];
  
     hotAnchor.userInteractionEnabled = YES;
     /**

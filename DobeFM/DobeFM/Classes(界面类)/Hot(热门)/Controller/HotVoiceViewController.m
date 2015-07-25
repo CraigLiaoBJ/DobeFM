@@ -42,7 +42,8 @@ static NSInteger n = 1;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 100;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.tableView.showsVerticalScrollIndicator = NO;
+
     [self.view addSubview:self.tableView];
     [self refreshAndLoad];
     
