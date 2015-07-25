@@ -85,6 +85,7 @@ static NSInteger n = 1;
     
     
     [self.collectionView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
+
         if (n == 1) {
             n = 1;
         } else {

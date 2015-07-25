@@ -107,6 +107,7 @@
                 spcVC.addID = [miao.dataArray[index] specialId];
                 [miao.navigationController pushViewController:spcVC animated:YES];
 //            }
+
         }
     };
     // 是否使用定时
