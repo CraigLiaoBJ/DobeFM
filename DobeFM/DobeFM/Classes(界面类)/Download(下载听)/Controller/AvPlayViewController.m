@@ -68,7 +68,8 @@ static UIImageView *backImageView;
     [super viewDidLoad];
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.navigationController.automaticallyAdjustsScrollViewInsets = NO;
-    
+    self.view.backgroundColor = CELLCOLOR;
+
     backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:backImageView];
     //模糊效果

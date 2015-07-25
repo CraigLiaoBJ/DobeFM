@@ -17,16 +17,13 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        
-        //开始布局
+        //初始化
         self.picture = [[UIImageView alloc]init];
         [self.contentView addSubview:self.picture];
         [_picture release];
-
     }
     return self;
 }
-
 
 - (void)layoutSubviews{
     //开始布局

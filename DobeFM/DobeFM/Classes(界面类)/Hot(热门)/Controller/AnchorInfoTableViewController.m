@@ -44,61 +44,56 @@ static NSInteger i = 1;
 
     self.view.backgroundColor = CELLCOLOR;
     [self loadData];
-   //    [self refreshAndLoad];
+    [self refreshData];
+//    [self refreshAndLoad];
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     [self addHeaderImage];
     self.tableView.rowHeight = 100;
-    
-//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"identifier"];
 }
 
-- (void)refreshAndLoad{
-    __block AnchorInfoTableViewController *weakSelf = self;
+- (void)refreshData{
+    __block typeof(self) blockSelf = self;
     
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-        n ++;
-        i ++;
-        [weakSelf loadData];
-        [weakSelf.tableView reloadData];
-        //结束刷新
-        [weakSelf.tableView.defaultFooter endRefreshing];
+    blockSelf.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (n == 1){
+                n = 1;
+                i = 1;
+            } else {
+                n --;
+                i --;
+            }
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.header endRefreshing];
+        });
     }];
+    blockSelf.tableView.header.autoChangeAlpha = YES;
     
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        if (n == 1) {
-            n = 1;
-        } else {
-            n --;
-        }
-        [weakSelf.albumArray removeAllObjects];
-        [weakSelf.audioArray removeAllObjects];
-        [weakSelf loadData];
-        
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.gifHeader endRefreshing];
+    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            n ++;
+            i ++;
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.footer endRefreshing];
+        });
     }];
-    [self.tableView.gifHeader setGifName:@"demo.gif"];
-    
-    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+    blockSelf.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark --- 加载数据
 - (void)loadData{
-
-    
     NSString *introString = [URLIntro stringByAppendingFormat:@"%@", self.anchorId];
-    NSString *albumString = [URLAlbum stringByAppendingFormat:@"%@/%ld/2", self.anchorId, i];
-    NSString *audioString = [URLAudio stringByAppendingFormat:@"%@/%ld/30", self.anchorId, n];
+    NSString *albumString = [URLAlbum stringByAppendingFormat:@"%@/%ld/%ld", self.anchorId, i, i * 2];
+    NSString *audioString = [URLAudio stringByAppendingFormat:@"%@/%ld/%ld", self.anchorId, n, n * 30];
     __block typeof(self) aSelf = self;
     [Networking recivedDataWithURLString:introString method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
         aSelf.anchorIntroModel = [[AnchorIntroModel alloc]init];
         [aSelf.anchorIntroModel setValuesForKeysWithDictionary:dic];
-//        [aSelf.introArray addObject:aSelf.anchorIntroModel];
         [aSelf addHeaderImage];
         [_anchorIntroModel release];
     }];
@@ -114,7 +109,7 @@ static NSInteger i = 1;
         }
         [aSelf.tableView reloadData];
     }];
-//
+
     [Networking recivedDataWithURLString:audioString method:@"GET" body:nil block:^(id object) {
         NSDictionary *audioDic = (NSDictionary *)object;
         NSArray *audioArray = audioDic[@"list"];
@@ -172,12 +167,10 @@ static NSInteger i = 1;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     if (0 == section) {
         return self.albumArray.count;
     } else {
@@ -187,8 +180,6 @@ static NSInteger i = 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-//    return cell;
     if (0 == indexPath.section) {
         AlbumCell *albumcell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
         albumcell.searchAlbum = self.albumArray[indexPath.row];
@@ -206,7 +197,6 @@ static NSInteger i = 1;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     NSArray * array = @[@"发布的专辑", @"发布的声音"];
-    
     if (section == 0){
         return array[0];
         
@@ -224,16 +214,14 @@ static NSInteger i = 1;
         AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
         albumVC.albumId = [self.albumArray[indexPath.row] albumId];
         [self.navigationController pushViewController:albumVC animated:YES];
+        [albumVC release];
     } else {
-        
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.audioArray] sAlbum:nil];
     self.navigationController.tabBarController.selectedIndex = 2;
-//    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
     }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     cell.backgroundColor = CELLCOLOR;
 }
 

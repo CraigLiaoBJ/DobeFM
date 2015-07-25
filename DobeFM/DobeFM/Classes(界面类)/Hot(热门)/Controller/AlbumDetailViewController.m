@@ -16,9 +16,6 @@
 @interface AlbumDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 //@property(nonatomic,strong)AvPlayViewController *playC;
 @property (nonatomic, retain) AlbumIntro *albumView;
-@property (nonatomic, retain) UIImageView *functionImageView;
-@property (nonatomic, retain) UILabel *introLabel;
-@property (nonatomic, retain) UILabel *titleLabel;
 
 @property (nonatomic, retain) NSMutableArray *albumIntroArray;
 @property (nonatomic, retain) NSMutableArray *albumDataArray;
@@ -34,11 +31,7 @@ static NSInteger n = 1;
     [_tableView release];
     [_dataArray release];
     [_albumView release];
-    [_functionImageView release];
-    [_introLabel release];
-    [_titleLabel release];
-
-    [_sAlbum release];
+    [_albumList release];
 
     [super dealloc];
 }
@@ -48,12 +41,11 @@ static NSInteger n = 1;
     self.title = @"专辑详情";
     self.dataArray = [NSMutableArray array];
     self.albumDataArray = [NSMutableArray array];
-
+    self.view.backgroundColor = CELLCOLOR;
     [self loadData];
-//    [self loadAudioData];
     [self addIntroImageView];
     [self addTableView];
-    [self refreshAndLoad];
+    [self refreshData];
 }
 
 #pragma mark --- 介绍部分
@@ -61,32 +53,26 @@ static NSInteger n = 1;
     self.albumView = [[AlbumIntro alloc]initWithFrame:self.view.bounds];
     [self batchButtons];
     [self.view addSubview:self.albumView];
-    [_albumView release];
+//    [_albumView release];
 }
 
 #pragma mark --- 加载tableView
 - (void)addTableView{
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, kWIDTH, kHEIGHT - 34 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
     self.tableView.backgroundColor = CELLCOLOR;
+    
     UIVisualEffectView *bgdEffect = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     [self.tableView addSubview:bgdEffect];
+    
     self.tableView.showsVerticalScrollIndicator = NO;
-
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 100;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.albumView addSubview:self.tableView];
 
-//    self.functionImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 44)];
-//    self.functionImageView.backgroundColor = CELLCOLOR;
-////    self.tableView.tableHeaderView = self.functionImageView;
-//    self.functionImageView.userInteractionEnabled = YES;
-//    [self batchButtons];
-
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
     
-    [_functionImageView release];
 //    [_tableView release];
 }
 
@@ -94,8 +80,6 @@ static NSInteger n = 1;
 - (void)loadData{
     __block typeof (self) aSelf = self;
     NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
-
-//    NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/1/15", self.albumId];
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         AlbumItem *albumItem = [[AlbumItem alloc]init];
         NSDictionary *dic = (NSDictionary *)object;
@@ -115,53 +99,34 @@ static NSInteger n = 1;
         [aSelf.tableView reloadData ];
     }];
 }
-//
-//- (void)loadAudioData{
-//    __block typeof (self) audioSelf = self;
-//    NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
-//    [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
-//        NSDictionary *dic = (NSDictionary *)object;
-//        NSDictionary *tracksDic = dic[@"tracks"];
-//        NSArray *listArray = tracksDic[@"list"];
-//        for (NSDictionary *tempDic in listArray) {
-//            audioSelf.albumList = [[AlbumList alloc]init];
-//            [audioSelf.albumList setValuesForKeysWithDictionary:tempDic];
-//            [audioSelf.albumDataArray addObject:audioSelf.albumList];
-//            [_albumList release];
-//        }
-//        [audioSelf.tableView reloadData ];
-//    }];
-//
-//}
-#pragma mark --- refresh and load
-- (void)refreshAndLoad{
-    __block AlbumDetailViewController *thisSelf = self;
+
+#pragma mark --- 刷新数据
+- (void)refreshData{
+    __block AlbumDetailViewController *blockSelf = self;
     
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-        n ++;
-        [thisSelf loadData];
-//        [thisSelf loadAudioData];
-        [thisSelf.tableView reloadData];
-        //结束刷新
-        [thisSelf.tableView.defaultFooter endRefreshing];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (n == 1) {
+                n = 1;
+            } else {
+                n --;
+            }
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.header endRefreshing];
+        });
     }];
+    blockSelf.tableView.header.autoChangeAlpha = YES;
     
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        if (n == 1) {
-            n = 1;
-        }
-        else {
-            n --;
-        }
-        [thisSelf.albumDataArray removeAllObjects];
-        [thisSelf loadData];
-//        [thisSelf loadAudioData];
-        [thisSelf.tableView reloadData];
-        [thisSelf.tableView.gifHeader endRefreshing];
+    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            n ++;
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.footer endRefreshing];
+        });
     }];
-    [self.tableView.gifHeader setGifName:@"demo.gif"];
-    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+    blockSelf.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark --- 按钮
@@ -182,12 +147,11 @@ static NSInteger n = 1;
 }
 
 #pragma mark --- 按钮点击事件
-
 - (void)doBatchBtn:(UIButton *)button{
     MoreDownViewController *moreVC = [[MoreDownViewController alloc]init];
     moreVC.view.backgroundColor = [UIColor whiteColor];
-    moreVC.audioArray =[[NSMutableArray alloc]initWithArray: self.albumDataArray];
-    [moreVC  reloadView];
+    moreVC.audioArray =[NSMutableArray arrayWithArray:self.albumDataArray];
+    [moreVC reloadView];
     [self.navigationController pushViewController:moreVC animated:YES];
     [moreVC release];
 }
@@ -199,16 +163,13 @@ static NSInteger n = 1;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     AudioCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
-    
-     cell.albumList = self.albumDataArray[indexPath.row];
+    cell.albumList = self.albumDataArray[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.albumDataArray] sAlbum:self.sAlbum];
     self.navigationController.tabBarController.selectedIndex = 2;
-       // [TbarSingleModel shareSingleModel].tabBar.selectedIndex = 2;
-//    [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

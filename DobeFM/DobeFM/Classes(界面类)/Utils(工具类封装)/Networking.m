@@ -2,8 +2,8 @@
 //  Networking.m
 //  异步加载图片
 //
-//  Created by lanou3g on 15/6/16.
-//  Copyright (c) 2015年 lanou3g. All rights reserved.
+//  Created by Craig Liao on 15/6/16.
+//  Copyright (c) 2015年 Craig Liao. All rights reserved.
 //
 
 #import "Networking.h"

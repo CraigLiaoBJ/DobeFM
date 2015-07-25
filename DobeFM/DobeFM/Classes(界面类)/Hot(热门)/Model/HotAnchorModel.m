@@ -10,6 +10,13 @@
 #import "HotAcrListModel.h"
 @implementation HotAnchorModel
 
+- (void)dealloc{
+    [_listID release];
+    [_name release];
+    [_title release];
+    [super dealloc];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"list"]) {
         self.listArray = [NSMutableArray array];
@@ -17,6 +24,7 @@
             HotAcrListModel *hotAcrListModel = [[HotAcrListModel alloc]init];
             [hotAcrListModel setValuesForKeysWithDictionary:tempDic];
             [self.listArray addObject:hotAcrListModel];
+            [hotAcrListModel release];
         }
     }
 }

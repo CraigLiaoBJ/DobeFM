@@ -22,29 +22,34 @@ static NSInteger n = 0;
 @implementation MainAlbumTableViewController
 
 - (void)dealloc{
+    [_name release];
+    [_tagName release];
     [_searchAlbum release];
     [super dealloc];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.moreAlbumArray = [NSMutableArray array];
+    self.view.backgroundColor = CELLCOLOR;
+
 //    self.hidesBottomBarWhenPushed = YES;
-    
+    self.title = [NSString stringWithFormat:@"%@", self.tagName];
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.rowHeight = 100;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self loadData];
-    [self refreshAndLoad];
+    [self refreshData];
+    //注册cell
     [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
 }
 
 #pragma mark --- 加载数据
 - (void)loadData{
-    self.moreAlbumArray = [NSMutableArray array];
     NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=%@", self.name, n, self.tagName];
+    //把tagName的汉字转化成为UTF8字符
     NSString *str =  [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *string = [URLStr stringByAppendingFormat:@"%@&condition=hot&device=iPhone&page=%ld&per_page=20&status=0&tag_name=", self.name, n];
 
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:str method:@"GET" body:nil block:^(id object) {
@@ -60,40 +65,33 @@ static NSInteger n = 0;
     }];
 }
 
-#pragma mark --- refresh and load
-- (void)refreshAndLoad{
-    __block MainAlbumTableViewController *weakSelf = self;
+#pragma mark --- 刷新数据
+- (void)refreshData{
+    __block MainAlbumTableViewController *blockSelf = self;
     
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-        n ++;
-        [weakSelf loadData];
-        [weakSelf.tableView reloadData];
-        //结束刷新
-        [weakSelf.tableView.defaultFooter endRefreshing];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (n == 1) {
+                n = 1;
+            } else {
+                n --;
+            }
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.header endRefreshing];
+        });
     }];
+    blockSelf.tableView.header.autoChangeAlpha = YES;
     
-    
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        if (n == 1) {
-            n = 1;
-        } else {
-            n --;
-        }
-        [weakSelf.moreAlbumArray removeAllObjects];
-        [weakSelf loadData];
-        
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.gifHeader endRefreshing];
+    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            n ++;
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.footer endRefreshing];
+        });
     }];
-    [self.tableView.gifHeader setGifName:@"demo.gif"];
-    
-    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    blockSelf.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark - Table view data source
@@ -116,12 +114,17 @@ static NSInteger n = 0;
     cell.backgroundColor = CELLCOLOR;
 }
 
+//跳转到专辑详情界面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
     albumVC.albumId = [self.moreAlbumArray[indexPath.row]albumId];
     albumVC.sAlbum = self.moreAlbumArray[indexPath.row];
     [self.navigationController pushViewController:albumVC animated:YES];
     [albumVC release];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 @end

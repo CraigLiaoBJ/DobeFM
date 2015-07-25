@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SearchAlbum : NSObject
+
 @property(nonatomic,strong)NSString *albumId;//专辑ID
 @property(nonatomic,strong)NSString *avataPath;//图片路径
 @property(nonatomic,strong)NSString *coverLarge;//大图
@@ -31,10 +32,5 @@
 @property (nonatomic, assign) NSInteger serialState;
 @property (nonatomic, retain) NSNumber *tracks;
 @property (nonatomic, copy) NSString *nickname;
-
-
-
-//-(id)initWithSearchAlbum:(NSString*)albumId avataPath:(NSString*)avataPath coverLarge:(NSString*)coverLarge
-//                coverOrige:(NSString*)coverOrige coverSmall:(NSString*)coverSmall categoryId:(NSString*)categoryId categoryName:(NSString*)categoryName categoryAt:(int)categoryAt;
 
 @end

@@ -10,6 +10,15 @@
 
 @implementation ScrollModel
 
+- (void)dealloc{
+    
+    [_albumId release];
+    [_scrollId release];
+    [_pic release];
+    [_uid release];
+    [super dealloc];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"id"]) {
         self.scrollId = value;
@@ -18,4 +27,5 @@
         self.thisType = [value intValue];
     }
 }
+
 @end

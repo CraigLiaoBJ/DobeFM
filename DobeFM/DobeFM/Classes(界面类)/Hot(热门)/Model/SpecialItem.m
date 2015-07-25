@@ -10,7 +10,19 @@
 
 @implementation SpecialItem
 
+- (void)dealloc{
+    
+    [_contentType release];
+    [_coverPathBig release];
+    [_releasedAt release];
+    [_specialId release];
+    [_subtitle release];
+    [_title release];
+    [super dealloc];
+}
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
 }
+
 @end

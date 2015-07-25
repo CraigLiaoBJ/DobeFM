@@ -10,6 +10,13 @@
 
 @implementation HotAnchorItem
 
+- (void)dealloc{
+    [_largeLogo release];
+    [_nickname release];
+    [_uid release];
+    [super dealloc];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
 }

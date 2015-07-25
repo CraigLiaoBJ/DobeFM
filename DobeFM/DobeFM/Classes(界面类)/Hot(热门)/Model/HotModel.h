@@ -17,6 +17,4 @@
 @property (nonatomic, retain) NSString *uid;
 @property (nonatomic, retain) NSString *specialId;
 
-
-
 @end

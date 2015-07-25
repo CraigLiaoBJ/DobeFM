@@ -10,6 +10,14 @@
 
 @implementation DiscoverModel
 
+- (void)dealloc{
+    [_coverPath release];
+    [_name release];
+    [_categoryId release];
+    [_title release];
+    [super dealloc];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"id"]) {
         self.categoryId = value;

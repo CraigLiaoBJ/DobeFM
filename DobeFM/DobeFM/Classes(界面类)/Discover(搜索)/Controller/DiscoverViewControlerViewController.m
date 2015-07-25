@@ -14,26 +14,32 @@
 #define URLStr @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
 
 @interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
-@property (nonatomic, retain) NSArray *array;
 
-@property (nonatomic, retain) NSMutableArray *dataArray;
+@property (nonatomic, retain) NSMutableArray *dataArray; //数据源数组
 
-@property (nonatomic, retain) UICollectionView *collectionView;
+@property (nonatomic, retain) UICollectionView *collectionView;//整个界面的集合视图
 
-@property (nonatomic, retain) UILabel *label;
 @end
 
 @implementation DiscoverViewControlerViewController
+
+- (void)dealloc{
+    [_dataArray release];
+    [_collectionView release];
+    [super dealloc];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"发现";
-//    self.view.backgroundColor = [UIColor whiteColor];
-    [self addCollectionView];
-    [self loadData];
+    self.view.backgroundColor = CELLCOLOR;
 
+    //添加集合视图
+    [self addCollectionView];
+    //加载数据
+    [self loadData];
 }
 
 #pragma mark ---  添加collectionView
@@ -51,8 +57,12 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.showsVerticalScrollIndicator = NO;
-    [self.collectionView registerClass:[DiscoverCell class] forCellWithReuseIdentifier:@"CELL"];
     [self.view addSubview:self.collectionView];
+
+    //注册Cell
+    [self.collectionView registerClass:[DiscoverCell class] forCellWithReuseIdentifier:@"CELL"];
+    [flowLayout release];
+    [_collectionView release];
 }
 
 #pragma mark --- 加载数据
@@ -72,43 +82,6 @@
     }];
 }
 
-//- (void)addImageView{
-//    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
-//    ImageView.userInteractionEnabled = YES;
-//    ImageView.image = nil;
-//    [self.view addSubview:ImageView];
-//    
-//    self.array = @[@"有声小说",@"音乐",@"综艺娱乐",@"相声评书",@"最新资讯",@"情感生活",@"历史人文",@"外语",@"培训讲座",@"百家讲坛",@"广播剧",@"戏剧",@"儿童",@"电台",@"商业财经",@"IT科技",@"健康养生",@"校园",@"汽车",@"旅游",@"电影",@"游戏",@"女人",@"其他",@"段子"];
-//    NSInteger temp = 1;
-//    for (int i = 0; i < 5; i++) {
-//        for (int j = 0; j < 5; j++) {
-//            UIButton *button  = [[UIButton alloc]initWithFrame:CGRectMake(WINWIDTH/6 + j*(WINWIDTH/6) + j*WINWIDTH,WINWIDTH/6 + i*(WINWIDTH/6) + i*WINWIDTH + WINWIDTH,WINWIDTH,WINWIDTH)];
-//            [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld.png",temp]] forState:UIControlStateNormal];
-//            button.tag = 200 + temp;
-//            button.imageView.layer.masksToBounds = YES;
-//            button.imageView.layer.cornerRadius = 16;
-//            [ImageView addSubview:button];
-//            [button addTarget:self action:@selector(Button:) forControlEvents:UIControlEventTouchUpInside];
-//            
-//            self.label = [[UILabel alloc]initWithFrame:CGRectMake(WINWIDTH/6 + j*(WINWIDTH/6) + j*WINWIDTH , WINWIDTH/6 + i*(WINWIDTH/6) + i*WINWIDTH + WINWIDTH*2 , WINWIDTH, WINWIDTH/6)];
-//            self.label.font = [UIFont systemFontOfSize:10];
-//            self.label.text = self.array[temp - 1];
-//            self.label.textAlignment = NSTextAlignmentCenter;
-//            temp++;
-//            [ImageView addSubview:self.label];
-//        }
-//    }
-//
-//}
-
-//- (void)Button:(UIButton *)sender{
-//    NSInteger tempTag = sender.tag - 200;
-//    ClassViewController *ClassVC = [[ClassViewController alloc]init];
-//
-//    [self.navigationController pushViewController:ClassVC animated:YES];
-//    ClassVC.title = self.array[tempTag-1];
-//}
-
 #pragma mark ---  代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.dataArray.count;
@@ -117,18 +90,20 @@
 #pragma mark --- 重用机制
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     DiscoverCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CELL" forIndexPath:indexPath];
-    
-        NSURL *url = [NSURL URLWithString:[self.dataArray[indexPath.row] coverPath]];
-        [cell.picture sd_setImageWithURL:url];
-    
+    NSURL *url = [NSURL URLWithString:[self.dataArray[indexPath.row] coverPath]];
+    [cell.picture sd_setImageWithURL:url];
     return cell;
 }
 
 #pragma mark --- 点击跳转
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ClassViewController *classVC = [[ClassViewController alloc]init];
+    //类目ID号，用于下个页面加载数据
     classVC.sortId = [self.dataArray[indexPath.row] categoryId];
+    //类目名称
     classVC.sortName = [self.dataArray[indexPath.row] name];
+    //页面名称
+    classVC.pageTitle = [self.dataArray[indexPath.row] title];
     [self.navigationController pushViewController:classVC animated:YES];
     [classVC release];
 }
@@ -136,4 +111,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 @end

@@ -30,5 +30,4 @@ categoryId;//类ID
 @property (nonatomic, copy) NSString *title;//专辑名称
 @property (nonatomic, retain) NSNumber *tracks;//音频数量
 
-
 @end

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomCell : UICollectionViewCell
+
 @property(nonatomic , retain)UIImageView *imageView;
 @property(nonatomic , retain)UILabel *titleLabel;
+
 @end

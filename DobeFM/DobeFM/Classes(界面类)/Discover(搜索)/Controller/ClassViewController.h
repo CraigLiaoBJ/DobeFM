@@ -10,7 +10,7 @@
 
 @interface ClassViewController : UIViewController
 
-@property (nonatomic, copy) NSString *sortId;
-@property (nonatomic, copy) NSString *sortName;
-
+@property (nonatomic, copy) NSString *sortId;//类目ID号
+@property (nonatomic, copy) NSString *sortName;//类目名称
+@property (nonatomic, copy) NSString *pageTitle;//页面名称
 @end

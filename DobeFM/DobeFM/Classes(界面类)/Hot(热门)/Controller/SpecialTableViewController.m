@@ -17,22 +17,22 @@
 @property (nonatomic, retain)NSMutableArray *dataArray;
 
 @end
-static  NSInteger i = 1;
+
+static  NSInteger n = 1;
 @implementation SpecialTableViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+    self.dataArray = [NSMutableArray array];
     self.title = @"专题";
-    
+    self.view.backgroundColor = CELLCOLOR;
+
     //加载tableview
     [self addTableView];
     //加载数据
     [self loadData];
-    
     //数据刷新和加载
-    [self refreshAndLoad];
-   
+    [self refreshData];
 }
 
 #pragma mark --- addTableView
@@ -48,9 +48,7 @@ static  NSInteger i = 1;
 
 #pragma mark --- loadData
 - (void)loadData{
- 
-        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", i ];
-        self.dataArray = [NSMutableArray array];
+        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", n];
         __block typeof (self) aSelf = self;
         [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
             NSDictionary *dic = (NSDictionary *)object;
@@ -66,35 +64,34 @@ static  NSInteger i = 1;
     }];
 }
 
-#pragma mark --- refresh and load
-- (void)refreshAndLoad{
-    __block SpecialTableViewController *weakSelf = self;
-    
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeFooterDefault refreshingBlock:^{
-        i ++;
-        [weakSelf loadData];
-        [weakSelf.tableView reloadData];
-        //结束刷新
-        [weakSelf.tableView.defaultFooter endRefreshing];
-    }];
-    
-    
-    [self.tableView addRefreshWithRefreshViewType:LORefreshViewTypeHeaderGif refreshingBlock:^{
-        if (i == 1) {
-            i = 1;
-        } else {
-            i --;
-        }
-        [weakSelf.dataArray removeAllObjects];
-        [weakSelf loadData];
 
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.gifHeader endRefreshing];
-    }];
-    [self.tableView.gifHeader setGifName:@"demo.gif"];
+#pragma mark --- 刷新数据
+- (void)refreshData{
+    __block SpecialTableViewController *blockSelf = self;
     
-    self.tableView.defaultHeader.refreshLayoutType = LORefreshLayoutTypeTopIndicator;
-    self.tableView.defaultFooter.refreshLayoutType = LORefreshLayoutTypeRightIndicator;
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (n == 1) {
+                n = 1;
+            } else {
+                n --;
+            }
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.header endRefreshing];
+        });
+    }];
+    blockSelf.tableView.header.autoChangeAlpha = YES;
+    
+    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            n ++;
+            [blockSelf loadData];
+            [blockSelf.tableView reloadData];
+            [blockSelf.tableView.footer endRefreshing];
+        });
+    }];
+    blockSelf.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark - Table view data source
@@ -112,12 +109,10 @@ static  NSInteger i = 1;
     SpecialCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL" forIndexPath:indexPath];
     //赋值
     cell.spcItem = self.dataArray[indexPath.row];
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
         SpcDetailViewController *spcDetail = [[SpcDetailViewController alloc]init];
         spcDetail.addID = [[self.dataArray[indexPath.row] specialId]stringValue];
         spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType]stringValue];

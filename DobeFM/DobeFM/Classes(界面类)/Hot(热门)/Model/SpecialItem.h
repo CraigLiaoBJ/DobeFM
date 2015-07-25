@@ -12,11 +12,10 @@
 
 @property (nonatomic, retain) NSNumber *contentType;
 @property (nonatomic, retain) NSString *coverPathBig;
-@property (nonatomic, assign) NSNumber *releasedAt;
-@property (nonatomic, assign) NSNumber *specialId;
+@property (nonatomic, retain) NSNumber *releasedAt;
+@property (nonatomic, retain) NSNumber *specialId;
 @property (nonatomic, retain) NSString *subtitle;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, assign) BOOL isHot;
-
 
 @end

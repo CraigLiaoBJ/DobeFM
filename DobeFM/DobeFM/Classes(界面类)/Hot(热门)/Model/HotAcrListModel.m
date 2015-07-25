@@ -10,7 +10,15 @@
 
 @implementation HotAcrListModel
 
+- (void)dealloc{
+    [_nickname release];
+    [_smallLogo release];
+    [_uid release];
+    [super dealloc];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
 }
+
 @end

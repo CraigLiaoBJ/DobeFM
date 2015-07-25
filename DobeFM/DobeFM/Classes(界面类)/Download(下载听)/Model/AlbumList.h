@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface AlbumList : NSObject
+
 @property (nonatomic, copy) NSString *albumId;//专辑id
 @property (nonatomic, copy) NSString *albumImage;//专辑图片
 @property (nonatomic, copy) NSString *albumTitle;//专辑标题
@@ -38,5 +39,4 @@
 
 @property (nonatomic, retain) NSNumber *createdAt;//创建时间
 
-//-(id) initWithDictionary:(NSMutableDictionary*) jsonObject;
 @end
