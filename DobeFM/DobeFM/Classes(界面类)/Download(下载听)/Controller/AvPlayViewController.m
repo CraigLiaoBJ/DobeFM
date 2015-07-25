@@ -247,14 +247,17 @@ static UIImageView *backImageView;
 
 //数值转化成时间格式
 - (NSString *)convertTime:(CGFloat)second{
+
+    
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"mm:ss"];
+    NSString *showtimeNew;
     if (second/3600 >= 1) {
-        [formatter setDateFormat:@"HH:mm:ss"];
+        showtimeNew = [NSString stringWithFormat:@"%d:%@",(int)second/3600 ,[formatter stringFromDate:d]] ;
     } else {
-        [formatter setDateFormat:@"mm:ss"];
+         showtimeNew = [formatter stringFromDate:d];
     }
-    NSString *showtimeNew = [formatter stringFromDate:d];
     return showtimeNew;
 }
 
