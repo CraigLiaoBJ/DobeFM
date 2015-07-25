@@ -102,7 +102,24 @@
     //作者
     _authorLabel.text = [NSString stringWithFormat:@"By%@" , albumList.nickname];
     //时长
-    _durationLabel.text = [NSString stringWithFormat:@"时长：%@" ,[albumList.durationTime stringValue]];
+    [albumList.durationTime floatValue];
+    _durationLabel.text = [NSString stringWithFormat:@"时长：%@" ,[self convertTime:[albumList.durationTime floatValue]]];
+}
+
+//数值转化成时间格式
+- (NSString *)convertTime:(CGFloat)second{
+    
+    
+    NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"mm:ss"];
+    NSString *showtimeNew;
+    if (second/3600 >= 1) {
+        showtimeNew = [NSString stringWithFormat:@"%d:%@",(int)second/3600 ,[formatter stringFromDate:d]] ;
+    } else {
+        showtimeNew = [formatter stringFromDate:d];
+    }
+    return showtimeNew;
 }
 
 - (void)awakeFromNib {
