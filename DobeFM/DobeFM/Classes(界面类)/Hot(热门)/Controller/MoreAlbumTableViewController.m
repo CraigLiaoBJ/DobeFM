@@ -28,12 +28,13 @@ static NSInteger n = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"推荐专辑";
     self.moreAlbumArray = [NSMutableArray array];
     self.view.backgroundColor = CELLCOLOR;
 
 //    self.hidesBottomBarWhenPushed = YES;
 
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain]autorelease];
     self.tableView.rowHeight = 100;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -53,7 +54,7 @@ static NSInteger n = 0;
             aSelf.searchAlbum = [[SearchAlbum alloc]init];
             [aSelf.searchAlbum setValuesForKeysWithDictionary:tempDic];
             [aSelf.moreAlbumArray addObject:aSelf.searchAlbum];
-            [_searchAlbum release];
+//            [_searchAlbum release];
         }
         [aSelf.tableView reloadData];
     }];

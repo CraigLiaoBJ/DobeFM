@@ -28,13 +28,17 @@ const CGFloat HMTopViewH = 350;
     [super dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
     self.view.backgroundColor = CELLCOLOR;
     self.navigationController.navigationBarHidden = YES;
-
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, - 64, kWIDTH, kHEIGHT) style:UITableViewStylePlain];
+       self.tableView = [[[UITableView alloc]initWithFrame:CGRectMake(0, -64, kWIDTH, kHEIGHT + 20) style:UITableViewStylePlain]autorelease];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH, 0, 0, 0);
@@ -42,7 +46,7 @@ const CGFloat HMTopViewH = 350;
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc]init];
     
-    UIImageView *topView = [[UIImageView alloc] init];
+    UIImageView *topView = [[[UIImageView alloc] init]autorelease];
     topView.image = [UIImage imageNamed:@"dobe"];
     topView.frame = CGRectMake(0, -HMTopViewH, kWIDTH, HMTopViewH - 150);
     topView.contentMode = UIViewContentModeScaleAspectFill;
@@ -53,8 +57,8 @@ const CGFloat HMTopViewH = 350;
     self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH , 0, 0, 0);
     [self.tableView insertSubview:topView atIndex:0];
     self.topView = topView;
-    [topView release];
-    [_tableView release];
+//    [topView release];
+//    [_tableView release];
     
     for (int i = 0; i < 3; i ++) {
         self.dataArray = @[@"清除缓存", @"关于", @"免责声明", @"联系我们", @"版本号 v1.0"];
@@ -86,7 +90,8 @@ const CGFloat HMTopViewH = 350;
         [self addContactView];
     }
     if (0 == indexPath.row) {
-        [self addClearView];
+        [self performSelector:@selector(addClearView) withObject:nil afterDelay:1.0f];
+//        [self addClearView];
     }
 }
 
@@ -98,6 +103,10 @@ const CGFloat HMTopViewH = 350;
         frame.size.height = -y;
         self.topView.frame = frame;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
 }
 
 - (void)addAboutView{
@@ -123,5 +132,7 @@ const CGFloat HMTopViewH = 350;
     [alertView show];
     [alertView release];
 }
+
+
 
 @end

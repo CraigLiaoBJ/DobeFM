@@ -33,10 +33,11 @@
         block(tempObj);
             
         } else {
-            
+            UIAlertView *noneNet = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"网络连接失败，请检查网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [noneNet show];
         }
         
     }];
-    
 }
+
 @end

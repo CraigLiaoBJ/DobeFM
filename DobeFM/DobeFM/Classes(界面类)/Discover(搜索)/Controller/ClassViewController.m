@@ -61,7 +61,7 @@ static NSInteger h = 172;
         NSDictionary *dic = (NSDictionary *)object;
         NSArray *listArray = dic[@"list"];
         for (NSDictionary *tempDic in listArray) {
-            ScrollModel *scrollModel = [[ScrollModel alloc]init];
+            ScrollModel *scrollModel = [[[ScrollModel alloc]init]autorelease];
             [scrollModel setValuesForKeysWithDictionary:tempDic];
             //判断如果是取出来的“type”是这些，就不取出轮播图了。
             [aSelf.scrollArray addObject:scrollModel];
@@ -69,24 +69,24 @@ static NSInteger h = 172;
                 continue;
             }
             [self.imagesArray addObject:scrollModel.pic];
-            [scrollModel release];
+//            [scrollModel release];
         }
         [self addLayer];
-        [self.collectionVC reloadData];
+//        [self.collectionVC reloadData];
     }];
 }
 
 #pragma mark --- 视图
 -(void)addLayer{
     
-    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc]init];
+    UICollectionViewFlowLayout *flowlayout = [[[UICollectionViewFlowLayout alloc]init]autorelease];
     
     flowlayout.itemSize = CGSizeMake(kWIDTH / 4 + 10, kHEIGHT / 7.5 + 10);
     flowlayout.minimumInteritemSpacing = 10;
     flowlayout.minimumLineSpacing = 10;
     flowlayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowlayout.sectionInset = UIEdgeInsetsMake(h + 74 + 10,10,10,10);
-    self.collectionVC = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 48) collectionViewLayout:flowlayout];
+    self.collectionVC = [[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 48) collectionViewLayout:flowlayout]autorelease];
     
     //只显示轮播图数量大于3的
     if (3 <= self.imagesArray.count) {
@@ -131,8 +131,8 @@ static NSInteger h = 172;
     
     self.collectionVC.backgroundColor = CELLCOLOR;
     [self.view addSubview:self.collectionVC];
-    [flowlayout release];
-    [_collectionVC release];
+//    [flowlayout release];
+//    [_collectionVC release];
 }
 
 #pragma ,mark --- 加载cell数据

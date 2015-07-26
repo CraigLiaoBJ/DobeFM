@@ -10,7 +10,7 @@
 #import "HotAnchorCell.h"
 #import "HotAnchorItem.h"
 #import "AnchorInfoTableViewController.h"
-#define URLStr @"http://mobile.ximalaya.com/m/explore_user_list?category_name=all&condition=hot&device=android&page="
+#define URLStr @"http://mobile.ximalaya.com/m/explore_user_list?category_name=all&condition=hot&device=iPhone&page="
 
 @interface HotAnchorViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -46,7 +46,7 @@ static NSInteger n = 1;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.sectionInset = UIEdgeInsetsMake(10, 5, 0, 5);
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout];
+    self.collectionView = [[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout]autorelease];
     self.collectionView.backgroundColor = CELLCOLOR;
     
     self.collectionView.delegate = self;
@@ -56,13 +56,12 @@ static NSInteger n = 1;
     [self.collectionView registerClass:[HotAnchorCell class] forCellWithReuseIdentifier:@"CELL"];
      [self.view addSubview:self.collectionView];
     [flowLayout release];
-    [_collectionView release];
+//    [_collectionView release];
 }
 
 #pragma mark --- 获取数据
 - (void)loadData{
     NSString *string = [URLStr stringByAppendingFormat:@"%ld&per_page=20", n];
-    
     __block typeof(self) aSelf = self;
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
@@ -71,7 +70,7 @@ static NSInteger n = 1;
             HotAnchorItem *hotAnchorItem = [[HotAnchorItem alloc]init];
             [hotAnchorItem setValuesForKeysWithDictionary:tempDic];
             [aSelf.dataArray addObject:hotAnchorItem];
-            [hotAnchorItem release];
+//            [hotAnchorItem release];
         }
         [aSelf.collectionView reloadData];
     }];
@@ -93,17 +92,18 @@ static NSInteger n = 1;
             [blockSelf.collectionView.header endRefreshing];
         });
     }];
-    blockSelf.collectionView.header.autoChangeAlpha = YES;
+    self.collectionView.header.autoChangeAlpha = YES;
     
-    blockSelf.collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
              n ++;
+//            [blockSelf.dataArray removeAllObjects];
             [blockSelf loadData];
             [blockSelf.collectionView reloadData];
             [blockSelf.collectionView.footer endRefreshing];
         });
     }];
-    blockSelf.collectionView.footer.autoChangeAlpha = YES;
+    self.collectionView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark --- 代理方法

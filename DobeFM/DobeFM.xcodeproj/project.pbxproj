@@ -22,12 +22,12 @@
 		5E0385891B566FF40054E467 /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E03857E1B566FF40054E467 /* mine.png */; };
 		5E03858F1B5671AF0054E467 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E03858D1B5671AF0054E467 /* main.m */; };
 		5E0385921B5673D30054E467 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385911B5673D30054E467 /* HotViewController.m */; };
-		5E0385951B5673E50054E467 /* HotVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385941B5673E50054E467 /* HotVoiceViewController.m */; };
+		5E0385951B5673E50054E467 /* HotVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385941B5673E50054E467 /* HotVoiceViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E03859E1B5674920054E467 /* SpcDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E03859D1B5674920054E467 /* SpcDetailViewController.m */; };
 		5E0385A11B56749E0054E467 /* SpecialTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385A01B56749E0054E467 /* SpecialTableViewController.m */; };
 		5E0385A41B5674AC0054E467 /* SpecialItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385A31B5674AC0054E467 /* SpecialItem.m */; };
 		5E0385A71B5674B50054E467 /* SpecialCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385A61B5674B50054E467 /* SpecialCell.m */; };
-		5E0385AA1B5674BF0054E467 /* AlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385A91B5674BF0054E467 /* AlbumDetailViewController.m */; };
+		5E0385AA1B5674BF0054E467 /* AlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385A91B5674BF0054E467 /* AlbumDetailViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E0385B01B5674CE0054E467 /* AlbumItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385AF1B5674CE0054E467 /* AlbumItem.m */; };
 		5E0385B31B5674E20054E467 /* SpecialDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385B21B5674E20054E467 /* SpecialDetailItem.m */; };
 		5E0385BC1B56753D0054E467 /* AutoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385BB1B56753D0054E467 /* AutoView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -174,7 +174,7 @@
 		5EFED9FB1B61F47700C99AF4 /* DiscoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9FA1B61F47700C99AF4 /* DiscoverModel.m */; };
 		5EFEDA001B62156E00C99AF4 /* DiscoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFED9FF1B62156E00C99AF4 /* DiscoverCell.m */; };
 		5EFEDA031B62216E00C99AF4 /* CellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFEDA021B62216E00C99AF4 /* CellModel.m */; };
-		5EFEDA091B62305B00C99AF4 /* MainAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFEDA081B62305B00C99AF4 /* MainAlbumTableViewController.m */; };
+		5EFEDA091B62305B00C99AF4 /* MainAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFEDA081B62305B00C99AF4 /* MainAlbumTableViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C2400D281B5DFD4100B08889 /* SaveLodingDate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2400D271B5DFD4100B08889 /* SaveLodingDate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C2D314901B6220A900A3AB6C /* zhongjian.png in Resources */ = {isa = PBXBuildFile; fileRef = C2D3148E1B6220A900A3AB6C /* zhongjian.png */; };
 		C2D314911B6220A900A3AB6C /* zhongjian2.png in Resources */ = {isa = PBXBuildFile; fileRef = C2D3148F1B6220A900A3AB6C /* zhongjian2.png */; };

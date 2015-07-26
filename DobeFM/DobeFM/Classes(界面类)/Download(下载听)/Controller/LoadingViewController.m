@@ -66,7 +66,7 @@ static int currentLoad = 0;
         [saveLoading addObject:aSave];
     }
     //下载完成view
-    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74, kWIDTH, kHEIGHT - 104 - 48)];
+    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74, kWIDTH, kHEIGHT - 74 - 49)];
     self.loadedTableView.rowHeight = 60;
     self.loadedTableView.delegate = self;
     self.loadedTableView.dataSource = self;
@@ -80,7 +80,7 @@ static int currentLoad = 0;
     [self.view addSubview:self.loadedTableView];
 
     //未下载view
-    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48)];
+    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74,  kWIDTH, kHEIGHT - 74 - 49)];
     self.loadingTableView.rowHeight = 60;
     self.loadingTableView.backgroundColor = CELLCOLOR;
     self.loadingTableView.delegate = self;
@@ -103,11 +103,12 @@ static int currentLoad = 0;
 //    [self.view addSubview:self.btnView];
     
     
-    UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, kWIDTH, 40)];
-    [segmentedControl insertSegmentWithTitle:@"未下载" atIndex:0 animated:YES];
-    [segmentedControl insertSegmentWithTitle:@"已下载" atIndex:1 animated:YES];
-    segmentedControl.momentary = YES;
-    segmentedControl.multipleTouchEnabled=NO;
+    UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithItems:@[@"下载中", @"已下载"]];
+    segmentedControl.frame = CGRectMake(0, 0, kWIDTH, 40);
+//    [segmentedControl insertSegmentWithTitle:@"未下载" atIndex:0 animated:YES];
+//    [segmentedControl insertSegmentWithTitle:@"已下载" atIndex:1 animated:YES];
+//    segmentedControl.momentary = YES;
+//    segmentedControl.multipleTouchEnabled=NO;
     [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
     [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
@@ -231,6 +232,7 @@ static int currentLoad = 0;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     if (self.addLoadData) {
         self.addLoadData = NO;
         [self continueDown];

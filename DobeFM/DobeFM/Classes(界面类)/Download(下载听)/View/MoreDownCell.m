@@ -16,7 +16,7 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.titleStr = [[UILabel alloc]initWithFrame:CGRectMake(5, 0,kWW*0.85, 40)];
+        self.titleStr = [[[UILabel alloc]initWithFrame:CGRectMake(5, 0,kWW*0.85, 40)]autorelease];
         self.titleStr.font = [UIFont boldSystemFontOfSize:12];
         self.titleStr.numberOfLines = 0;
         [self addSubview:self.titleStr];

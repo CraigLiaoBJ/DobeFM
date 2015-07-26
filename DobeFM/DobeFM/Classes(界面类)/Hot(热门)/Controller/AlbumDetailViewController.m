@@ -17,7 +17,7 @@
 //@property(nonatomic,strong)AvPlayViewController *playC;
 @property (nonatomic, retain) AlbumIntro *albumView;
 
-@property (nonatomic, retain) NSMutableArray *albumIntroArray;
+//@property (nonatomic, retain) NSMutableArray *albumIntroArray;
 @property (nonatomic, retain) NSMutableArray *albumDataArray;
 
 @property (nonatomic, retain) AlbumList *albumList;
@@ -25,22 +25,24 @@
 static NSInteger n = 1;
 @implementation AlbumDetailViewController
 
-- (void)dealloc{
-    [_albumId release];
-    [_imageView release];
-    [_tableView release];
-    [_dataArray release];
-    [_albumView release];
-    [_albumList release];
-
-    [super dealloc];
-}
+//- (void)dealloc{
+////    [_albumId release];
+////    [_imageView release];
+////    [_tableView release];
+////    [_dataArray release];
+////    [_albumView release];
+////    [_albumList release];
+//
+//    [super dealloc];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"专辑详情";
-    self.dataArray = [NSMutableArray array];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.albumDataArray = [NSMutableArray array];
+    self.albumList = [[AlbumList alloc]init];
     self.view.backgroundColor = CELLCOLOR;
     [self loadData];
     [self addIntroImageView];
@@ -58,7 +60,7 @@ static NSInteger n = 1;
 
 #pragma mark --- 加载tableView
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, kWIDTH, kHEIGHT - 34 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, kWIDTH, kHEIGHT - 65 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
     self.tableView.backgroundColor = CELLCOLOR;
     
     UIVisualEffectView *bgdEffect = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
@@ -78,15 +80,19 @@ static NSInteger n = 1;
 
 #pragma mark --- 数据请求
 - (void)loadData{
+//    self.dataArray = [NSMutableArray array];
     __block typeof (self) aSelf = self;
+    
     NSString *string = [URLSTR stringByAppendingFormat:@"%@/true/%ld/15", self.albumId, n];
+    
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
+        
         AlbumItem *albumItem = [[AlbumItem alloc]init];
         NSDictionary *dic = (NSDictionary *)object;
         NSDictionary *introDic = dic[@"album"];
         [albumItem setValuesForKeysWithDictionary:introDic];
         aSelf.albumView.albumItem = albumItem;
-        [albumItem release];
+//        [albumItem release];
         
         NSDictionary *tracksDic = dic[@"tracks"];
         NSArray *listArray = tracksDic[@"list"];
@@ -94,7 +100,7 @@ static NSInteger n = 1;
             aSelf.albumList = [[AlbumList alloc]init];
             [aSelf.albumList setValuesForKeysWithDictionary:tempDic];
             [aSelf.albumDataArray addObject:aSelf.albumList];
-            [_albumList release];
+//            [_albumList release];
         }
         [aSelf.tableView reloadData ];
     }];
@@ -116,9 +122,9 @@ static NSInteger n = 1;
             [blockSelf.tableView.header endRefreshing];
         });
     }];
-    blockSelf.tableView.header.autoChangeAlpha = YES;
+    self.tableView.header.autoChangeAlpha = YES;
     
-    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             n ++;
             [blockSelf loadData];
@@ -126,7 +132,7 @@ static NSInteger n = 1;
             [blockSelf.tableView.footer endRefreshing];
         });
     }];
-    blockSelf.tableView.footer.autoChangeAlpha = YES;
+    self.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark --- 按钮
@@ -153,7 +159,7 @@ static NSInteger n = 1;
     moreVC.audioArray =[NSMutableArray arrayWithArray:self.albumDataArray];
     [moreVC reloadView];
     [self.navigationController pushViewController:moreVC animated:YES];
-    [moreVC release];
+//    [moreVC release];
 }
 
 #pragma mark --- 代理方法

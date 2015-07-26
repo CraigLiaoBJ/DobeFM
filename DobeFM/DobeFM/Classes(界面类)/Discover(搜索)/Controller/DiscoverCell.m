@@ -18,8 +18,8 @@
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
         //初始化
-        self.picture = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.picture];
+        _picture = [[[UIImageView alloc]init]autorelease];
+        [self.contentView addSubview:_picture];
         [_picture release];
     }
     return self;

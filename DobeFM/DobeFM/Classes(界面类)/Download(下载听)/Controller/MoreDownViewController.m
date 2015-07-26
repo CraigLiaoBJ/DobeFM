@@ -43,7 +43,7 @@ static bool isDoading = NO;//是否在下载
     [self.view addSubview:choolView];
     
     //选择的tableView
-    self.moreDownTableView = [[UITableView alloc]initWithFrame:self.view.frame];
+    self.moreDownTableView = [[[UITableView alloc]initWithFrame:self.view.frame]autorelease];
     [self.view addSubview:self.moreDownTableView];
     self.moreDownTableView.delegate = self;
     self.moreDownTableView.dataSource = self;
@@ -62,13 +62,13 @@ static bool isDoading = NO;//是否在下载
     loadDownBtnView.backgroundColor  = CELLCOLOR;
     [self.view addSubview:loadDownBtnView];
     
-    UIButton *loadDownBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - self.view.bounds.size.width*0.2, 2, self.view.bounds.size.width*0.2, 26)];
+    UIButton *loadDownBtn = [[[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - self.view.bounds.size.width*0.2, 2, self.view.bounds.size.width*0.2, 26)]autorelease];
 //    [loadDownBtn setTitle:@"下载" forState:UIControlStateNormal];
     [loadDownBtn setImage:[UIImage imageNamed:@"iconfont-xiazai.png"] forState:UIControlStateNormal];
     [loadDownBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [loadDownBtn addTarget:self action:@selector(loadDownAction:) forControlEvents:UIControlEventTouchUpInside];
     [loadDownBtn.layer setCornerRadius:10];
-    loadDownBtn.layer.borderWidth = 1;
+//    loadDownBtn.layer.borderWidth = 1;
     
     //设置按钮的边界颜色
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
@@ -108,6 +108,7 @@ static bool isDoading = NO;//是否在下载
 
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     isAllCheck = NO;
     for (AlbumList *detail in  showArray) {
         detail.isSelect = isAllCheck;

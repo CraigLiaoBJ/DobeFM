@@ -38,25 +38,27 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.cellImageView = [[UIImageView alloc]init];
-        [self addSubview:_cellImageView];
-        [_cellImageView release];
+        self.cellImageView = [[[UIImageView alloc]init]autorelease];
+//        self.cellImageView = [[UIImageView alloc]init];
+
+        [self addSubview:self.cellImageView];
+//        [_cellImageView release];
         
-        self.coverSmImage = [[UIImageView alloc]init];
+        self.coverSmImage = [[[UIImageView alloc]init]autorelease];
         [self.cellImageView addSubview:self.coverSmImage];
-        [_coverSmImage release];
+//        [_coverSmImage release];
         
-        self.audioTitleLabel = [[UILabel alloc]init];
+        self.audioTitleLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.audioTitleLabel];
-        [_audioTitleLabel release];
+//        [_audioTitleLabel release];
         
-        self.authorLabel = [[UILabel alloc]init];
+        self.authorLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.authorLabel];
-        [_authorLabel release];
+//        [_authorLabel release];
         
-        self.durationLabel = [[UILabel alloc]init];
+        self.durationLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.durationLabel];
-        [_durationLabel release];
+//        [_durationLabel release];
     }
     return self;
 }
@@ -107,11 +109,9 @@
 }
 
 //数值转化成时间格式
-- (NSString *)convertTime:(CGFloat)second{
-    
-    
+- (NSString *)convertTime:(CGFloat)second{    
     NSDate *d = [NSDate dateWithTimeIntervalSince1970:second];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init]autorelease];
     [formatter setDateFormat:@"mm:ss"];
     NSString *showtimeNew;
     if (second/3600 >= 1) {

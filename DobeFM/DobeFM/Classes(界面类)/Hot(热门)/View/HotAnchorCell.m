@@ -24,13 +24,13 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.picView = [[UIImageView alloc]init];
+        self.picView = [[[UIImageView alloc]init]autorelease];
         [self.contentView addSubview:self.picView];
-        [_picView release];
+//        [_picView release];
         
-        self.nameLabel = [[UILabel alloc]init];
+        self.nameLabel = [[[UILabel alloc]init]autorelease];
         [self.contentView addSubview:self.nameLabel];
-        [_nameLabel release];
+//        [_nameLabel release];
     }
     return self;
 }

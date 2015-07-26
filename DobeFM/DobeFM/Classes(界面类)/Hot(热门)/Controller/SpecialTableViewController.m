@@ -37,7 +37,7 @@ static  NSInteger n = 1;
 
 #pragma mark --- addTableView
 - (void)addTableView{
-    self.tableView  = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView  = [[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain]autorelease];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -58,7 +58,7 @@ static  NSInteger n = 1;
                 SpecialItem *specialItem = [[SpecialItem alloc]init];
                 [specialItem setValuesForKeysWithDictionary:tempDic];
                 [aSelf.dataArray addObject: specialItem];
-                [specialItem release];
+//                [specialItem release];
             }
             [self.tableView reloadData];
     }];

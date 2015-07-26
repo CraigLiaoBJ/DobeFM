@@ -46,7 +46,7 @@ static NSInteger i = 1;
     [self loadData];
     [self refreshData];
 //    [self refreshAndLoad];
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView = [[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped]autorelease];
     [self addHeaderImage];
     self.tableView.rowHeight = 100;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -55,9 +55,9 @@ static NSInteger i = 1;
 }
 
 - (void)refreshData{
-    __block typeof(self) blockSelf = self;
+    __block  AnchorInfoTableViewController *blockSelf = self;
     
-    blockSelf.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (n == 1){
                 n = 1;
@@ -71,17 +71,18 @@ static NSInteger i = 1;
             [blockSelf.tableView.header endRefreshing];
         });
     }];
-    blockSelf.tableView.header.autoChangeAlpha = YES;
+    self.tableView.header.autoChangeAlpha = YES;
     
-    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             n ++;
             i ++;
+            [blockSelf loadData];
             [blockSelf.tableView reloadData];
             [blockSelf.tableView.footer endRefreshing];
         });
     }];
-    blockSelf.tableView.footer.autoChangeAlpha = YES;
+    self.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark --- 加载数据
@@ -92,10 +93,10 @@ static NSInteger i = 1;
     __block typeof(self) aSelf = self;
     [Networking recivedDataWithURLString:introString method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
-        aSelf.anchorIntroModel = [[AnchorIntroModel alloc]init];
+        aSelf.anchorIntroModel = [[[AnchorIntroModel alloc]init]autorelease];
         [aSelf.anchorIntroModel setValuesForKeysWithDictionary:dic];
         [aSelf addHeaderImage];
-        [_anchorIntroModel release];
+//        [_anchorIntroModel release];
     }];
     
     [Networking recivedDataWithURLString:albumString method:@"GET" body:nil block:^(id object) {
@@ -125,14 +126,14 @@ static NSInteger i = 1;
 
 #pragma mark --- 头视图
 - (void)addHeaderImage{
-    UIImageView *headerImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)];
+    UIImageView *headerImageView = [[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)]autorelease];
     self.tableView.tableHeaderView = headerImageView;
     
-    UIImageView *bgdImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)];
+    UIImageView *bgdImageView = [[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 160)]autorelease];
     bgdImageView.backgroundColor = [UIColor colorWithRed:0.654 green:0.487 blue:0.596 alpha:0.500];
 
     [headerImageView addSubview:bgdImageView];
-    [bgdImageView release];
+//    [bgdImageView release];
     
     UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake((kWIDTH - 60) / 2, 5, 60, 60)];
     iconImage.backgroundColor = cellImageColor;

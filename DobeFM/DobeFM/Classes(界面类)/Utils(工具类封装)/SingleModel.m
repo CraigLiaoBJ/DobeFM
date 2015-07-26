@@ -17,8 +17,8 @@ static SingleModel *manger = nil;
 - (id)init{
     if(self = [super init ]){
         
-        self.playC = [[AvPlayViewController alloc]init];
-        self.loadingC = [[LoadingViewController alloc]init];
+        self.playC = [[[AvPlayViewController alloc]init]autorelease];
+        self.loadingC = [[[LoadingViewController alloc]init]autorelease];
         //self.tabBar = [[TabBarViewController alloc]init];
     }
 

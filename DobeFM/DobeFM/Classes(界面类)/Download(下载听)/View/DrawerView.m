@@ -15,20 +15,16 @@
     
     if (self = [super initWithFrame:frame]) {
     
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        self.tableView = [[UITableView alloc]initWithFrame:self.bounds];
         [self addSubview:self.tableView];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         //self.tableView.tableFooterView = [[UIView alloc]init];
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
-        
-
     }
     return self;
 
 }
-
-
 
 -(void)setDic:(NSMutableDictionary *)dic{
     if (_dic != dic) {
@@ -36,13 +32,10 @@
     }
     [self.tableView reloadData];
 }
+
 -(void)reloadData{
-
     [self.tableView reloadData];
-
 }
-
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 20;
@@ -68,9 +61,7 @@
     
     
     NSURL *picurl = [NSURL URLWithString:self.dic[[self.dic allKeys][indexPath.row]][1]];
-    NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-    [cell.imageView setImage:[UIImage imageWithData:picData]];
-
+    [cell.imageView sd_setImageWithURL:picurl];
     return cell;
     
 }

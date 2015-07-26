@@ -44,14 +44,14 @@
 
 #pragma mark ---  添加collectionView
 - (void)addCollectionView{
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+    UICollectionViewFlowLayout *flowLayout = [[[UICollectionViewFlowLayout alloc]init]autorelease];
     flowLayout.itemSize = CGSizeMake(kWIDTH / 5.3, kHEIGHT / 8.2);
     flowLayout.minimumLineSpacing = 5;
     flowLayout.minimumInteritemSpacing = 5;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.sectionInset = UIEdgeInsetsMake(5, 10, 10, 10);
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout];
+    self.collectionView = [[[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout]autorelease];
     
     self.collectionView.backgroundColor = cellImageColor;
     self.collectionView.delegate = self;
@@ -61,8 +61,8 @@
 
     //注册Cell
     [self.collectionView registerClass:[DiscoverCell class] forCellWithReuseIdentifier:@"CELL"];
-    [flowLayout release];
-    [_collectionView release];
+//    [flowLayout release];
+//    [_collectionView release];
 }
 
 #pragma mark --- 加载数据

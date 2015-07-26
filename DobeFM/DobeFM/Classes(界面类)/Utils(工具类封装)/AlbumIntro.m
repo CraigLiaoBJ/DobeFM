@@ -7,8 +7,7 @@
 //
 
 #import "AlbumIntro.h"
-#define kWW self.frame.size.width
-#define kHH self.frame.size.height
+
 
 @interface AlbumIntro ()
 @property (nonatomic, retain) UIImageView *bgdImageView;
@@ -36,34 +35,34 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         //大背景图片
-        self.bgdImageView = [[UIImageView alloc]init];
+        self.bgdImageView = [[[UIImageView alloc]init]autorelease];
         [self addSubview:self.bgdImageView];
-        [_bgdImageView release];
+//        [_bgdImageView release];
         
         //毛玻璃
-        self.bgdEffect = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        self.bgdEffect = [[[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]]autorelease];
         [self.bgdImageView addSubview:self.bgdEffect];
-        [_bgdEffect release];
+//        [_bgdEffect release];
         
         //专辑图片
-        self.coverImage = [[UIImageView alloc]init];
+        self.coverImage = [[[UIImageView alloc]init]autorelease];
         [self.bgdEffect addSubview:self.coverImage];
-        [_coverImage release];
+//        [_coverImage release];
         
         //作者头像
-        self.iconImage = [[UIImageView alloc]init];
+        self.iconImage = [[[UIImageView alloc]init]autorelease];
         [self.bgdEffect addSubview:self.iconImage];
-        [_iconImage release];
+//        [_iconImage release];
         
         //作者名称
-        self.authorTitleLbl = [[UILabel alloc]init];
+        self.authorTitleLbl = [[[UILabel alloc]init]autorelease];
         [self.bgdEffect addSubview:self.authorTitleLbl];
-        [_authorTitleLbl release];
+//        [_authorTitleLbl release];
         
         //简介
-        self.introLabel = [[UILabel alloc]init];
+        self.introLabel = [[[UILabel alloc]init]autorelease];
         [self.bgdEffect addSubview:self.introLabel];
-        [_introLabel release];
+//        [_introLabel release];
     }
     return self;
 }

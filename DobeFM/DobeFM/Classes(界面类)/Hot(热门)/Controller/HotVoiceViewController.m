@@ -22,10 +22,10 @@ static NSInteger n = 1;
 
 @implementation HotVoiceViewController
 
-- (void)dealloc{
-    [_tableView release];
-    [super dealloc];
-}
+//- (void)dealloc{
+//    [_tableView release];
+//    [super dealloc];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,7 +50,7 @@ static NSInteger n = 1;
     [self refreshData];
     
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
-    [_tableView release];
+//    [_tableView release];
 }
 
 #pragma mark --- 加载网络数据
@@ -65,7 +65,7 @@ static NSInteger n = 1;
             AlbumList *voiceModel = [[AlbumList alloc]init];
             [voiceModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.dataArray addObject:voiceModel];
-            [voiceModel release];
+//            [voiceModel release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -83,22 +83,22 @@ static NSInteger n = 1;
             } else {
                 n --;
             }
-            [blockSelf loadData];
-            [blockSelf.tableView reloadData];
+            [blockSelf loadData];//加载数据方法
+            [blockSelf.tableView reloadData];//冲洗加载
             [blockSelf.tableView.header endRefreshing];
         });
     }];
-    blockSelf.tableView.header.autoChangeAlpha = YES;
+    self.tableView.header.autoChangeAlpha = YES;
     
-    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             n ++;
-            [blockSelf loadData];
-            [blockSelf.tableView reloadData];
+            [blockSelf loadData];//加载数据方法
+            [blockSelf.tableView reloadData];//冲洗加载
             [blockSelf.tableView.footer endRefreshing];
         });
     }];
-    blockSelf.tableView.footer.autoChangeAlpha = YES;
+    self.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark --- 代理方法

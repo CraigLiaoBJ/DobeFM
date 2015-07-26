@@ -30,19 +30,19 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         //专题标题
-        self.hotAlbumLabel = [[UILabel alloc]init];
+        self.hotAlbumLabel = [[[UILabel alloc]init]autorelease];
         [self addSubview:self.hotAlbumLabel];
-        [_hotAlbumLabel release];
+//        [_hotAlbumLabel release];
         
         //专题小图片
-        self.coverImage = [[UIImageView alloc]init];
+        self.coverImage = [[[UIImageView alloc]init]autorelease];
         [self addSubview:self.coverImage];
-        [_coverImage release];
+//        [_coverImage release];
         
         //专题名字
-        self.titleLabel = [[UILabel alloc]init];
+        self.titleLabel = [[[UILabel alloc]init]autorelease];
         [self addSubview:self.titleLabel];
-        [_titleLabel release];
+//        [_titleLabel release];
    }
     return self;
 }

@@ -21,7 +21,7 @@
 #define CUSTOMCOLOR [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1]
 #define URLSTR @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
 
-@interface HotViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface HotViewController ()<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *dataArray;
 
@@ -59,12 +59,11 @@
     self.albumArray = [NSMutableArray array];
 //    self.hidesBottomBarWhenPushed = YES;
 
-    self.wholeScrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    self.wholeScrollView = [[[UIScrollView alloc]initWithFrame:self.view.bounds]autorelease];
     self.wholeScrollView.contentSize = CGSizeMake(0, 900);
     self.wholeScrollView.pagingEnabled = NO;
     self.wholeScrollView.showsVerticalScrollIndicator = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
-
     self.wholeScrollView.userInteractionEnabled = YES;
     [self.view addSubview:self.wholeScrollView];
     [_wholeScrollView release];
@@ -93,17 +92,17 @@
 //            for (int i = 0; i < miao.imageArray.count; i ++) {
           
             if (2 == [miao.dataArray[index] typeId]) {
-                AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
+                AlbumDetailViewController *albumVC = [[[AlbumDetailViewController alloc]init]autorelease];
                 albumVC.albumId = [miao.dataArray[index] albumId];
                 [miao.navigationController pushViewController:albumVC animated:YES];
             }
             if (3 == [miao.dataArray[index] typeId]) {
-                AnchorInfoTableViewController *anchorVC = [[AnchorInfoTableViewController alloc]init];
+                AnchorInfoTableViewController *anchorVC = [[[AnchorInfoTableViewController alloc]init]autorelease];
                 anchorVC.anchorId = [miao.dataArray[index] uid];
                 [miao.navigationController pushViewController:anchorVC animated:YES];
             }
             if (9 == [miao.dataArray[index] typeId]) {
-                SpcDetailViewController *spcVC = [[SpcDetailViewController alloc]init];
+                SpcDetailViewController *spcVC = [[[SpcDetailViewController alloc]init]autorelease];
                 spcVC.addID = [miao.dataArray[index] specialId];
                 [miao.navigationController pushViewController:spcVC animated:YES];
         }
@@ -234,18 +233,18 @@
         NSArray *listArray = bigDic[@"list"];
         
         for (NSDictionary *tempDic in listArray) {
-            aSelf.hotModel = [[HotModel alloc]init];
+            aSelf.hotModel = [[[HotModel alloc]init]autorelease];
             [aSelf.hotModel setValuesForKeysWithDictionary:tempDic];
             [aSelf.dataArray addObject:aSelf.hotModel];
             [aSelf.imageArray addObject:aSelf.hotModel.pic];
-            [_hotModel release];
+//            [_hotModel release];
         }
         [self addScrollView];
         
         //专题数据
         NSDictionary *splDic = dic[@"latest_special"];
         
-        aSelf.splModel = [[SpecialModel alloc]init];
+        aSelf.splModel = [[[SpecialModel alloc]init]autorelease];
         [aSelf.splModel setValuesForKeysWithDictionary:splDic];
         [aSelf addSpecial];
         [_splModel release];
@@ -264,17 +263,17 @@
 
 #pragma mark --- 加载推荐专辑
 - (void)addRecommendAlbum{
-    self.albumTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 430) style:UITableViewStylePlain];
+    self.albumTableView = [[[UITableView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 430) style:UITableViewStylePlain]autorelease];
     self.albumTableView.rowHeight = 50;
     self.albumTableView.dataSource = self;
     self.albumTableView.delegate = self;
     self.albumTableView.userInteractionEnabled = YES;
     [self.wholeScrollView addSubview:self.albumTableView];
     
-    UIImageView *imageViw = [[UIImageView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 30)];
+    UIImageView *imageViw = [[[UIImageView alloc]initWithFrame:CGRectMake(0, 425, kWIDTH, 30)]autorelease];
     imageViw.userInteractionEnabled = YES;
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 5, kWIDTH / 2, 20)];
+    UILabel *label = [[[UILabel alloc]initWithFrame:CGRectMake(20, 5, kWIDTH / 2, 20)]autorelease];
     label.text = @"推荐专辑";
     label.font = [UIFont boldSystemFontOfSize:15];
     [imageViw addSubview:label];
@@ -282,7 +281,7 @@
     UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     moreBtn.frame = CGRectMake(kWIDTH - 75, 0, 75, 30);
 
-    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(13, 0, 50, 30)];
+    UILabel * titleLabel = [[[UILabel alloc]initWithFrame:CGRectMake(13, 0, 50, 30)]autorelease];
     titleLabel.text = @"更多";
     titleLabel.textColor = [UIColor orangeColor];
     titleLabel.font = [UIFont systemFontOfSize:15];
@@ -298,7 +297,7 @@
     self.albumTableView.tableFooterView = nil;
     
     [self.albumTableView registerClass:[HotAlbumCell class] forCellReuseIdentifier:@"CELL"];
-    [_albumTableView release];
+//    [_albumTableView release];
 }
 
 - (void)didClickmoreBtn{
@@ -319,11 +318,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    AlbumDetailViewController *albmDtl = [[AlbumDetailViewController alloc]init];
+    AlbumDetailViewController *albmDtl = [[[AlbumDetailViewController alloc]init]autorelease];
     albmDtl.albumId = [self.albumArray[indexPath.row]albumId];
     [self.navigationController pushViewController:albmDtl animated:YES];
-    [albmDtl release];
+//    [albmDtl release];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

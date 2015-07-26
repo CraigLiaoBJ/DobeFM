@@ -67,10 +67,10 @@
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
         NSDictionary *introDic = dic[@"info"];
-        spcDtl.spclDetlItem = [[SpecialDetailItem alloc]init];
+        spcDtl.spclDetlItem = [[[SpecialDetailItem alloc]init]autorelease];
         [spcDtl.spclDetlItem setValuesForKeysWithDictionary:introDic];
         [spcDtl addintroInfo];
-        [_spclDetlItem release];
+//        [_spclDetlItem release];
     }];
 }
 
@@ -88,7 +88,7 @@
                 AlbumList *spcAudioModel = [[AlbumList alloc]init];
                 [spcAudioModel setValuesForKeysWithDictionary:tempDic];
                 [aSelf.spcAudioArray addObject:spcAudioModel];
-                [spcAudioModel release];
+//                [spcAudioModel release];
             }
             [aSelf.tableView reloadData];
         }];
@@ -100,7 +100,8 @@
                 SearchAlbum *spcDtlClModel = [[SearchAlbum alloc]init];
                 [spcDtlClModel setValuesForKeysWithDictionary:tempDic];
                 [aSelf.spcAlbumArray addObject:spcDtlClModel];
-                [spcDtlClModel release];
+                NSLog(@"%@", spcDtlClModel.albumId);
+//                [spcDtlClModel release];
             }
             [aSelf.tableView reloadData];
         }];
@@ -109,14 +110,14 @@
 
 #pragma --- 添加表视图
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) style:UITableViewStylePlain];
+    self.tableView = [[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) style:UITableViewStylePlain]autorelease];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 100;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = [UIColor colorWithRed:0.911 green:0.889 blue:0.948 alpha:1.000];
     self.tableView.showsVerticalScrollIndicator = NO;
-    self.headView = [[UIImageView alloc]init];
+    self.headView = [[[UIImageView alloc]init]autorelease];
     self.headView.frame = CGRectMake(0, 0, kWIDTH, 365);
     
     [self.tableView addSubview:self.headView];
@@ -126,62 +127,62 @@
 
     [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"CELL"];
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"identifier"];
-    [_headView release];
-    [_tableView release];
+//    [_headView release];
+//    [_tableView release];
 }
 
 #pragma mark --- 添加头部视图中的内容
 - (void)addintroInfo{
     //封面图片
-    self.introCoverImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, kWIDTH, 170)];
+    self.introCoverImage = [[[UIImageView alloc]initWithFrame:CGRectMake(0, 5, kWIDTH, 170)]autorelease];
     NSURL *bigUrl = [NSURL URLWithString:self.spclDetlItem.coverPathBig];
     [self.introCoverImage sd_setImageWithURL:bigUrl];
     [self.headView addSubview:self.introCoverImage];
-    [_introCoverImage release];
+//    [_introCoverImage release];
     
     //标题
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 185, kWIDTH, 20)];
+    self.titleLabel = [[[UILabel alloc]initWithFrame:CGRectMake(0, 185, kWIDTH, 20)]autorelease];
     self.titleLabel.text = self.spclDetlItem.title;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.headView addSubview:self.titleLabel];
-    [_titleLabel release];
+//    [_titleLabel release];
     
     //分割线
-    UILabel *speLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 210, kWIDTH, 1)];
+    UILabel *speLabel = [[[UILabel alloc]initWithFrame:CGRectMake(0, 210, kWIDTH, 1)]autorelease];
     speLabel.backgroundColor = [UIColor lightGrayColor];
     [self.headView addSubview:speLabel];
-    [speLabel release];
+//    [speLabel release];
     
     //介绍内容
-    self.introLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 215, kWIDTH - 20, 100)];
+    self.introLabel = [[[UILabel alloc]initWithFrame:CGRectMake(10, 215, kWIDTH - 20, 100)]autorelease];
     self.introLabel.font = [UIFont systemFontOfSize:13];
     self.introLabel.text = self.spclDetlItem.intro;
     self.introLabel.numberOfLines = 0;
     [self.headView addSubview:self.introLabel];
-    [_introLabel release];
+//    [_introLabel release];
     
     //专题作者
-    UILabel *specialLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 2.5, 326, 70, 30)];
+    UILabel *specialLabel = [[[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 2.5, 326, 70, 30)]autorelease];
     specialLabel.text = @"专题作者";
     specialLabel.font = [UIFont systemFontOfSize:13];
     [self.headView addSubview:specialLabel];
-    [specialLabel release];
+//    [specialLabel release];
     
     //作者图标
-    self.icon = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 2.5 + 55, 320, 40 , 40)];
+    self.icon = [[[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 2.5 + 55, 320, 40 , 40)]autorelease];
     self.icon.layer.cornerRadius = 20.f;
     self.icon.layer.masksToBounds = YES;
     NSURL *iconUrl = [NSURL URLWithString:self.spclDetlItem.smallLogo];
     [self.icon sd_setImageWithURL:iconUrl];
     [self.headView addSubview:self.icon];
-    [_icon release];
+//    [_icon release];
     
     //专题作者
-    self.nickNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 2.5 + 97.5, 326, 100, 30)];
+    self.nickNameLabel = [[[UILabel alloc]initWithFrame:CGRectMake(kWIDTH / 2.5 + 97.5, 326, 100, 30)]autorelease];
     self.nickNameLabel.text = self.spclDetlItem.nickname;
     self.nickNameLabel.font = [UIFont systemFontOfSize: 13];
     [self.headView addSubview:self.nickNameLabel];
-    [_nickNameLabel release];
+//    [_nickNameLabel release];
 }
 
 #pragma --- 表视图的代理方法
@@ -214,6 +215,7 @@
     if ([self.spcTypeID isEqualToString:@"1"]) {
         AlbumDetailViewController *albumDetail = [[AlbumDetailViewController alloc]init];
         albumDetail.albumId = [self.spcAlbumArray[indexPath.row] albumId];
+        NSLog(@"%@", albumDetail.albumId);
         [self.navigationController pushViewController:albumDetail animated:YES];
         [albumDetail release];
     }

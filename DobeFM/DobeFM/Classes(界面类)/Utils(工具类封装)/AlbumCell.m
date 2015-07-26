@@ -31,25 +31,25 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.cellImageView = [[UIImageView alloc]init];
+        self.cellImageView = [[[UIImageView alloc]init]autorelease];
         [self addSubview:_cellImageView];
-        [_cellImageView release];
+//        [_cellImageView release];
         
-        self.coverSmImage = [[UIImageView alloc]init];
+        self.coverSmImage = [[[UIImageView alloc]init]autorelease];
         [self.cellImageView addSubview:self.coverSmImage];
-        [_coverSmImage release];
+//        [_coverSmImage release];
         
-        self.audioTitleLabel = [[UILabel alloc]init];
+        self.audioTitleLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.audioTitleLabel];
-        [_audioTitleLabel release];
+//        [_audioTitleLabel release];
         
-        self.authorLabel = [[UILabel alloc]init];
+        self.authorLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.authorLabel];
-        [_authorLabel release];
+//        [_authorLabel release];
 
-        self.durationLabel = [[UILabel alloc]init];
+        self.durationLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.durationLabel];
-        [_durationLabel release];
+//        [_durationLabel release];
         
     }
     return self;

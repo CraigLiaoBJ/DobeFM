@@ -18,14 +18,15 @@
 
 //初始化
 -(id)initWithFrame:(CGRect)frame{
-    if (self = [super initWithFrame:frame]) {
-        self.imageView = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.imageView];
-        [_imageView release];
+    self = [super initWithFrame:frame];
+    if (self) {
+        _imageView = [[[UIImageView alloc]init]autorelease];
+        [self.contentView addSubview:_imageView];
+//        [_imageView release];
         
-        self.titleLabel = [[UILabel alloc]init];
+        self.titleLabel = [[[UILabel alloc]init]autorelease];
         [self.contentView addSubview:self.titleLabel];
-        [_titleLabel release];
+//        [_titleLabel release];
     }
     return self;
 }

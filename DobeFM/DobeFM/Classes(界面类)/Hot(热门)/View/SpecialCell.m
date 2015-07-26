@@ -36,34 +36,34 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         //cell铺的图片
-        self.imageview = [[UIImageView alloc]init];
+        self.imageview = [[[UIImageView alloc]init]autorelease];
         [self addSubview:self.imageview];
-        [_imageview release];
+//        [_imageview release];
         
         //cell上直接加的时间标签
-        self.releaseAtLabel = [[UILabel alloc]init];
+        self.releaseAtLabel = [[[UILabel alloc]init]autorelease];
         [self.imageview addSubview:self.releaseAtLabel];
-        [_releaseAtLabel release];
+//        [_releaseAtLabel release];
         
         //cell上直接加的时间图片
-        self.timeImage = [[UIImageView alloc]init];
+        self.timeImage = [[[UIImageView alloc]init]autorelease];
         [self.imageview addSubview:self.timeImage];
-        [_timeImage release];
+//        [_timeImage release];
         
         //imageView上加的专题封面图片
-        self.coverImageView = [[UIImageView alloc]init];
+        self.coverImageView = [[[UIImageView alloc]init]autorelease];
         [self.imageview addSubview:self.coverImageView];
-        [_coverImageView release];
+//        [_coverImageView release];
         
         //专题封面图片上的热门图标
-        self.hotImage = [[UIImageView alloc]init];
+        self.hotImage = [[[UIImageView alloc]init]autorelease];
         [self.coverImageView addSubview:self.hotImage];
-        [_hotImage release];
+//        [_hotImage release];
         
         //专题封面上的专题名称
-        self.titleLabel = [[UILabel alloc]init];
+        self.titleLabel = [[[UILabel alloc]init]autorelease];
         [self.coverImageView addSubview:self.titleLabel];
-        [_titleLabel release];
+//        [_titleLabel release];
     }
      return self;
 }

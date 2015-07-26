@@ -21,17 +21,20 @@
 static NSInteger n = 0;
 @implementation MainAlbumTableViewController
 
-- (void)dealloc{
-    [_name release];
-    [_tagName release];
-    [_searchAlbum release];
-    [super dealloc];
-}
+//- (void)dealloc{
+//    [_name release];
+//    [_tagName release];
+//    [_searchAlbum release];
+//    [super dealloc];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.moreAlbumArray = [NSMutableArray array];
     self.view.backgroundColor = CELLCOLOR;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
 
 //    self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"%@", self.tagName];
@@ -59,7 +62,7 @@ static NSInteger n = 0;
             aSelf.searchAlbum = [[SearchAlbum alloc]init];
             [aSelf.searchAlbum setValuesForKeysWithDictionary:tempDic];
             [aSelf.moreAlbumArray addObject:aSelf.searchAlbum];
-            [_searchAlbum release];
+//            [_searchAlbum release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -81,9 +84,9 @@ static NSInteger n = 0;
             [blockSelf.tableView.header endRefreshing];
         });
     }];
-    blockSelf.tableView.header.autoChangeAlpha = YES;
+    self.tableView.header.autoChangeAlpha = YES;
     
-    blockSelf.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             n ++;
             [blockSelf loadData];
@@ -91,7 +94,7 @@ static NSInteger n = 0;
             [blockSelf.tableView.footer endRefreshing];
         });
     }];
-    blockSelf.tableView.footer.autoChangeAlpha = YES;
+    self.tableView.footer.autoChangeAlpha = YES;
 }
 
 #pragma mark - Table view data source
@@ -120,7 +123,7 @@ static NSInteger n = 0;
     albumVC.albumId = [self.moreAlbumArray[indexPath.row]albumId];
     albumVC.sAlbum = self.moreAlbumArray[indexPath.row];
     [self.navigationController pushViewController:albumVC animated:YES];
-    [albumVC release];
+//    [albumVC release];
 }
 
 - (void)didReceiveMemoryWarning {

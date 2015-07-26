@@ -69,8 +69,13 @@ static UIImageView *backImageView;
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.navigationController.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = CELLCOLOR;
-
-    backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
+    backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT)];
     [self.view addSubview:backImageView];
     //模糊效果
     UIVisualEffectView *backgroundView = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
@@ -103,8 +108,8 @@ static UIImageView *backImageView;
     
 
     //中间添加图片
-    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 190, 190)];
-    imageView.center = self.playView.center;
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4.1, kHEIGHT / 4.8, 190, 190)];
+//    imageView.center = self.playView.center;
     [self.playView addSubview:imageView];
     [NSThread detachNewThreadSelector:@selector(loadImage) toTarget:self withObject:nil];
     
