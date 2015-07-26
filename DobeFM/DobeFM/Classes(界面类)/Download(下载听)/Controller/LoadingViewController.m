@@ -2,10 +2,10 @@
 //  LoadingViewController.m
 //  Xmly
 //
-//  Created by lanou3g on 15/7/8.
-//  Copyright (c) 2015年 lanou3g. All rights reserved.
+//  Created by DobeFM on 15/7/8.
+//  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
-
+#import "UIImageView+WebCache.h"
 #import "LoadingViewController.h"
 #import "LoadedCell.h"
 #import "LoadingCell.h"
@@ -66,7 +66,7 @@ static int currentLoad = 0;
         [saveLoading addObject:aSave];
     }
     //下载完成view
-    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, kWIDTH, kHEIGHT - 104 - 48)];
+    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74, kWIDTH, kHEIGHT - 104 - 48)];
     self.loadedTableView.rowHeight = 60;
     self.loadedTableView.delegate = self;
     self.loadedTableView.dataSource = self;
@@ -80,7 +80,7 @@ static int currentLoad = 0;
     [self.view addSubview:self.loadedTableView];
 
     //未下载view
-    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48)];
+    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48)];
     self.loadingTableView.rowHeight = 60;
     self.loadingTableView.backgroundColor = CELLCOLOR;
     self.loadingTableView.delegate = self;
@@ -91,53 +91,61 @@ static int currentLoad = 0;
     self.loadingTableView.showsVerticalScrollIndicator = NO;
 
     [self.view addSubview:self.loadingTableView];
-    
-    self.btnView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, 40)];
-    self.btnView.layer.borderWidth = 2;
+//    
+//    self.btnView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, 40)];
+//    self.btnView.layer.borderWidth = 2;
 //
 //    //设置按钮的边界颜色
 ////    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
 ////    CGColorRef color = CGColorCreate(colorSpaceRef, (CGFloat[]){0,0,0,1});
 ////    self.btnView.layer.borderColor = color;
 ////    [self.btnView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-    [self.view addSubview:self.btnView];
+//    [self.view addSubview:self.btnView];
     
     
-//    UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 8, kWIDTH, 30)];
-//    [segmentedControl insertSegmentWithTitle:@"未下载" atIndex:0 animated:YES];
-//    [segmentedControl insertSegmentWithTitle:@"已下载" atIndex:1 animated:YES];
-//    segmentedControl.momentary = YES;
-//    segmentedControl.multipleTouchEnabled=NO;
-//    [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
-//    [self.view addSubview:segmentedControl];
-//    [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
+    UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, kWIDTH, 40)];
+    [segmentedControl insertSegmentWithTitle:@"未下载" atIndex:0 animated:YES];
+    [segmentedControl insertSegmentWithTitle:@"已下载" atIndex:1 animated:YES];
+    segmentedControl.momentary = YES;
+    segmentedControl.multipleTouchEnabled=NO;
+    [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:segmentedControl];
+    [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
+    
+    segmentedControl.tintColor = cellImageColor;//去掉颜色,现在整个segment都看不见
+    NSDictionary* selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],
+                                             NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [segmentedControl setTitleTextAttributes:selectedTextAttributes forState:UIControlStateSelected];//设置文字属性
+    NSDictionary* unselectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],
+                                               NSForegroundColorAttributeName:[UIColor orangeColor]};
+    [segmentedControl setTitleTextAttributes:unselectedTextAttributes forState:UIControlStateNormal];
 
     
-    
-    loadingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    loadingBtn.frame = CGRectMake(2, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
-    [loadingBtn setTitle:@"未下载" forState:UIControlStateNormal];
-    [loadingBtn setBackgroundColor:CELLCOLOR];
-    [loadingBtn.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-    [loadingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [loadingBtn addTarget:self action:@selector(loadingBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.btnView addSubview:loadingBtn];
-    
-    
-    loadedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    loadedBtn.frame = CGRectMake(self.btnView.bounds.size.width/2 + 1, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
-    [loadedBtn setTitle:@"已下载" forState:UIControlStateNormal];
-    [loadedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [loadedBtn setBackgroundColor:CELLCOLOR];
-    [loadedBtn.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-    [loadedBtn addTarget:self action:@selector(loadedBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.btnView addSubview:loadedBtn];
-
-    btnChoolView  = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, self.btnView.bounds.size.width/2 , 40)];
-    btnChoolView.backgroundColor = [UIColor grayColor];
-    btnChoolView.alpha = 0.2;
-    [btnChoolView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-    [self.btnView addSubview:btnChoolView];
+//    
+//    loadingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    loadingBtn.frame = CGRectMake(2, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
+//    [loadingBtn setTitle:@"未下载" forState:UIControlStateNormal];
+//    [loadingBtn setBackgroundColor:CELLCOLOR];
+//    [loadingBtn.layer setCornerRadius:CORNER_RADIUS_FLOAT];
+//    [loadingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [loadingBtn addTarget:self action:@selector(loadingBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.btnView addSubview:loadingBtn];
+//    
+//    
+//    loadedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    loadedBtn.frame = CGRectMake(self.btnView.bounds.size.width/2 + 1, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
+//    [loadedBtn setTitle:@"已下载" forState:UIControlStateNormal];
+//    [loadedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [loadedBtn setBackgroundColor:CELLCOLOR];
+//    [loadedBtn.layer setCornerRadius:CORNER_RADIUS_FLOAT];
+//    [loadedBtn addTarget:self action:@selector(loadedBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.btnView addSubview:loadedBtn];
+//
+//    btnChoolView  = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, self.btnView.bounds.size.width/2 , 40)];
+//    btnChoolView.backgroundColor = [UIColor grayColor];
+//    btnChoolView.alpha = 0.2;
+//    [btnChoolView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
+//    [self.btnView addSubview:btnChoolView];
     
     
     unDataView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 300, 30)];
@@ -150,56 +158,47 @@ static int currentLoad = 0;
     [self.view addSubview: unDataView];
 }
 
-//- (void)Selectbutton:(UISegmentedControl *)seg{
-//    NSInteger index = seg.selectedSegmentIndex;
-//    switch (index) {
-//        case 0:
-//            [self.loadingTableView reloadData];
-//
-//            break;
-//        case 1:
-//            [self.loadedTableView reloadData];
-//            break;
-//        default:
-//            break;
-//    }
-//}
+- (void)Selectbutton:(UISegmentedControl *)seg{
+    NSInteger index = seg.selectedSegmentIndex;
+    switch (index) {
+        case 0:
+            self.dicLoading = [self getSplistList:@"BeLoadList"];
+            currentView = Loading;
+            btnChoolView.backgroundColor = cellImageColor;
+            self.loadedTableView.hidden = YES;
+            self.loadingTableView.hidden = NO;
+            if (self.dicLoading.count < 1) {
+                unDataView.hidden = NO;
+                
+            }
+            else{
+                unDataView.hidden = YES;
+            }
+            [self.loadingTableView reloadData];
 
--(void)loadingBtnClick:(UIButton *)sender{
-    self.dicLoading = [self getSplistList:@"BeLoadList"];
-    btnChoolView.frame  = CGRectMake(0, 0, self.btnView.bounds.size.width/2 , 40);
-    currentView = Loading;
-    btnChoolView.backgroundColor = cellImageColor;
-    self.loadedTableView.hidden = YES;
-    self.loadingTableView.hidden = NO;
-    if (self.dicLoading.count < 1) {
-        unDataView.hidden = NO;
 
+            break;
+        case 1:
+            self.dicLoad = [self getSplistList:@"LoadDownList"];
+            btnChoolView.backgroundColor = cellImageColor;
+            currentView = Loaded;
+            self.loadedTableView.hidden = NO;
+            self.loadingTableView.hidden = YES;
+            if (self.dicLoad.count < 1) {
+                unDataView.hidden = NO;
+                
+            }
+            else{
+                unDataView.hidden = YES;
+            }
+            [self.loadedTableView reloadData];
+
+            break;
+        default:
+            break;
     }
-    else{
-        unDataView.hidden = YES;
-    }
-     [self.loadingTableView reloadData];
 }
 
-
-
--(void)loadedBtnClick:(UIButton *)sender{
-    self.dicLoad = [self getSplistList:@"LoadDownList"];
-    btnChoolView.frame  = CGRectMake(self.btnView.bounds.size.width/2, 0, self.btnView.bounds.size.width/2 , 40);
-    btnChoolView.backgroundColor = cellImageColor;
-    currentView = Loaded;
-    self.loadedTableView.hidden = NO;
-    self.loadingTableView.hidden = YES;
-    if (self.dicLoad.count < 1) {
-        unDataView.hidden = NO;
-
-    }
-    else{
-        unDataView.hidden = YES;
-    }
-    [self.loadedTableView reloadData];
-}
 
 
 -(void)layoutSublayersOfLayer:(CALayer *)layer{
@@ -209,7 +208,6 @@ static int currentLoad = 0;
     self.btnView.frame = CGRectMake(0, 64, self.view.bounds.size.width, 40);
 
 }
-
 
 //显示界面是否有数据
 - (void)isLoadOrLoading{
@@ -293,8 +291,7 @@ static int currentLoad = 0;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:10];
         cell.textLabel.numberOfLines = 0;
         NSURL *picurl = [NSURL URLWithString:self.dicLoad[[self.dicLoad allKeys][indexPath.row]][1]];
-        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-        [cell.imageView setImage:[UIImage imageWithData:picData]];
+        [cell.imageView sd_setImageWithURL:picurl];
         return cell;
     }
     else{
@@ -304,14 +301,14 @@ static int currentLoad = 0;
         aAlbust = [loadDownBase arrayToAlbumList:self.dicLoading[[self.dicLoading allKeys][indexPath.row]]];
         
         cell.aAlbum = aAlbust;
-        cell.indexNum = indexPath.row ;
+        cell.indexNum = (int)indexPath.row ;
      
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).progress];
 
-        ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake((cell.bounds.size.width * .4) / 2 + 40, 50, cell.bounds.size.width * 0.5, 10);
+        ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake(70, 50, cell.bounds.size.width - 70 - 60, 10);
         
         //cell.btn =
-        ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(cell.bounds.size.width - 40, 20, 40, 20) ;
+        ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(cell.bounds.size.width - 40 - 10, 20, 40, 20) ;
         ((SaveLodingDate*)saveLoading[indexPath.row]).btn.tag = 1000+indexPath.row;
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).btn];
         [((SaveLodingDate*)saveLoading[indexPath.row]).btn addTarget:self action:@selector(star:) forControlEvents:UIControlEventTouchUpInside];
@@ -320,8 +317,9 @@ static int currentLoad = 0;
         cell.titleLabel.font = [UIFont boldSystemFontOfSize:10];
         cell.titleLabel.numberOfLines = 0;
         NSURL *picurl = [NSURL URLWithString:self.dicLoading[[self.dicLoading allKeys][indexPath.row]][1]];
-        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-        [cell.coverImage setImage:[UIImage imageWithData:picData]];
+//        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
+//        [cell.coverImage setImage:[UIImage imageWithData:picData]];
+        [cell.coverImage sd_setImageWithURL:picurl];
         return cell;
     }
 }
@@ -372,7 +370,7 @@ static int currentLoad = 0;
             }
         }
     //当下载完成后，点击按钮文字变为已下载
-    currentLoad = sender.tag - 1000;
+    currentLoad = (int)(sender.tag - 1000);
         [self LoadBegan];
 }
 

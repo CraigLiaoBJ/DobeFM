@@ -2,8 +2,8 @@
 //  MoreDownCell.m
 //  Xmly
 //
-//  Created by lanou3g on 15/7/9.
-//  Copyright (c) 2015年 lanou3g. All rights reserved.
+//  Created by DobeFM on 15/7/9.
+//  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
 #import "MoreDownCell.h"
@@ -16,7 +16,7 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.titleStr = [[UILabel alloc]initWithFrame:CGRectMake(5, 0, self.bounds.size.width*0.85, 40)];
+        self.titleStr = [[UILabel alloc]initWithFrame:CGRectMake(5, 0,kWW*0.85, 40)];
         self.titleStr.font = [UIFont boldSystemFontOfSize:12];
         self.titleStr.numberOfLines = 0;
         [self addSubview:self.titleStr];

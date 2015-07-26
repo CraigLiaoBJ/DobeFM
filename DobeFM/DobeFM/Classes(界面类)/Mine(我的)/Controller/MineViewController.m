@@ -32,8 +32,9 @@ const CGFloat HMTopViewH = 350;
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
     self.view.backgroundColor = CELLCOLOR;
+    self.navigationController.navigationBarHidden = YES;
 
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, - 64, kWIDTH, kHEIGHT) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH, 0, 0, 0);
@@ -49,7 +50,7 @@ const CGFloat HMTopViewH = 350;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     // 设置内边距(让cell往下移动一段距离)
-    self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH - 150 , 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH , 0, 0, 0);
     [self.tableView insertSubview:topView atIndex:0];
     self.topView = topView;
     [topView release];

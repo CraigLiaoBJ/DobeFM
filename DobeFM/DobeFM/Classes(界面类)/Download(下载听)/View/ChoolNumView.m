@@ -2,8 +2,8 @@
 //  ChoolNumView.m
 //  Xmly
 //
-//  Created by lanou3g on 15/7/10.
-//  Copyright (c) 2015年 lanou3g. All rights reserved.
+//  Created by DobeFM on 15/7/10.
+//  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 #define WINWIDTH self.bounds.size.width
 #import "ChoolNumView.h"

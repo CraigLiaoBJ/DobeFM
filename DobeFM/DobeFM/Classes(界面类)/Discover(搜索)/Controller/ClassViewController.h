@@ -2,7 +2,7 @@
 //  ClassViewController.h
 //  DobeFM
 //
-//  Created by lanou3g on 15/7/17.
+//  Created by DobeFM on 15/7/17.
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 

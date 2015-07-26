@@ -74,11 +74,13 @@
     
     //添加导航控制器
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:childVC];
+    nav.navigationBar.tintColor = [UIColor orangeColor];
     [self addChildViewController:nav];
     
     //设置文字样式
     NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
     textAttrs[NSForegroundColorAttributeName] = [UIColor grayColor];
+    
     NSMutableDictionary *selectTextAttrs = [NSMutableDictionary dictionary];
     selectTextAttrs[NSForegroundColorAttributeName] = [UIColor orangeColor];
     [childVC.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
