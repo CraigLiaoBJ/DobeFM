@@ -11,5 +11,6 @@
 @interface MoreDownViewController : UIViewController
 @property (nonatomic, strong) NSMutableArray *audioArray;
 
--(void)reloadView;
+- (void)reloadView;
+
 @end

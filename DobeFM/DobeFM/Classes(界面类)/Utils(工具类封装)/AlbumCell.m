@@ -18,7 +18,7 @@
 @end
 
 @implementation AlbumCell
-
+static UIImageView *albumImage;
 - (void)dealloc{
     [_cellImageView release];
     [_searchAlbum release];
@@ -38,6 +38,11 @@
         self.coverSmImage = [[[UIImageView alloc]init]autorelease];
         [self.cellImageView addSubview:self.coverSmImage];
 //        [_coverSmImage release];
+        
+        albumImage = [[UIImageView alloc]init];
+        albumImage.frame = CGRectMake(100, 15, 20, 20);
+        albumImage.image = [UIImage imageNamed:@"iconfont-zhuanji.png"];
+        [self.cellImageView addSubview:albumImage];
         
         self.audioTitleLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.audioTitleLabel];
@@ -62,11 +67,6 @@
     
     self.coverSmImage.frame = CGRectMake(5, 5, 80, 80);
     self.coverSmImage.backgroundColor  = [UIColor colorWithRed:0.359 green:0.672 blue:1.000 alpha:1.000];
-    
-    UIImageView *albumImage = [[UIImageView alloc]initWithFrame:CGRectMake(100, 15, 20, 20)];
-    albumImage.image = [UIImage imageNamed:@"iconfont-zhuanji.png"];
-    [self.cellImageView addSubview:albumImage];
-    [albumImage release];
     
     self.audioTitleLabel.frame = CGRectMake(120, 15, kWW, 20);
     self.audioTitleLabel.font = [UIFont systemFontOfSize:15];
