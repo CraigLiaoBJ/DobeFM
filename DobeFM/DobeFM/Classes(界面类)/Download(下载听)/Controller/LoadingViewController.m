@@ -199,18 +199,18 @@ static int currentLoad = 0;
     self.dicLoading = [self getSplistList:@"BeLoadList"];   
 
     for (NSString *allkey in self.dicLoading) {
-        
+
         for (int i = 0; i < saveLoading.count ; i++) {
+            //saveLoading 是否存在 dicLoading的数据
             if ([allkey isEqualToString:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[i]).traintId]]) {
                 break;
             }
-            if (i == saveLoading.count - 1) {
-                SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
-                aSave.traintId = self.dicLoading[allkey][5];
-                aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
-                [saveLoading addObject:aSave];
-            }
+
         }
+        SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
+        aSave.traintId = self.dicLoading[allkey][5];
+        aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
+        [saveLoading addObject:aSave];
     }
     // [NSThread detachNewThreadSelector:@selector(tableViewReloadData) toTarget:self withObject:nil];
 }
@@ -465,7 +465,16 @@ static int currentLoad = 0;
  */
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-
+    [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
+    [saveLoading[currentLoad] btn].titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    ((SaveLodingDate*)saveLoading[currentLoad]).downLoading = NO;
+    self.isLoading = NO;
+    
+    //取消发送请求
+    [[saveLoading[currentLoad] cnnt] cancel];
+    
+    
+    ((SaveLodingDate*)saveLoading[currentLoad]).cnnt = nil;
 }
 
 - (bool)nextCellTagIsHave{
