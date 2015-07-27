@@ -197,7 +197,7 @@ static int currentLoad = 0;
     self.dicLoading = [self getSplistList:@"BeLoadList"];   
     [self isLoadOrLoading];
     for (NSString *allkey in self.dicLoading) {
-        bool isNew = NO;
+        bool isNew = YES;
         for (int i = 0; i < saveLoading.count ; i++) {
             //saveLoading 是否存在 dicLoading的数据
             if ([allkey isEqualToString:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[i]).traintId]]) {

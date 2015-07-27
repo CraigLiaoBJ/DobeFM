@@ -10,7 +10,6 @@
 
 @interface LoadingViewController : UIViewController
 
-@property (nonatomic, strong) UITableView *loadedTableView;
 
 @property (nonatomic, strong) UITableView *loadedTableView;//下载完
 

@@ -205,17 +205,18 @@ static UIButton *button;
     //中间添加图片
     NSURL *picurl ;
     if([self.albumList[self.playCurrent] coverLarge] != nil &&  ![[self.albumList[self.playCurrent] coverLarge]isEqualToString:@""]){
-      picurl = [NSURL URLWithString:[self.albumList[self.playCurrent] coverLarge]];
+        picurl = [NSURL URLWithString:[self.albumList[self.playCurrent] coverLarge]];
         NSData *picData  = [NSData dataWithContentsOfURL:picurl];
         [imageView setImage:[UIImage imageWithData:picData]];
         [backImageView setImage:[UIImage imageWithData:picData]];
     }
     else{
-     // picurl = [NSURL URLWithString:@"losePic.jpg"];
-//        [imageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
-//        [backImageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
-        [imageView setImage:[UIImage imageNamed:@"DobeAv.png"]];
-        [backImageView setImage:[UIImage imageNamed:@"DobeAv.png"]];
+        if([self.albumList[self.playCurrent] trackId] != nil)
+            [self setLoactionImg:[NSString stringWithFormat:@"%@",[self.albumList[self.playCurrent] trackId]]];
+        else{
+            [imageView setImage:[UIImage imageNamed:@"DobeAv.png"]];
+            [backImageView setImage:[UIImage imageNamed:@"DobeAv.png"]];
+        }
     }
 
     imageView.layer.cornerRadius = imageView.bounds.size.width/2;
@@ -448,6 +449,7 @@ static UIButton *button;
 
 //显示播放历史tableView
 - (void)listerHistoryList{
+    [drawerView.tableView reloadData];
     NSMutableDictionary *history = [loadDownBase getListerHistoryList];
     [drawerView setDic: history];
     listerListBtn.enabled = NO;
