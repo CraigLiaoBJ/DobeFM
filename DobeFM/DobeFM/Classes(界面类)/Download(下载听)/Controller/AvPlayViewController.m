@@ -281,15 +281,10 @@ static UIButton *button;
         [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
         
     }
-    else{
-        if (self.idArray.count != 0 || (self.idArray[self.playCurrent]!=nil && ![self.idArray[self.playCurrent] isEqualToString: @""])) {
-        }
-        else
-        {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:@"网络不给力啊!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alert show];
-        }
-    }
+//    else if (self.idArray.count != 0 || (self.idArray[self.playCurrent]!=nil && ![self.idArray[self.playCurrent] isEqualToString: @""])) {
+//    }
+//
+//    
     self.navigationItem.title = [self.albumList[self.playCurrent] title1];
     //重置图片
     [self loadImage];
@@ -537,12 +532,14 @@ static UIButton *button;
 - (bool)isAudioExist:(NSString*)audioName{
     NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) firstObject];
     NSString *filePath = [caches stringByAppendingPathComponent:audioName];
-    NSURL * songUrl = [NSURL URLWithString:filePath];
-    NSData *data = [[NSData alloc]initWithContentsOfURL:songUrl];
-    if(data == nil) return NO;
-    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:songUrl];
-    [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
-    return YES;
+    NSURL * songUrl = [NSURL fileURLWithPath:filePath];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if(data.length > 0) {
+        AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
+        [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
+        return YES;
+    }
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {
