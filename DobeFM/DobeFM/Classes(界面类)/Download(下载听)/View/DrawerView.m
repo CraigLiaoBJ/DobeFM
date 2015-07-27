@@ -7,7 +7,6 @@
 //
 
 #import "DrawerView.h"
-
 @implementation DrawerView
 
 //初始化tableView
@@ -38,8 +37,8 @@
 }
 
 //代理方法
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 20;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 40;
 
 }
 
