@@ -436,8 +436,6 @@ static UIButton *button;
     downLoad.alpha = 1;
 }
 
-
-
 //保存播放历史
 - (void)setListerHistoryList{
     [loadDownBase loadAudioToLocation:[self.albumList[self.playCurrent] albumImage] styp:@".jpg" albumName:(AlbumList *)self.albumList[self.playCurrent]];
