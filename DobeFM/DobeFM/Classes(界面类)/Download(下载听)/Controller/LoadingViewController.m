@@ -97,6 +97,7 @@ static int currentLoad = 0;
 
     [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
+    segmentedControl.selectedSegmentIndex = 0;
     [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
     
     segmentedControl.tintColor = [UIColor orangeColor];//去掉颜色,现在整个segment都看不见
