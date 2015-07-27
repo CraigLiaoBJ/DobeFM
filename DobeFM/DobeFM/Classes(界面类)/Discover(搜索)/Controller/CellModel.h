@@ -10,8 +10,8 @@
 
 @interface CellModel : NSObject
 
-@property (nonatomic, retain) NSNumber *category_id;
-@property (nonatomic, retain) NSString *cover_path;
-@property (nonatomic, retain) NSString *tname;
+@property (nonatomic, retain) NSNumber *category_id;//类目id
+@property (nonatomic, retain) NSString *cover_path;//图片
+@property (nonatomic, retain) NSString *tname;//页面名称，中文
 
 @end

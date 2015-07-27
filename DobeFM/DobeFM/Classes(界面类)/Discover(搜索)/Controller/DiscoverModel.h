@@ -10,9 +10,9 @@
 
 @interface DiscoverModel : NSObject
 
-@property (nonatomic, copy) NSString *coverPath;
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain) NSNumber *categoryId;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *coverPath;//类别图片
+@property (nonatomic, copy) NSString *name;//类别名称，用于接口取数据
+@property (nonatomic, retain) NSNumber *categoryId;//类别ID
+@property (nonatomic, copy) NSString *title;//类别名称，汉字
 
 @end

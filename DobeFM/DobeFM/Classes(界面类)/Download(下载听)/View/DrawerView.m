@@ -18,7 +18,7 @@
         [self addSubview:self.tableView];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
-        //self.tableView.tableFooterView = [[UIView alloc]init];
+        self.tableView.tableFooterView = [[UIView alloc]init];
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CELL"];
     }
     return self;
@@ -39,15 +39,12 @@
 //代理方法
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 40;
-
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
     return self.dic.count;
 }
 
@@ -59,14 +56,12 @@
     cell.textLabel.font = [UIFont boldSystemFontOfSize:10];
     cell.textLabel.numberOfLines = 0;
     
-    
     NSURL *picurl = [NSURL URLWithString:self.dic[[self.dic allKeys][indexPath.row]][1]];
     [cell.imageView sd_setImageWithURL:picurl];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(DrawerTableView:)]) {
         [self.delegate DrawerTableView:self.dic[[self.dic allKeys][indexPath.row]]];
     }

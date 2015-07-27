@@ -116,7 +116,6 @@ static NSInteger n = 0;
     [albumVC release];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

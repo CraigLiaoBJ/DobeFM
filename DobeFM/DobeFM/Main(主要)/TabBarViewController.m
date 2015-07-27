@@ -22,14 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    //发现界面
-    DiscoverViewControlerViewController *discoverVC = [[DiscoverViewControlerViewController alloc] init];
-
-    [self addOneChildVc:discoverVC title:@"发现" imageNamed:@"discover.png" selectedImageName:@"discover-2.png"];
-    
     //热门界面
     HotViewController *hotVC = [[HotViewController alloc]init];
     [self addOneChildVc:hotVC title:@"热门" imageNamed:@"hot.png" selectedImageName:@"hot-2.png"];
+
+    //发现界面
+    DiscoverViewControlerViewController *discoverVC = [[DiscoverViewControlerViewController alloc] init];
+    [self addOneChildVc:discoverVC title:@"发现" imageNamed:@"discover.png" selectedImageName:@"discover-2.png"];
     
     //播放
 //    [self addOneChildVc:[SingleModel shareSingleModel].playC title:nil imageNamed:@"playaudio" selectedImageName:@"playaudio"];
@@ -90,21 +89,10 @@
     [nav release];
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

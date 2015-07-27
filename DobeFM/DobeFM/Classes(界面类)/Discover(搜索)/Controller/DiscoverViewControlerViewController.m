@@ -13,7 +13,11 @@
 #import "DiscoverCell.h"
 #define URLStr @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
 
-@interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate>{
+    NSArray *data;
+    NSArray *filterData;
+    UISearchDisplayController *searchDisplayerController;
+}
 
 @property (nonatomic, retain) NSMutableArray *dataArray; //数据源数组
 
@@ -33,13 +37,25 @@
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"发现";
+    self.navigationItem.title = nil;
     self.view.backgroundColor = CELLCOLOR;
 
     //添加集合视图
     [self addCollectionView];
     //加载数据
     [self loadData];
+    
+    //添加搜索栏
+    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 44)];
+    searchBar.placeholder = @"搜索";
+    [self.navigationController.navigationBar addSubview:searchBar];
+    
+    //初始化searchDisplayerController
+    searchDisplayerController = [[UISearchDisplayController alloc]initWithSearchBar:searchBar contentsController:self];
+    searchDisplayerController.searchResultsDataSource = self;
+    searchDisplayerController.searchResultsDelegate = self;
+    
+    
 }
 
 #pragma mark ---  添加collectionView
@@ -107,6 +123,20 @@
     [self.navigationController pushViewController:classVC animated:YES];
     [classVC release];
 }
+
+#pragma mark --- searchDisplayController的TableView的代理方法
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    if (tableView == self.tableView) {
+//        return data.count;
+//    } else {
+    //谓词搜索
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@", searchDisplayerController.searchBar.text];
+        filterData = [[NSArray alloc]initWithArray:[data filteredArrayUsingPredicate:predicate]];
+        return filterData.count;
+//    }
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

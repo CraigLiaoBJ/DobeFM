@@ -10,8 +10,8 @@
 
 @interface HotAnchorItem : NSObject
 
-@property (nonatomic, copy) NSString *largeLogo;
-@property (nonatomic, copy) NSString *nickname;
-@property (nonatomic, retain) NSNumber *uid;
+@property (nonatomic, copy) NSString *largeLogo;//图片
+@property (nonatomic, copy) NSString *nickname;//名称
+@property (nonatomic, retain) NSNumber *uid;//主播ID
 
 @end

@@ -17,10 +17,10 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        //初始化
-        _picture = [[[UIImageView alloc]init]autorelease];
-        [self.contentView addSubview:_picture];
-        [_picture release];
+    //初始化
+    _picture = [[[UIImageView alloc]init]autorelease];
+    [self.contentView addSubview:_picture];
+    [_picture release];
     }
     return self;
 }
@@ -29,7 +29,6 @@
     //开始布局
     self.picture.frame = CGRectMake(0, 0, kWW, kHH);
     self.picture.userInteractionEnabled = YES;
-    
 }
 
 @end
