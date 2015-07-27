@@ -14,11 +14,11 @@
 #import "AlbumList.h"
 @interface LoadingViewController ()<UITableViewDataSource,UITableViewDelegate,NSURLConnectionDataDelegate>
 
-@property (nonatomic, strong) NSMutableDictionary *dicLoad;
+@property (nonatomic, strong) NSMutableDictionary *dicLoad;//下载完成
 
-@property (nonatomic, strong) NSMutableDictionary *dicLoading;
+@property (nonatomic, strong) NSMutableDictionary *dicLoading;//下载中数据
 
-@property (nonatomic, strong) UIView *btnView;
+@property (nonatomic, strong) UIView *btnView;//控制器
 
 @end
 
@@ -90,24 +90,11 @@ static int currentLoad = 0;
     self.loadingTableView.showsVerticalScrollIndicator = NO;
 
     [self.view addSubview:self.loadingTableView];
-//    
-//    self.btnView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, 40)];
-//    self.btnView.layer.borderWidth = 2;
-//
-//    //设置按钮的边界颜色
-////    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-////    CGColorRef color = CGColorCreate(colorSpaceRef, (CGFloat[]){0,0,0,1});
-////    self.btnView.layer.borderColor = color;
-////    [self.btnView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-//    [self.view addSubview:self.btnView];
     
     
     UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithItems:@[@"下载中", @"已下载"]];
     segmentedControl.frame = CGRectMake(0, 0, kWIDTH, 40);
-//    [segmentedControl insertSegmentWithTitle:@"未下载" atIndex:0 animated:YES];
-//    [segmentedControl insertSegmentWithTitle:@"已下载" atIndex:1 animated:YES];
-//    segmentedControl.momentary = YES;
-//    segmentedControl.multipleTouchEnabled=NO;
+
     [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
     [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
@@ -119,32 +106,6 @@ static int currentLoad = 0;
     NSDictionary* unselectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],
                                                NSForegroundColorAttributeName:[UIColor orangeColor]};
     [segmentedControl setTitleTextAttributes:unselectedTextAttributes forState:UIControlStateNormal];
-    
-//    
-//    loadingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    loadingBtn.frame = CGRectMake(2, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
-//    [loadingBtn setTitle:@"未下载" forState:UIControlStateNormal];
-//    [loadingBtn setBackgroundColor:CELLCOLOR];
-//    [loadingBtn.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-//    [loadingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [loadingBtn addTarget:self action:@selector(loadingBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.btnView addSubview:loadingBtn];
-//    
-//    
-//    loadedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    loadedBtn.frame = CGRectMake(self.btnView.bounds.size.width/2 + 1, 2, self.btnView.bounds.size.width/2 - 2 - 1, 36);
-//    [loadedBtn setTitle:@"已下载" forState:UIControlStateNormal];
-//    [loadedBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [loadedBtn setBackgroundColor:CELLCOLOR];
-//    [loadedBtn.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-//    [loadedBtn addTarget:self action:@selector(loadedBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.btnView addSubview:loadedBtn];
-//
-//    btnChoolView  = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, self.btnView.bounds.size.width/2 , 40)];
-//    btnChoolView.backgroundColor = [UIColor grayColor];
-//    btnChoolView.alpha = 0.2;
-//    [btnChoolView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
-//    [self.btnView addSubview:btnChoolView];
     
     unDataView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 300, 30)];
     [unDataView setText:@"没有要加载的数据"];
@@ -508,15 +469,6 @@ static int currentLoad = 0;
 
 - (bool)nextCellTagIsHave{
     return currentLoad < saveLoading.count;
-
-//    for(int i = 0; i <= self.dicLoading.count; i++ ){
-//      UIButton *button = (UIButton*)[self.view viewWithTag:currentLoad + i + 1000];
-//        if (button != nil) {
-//            currentLoad += i;
-//            return YES;
-//        }
-//    }
-//    return NO;
     
 }
 
@@ -525,6 +477,7 @@ static int currentLoad = 0;
     if (indexPath.row < saveLoading.count) {
         [((SaveLodingDate*)saveLoading[indexPath.row]).btn removeFromSuperview];
         [((SaveLodingDate*)saveLoading[indexPath.row]).progress removeFromSuperview];
+        [self.loadingTableView reloadData];
     }
 
 }
@@ -567,7 +520,12 @@ static int currentLoad = 0;
     //通过delegate协议 为方法指定其编辑格式
     if(tableView.tag == 1002){
         if (editingStyle == UITableViewCellEditingStyleDelete) {
-            
+            //删除btn progress
+            [((SaveLodingDate*)saveLoading[indexPath.row]).btn removeFromSuperview];
+            [((SaveLodingDate*)saveLoading[indexPath.row]).progress removeFromSuperview];
+            //取消发送请求
+            [[saveLoading[indexPath.row] cnnt] cancel];
+            ((SaveLodingDate*)saveLoading[indexPath.row]).cnnt = nil;
             //如果要删除数据要先删除对应行的数据
             //再将单元格删除
             [loadDownBase removeObjOfPlist:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[indexPath.row]).traintId] splistName:@"BeLoadList"];
@@ -575,7 +533,6 @@ static int currentLoad = 0;
             [saveLoading removeObjectAtIndex:indexPath.row];
             //删除单元格
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-            [self.loadingTableView reloadData];
         }
     }
     
