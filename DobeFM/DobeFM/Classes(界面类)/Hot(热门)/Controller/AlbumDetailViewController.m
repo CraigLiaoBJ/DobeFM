@@ -74,7 +74,6 @@ static NSInteger n = 1;
     [self.albumView addSubview:self.tableView];
 
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"CELL"];
-    
 //    [_tableView release];
 }
 
