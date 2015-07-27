@@ -20,6 +20,7 @@
     }
     return date;
 }
+
 //保存的数据 sender 歌曲ID plistName plist文件路径
 -(void)setLoadData:(NSString *)sender plsitName:(NSString*) plistName albumName:(AlbumList *) album{
     //获取应用程序沙盒的Documents目录
@@ -71,7 +72,6 @@
     
 }
 
-
 //获下载
 -(AlbumList*)getLoadingList{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
@@ -79,8 +79,8 @@
     NSMutableDictionary *a = [self getLoadDownPlish:@"BeLoadList" plistPath:plistPath1];
     NSArray *arr = [a valueForKey:[NSString stringWithFormat:@"%@",[a.allKeys firstObject]]];
     return [self arrayToAlbumList:arr];
-    
 }
+
 //获下载列表 是否为空
 - (bool) isLoadingList{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
