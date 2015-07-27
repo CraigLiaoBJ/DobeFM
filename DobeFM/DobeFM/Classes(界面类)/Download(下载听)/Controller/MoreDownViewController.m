@@ -113,6 +113,7 @@ static bool isDoading = NO;//是否在下载
     for (AlbumList *detail in  showArray) {
         detail.isSelect = isAllCheck;
     }
+    [self.moreDownTableView reloadData];
 }
 
 -(void)reloadView{
