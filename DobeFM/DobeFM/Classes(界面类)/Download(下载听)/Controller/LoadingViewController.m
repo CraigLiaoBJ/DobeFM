@@ -30,19 +30,19 @@
     Loaded
 };
 
-static UILabel *unDataView;
+static UILabel *unDataView;//没数据 lable显示
 
-static UIButton *loadedBtn;
+static UIButton *loadedBtn;//下载完成 按钮
 
-static UIButton *loadingBtn;
+static UIButton *loadingBtn;//下载中 按钮
 
 static UIView *btnChoolView;//选中被这层盖住
 
 static int  currentView = Loading;
 
-static LoadDownBase *loadDownBase;
+static LoadDownBase *loadDownBase;//下载基类
 
-static NSMutableArray *saveLoading;
+static NSMutableArray *saveLoading;//保存下载数据
 
 static int currentLoad = 0;
 
@@ -197,17 +197,24 @@ static int currentLoad = 0;
     self.dicLoading = [self getSplistList:@"BeLoadList"];   
     [self isLoadOrLoading];
     for (NSString *allkey in self.dicLoading) {
-
+        bool isNew = NO;
         for (int i = 0; i < saveLoading.count ; i++) {
             //saveLoading 是否存在 dicLoading的数据
             if ([allkey isEqualToString:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[i]).traintId]]) {
+                isNew = NO;
                 break;
             }
+            
+            isNew = YES;
         }
-        SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
-        aSave.traintId = self.dicLoading[allkey][5];
-        aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
-        [saveLoading addObject:aSave];
+        if (isNew) {
+            SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
+            aSave.traintId = self.dicLoading[allkey][5];
+            aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
+            [saveLoading addObject:aSave];
+            
+        }
+
     }
     [self.loadingTableView reloadData];
     // [NSThread detachNewThreadSelector:@selector(tableViewReloadData) toTarget:self withObject:nil];
@@ -310,6 +317,10 @@ static int currentLoad = 0;
 }
 
 - (void)star:(UIButton*)sender{
+
+        if (currentLoad >= saveLoading.count) {
+            currentLoad = (int )sender.tag - 1000;
+        }
         if(currentLoad != sender.tag - 1000){
             if(((SaveLodingDate*)saveLoading[currentLoad]).downLoading) {
                 [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];

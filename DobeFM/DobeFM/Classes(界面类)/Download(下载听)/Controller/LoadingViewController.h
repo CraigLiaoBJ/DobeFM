@@ -12,11 +12,14 @@
 
 @property (nonatomic, strong) UITableView *loadedTableView;
 
-@property (nonatomic, strong) UITableView *loadingTableView;
+@property (nonatomic, strong) UITableView *loadedTableView;//下载完
 
-@property (nonatomic, assign) bool isLoading;
+@property (nonatomic, strong) UITableView *loadingTableView;//未下载
 
-@property (nonatomic, assign) bool addLoadData;
+@property (nonatomic, assign) bool isLoading;//是否下载
+
+@property (nonatomic, assign) bool addLoadData;//是否有添加数据
+
 
 -(void)continuDown;
 
