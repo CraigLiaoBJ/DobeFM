@@ -21,10 +21,10 @@
 static NSInteger n = 1;
 @implementation HotAnchorViewController
 
-- (void)dealloc{
-    [_collectionView release];
-    [super dealloc];
-}
+//- (void)dealloc{
+//    [_collectionView release];
+//    [super dealloc];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,7 +46,7 @@ static NSInteger n = 1;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.sectionInset = UIEdgeInsetsMake(10, 5, 0, 5);
     
-    self.collectionView = [[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout]autorelease];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, kHEIGHT) collectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = CELLCOLOR;
     
     self.collectionView.delegate = self;
@@ -55,7 +55,7 @@ static NSInteger n = 1;
 
     [self.collectionView registerClass:[HotAnchorCell class] forCellWithReuseIdentifier:@"CELL"];
      [self.view addSubview:self.collectionView];
-    [flowLayout release];
+//    [flowLayout release];
 //    [_collectionView release];
 }
 
@@ -127,7 +127,7 @@ static NSInteger n = 1;
     AnchorInfoTableViewController *anchorDetail = [[AnchorInfoTableViewController alloc]init];
     anchorDetail.anchorId = [[self.dataArray[indexPath.row]uid]stringValue];
     [self.navigationController pushViewController:anchorDetail animated:YES];
-    [anchorDetail release];
+//    [anchorDetail release];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{

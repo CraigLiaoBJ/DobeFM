@@ -117,7 +117,7 @@
 		5EAE6C6B1B5819AD00345BB5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EAE6C6A1B5819AD00345BB5 /* Info.plist */; };
 		5EBB72801B5DF88300EF2444 /* MoreAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB727F1B5DF88300EF2444 /* MoreAlbumTableViewController.m */; };
 		5EBB72BE1B5E371B00EF2444 /* HotAnchorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72BD1B5E371B00EF2444 /* HotAnchorItem.m */; };
-		5EBB72C11B5E378400EF2444 /* HotAnchorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72C01B5E378400EF2444 /* HotAnchorViewController.m */; };
+		5EBB72C11B5E378400EF2444 /* HotAnchorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72C01B5E378400EF2444 /* HotAnchorViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5EBB72C71B5E54D200EF2444 /* AnchorIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72C61B5E54D200EF2444 /* AnchorIntroModel.m */; };
 		5EBB72D61B5E982D00EF2444 /* AlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBB72D51B5E982D00EF2444 /* AlbumCell.m */; };
 		5EE24B841B58D24600AEB7D2 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE24B6B1B58D24600AEB7D2 /* 1.png */; };
