@@ -44,6 +44,7 @@ static NSTimer *drawerTimer;
 static bool isDrawerOut = NO;//是否显示抽屉效果
 static LoadDownBase *loadDownBase;//下载类
 static UIImageView *backImageView;
+static UIButton *button;
 - (void) initWithAvplayer:(NSInteger)playCurrent  albumList:(NSMutableArray*)albumList sAlbum:(SearchAlbum *)sAlbum{
     if (_sAlbum != sAlbum ){
         _sAlbum = sAlbum;
@@ -113,7 +114,7 @@ static UIImageView *backImageView;
     [self.playView addSubview:imageView];
     [NSThread detachNewThreadSelector:@selector(loadImage) toTarget:self withObject:nil];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(self.playView.bounds.size.width*0.50-20, self.playView.bounds.size.height*0.8, 40, 40)];
     [button setBackgroundImage:[UIImage imageNamed:@"iconfont-bofangqizanting.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"iconfont-bofang.png"] forState:UIControlStateSelected];
@@ -234,11 +235,11 @@ static UIImageView *backImageView;
             [self. mp3Player play];
             //用NSTimer来监控音频播放进度
             if (self.isPlay) {
-                [self.mp3Player play];
+                [self mp3Play];
             }
             else
             {
-                [self.mp3Player pause];
+                [self mp3pause];
             }
         } else if ([self. mp3Player status] == AVPlayerStatusFailed) {
             
@@ -306,9 +307,11 @@ static UIImageView *backImageView;
     
     sender.selected = !sender.selected ;
     self.isPlay = !self.isPlay;
-    self.isPlay ? [self.mp3Player play ] : [self.mp3Player pause] ;
+    self.isPlay ? [self mp3Play] : [self mp3pause] ;
 
 }
+
+
 
 //    播放进度条
 - (void)playProgress
@@ -365,8 +368,22 @@ static UIImageView *backImageView;
 
 //点击下一个音乐按钮
 -(void)nextButtonClick{
+    if(self.playCurrent + 1 >= self.albumList.count){
+        [self plays:button];
+        return;
+    }
     self.playCurrent ++;
     [self cutMusic];
+}
+
+-(void)mp3Play{
+    [self.mp3Player play ];
+    self.timer.fireDate = [NSDate distantPast];
+    
+}
+-(void)mp3pause{
+    [self.mp3Player pause ];
+    self.timer.fireDate = [NSDate distantFuture];
 }
 
 //上级 下级是否可用
@@ -519,7 +536,7 @@ static UIImageView *backImageView;
 
 //本地是否有这数据
 -(bool)isAudioExist:(NSString*)audioName{
-    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) firstObject];
     NSString *filePath = [caches stringByAppendingPathComponent:audioName];
     NSURL * songUrl = [NSURL URLWithString:filePath];
     NSData *data = [[NSData alloc]initWithContentsOfURL:songUrl];
