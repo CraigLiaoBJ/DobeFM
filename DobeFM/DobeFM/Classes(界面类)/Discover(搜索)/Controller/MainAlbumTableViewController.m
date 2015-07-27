@@ -33,8 +33,8 @@ static NSInteger n = 0;
     self.moreAlbumArray = [NSMutableArray array];
     self.view.backgroundColor = CELLCOLOR;
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [UIImage new];
 
 //    self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"%@", self.tagName];

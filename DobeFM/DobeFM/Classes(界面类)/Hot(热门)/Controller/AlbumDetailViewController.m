@@ -39,8 +39,8 @@ static NSInteger n = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"专辑详情";
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.albumDataArray = [NSMutableArray array];
     self.albumList = [[AlbumList alloc]init];
     self.view.backgroundColor = CELLCOLOR;
@@ -60,7 +60,7 @@ static NSInteger n = 1;
 
 #pragma mark --- 加载tableView
 - (void)addTableView{
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, kWIDTH, kHEIGHT - 65 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 200, kWIDTH, kHEIGHT - 53 - kWIDTH / 5 - 120) style:UITableViewStylePlain];
     self.tableView.backgroundColor = CELLCOLOR;
     
     UIVisualEffectView *bgdEffect = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
