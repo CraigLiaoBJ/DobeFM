@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LoadingViewController : UIViewController
+
 @property (nonatomic, strong) UITableView *loadedTableView;
 
 @property (nonatomic, strong) UITableView *loadingTableView;
@@ -18,4 +19,5 @@
 @property (nonatomic, assign) bool addLoadData;
 
 -(void)continuDown;
+
 @end

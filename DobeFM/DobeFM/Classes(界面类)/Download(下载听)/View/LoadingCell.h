@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AlbumList.h"
 
-
-
 @interface LoadingCell : UITableViewCell
-
 
 @property(nonatomic, assign) int indexNum;//在那个cell
 //下载

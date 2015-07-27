@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0122F31B65DA0C004A30EE /* DobeAv.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E0122F21B65DA0C004A30EE /* DobeAv.png */; };
 		5E0384E11B565AD10054E467 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E0384E01B565AD10054E467 /* Images.xcassets */; };
 		5E0384F01B565AD20054E467 /* DobeFMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0384EF1B565AD20054E467 /* DobeFMTests.m */; };
 		5E03854B1B566F420054E467 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0385391B566F420054E467 /* AppDelegate.m */; };
@@ -111,6 +112,8 @@
 		5E4955101B58B92E0023C078 /* scrollPH.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E49550F1B58B92E0023C078 /* scrollPH.png */; };
 		5E508EB41B5D298C002D7662 /* HotAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E508EB31B5D298C002D7662 /* HotAlbumCell.m */; };
 		5E508EB71B5D4CDC002D7662 /* HotAlbumsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E508EB61B5D4CDC002D7662 /* HotAlbumsModel.m */; };
+		5E64D2B01B65DFE1007E19C6 /* playergray.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E64D2AF1B65DFE1007E19C6 /* playergray.png */; };
+		5E64D2B41B65E073007E19C6 /* playerorange.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E64D2B31B65E073007E19C6 /* playerorange.png */; };
 		5E8CD06E1B6078EA00D2DF4A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8CD06D1B6078EA00D2DF4A /* LaunchScreen.xib */; };
 		5E936B031B61051C000350B5 /* iconfont-xiazai.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E936B021B61051C000350B5 /* iconfont-xiazai.png */; };
 		5E936B0F1B611C37000350B5 /* dobe.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E936B0E1B611C37000350B5 /* dobe.png */; };
@@ -192,6 +195,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E0122F21B65DA0C004A30EE /* DobeAv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DobeAv.png; sourceTree = "<group>"; };
 		5E0384D41B565AD10054E467 /* DobeFM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DobeFM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0384E01B565AD10054E467 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5E0384E91B565AD20054E467 /* DobeFMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DobeFMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,6 +357,8 @@
 		5E508EB31B5D298C002D7662 /* HotAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotAlbumCell.m; sourceTree = "<group>"; };
 		5E508EB51B5D4CDC002D7662 /* HotAlbumsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotAlbumsModel.h; sourceTree = "<group>"; };
 		5E508EB61B5D4CDC002D7662 /* HotAlbumsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotAlbumsModel.m; sourceTree = "<group>"; };
+		5E64D2AF1B65DFE1007E19C6 /* playergray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playergray.png; sourceTree = "<group>"; };
+		5E64D2B31B65E073007E19C6 /* playerorange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerorange.png; sourceTree = "<group>"; };
 		5E8CD06D1B6078EA00D2DF4A /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5E936B021B61051C000350B5 /* iconfont-xiazai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-xiazai.png"; sourceTree = "<group>"; };
 		5E936B0E1B611C37000350B5 /* dobe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dobe.png; sourceTree = "<group>"; };
@@ -533,6 +539,8 @@
 			children = (
 				5E0385381B566F420054E467 /* AppDelegate.h */,
 				5E0385391B566F420054E467 /* AppDelegate.m */,
+				5E64D2AF1B65DFE1007E19C6 /* playergray.png */,
+				5E64D2B31B65E073007E19C6 /* playerorange.png */,
 				5E03853B1B566F420054E467 /* TabBarViewController.h */,
 				5E03853C1B566F420054E467 /* TabBarViewController.m */,
 			);
@@ -603,6 +611,7 @@
 				C2D41A391B5F51660093FE69 /* losePic.jpg */,
 				5E0D905A1B60E2840018A868 /* MoreDownViewController.h */,
 				5E0D90581B60E25B0018A868 /* MoreDownViewController.m */,
+				5E0122F21B65DA0C004A30EE /* DobeAv.png */,
 				5E936B021B61051C000350B5 /* iconfont-xiazai.png */,
 				5E4954BB1B58B6620023C078 /* LoadingViewController.h */,
 				5E4954BC1B58B6620023C078 /* LoadingViewController.m */,
@@ -1291,6 +1300,7 @@
 				5E4954F41B58B6A50023C078 /* iconfont-xiazai.png in Resources */,
 				5EE24B981B58D24600AEB7D2 /* 5.png in Resources */,
 				5E4955031B58B6A50023C078 /* iconfont-yinliangkai.png in Resources */,
+				5E64D2B41B65E073007E19C6 /* playerorange.png in Resources */,
 				5E0386151B576AB60054E467 /* album-download.png in Resources */,
 				5E0385FA1B5677280054E467 /* iconfont-shoucang-2.png in Resources */,
 				5EE24B941B58D24600AEB7D2 /* 24.png in Resources */,
@@ -1300,12 +1310,14 @@
 				5E4954F61B58B6A50023C078 /* iconfont-bofang.png in Resources */,
 				5E03860F1B576A9E0054E467 /* album-relate-2.png in Resources */,
 				5E4955011B58B6A50023C078 /* iconfont-xunhuanbofang.png in Resources */,
+				5E0122F31B65DA0C004A30EE /* DobeAv.png in Resources */,
 				5EE24BA81B591F9900AEB7D2 /* album-more.png in Resources */,
 				5E4955041B58B6A50023C078 /* iconfont-zanting-2.png in Resources */,
 				5EE24B931B58D24600AEB7D2 /* 23.png in Resources */,
 				5E0385F81B5677280054E467 /* iconfont-ordinarydownload.png in Resources */,
 				5E4954F71B58B6A50023C078 /* iconfont-16.png in Resources */,
 				5E4954FE1B58B6A50023C078 /* iconfont-kuaitui.png in Resources */,
+				5E64D2B01B65DFE1007E19C6 /* playergray.png in Resources */,
 				5EE24B901B58D24600AEB7D2 /* 20.png in Resources */,
 				5EE24B8A1B58D24600AEB7D2 /* 15.png in Resources */,
 				5E0385881B566FF40054E467 /* mine-2.png in Resources */,

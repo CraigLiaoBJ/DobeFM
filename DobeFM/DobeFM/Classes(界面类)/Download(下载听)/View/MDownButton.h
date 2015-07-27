@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MDownButton : UIButton
+
 @property (nonatomic , assign) float starNum;
 
 @property (nonatomic , assign) float endNum;
+
 @end

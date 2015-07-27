@@ -10,8 +10,8 @@
 
 @implementation DrawerView
 
-
--(instancetype)initWithFrame:(CGRect)frame{
+//初始化tableView
+- (instancetype)initWithFrame:(CGRect)frame{
     
     if (self = [super initWithFrame:frame]) {
     
@@ -26,32 +26,33 @@
 
 }
 
--(void)setDic:(NSMutableDictionary *)dic{
+- (void)setDic:(NSMutableDictionary *)dic{
     if (_dic != dic) {
         _dic = dic;
     }
     [self.tableView reloadData];
 }
 
--(void)reloadData{
+- (void)reloadData{
     [self.tableView reloadData];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//代理方法
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 20;
 
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
 
     return 1;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     return self.dic.count;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
     
@@ -63,22 +64,13 @@
     NSURL *picurl = [NSURL URLWithString:self.dic[[self.dic allKeys][indexPath.row]][1]];
     [cell.imageView sd_setImageWithURL:picurl];
     return cell;
-    
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(DrawerTableView:)]) {
         [self.delegate DrawerTableView:self.dic[[self.dic allKeys][indexPath.row]]];
     }
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

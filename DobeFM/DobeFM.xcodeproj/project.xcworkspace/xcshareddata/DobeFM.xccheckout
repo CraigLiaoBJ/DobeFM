@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>DDEF09E4-E13C-43DA-AC45-E35002819276</string>
 	<key>IDESourceControlProjectName</key>
-	<string>DobeFM</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D62EC1A05CD1244022FE17B23DAC33246C4556C2</key>
 		<string>https://github.com/CraigLiaoBJ/DobeFM.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>DobeFM/DobeFM.xcodeproj</string>
+	<string>DobeFM/DobeFM.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>D62EC1A05CD1244022FE17B23DAC33246C4556C2</key>

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SaveLodingDate : NSObject
+
 @property(nonatomic, strong) NSString *traintId;
 //文件数据
 @property(nonatomic, strong) NSMutableData *fileData;
@@ -28,4 +29,5 @@
 @property (copy, nonatomic) NSString *stringUrl;
 
 @property (strong, nonatomic) UIProgressView *progress;
+
 @end

@@ -12,6 +12,7 @@
 #import "AvPlayViewController.h"
 #define WINWIDTH self.view.bounds.size.width
 #define WINHEIGHT self.view.bounds.size.height
+
 @interface AvPlayViewController ()<DrawerViewDelegate>
 
 @property (nonatomic,strong) AVPlayer *mp3Player;
@@ -45,7 +46,8 @@ static bool isDrawerOut = NO;//是否显示抽屉效果
 static LoadDownBase *loadDownBase;//下载类
 static UIImageView *backImageView;
 static UIButton *button;
-- (void) initWithAvplayer:(NSInteger)playCurrent  albumList:(NSMutableArray*)albumList sAlbum:(SearchAlbum *)sAlbum{
+
+- (void)initWithAvplayer:(NSInteger)playCurrent  albumList:(NSMutableArray*)albumList sAlbum:(SearchAlbum *)sAlbum{
     if (_sAlbum != sAlbum ){
         _sAlbum = sAlbum;
     }
@@ -83,7 +85,6 @@ static UIButton *button;
     backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:backgroundView];
     
-    
     loadDownBase = [[LoadDownBase alloc]init];
     
     //----------------初始化
@@ -105,7 +106,6 @@ static UIButton *button;
     buttonView.backgroundColor = [UIColor whiteColor];
     buttonView.alpha  =  0.5;
     [self.playView addSubview:buttonView];
-
     
 
     //中间添加图片
@@ -201,7 +201,7 @@ static UIButton *button;
 }
 
 
--(void )loadImage{
+- (void)loadImage{
     //中间添加图片
     NSURL *picurl ;
     if([self.albumList[self.playCurrent] coverLarge] != nil &&  ![[self.albumList[self.playCurrent] coverLarge]isEqualToString:@""]){
@@ -212,9 +212,10 @@ static UIButton *button;
     }
     else{
      // picurl = [NSURL URLWithString:@"losePic.jpg"];
-        [imageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
-        [backImageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
-
+//        [imageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
+//        [backImageView setImage:[UIImage imageNamed:@"losePic.jpg"]];
+        [imageView setImage:[UIImage imageNamed:@"DobeAv.png"]];
+        [backImageView setImage:[UIImage imageNamed:@"DobeAv.png"]];
     }
 
     imageView.layer.cornerRadius = imageView.bounds.size.width/2;
@@ -269,7 +270,7 @@ static UIButton *button;
 }
 
 //切换音乐 -1 上一曲 1 下一曲
--(void)cutMusic{
+- (void)cutMusic{
     [self lastNextIsEnble];
     if(self.albumList.count < 1) return ;
     //检测本地
@@ -277,8 +278,6 @@ static UIButton *button;
         NSURL * songUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@", self.idArray[self.playCurrent]]];
         AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
         [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
-        
-        
         
     }
     else{
@@ -360,14 +359,14 @@ static UIButton *button;
 
 
 //点击上一个音乐按钮
--(void)lastButtonClick{
+- (void)lastButtonClick{
     
     self.playCurrent --;
     [self cutMusic];
 }
 
 //点击下一个音乐按钮
--(void)nextButtonClick{
+- (void)nextButtonClick{
     if(self.playCurrent + 1 >= self.albumList.count){
         [self plays:button];
         return;
@@ -376,18 +375,18 @@ static UIButton *button;
     [self cutMusic];
 }
 
--(void)mp3Play{
+- (void)mp3Play{
     [self.mp3Player play ];
     self.timer.fireDate = [NSDate distantPast];
     
 }
--(void)mp3pause{
+- (void)mp3pause{
     [self.mp3Player pause ];
     self.timer.fireDate = [NSDate distantFuture];
 }
 
 //上级 下级是否可用
--(void)lastNextIsEnble{
+- (void)lastNextIsEnble{
     [self.lastButton setEnabled:false];
     self.lastButton.alpha = 0.4;
     [self.nextButton setEnabled:false];
@@ -408,18 +407,18 @@ static UIButton *button;
         downLoad.alpha = 1;
     }
 }
--(void)playMusic{
-[self cutMusic];
 
+- (void)playMusic{
+    [self cutMusic];
 }
 
 
--(void)replayMusic{
+- (void)replayMusic{
     [self playMusic];
-    
 }
+
 //多线程下载
--(void)loadingMusic{
+- (void)loadingMusic{
     
     [aThread start];
     downLoad.enabled = NO;
@@ -428,7 +427,7 @@ static UIButton *button;
     
 }
 //下载音乐
--(void)threadLoad{
+- (void)threadLoad{
     [loadDownBase loadAudioToLocation:self.idArray[self.playCurrent] styp:@".mp3" albumName:(AlbumList *)self.albumList[self.playCurrent]];
     
     [loadDownBase setLoadData:[self.albumList[self.playCurrent] trackId] plsitName:@"LoadDownList" albumName:(AlbumList *)self.albumList[self.playCurrent]];
@@ -440,7 +439,7 @@ static UIButton *button;
 
 
 //保存播放历史
--(void)setListerHistoryList{
+- (void)setListerHistoryList{
     [loadDownBase loadAudioToLocation:[self.albumList[self.playCurrent] albumImage] styp:@".jpg" albumName:(AlbumList *)self.albumList[self.playCurrent]];
 
     [loadDownBase setLoadData:[self.albumList[self.playCurrent] trackId] plsitName:@"ListerHistory" albumName:(AlbumList *)self.albumList[self.playCurrent]];
@@ -448,7 +447,7 @@ static UIButton *button;
 }
 
 //显示播放历史tableView
--(void)listerHistoryList{
+- (void)listerHistoryList{
     NSMutableDictionary *history = [loadDownBase getListerHistoryList];
     [drawerView setDic: history];
     listerListBtn.enabled = NO;
@@ -456,7 +455,7 @@ static UIButton *button;
 }
 
 //抽屉进出
--(void)drawerOutInTimeer{
+- (void)drawerOutInTimeer{
     if (!isDrawerOut) {//YES 打开抽屉
         [self moveTo:drawerView frame:CGRectMake(0, 64, self.playView.frame.size.width*(3.0/4.0), self.playView.frame.size.height - 64)];
         drawerView.frame = CGRectMake(0, 64, self.playView.frame.size.width*(3.0/4.0), self.playView.frame.size.height - 64);
@@ -489,17 +488,17 @@ static UIButton *button;
 //    }];
 }
 
--(void)moveToStart{
+- (void)moveToStart{
     isDrawerOut ? drawerView.hidden = NO : 0;
 }
 
--(void)moveToStop{
+- (void)moveToStop{
     !isDrawerOut ?  drawerView.hidden = YES : 0;
     listerListBtn.enabled = YES;
 }
 
 //历史替换
--(void)DrawerTableView:(NSMutableArray *)horitoryAudio{
+- (void)DrawerTableView:(NSMutableArray *)horitoryAudio{
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     [arr addObject:[loadDownBase arrayToAlbumList:horitoryAudio]];
     [self initWithAvplayer:0 albumList:arr sAlbum:nil];
@@ -512,7 +511,7 @@ static UIButton *button;
 
 }
 
--(void)setLoactionImg:(NSString*)imgId{
+- (void)setLoactionImg:(NSString*)imgId{
     NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *filePath = [caches stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",imgId]];
     NSString * songUrl = [NSString stringWithFormat:@"%@%@",filePath,@".jpg"];
@@ -520,7 +519,7 @@ static UIButton *button;
     [backImageView setImage:[UIImage imageWithContentsOfFile:songUrl]];
 }
 
--(bool)playLocationAudio:(NSString*) audioId{
+- (bool)playLocationAudio:(NSString*) audioId{
     if ([self isAudioExist:[NSString stringWithFormat:@"%@.%@",audioId,@"aac"]]) {
         return YES;
     }
@@ -535,7 +534,7 @@ static UIButton *button;
 }
 
 //本地是否有这数据
--(bool)isAudioExist:(NSString*)audioName{
+- (bool)isAudioExist:(NSString*)audioName{
     NSString *caches = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) firstObject];
     NSString *filePath = [caches stringByAppendingPathComponent:audioName];
     NSURL * songUrl = [NSURL URLWithString:filePath];
@@ -550,15 +549,5 @@ static UIButton *button;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

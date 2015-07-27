@@ -10,34 +10,6 @@
 
 @implementation AlbumList
 
-//- (void)dealloc{
-//    [_albumId release];//专辑id
-//    [_albumImage release];//专辑图片
-//    [_albumTitle release];//专辑标题
-//    [_title1 release];//声音标题
-//    [_playPathAacv164 release];//播放url
-//    [_trackId release];//id
-//    [_durationTime release];//播放总时长
-//    
-//    [_downloadAacUrl release];//下载的URL
-//    [_downloadAacSize release];//下载的资源大小
-//    
-//    [_downloadUrl release];//第二下载的URL
-//    [_downloadSize release];//第二下载的资源大小
-//    
-//    [_playUrl32 release];//第二播放url
-//    
-//    [_coverLarge release];
-//    [_nickname release];//作者名字
-//    [_durationTm release];//时间跨度
-//    [_playtimes release];//播放次数
-//    
-//    [_playUrl64 release];//播放连接
-//    
-//    [_createdAt release];//创建时间
-//    [super dealloc];
-//    
-//}
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"duration"]) {

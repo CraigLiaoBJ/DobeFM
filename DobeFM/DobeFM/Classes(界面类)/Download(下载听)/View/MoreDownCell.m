@@ -14,6 +14,7 @@
     // Initialization code
 }
 
+//全选按钮确认的初始化
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.titleStr = [[UILabel alloc]init];
@@ -44,6 +45,5 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
-
 
 @end

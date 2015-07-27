@@ -34,7 +34,7 @@
     //播放
 //    [self addOneChildVc:[SingleModel shareSingleModel].playC title:nil imageNamed:@"playaudio" selectedImageName:@"playaudio"];
     
-    [self addOneChildVc:[SingleModel shareSingleModel].playC title:@"" imageNamed:@"zhongjian2" selectedImageName:@"zhongjian2"];
+    [self addOneChildVc:[SingleModel shareSingleModel].playC title:@"" imageNamed:@"playergray.png" selectedImageName:@"playerorange.png"];
     
     //下载听界面
 

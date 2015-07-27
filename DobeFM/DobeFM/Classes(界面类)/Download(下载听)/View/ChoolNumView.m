@@ -11,17 +11,16 @@
 
 @implementation ChoolNumView
 
--(instancetype)initWithFrame:(CGRect)frame{
+#pragma mark --- 下载数量选择设置
+- (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.frame = CGRectMake(0, 0,frame.size.width, 0 );
         self.backgroundColor = CELLCOLOR;
     }
     return self;
-
 }
 
-
--(void)setNum:(int)num{
+- (void)setNum:(int)num{
     _num = num;
     NSInteger labelNum = self.num / CHOOL_NEWLINE_NUM;
     self.frame = CGRectMake(0, 64,self.frame.size.width, 30 + labelNum/4*30 );

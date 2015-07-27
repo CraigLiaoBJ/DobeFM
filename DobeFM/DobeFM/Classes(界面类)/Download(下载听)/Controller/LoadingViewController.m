@@ -12,6 +12,7 @@
 #import "LoadDownBase.h"
 #import "SingleModel.h"
 #import "AlbumList.h"
+
 @interface LoadingViewController ()<UITableViewDataSource,UITableViewDelegate,NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *dicLoad;//下载完成
@@ -91,7 +92,7 @@ static int currentLoad = 0;
 
     [self.view addSubview:self.loadingTableView];
     
-    
+    //导航栏上的分段控制器
     UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithItems:@[@"下载中", @"已下载"]];
     segmentedControl.frame = CGRectMake(0, 0, kWIDTH, 40);
 
@@ -118,6 +119,7 @@ static int currentLoad = 0;
     [self.view addSubview: unDataView];
 }
 
+//分段控制器点击事件
 - (void)Selectbutton:(UISegmentedControl *)seg{
     NSInteger index = seg.selectedSegmentIndex;
     switch (index) {
@@ -136,7 +138,6 @@ static int currentLoad = 0;
             }
             [self.loadingTableView reloadData];
 
-
             break;
         case 1:
             self.dicLoad = [self getSplistList:@"LoadDownList"];
@@ -146,7 +147,6 @@ static int currentLoad = 0;
             self.loadingTableView.hidden = YES;
             if (self.dicLoad.count < 1) {
                 unDataView.hidden = NO;
-                
             }
             else{
                 unDataView.hidden = YES;
@@ -159,9 +159,7 @@ static int currentLoad = 0;
     }
 }
 
-
-
--(void)layoutSublayersOfLayer:(CALayer *)layer{
+- (void)layoutSublayersOfLayer:(CALayer *)layer{
     [super layoutSublayersOfLayer:layer];
     self.loadedTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48) ;
     self.loadingTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48) ;
@@ -189,7 +187,7 @@ static int currentLoad = 0;
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (self.addLoadData) {
         self.addLoadData = NO;
@@ -197,7 +195,7 @@ static int currentLoad = 0;
     }
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];   
-
+    [self isLoadOrLoading];
     for (NSString *allkey in self.dicLoading) {
 
         for (int i = 0; i < saveLoading.count ; i++) {
@@ -205,13 +203,13 @@ static int currentLoad = 0;
             if ([allkey isEqualToString:[NSString stringWithFormat:@"%@",((SaveLodingDate*)saveLoading[i]).traintId]]) {
                 break;
             }
-
         }
         SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
         aSave.traintId = self.dicLoading[allkey][5];
         aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
         [saveLoading addObject:aSave];
     }
+    [self.loadingTableView reloadData];
     // [NSThread detachNewThreadSelector:@selector(tableViewReloadData) toTarget:self withObject:nil];
 }
 
@@ -225,11 +223,11 @@ static int currentLoad = 0;
     return 60;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
      if(tableView.tag == 1001){//下载完成
          return self.dicLoad.count;
@@ -239,7 +237,7 @@ static int currentLoad = 0;
      }
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView.tag == 1001){
         if(self.dicLoad.count < 1)  return nil;
         LoadedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DCELL"];
@@ -281,8 +279,7 @@ static int currentLoad = 0;
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag == 1001) {
         NSMutableArray *arr = [[NSMutableArray alloc]init];
         
@@ -292,18 +289,16 @@ static int currentLoad = 0;
         }
             [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:arr sAlbum:nil];
         self.navigationController.tabBarController.selectedIndex = 2;
-//            [self.navigationController pushViewController:[SingleModel shareSingleModel].playC animated:YES];
-
     }
 }
 
--(NSMutableDictionary*)getSplistList:(NSString *)string{
+- (NSMutableDictionary *)getSplistList:(NSString *)string{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString *plistPath1 = [paths objectAtIndex:0];
     return [loadDownBase getLoadDownPlish:string plistPath:plistPath1];
 }
 
--(NSString*)stringAlbum:(AlbumList *)aAlbum{
+- (NSString *)stringAlbum:(AlbumList *)aAlbum{
     NSString *stringUrl = @"";
     if (aAlbum.downloadAacUrl != nil && ![aAlbum.downloadAacUrl isEqualToString:@""]) {
         stringUrl = aAlbum.downloadAacUrl;
@@ -314,8 +309,7 @@ static int currentLoad = 0;
     return stringUrl;
 }
 
-- (void)star:(UIButton*)sender
-    {
+- (void)star:(UIButton*)sender{
         if(currentLoad != sender.tag - 1000){
             if(((SaveLodingDate*)saveLoading[currentLoad]).downLoading) {
                 [[saveLoading[currentLoad] btn] setTitle:@"下载" forState:UIControlStateNormal];
@@ -387,8 +381,6 @@ static int currentLoad = 0;
     
     NSString *filePath = [caches stringByAppendingPathComponent:fileName];
     
-    
-    
     //2.创建一个空的文件,到沙盒中
     NSFileManager *mgr = [NSFileManager defaultManager];
     //刚创建完毕的大小是o字节
@@ -404,7 +396,7 @@ static int currentLoad = 0;
 /*
  *当接收到服务器的数据时会调用（可能会被调用多次，每次只传递部分数据）
  */
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     if(currentLoad >= saveLoading.count) return;
     //累加接收到的数据长度
@@ -427,7 +419,7 @@ static int currentLoad = 0;
 /*
  *当服务器的数据加载完毕时就会调用
  */
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     if(currentLoad >= saveLoading.count) return;
 
@@ -553,15 +545,5 @@ static int currentLoad = 0;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

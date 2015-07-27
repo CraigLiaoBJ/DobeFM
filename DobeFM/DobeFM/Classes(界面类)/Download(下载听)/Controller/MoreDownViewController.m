@@ -11,6 +11,7 @@
 #import "MoreDownCell.h"
 #import "AlbumList.h"
 #import "SingleModel.h"
+
 @interface MoreDownViewController ()<UITableViewDelegate,UITableViewDataSource,ChoolNumDelegate>
 
 @property (nonatomic, strong) UITableView *moreDownTableView;
@@ -79,7 +80,7 @@ static bool isDoading = NO;//是否在下载
 }
 
 //全选
-- (void) rightItemClick:( UIBarButtonItem*)sender{
+- (void)rightItemClick:(UIBarButtonItem *)sender{
 
     isAllCheck = isAllCheck == NO;
     for (AlbumList *detail in  showArray) {
@@ -91,7 +92,7 @@ static bool isDoading = NO;//是否在下载
 }
 
 //下载
--(void)loadDownAction:(UIButton *)sender{
+- (void)loadDownAction:(UIButton *)sender{
     
     for (AlbumList *albumListId in showArray) {
         if (albumListId.isSelect == YES) {
@@ -107,7 +108,7 @@ static bool isDoading = NO;//是否在下载
 
 
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     isAllCheck = NO;
     for (AlbumList *detail in  showArray) {
@@ -116,7 +117,7 @@ static bool isDoading = NO;//是否在下载
     [self.moreDownTableView reloadData];
 }
 
--(void)reloadView{
+- (void)reloadView{
         if (self.audioArray.count <= 50  ) {
             showArray =[[NSMutableArray alloc]initWithArray:self.audioArray];
         }
@@ -133,21 +134,20 @@ static bool isDoading = NO;//是否在下载
     [self.moreDownTableView reloadData];
 }
 
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return  1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return showArray.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return 40;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MoreDownCell *acell = [tableView dequeueReusableCellWithIdentifier:@"moreCell"];
 
     acell.titleStr.text = [NSString stringWithFormat:@"%@",[showArray[indexPath.row] title1]];
@@ -159,13 +159,13 @@ static bool isDoading = NO;//是否在下载
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ((AlbumList*)showArray[indexPath.row]).isSelect = ((AlbumList*)showArray[indexPath.row]).isSelect == NO;
     [self.moreDownTableView reloadData];
 }
 
 //换显示集数段位
--(void)labelClick:(MDownButton *)sender{
+- (void)labelClick:(MDownButton *)sender{
     [showArray removeAllObjects];
     for (int  i = sender.starNum - 1 ; i < sender.endNum ; i++) {
         [showArray addObject:self.audioArray[i]];
@@ -174,7 +174,7 @@ static bool isDoading = NO;//是否在下载
 }
 
 //下载音乐
--(void)threadLoad:(AlbumList*)sender{
+- (void)threadLoad:(AlbumList *)sender{
     [loadDownBase loadAudioToLocation:[sender downloadAacUrl] styp:@".mp3" albumName:sender];
     [loadDownBase setLoadData:[sender trackId] plsitName:@"LoadDownList" albumName:sender];
 }
@@ -187,15 +187,5 @@ static bool isDoading = NO;//是否在下载
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

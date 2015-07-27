@@ -12,7 +12,6 @@
 #import <AVFoundation/AVFoundation.h>
 @interface AvPlayViewController : UIViewController
 
-
 @property (nonatomic, strong) NSMutableArray *albumList;//播放list
 
 @property (nonatomic, strong) SearchAlbum *sAlbum;//

@@ -9,6 +9,7 @@
 #import "SaveLodingDate.h"
 
 @implementation SaveLodingDate
+
 -(instancetype)init{
     if (self = [super init]) {
         _fileData = [[NSMutableData alloc]init];
@@ -31,4 +32,5 @@
     }
     return self;
 }
+
 @end
