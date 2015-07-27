@@ -130,7 +130,6 @@ static bool isDoading = NO;//是否在下载
     self.moreDownTableView.frame = CGRectMake(0,64 + ChoolHeight, self.view.bounds.size.width, self.view.bounds.size.height - ChoolHeight - 78 - 64);
     choolView.num = self.audioArray.count;
     [self.moreDownTableView reloadData];
-    
 }
 
 
@@ -156,7 +155,6 @@ static bool isDoading = NO;//是否在下载
     [self.cellArray addObject:acell];
     acell.selectionStyle = UITableViewCellSelectionStyleNone;
     return acell;
-    
 }
 
 

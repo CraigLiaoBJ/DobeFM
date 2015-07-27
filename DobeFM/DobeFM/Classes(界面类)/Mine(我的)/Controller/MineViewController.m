@@ -105,9 +105,6 @@ const CGFloat HMTopViewH = 350;
     }
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
-}
 
 - (void)addAboutView{
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"关于DobeFM" message:@"一款充满喜感的FM。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
