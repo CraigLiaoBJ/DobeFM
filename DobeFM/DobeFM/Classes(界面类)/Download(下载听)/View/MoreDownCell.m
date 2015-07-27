@@ -16,7 +16,7 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.titleStr = [[[UILabel alloc]initWithFrame:CGRectMake(5, 0,kWW*0.85, 40)]autorelease];
+        self.titleStr = [[UILabel alloc]init];
         self.titleStr.font = [UIFont boldSystemFontOfSize:12];
         self.titleStr.numberOfLines = 0;
         [self addSubview:self.titleStr];
@@ -32,6 +32,13 @@
     }
     return self;
 
+}
+
+- (void)layoutSubviews{
+    self.titleStr.frame = CGRectMake(5, 0,kWW*0.85, 40);
+
+    CGRect checkboxRect = CGRectMake(self.bounds.size.width*0.9,10,20,20);
+    [self.checkbox  setFrame:checkboxRect];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

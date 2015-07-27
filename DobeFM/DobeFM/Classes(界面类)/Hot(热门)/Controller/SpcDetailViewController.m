@@ -100,7 +100,6 @@
                 SearchAlbum *spcDtlClModel = [[SearchAlbum alloc]init];
                 [spcDtlClModel setValuesForKeysWithDictionary:tempDic];
                 [aSelf.spcAlbumArray addObject:spcDtlClModel];
-                NSLog(@"%@", spcDtlClModel.albumId);
 //                [spcDtlClModel release];
             }
             [aSelf.tableView reloadData];
@@ -215,7 +214,6 @@
     if ([self.spcTypeID isEqualToString:@"1"]) {
         AlbumDetailViewController *albumDetail = [[AlbumDetailViewController alloc]init];
         albumDetail.albumId = [self.spcAlbumArray[indexPath.row] albumId];
-        NSLog(@"%@", albumDetail.albumId);
         [self.navigationController pushViewController:albumDetail animated:YES];
         [albumDetail release];
     }

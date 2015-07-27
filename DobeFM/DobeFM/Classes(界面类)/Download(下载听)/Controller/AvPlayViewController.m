@@ -108,7 +108,7 @@ static UIImageView *backImageView;
     
 
     //中间添加图片
-    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4.1, kHEIGHT / 4.8, 190, 190)];
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWIDTH / 4.5, kHEIGHT / 4.8, 190, 190)];
 //    imageView.center = self.playView.center;
     [self.playView addSubview:imageView];
     [NSThread detachNewThreadSelector:@selector(loadImage) toTarget:self withObject:nil];

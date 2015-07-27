@@ -58,13 +58,13 @@ static int currentLoad = 0;
     self.dicLoad = [self getSplistList:@"LoadDownList"];
     self.dicLoading = [self getSplistList:@"BeLoadList"];
     
-
     for (NSString *allkey in self.dicLoading) {
         SaveLodingDate *aSave = [[SaveLodingDate alloc]init];
         aSave.traintId = self.dicLoading[allkey][5];
         aSave.stringUrl = [self stringAlbum:[loadDownBase arrayToAlbumList:self.dicLoading[allkey]]];
         [saveLoading addObject:aSave];
     }
+    
     //下载完成view
     self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74, kWIDTH, kHEIGHT - 74 - 49)];
     self.loadedTableView.rowHeight = 60;
@@ -76,10 +76,9 @@ static int currentLoad = 0;
     self.loadedTableView.backgroundColor = CELLCOLOR;
     self.loadedTableView.tableFooterView = [[UIView alloc]init];
     self.loadedTableView.showsVerticalScrollIndicator = NO;
-
     [self.view addSubview:self.loadedTableView];
 
-    //未下载view
+    //下载中view
     self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 74,  kWIDTH, kHEIGHT - 74 - 49)];
     self.loadingTableView.rowHeight = 60;
     self.loadingTableView.backgroundColor = CELLCOLOR;
@@ -113,14 +112,13 @@ static int currentLoad = 0;
     [self.view addSubview:segmentedControl];
     [self.navigationController.navigationBar.topItem setTitleView:segmentedControl];
     
-    segmentedControl.tintColor = cellImageColor;//去掉颜色,现在整个segment都看不见
+    segmentedControl.tintColor = [UIColor orangeColor];//去掉颜色,现在整个segment都看不见
     NSDictionary* selectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],
                                              NSForegroundColorAttributeName:[UIColor whiteColor]};
     [segmentedControl setTitleTextAttributes:selectedTextAttributes forState:UIControlStateSelected];//设置文字属性
     NSDictionary* unselectedTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:16],
                                                NSForegroundColorAttributeName:[UIColor orangeColor]};
     [segmentedControl setTitleTextAttributes:unselectedTextAttributes forState:UIControlStateNormal];
-
     
 //    
 //    loadingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -147,7 +145,6 @@ static int currentLoad = 0;
 //    btnChoolView.alpha = 0.2;
 //    [btnChoolView.layer setCornerRadius:CORNER_RADIUS_FLOAT];
 //    [self.btnView addSubview:btnChoolView];
-    
     
     unDataView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 300, 30)];
     [unDataView setText:@"没有要加载的数据"];
@@ -207,7 +204,6 @@ static int currentLoad = 0;
     self.loadedTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48) ;
     self.loadingTableView.frame = CGRectMake(0, 104, self.view.bounds.size.width, self.view.bounds.size.height - 104 - 48) ;
     self.btnView.frame = CGRectMake(0, 64, self.view.bounds.size.width, 40);
-
 }
 
 //显示界面是否有数据
@@ -253,7 +249,6 @@ static int currentLoad = 0;
                 [saveLoading addObject:aSave];
             }
         }
-
     }
     // [NSThread detachNewThreadSelector:@selector(tableViewReloadData) toTarget:self withObject:nil];
 }
@@ -263,8 +258,6 @@ static int currentLoad = 0;
 
 }
 
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return 60;
@@ -273,6 +266,7 @@ static int currentLoad = 0;
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
      if(tableView.tag == 1001){//下载完成
@@ -280,7 +274,6 @@ static int currentLoad = 0;
      }
      else{
          return self.dicLoading.count;
-     
      }
 }
 
@@ -307,10 +300,10 @@ static int currentLoad = 0;
      
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).progress];
 
-        ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake(70, 50, cell.bounds.size.width - 70 - 60, 10);
+        ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake(70, 50, kWIDTH - 70 - 60, 10);
         
         //cell.btn =
-        ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(cell.bounds.size.width - 40 - 10, 20, 40, 20) ;
+        ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(kWIDTH - 40 - 10, 20, 40, 20) ;
         ((SaveLodingDate*)saveLoading[indexPath.row]).btn.tag = 1000+indexPath.row;
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).btn];
         [((SaveLodingDate*)saveLoading[indexPath.row]).btn addTarget:self action:@selector(star:) forControlEvents:UIControlEventTouchUpInside];
