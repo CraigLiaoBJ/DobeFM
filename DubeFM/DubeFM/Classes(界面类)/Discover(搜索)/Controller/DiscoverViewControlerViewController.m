@@ -55,6 +55,7 @@
     
     _searchTableViewController = [[SearchTableViewController alloc]initWithStyle:UITableViewStylePlain];
     [_searchTableViewController.view setFrame:CGRectMake(0, 40, 200, 0)];
+//    [self addChildViewController:_searchTableViewController];
     [self.view addSubview:_searchTableViewController.view];
 }
 
