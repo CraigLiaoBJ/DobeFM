@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>0554AB3E-2BCB-487A-AAC9-AB52414E87F0</string>
+=======
+	<string>E2283D1E-C12B-497C-A50B-5811B364AFCA</string>
+>>>>>>> 478e848bd73e72ed602adaa57b3c5f778d3f0c28
 	<key>IDESourceControlProjectName</key>
 	<string>DubeFM</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +38,11 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>D62EC1A05CD1244022FE17B23DAC33246C4556C2</string>
 			<key>IDESourceControlWCCName</key>
+<<<<<<< HEAD
 			<string>DobeFM</string>
+=======
+			<string>DOUBEE</string>
+>>>>>>> 478e848bd73e72ed602adaa57b3c5f778d3f0c28
 		</dict>
 	</array>
 </dict>
