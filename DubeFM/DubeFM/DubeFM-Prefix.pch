@@ -1,0 +1,36 @@
+//
+//  DubeFM-Prefix.pch
+//  DubeFM
+//
+//  Created by Craig Liao on 15/7/28.
+//  Copyright (c) 2015年 Craig Liao. All rights reserved.
+//
+
+#ifndef DubeFM_DubeFM_Prefix_pch
+#define DubeFM_DubeFM_Prefix_pch
+
+#define LOADDOWN_MUSIC_PATH
+#define CHOOL_NEWLINE_NUM 50
+#define CORNER_RADIUS_FLOAT 15.0
+
+#import "MJRefresh.h"
+#import "NetWorking.h"
+#import "UIImageView+WebCache.h"
+#import "AutoView.h"
+
+#import "SingleModel.h"
+#import "AlbumDetailViewController.h"
+#import "AvPlayViewController.h"
+
+#define kWIDTH self.view.frame.size.width
+#define kHEIGHT self.view.frame.size.height
+
+#define kWW self.frame.size.width
+#define kHH self.frame.size.height
+
+//是否为IOS7
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+#define cellImageColor  [UIColor colorWithRed:0.736 green:0.967 blue:1.000 alpha:0.620]
+#define CELLCOLOR [UIColor colorWithRed:1.000 green:0.500 blue:0.000 alpha:0.070]
+
+#endif
