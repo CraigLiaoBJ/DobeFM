@@ -415,14 +415,7 @@ static UIButton *button;
 
 //多线程下载
 - (void)loadingMusic{
-    if(self.playCurrent >= self.idArray.count )
-    {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:@"网络连接错误!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
-        return;
-    }
-    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"" message:@"进入下载!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
+    
     [aThread start];
     downLoad.enabled = NO;
     downLoad.alpha = 0.4;
@@ -477,11 +470,17 @@ static UIButton *button;
     [UIView setAnimationDelegate:self];
     [UIView setAnimationWillStartSelector:@selector(moveToStart)];//动画开始方法
     [UIView setAnimationDidStopSelector:@selector(moveToStop)];//动画结束方法
-
+    //[UIView setAnimationRepeatAutoreverses:YES];
+    //[UIView setAnimationBeginsFromCurrentState:YES];//设置从当前状态继续执行
     dView.frame = frame;
     [UIView commitAnimations];//提交动画
     isDrawerOut = !isDrawerOut;
-
+//    [UIView animateWithDuration:0.5f animations:^{
+//        [self moveToStart ];
+//        dView.frame = frame ;
+//        isDrawerOut = !isDrawerOut;
+//        [self moveToStop ];
+//    }];
 }
 
 - (void)moveToStart{
@@ -495,10 +494,14 @@ static UIButton *button;
 
 //历史替换
 - (void)DrawerTableView:(NSMutableArray *)horitoryAudio{
-    [self listerHistoryList ];
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     [arr addObject:[loadDownBase arrayToAlbumList:horitoryAudio]];
     [self initWithAvplayer:0 albumList:arr sAlbum:nil];
+//    self.title = [NSString stringWithFormat:@"%@",horitoryAudio[3]];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@",horitoryAudio[4]];
+//    NSURL * songUrl = [NSURL URLWithString:urlStr];
+//    AVPlayerItem *playerItem = [[AVPlayerItem alloc]initWithURL:songUrl];
+//    [self.mp3Player replaceCurrentItemWithPlayerItem:playerItem];
     [self setLoactionImg:horitoryAudio[5]];
 
 }

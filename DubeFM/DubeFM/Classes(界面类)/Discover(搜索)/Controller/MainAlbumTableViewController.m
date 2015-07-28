@@ -121,7 +121,6 @@ static NSInteger n = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
     albumVC.albumId = [self.moreAlbumArray[indexPath.row]albumId];
-    NSLog(@"%@",albumVC.albumId);
     albumVC.sAlbum = self.moreAlbumArray[indexPath.row];
     [self.navigationController pushViewController:albumVC animated:YES];
 //    [albumVC release];

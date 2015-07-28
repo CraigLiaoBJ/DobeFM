@@ -22,7 +22,7 @@
     if ([key isEqualToString:@"id"]) {
         self.trackId = value;
     }
-    if ([key isEqualToString:@"coverSmall"]||[key isEqualToString:@"coverLarge"]) {
+    if ([key isEqualToString:@"coverSmall"]||[key isEqualToString:@"coverLarge"]||[key isEqualToString:@"cover_path"]) {
         self.coverLarge = value;
     }
     if ([key isEqualToString:@"playPath32"]) {

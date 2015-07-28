@@ -62,15 +62,18 @@
     self.coverSmImage.frame = CGRectMake(5, 5, 80, 80);
     self.coverSmImage.backgroundColor  = [UIColor colorWithRed:0.359 green:0.672 blue:1.000 alpha:1.000];
     
-    self.audioCountLabel.frame = CGRectMake(120, 15, kWW, 20);
-    self.audioCountLabel.font = [UIFont systemFontOfSize:15];
+    self.anchorLabel.frame = CGRectMake(90, 5, kWW - 120, 15);
+    self.anchorLabel.font = [UIFont boldSystemFontOfSize:15];
+    
+    self.audioCountLabel.frame = CGRectMake(90, 30, kWW - 120, 13);
+    self.audioCountLabel.font = [UIFont systemFontOfSize:13];
     self.audioCountLabel.numberOfLines = 0;
     
-    self.introLabel.frame = CGRectMake(100, 50, 80, 20);
+    self.introLabel.frame = CGRectMake(90, 50, kWW - 100, 40);
     self.introLabel.textColor = [UIColor grayColor];
-    self.introLabel.font = [UIFont systemFontOfSize:15];
+    self.introLabel.font = [UIFont systemFontOfSize:13];
+    self.introLabel.numberOfLines = 0;
     self.introLabel.alpha = 0.5;
-    
 }
 
 - (void)setAnchorInfo:(AnchorIntroModel *)anchorInfo{
@@ -84,6 +87,8 @@
     
     _anchorLabel.text = anchorInfo.nickname;
     _audioCountLabel.text = [NSString stringWithFormat:@"音频：%@" ,[anchorInfo.tracks_counts stringValue]];
+    
+    _introLabel.text = anchorInfo.intro;
 }
 
 @end

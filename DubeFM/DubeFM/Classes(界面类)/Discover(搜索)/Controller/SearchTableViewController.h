@@ -10,4 +10,7 @@
 
 @interface SearchTableViewController : UITableViewController
 
+//查询时候输入的文本
+@property (nonatomic, copy) NSString *searchName;
+
 @end

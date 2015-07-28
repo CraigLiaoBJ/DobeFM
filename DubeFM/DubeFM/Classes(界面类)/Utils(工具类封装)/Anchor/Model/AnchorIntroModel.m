@@ -14,9 +14,13 @@
     [_mobileMiddleLogo release];
     [_nickname release];
     [_personalSignature release];
+    [super dealloc];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    if ([key isEqualToString:@"uid"]) {
+        self.anchorUid = value;
+    }
     
 }
 

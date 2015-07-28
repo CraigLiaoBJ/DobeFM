@@ -15,14 +15,18 @@
 
 #define URLStr @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
 
-@interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate>
+@interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, retain) UISearchBar *searchBar;
 
+//@property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
+//
 @property (nonatomic, retain) SearchTableViewController *searchTableViewController;
-
+//
 @property (nonatomic, retain) NSMutableArray *dataArray; //数据源数组
-
+//
 @property (nonatomic, retain) UICollectionView *collectionView;//整个界面的集合视图
+
+@property (nonatomic, copy) NSString *searchName;//搜索条件，输入什么传到下一个界面
 
 @end
 
@@ -36,10 +40,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.dataArray = [NSMutableArray array];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = nil;
-    self.view.backgroundColor = CELLCOLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
 
     //添加集合视图
     [self addCollectionView];
@@ -52,10 +57,10 @@
     self.navigationItem.titleView = _searchBar;
 //    [self.navigationController.navigationBar addSubview:searchBar];
     _searchBar.delegate = self;
-    
+
     _searchTableViewController = [[SearchTableViewController alloc]initWithStyle:UITableViewStylePlain];
     [_searchTableViewController.view setFrame:CGRectMake(0, 40, 200, 0)];
-//    [self addChildViewController:_searchTableViewController];
+    [self addChildViewController:_searchTableViewController];
     [self.view addSubview:_searchTableViewController.view];
 }
 
@@ -153,6 +158,9 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"search clicked");
+    [_searchBar resignFirstResponder];
+
+    _searchTableViewController.searchName = searchBar.text;
 }
 
 //点击搜索框上的 取消按钮时 调用
@@ -160,20 +168,17 @@
     NSLog(@"cancel clicked");
     _searchBar.text = @"";
     [_searchBar resignFirstResponder];
+    [_searchTableViewController.tableView reloadData];
     [self setSearchControllerHidden:YES];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-//    [_searchBar resignFirstResponder];
-    [self.view endEditing:YES];
-}
 
 //设置隐藏方法
 - (void)setSearchControllerHidden:(BOOL)hidden{
     NSInteger height = hidden ? 0 : kHEIGHT;
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
-    
+
     [_searchTableViewController.view setFrame:CGRectMake(0, 64, kWIDTH, height)];
     [UIView commitAnimations];
 }

@@ -67,7 +67,7 @@ static int currentLoad = 0;
     }
     
     //下载完成view
-    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, kHEIGHT - 74 - 49)];
+    self.loadedTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kWIDTH, kHEIGHT - 74 - 39)];
     self.loadedTableView.rowHeight = 60;
     self.loadedTableView.delegate = self;
     self.loadedTableView.dataSource = self;
@@ -81,7 +81,7 @@ static int currentLoad = 0;
     [self.view addSubview:self.loadedTableView];
 
     //下载中view
-    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64,  kWIDTH, kHEIGHT - 74 - 49)];
+    self.loadingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64,  kWIDTH, kHEIGHT - 74 - 39)];
     self.loadingTableView.rowHeight = 70;
     self.loadingTableView.backgroundColor = CELLCOLOR;
     self.loadingTableView.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -67,8 +67,6 @@
 		5E1E3B5D1B6728F50014FA32 /* album-relate-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A861B6728F40014FA32 /* album-relate-2.png */; };
 		5E1E3B5E1B6728F50014FA32 /* album-relate.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A871B6728F40014FA32 /* album-relate.png */; };
 		5E1E3B5F1B6728F50014FA32 /* special-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A881B6728F40014FA32 /* special-time.png */; };
-		5E1E3B601B6728F50014FA32 /* dobe.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A8A1B6728F40014FA32 /* dobe.png */; };
-		5E1E3B611B6728F50014FA32 /* minehead.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A8B1B6728F40014FA32 /* minehead.png */; };
 		5E1E3B621B6728F50014FA32 /* discover-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A8D1B6728F40014FA32 /* discover-2.png */; };
 		5E1E3B631B6728F50014FA32 /* discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A8E1B6728F40014FA32 /* discover.png */; };
 		5E1E3B641B6728F50014FA32 /* download-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A8F1B6728F40014FA32 /* download-2.png */; };
@@ -154,6 +152,7 @@
 		5E1E3BB41B6728F50014FA32 /* Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3B241B6728F50014FA32 /* Networking.m */; };
 		5E1E3BB51B6728F50014FA32 /* SingleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3B271B6728F50014FA32 /* SingleModel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E1E3BB81B6729040014FA32 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3BB71B6729040014FA32 /* TabBarViewController.m */; };
+		5EB6E0161B67AEF2005F845D /* minedube.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB6E0151B67AEF2005F845D /* minedube.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -272,8 +271,6 @@
 		5E1E3A861B6728F40014FA32 /* album-relate-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album-relate-2.png"; sourceTree = "<group>"; };
 		5E1E3A871B6728F40014FA32 /* album-relate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album-relate.png"; sourceTree = "<group>"; };
 		5E1E3A881B6728F40014FA32 /* special-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "special-time.png"; sourceTree = "<group>"; };
-		5E1E3A8A1B6728F40014FA32 /* dobe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dobe.png; sourceTree = "<group>"; };
-		5E1E3A8B1B6728F40014FA32 /* minehead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minehead.png; sourceTree = "<group>"; };
 		5E1E3A8D1B6728F40014FA32 /* discover-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discover-2.png"; sourceTree = "<group>"; };
 		5E1E3A8E1B6728F40014FA32 /* discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover.png; sourceTree = "<group>"; };
 		5E1E3A8F1B6728F40014FA32 /* download-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download-2.png"; sourceTree = "<group>"; };
@@ -391,14 +388,14 @@
 		5E1E3B0F1B6728F50014FA32 /* AlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumCell.m; sourceTree = "<group>"; };
 		5E1E3B101B6728F50014FA32 /* AlbumIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumIntro.h; sourceTree = "<group>"; };
 		5E1E3B111B6728F50014FA32 /* AlbumIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumIntro.m; sourceTree = "<group>"; };
-		5E1E3B121B6728F50014FA32 /* album-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "album-more.png"; sourceTree = "<group>"; };
+		5E1E3B121B6728F50014FA32 /* album-more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "album-more.png"; path = "../../Utils(工具类封装)/album-more.png"; sourceTree = "<group>"; };
 		5E1E3B151B6728F50014FA32 /* AnchorInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorInfoTableViewController.h; sourceTree = "<group>"; };
 		5E1E3B161B6728F50014FA32 /* AnchorInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorInfoTableViewController.m; sourceTree = "<group>"; };
 		5E1E3B181B6728F50014FA32 /* AnchorIntroModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorIntroModel.h; sourceTree = "<group>"; };
 		5E1E3B191B6728F50014FA32 /* AnchorIntroModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorIntroModel.m; sourceTree = "<group>"; };
 		5E1E3B1C1B6728F50014FA32 /* AutoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoView.h; sourceTree = "<group>"; };
 		5E1E3B1D1B6728F50014FA32 /* AutoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoView.m; sourceTree = "<group>"; };
-		5E1E3B1E1B6728F50014FA32 /* iconfont-xiazai01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-xiazai01.png"; sourceTree = "<group>"; };
+		5E1E3B1E1B6728F50014FA32 /* iconfont-xiazai01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iconfont-xiazai01.png"; path = "../../Utils(工具类封装)/iconfont-xiazai01.png"; sourceTree = "<group>"; };
 		5E1E3B201B6728F50014FA32 /* LoadDownBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadDownBase.h; sourceTree = "<group>"; };
 		5E1E3B211B6728F50014FA32 /* LoadDownBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadDownBase.m; sourceTree = "<group>"; };
 		5E1E3B231B6728F50014FA32 /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
@@ -408,6 +405,7 @@
 		5E1E3BB61B6729040014FA32 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		5E1E3BB71B6729040014FA32 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		5E1E3BB91B6729570014FA32 /* DubeFM-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DubeFM-Prefix.pch"; sourceTree = "<group>"; };
+		5EB6E0151B67AEF2005F845D /* minedube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minedube.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,8 +490,8 @@
 			isa = PBXGroup;
 			children = (
 				5E1E3A191B6728F40014FA32 /* Discover(搜索) */,
-				5E1E3A311B6728F40014FA32 /* Download(下载听) */,
 				5E1E3A4D1B6728F40014FA32 /* Hot(热门) */,
+				5E1E3A311B6728F40014FA32 /* Download(下载听) */,
 				5E1E3A7A1B6728F40014FA32 /* Icons */,
 				5E1E3AB11B6728F40014FA32 /* Mine(我的) */,
 				5E1E3AB51B6728F40014FA32 /* Third(第三方) */,
@@ -515,14 +513,14 @@
 		5E1E3A1A1B6728F40014FA32 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5E1E3A1B1B6728F40014FA32 /* ClassViewController.h */,
-				5E1E3A1C1B6728F40014FA32 /* ClassViewController.m */,
 				5E1E3A1D1B6728F40014FA32 /* DiscoverViewControlerViewController.h */,
 				5E1E3A1E1B6728F40014FA32 /* DiscoverViewControlerViewController.m */,
-				5E1E3A1F1B6728F40014FA32 /* MainAlbumTableViewController.h */,
-				5E1E3A201B6728F40014FA32 /* MainAlbumTableViewController.m */,
 				5E1E3A211B6728F40014FA32 /* SearchTableViewController.h */,
 				5E1E3A221B6728F40014FA32 /* SearchTableViewController.m */,
+				5E1E3A1B1B6728F40014FA32 /* ClassViewController.h */,
+				5E1E3A1C1B6728F40014FA32 /* ClassViewController.m */,
+				5E1E3A1F1B6728F40014FA32 /* MainAlbumTableViewController.h */,
+				5E1E3A201B6728F40014FA32 /* MainAlbumTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -726,8 +724,9 @@
 		5E1E3A891B6728F40014FA32 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				5E1E3A8A1B6728F40014FA32 /* dobe.png */,
-				5E1E3A8B1B6728F40014FA32 /* minehead.png */,
+				5E1E3B121B6728F50014FA32 /* album-more.png */,
+				5E1E3B1E1B6728F50014FA32 /* iconfont-xiazai01.png */,
+				5EB6E0151B67AEF2005F845D /* minedube.png */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -938,10 +937,8 @@
 			isa = PBXGroup;
 			children = (
 				5E1E3B061B6728F50014FA32 /* Album */,
-				5E1E3B121B6728F50014FA32 /* album-more.png */,
 				5E1E3B131B6728F50014FA32 /* Anchor */,
 				5E1E3B1B1B6728F50014FA32 /* AutoView */,
-				5E1E3B1E1B6728F50014FA32 /* iconfont-xiazai01.png */,
 				5E1E3B1F1B6728F50014FA32 /* LoadDownBase */,
 				5E1E3B221B6728F50014FA32 /* Networking */,
 				5E1E3B251B6728F50014FA32 /* Singleton */,
@@ -1167,19 +1164,18 @@
 				5E1E3B671B6728F50014FA32 /* hot.png in Resources */,
 				5E1E3B551B6728F50014FA32 /* DobeAv.png in Resources */,
 				5E1E3BAE1B6728F50014FA32 /* album-more.png in Resources */,
+				5EB6E0161B67AEF2005F845D /* minedube.png in Resources */,
 				5E1E3B5C1B6728F50014FA32 /* album-favorite.png in Resources */,
 				5E1E3B691B6728F50014FA32 /* iconfont-bofang.png in Resources */,
 				5E1E3B5A1B6728F50014FA32 /* album-download.png in Resources */,
 				5E1E3B631B6728F50014FA32 /* discover.png in Resources */,
 				5E1E3B951B6728F50014FA32 /* MJRefresh.bundle in Resources */,
 				5E1E3B721B6728F50014FA32 /* iconfont-kuaijin.png in Resources */,
-				5E1E3B611B6728F50014FA32 /* minehead.png in Resources */,
 				5E1E3B741B6728F50014FA32 /* iconfont-list.png in Resources */,
 				5E1E3B571B6728F50014FA32 /* playergray.png in Resources */,
 				5E1E3B621B6728F50014FA32 /* discover-2.png in Resources */,
 				5E1E3B751B6728F50014FA32 /* iconfont-ordinarydownload.png in Resources */,
 				5E1E3B461B6728F50014FA32 /* scrollPH.png in Resources */,
-				5E1E3B601B6728F50014FA32 /* dobe.png in Resources */,
 				5E1E3B5F1B6728F50014FA32 /* special-time.png in Resources */,
 				5E1E3A001B6723DB0014FA32 /* Images.xcassets in Resources */,
 				5E1E3B761B6728F50014FA32 /* iconfont-remenbiaoqian.png in Resources */,
@@ -1423,8 +1419,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = DubeFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1434,8 +1430,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = DubeFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

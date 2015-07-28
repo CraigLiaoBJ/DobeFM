@@ -68,7 +68,7 @@ static UIImageView *albumImage;
     self.coverSmImage.frame = CGRectMake(5, 5, 80, 80);
     self.coverSmImage.backgroundColor  = [UIColor colorWithRed:0.359 green:0.672 blue:1.000 alpha:1.000];
     
-    self.audioTitleLabel.frame = CGRectMake(120, 15, kWW, 20);
+    self.audioTitleLabel.frame = CGRectMake(120, 7, kWW - 130, 40);
     self.audioTitleLabel.font = [UIFont systemFontOfSize:15];
     self.audioTitleLabel.numberOfLines = 0;
     

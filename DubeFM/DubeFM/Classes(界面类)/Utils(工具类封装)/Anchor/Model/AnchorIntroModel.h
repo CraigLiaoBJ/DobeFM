@@ -15,5 +15,7 @@
 @property (nonatomic, copy) NSString *personalSignature;//介绍
 @property (nonatomic, copy) NSString *smallPic;
 @property (nonatomic, retain) NSNumber *tracks_counts;
+@property (nonatomic, retain) NSNumber *anchorUid;
+@property (nonatomic, retain) NSString *intro;
 
 @end

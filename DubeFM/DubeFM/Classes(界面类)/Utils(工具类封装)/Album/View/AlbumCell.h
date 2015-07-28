@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 DobeFM. All rights reserved.
 //
 
-#import "AlbumList.h"
+#import "SearchAlbum.h"
 @interface AlbumCell : UITableViewCell
 
 @property (nonatomic, retain) SearchAlbum *searchAlbum;

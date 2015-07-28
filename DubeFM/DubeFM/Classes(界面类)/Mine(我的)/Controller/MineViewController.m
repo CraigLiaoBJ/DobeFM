@@ -1,9 +1,9 @@
 //
 //  MineViewController.m
-//  DobeFM
+//  DubeFM
 //
 //  Created by Craig Liao on 15/7/15.
-//  Copyright (c) 2015年 DobeFM. All rights reserved.
+//  Copyright (c) 2015年 DubeFM. All rights reserved.
 //
 
 #import "MineViewController.h"
@@ -48,7 +48,7 @@ const CGFloat HMTopViewH = 350;
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     UIImageView *topView = [[[UIImageView alloc] init]autorelease];
-    topView.image = [UIImage imageNamed:@"dobe"];
+    topView.image = [UIImage imageNamed:@"minedube.png"];
     topView.frame = CGRectMake(0, -HMTopViewH, kWIDTH, HMTopViewH - 150);
     topView.contentMode = UIViewContentModeScaleAspectFill;
     [self.tableView addSubview:topView];
@@ -111,7 +111,7 @@ const CGFloat HMTopViewH = 350;
 
 
 - (void)addAboutView{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"关于DobeFM" message:@"一款充满喜感的FM。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"关于DubeFM" message:@"一款充满喜感的FM。" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alertView show];
     [alertView release];
 }
@@ -123,7 +123,7 @@ const CGFloat HMTopViewH = 350;
 }
 
 - (void)addContactView{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"DobeFM开发者团队" message:@"craigliao@foxmail.com;\n330360233@qq.com;\n985595975@qq.com" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"DubeFM开发者团队" message:@"craigliao@foxmail.com;\n330360233@qq.com;\n985595975@qq.com" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alertView show];
     [alertView release];
 }
