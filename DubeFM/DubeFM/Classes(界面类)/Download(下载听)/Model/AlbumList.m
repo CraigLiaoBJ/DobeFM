@@ -29,7 +29,7 @@
         self.playUrl32 = value;
         self.downloadUrl = value;
     }
-    if ([key isEqualToString:@"playPath64"]) {
+    if ([key isEqualToString:@"playPath64"]||[key isEqualToString:@"play_path_64"]||[key isEqualToString:@"play_path_32"]) {
         self.playPathAacv164 = value;
         self.downloadUrl = value;
     }

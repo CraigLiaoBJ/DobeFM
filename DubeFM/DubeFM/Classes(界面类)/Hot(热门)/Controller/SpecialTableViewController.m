@@ -58,7 +58,7 @@ static  NSInteger n = 1;
                 SpecialItem *specialItem = [[SpecialItem alloc]init];
                 [specialItem setValuesForKeysWithDictionary:tempDic];
                 [aSelf.dataArray addObject: specialItem];
-//                [specialItem release];
+                [specialItem release];
             }
             [self.tableView reloadData];
     }];

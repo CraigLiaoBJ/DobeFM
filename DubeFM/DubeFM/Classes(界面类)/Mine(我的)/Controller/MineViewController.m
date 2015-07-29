@@ -58,8 +58,7 @@ const CGFloat HMTopViewH = 350;
     self.tableView.contentInset = UIEdgeInsetsMake(HMTopViewH , 0, 0, 0);
     [self.tableView insertSubview:topView atIndex:0];
     self.topView = topView;
-//    [topView release];
-//    [_tableView release];
+
     
     for (int i = 0; i < 3; i ++) {
         self.dataArray = @[@"清除缓存", @"关于", @"免责声明", @"联系我们", @"版本号 v1.0"];

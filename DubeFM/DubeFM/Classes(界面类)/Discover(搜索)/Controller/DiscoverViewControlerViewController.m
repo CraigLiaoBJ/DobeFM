@@ -15,7 +15,7 @@
 
 #define URLStr @"http://mobile.ximalaya.com/m/super_explore_index2?channel=ios-b1&device=iPhone&includeActivity=true&picVersion=9&scale=3&version=3.1.43"
 
-@interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface DiscoverViewControlerViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate>
 @property (nonatomic, retain) UISearchBar *searchBar;
 
 //@property (nonatomic, retain) UISearchDisplayController *searchDisplayController;

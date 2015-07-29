@@ -35,6 +35,10 @@
 
 static NSInteger n = 1;
 @implementation SearchTableViewController
+- (void)dealloc{
+    [_segmentedControl release];
+    [super dealloc];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style{
     if (self = [super initWithStyle:style]) {
@@ -63,10 +67,20 @@ static NSInteger n = 1;
     //设置分段控制器
     _segmentedControl = [[UISegmentedControl alloc]initWithItems:@[@"找专辑", @"找人", @"找声音"]];
     _segmentedControl.frame = CGRectMake(0, 64, kWIDTH, 40);
-    _segmentedControl.selectedSegmentIndex = 0;
+//    _segmentedControl.selectedSegmentIndex = 0;
+    if (0 == _segmentedControl.selectedSegmentIndex) {
+        [self loadAlbumData];
+    } else if (1 == _segmentedControl.selectedSegmentIndex){
+        [self loadAnchorData];
+    } else {
+        [self loadAudioData];
+    }
+
+    
     _segmentedControl.tintColor = [UIColor orangeColor];
     [_segmentedControl addTarget:self action:@selector(didClickSegmentedControl:) forControlEvents:UIControlEventValueChanged];
     self.tableView.tableHeaderView = _segmentedControl;
+    [_segmentedControl release];
 }
 
 - (void)didClickSegmentedControl:(UISegmentedControl *)seg{
@@ -92,18 +106,16 @@ static NSInteger n = 1;
             if (0 == self.segmentedControl.selectedSegmentIndex) {
                 [blockSelf.albumArray removeAllObjects];
                 [blockSelf loadAlbumData];
-                 [blockSelf.tableView reloadData];
+                [blockSelf.tableView reloadData];
             } else if (1 == self.segmentedControl.selectedSegmentIndex){
                 [blockSelf.anchorArray removeAllObjects];
                 [blockSelf loadAnchorData];
-                 [blockSelf.tableView reloadData];
+                [blockSelf.tableView reloadData];
             } else {
                 [blockSelf.audioArray removeAllObjects];
                 [blockSelf loadAudioData];
-                 [blockSelf.tableView reloadData];
+                [blockSelf.tableView reloadData];
             }
-
-           
             [blockSelf.tableView.header endRefreshing];
         });
     }];
@@ -122,7 +134,6 @@ static NSInteger n = 1;
                 [blockSelf loadAudioData];
                  [blockSelf.tableView reloadData];
             }
-
             [blockSelf.tableView.footer endRefreshing];
         });
     }];
@@ -131,7 +142,6 @@ static NSInteger n = 1;
 
 - (void)loadAlbumData{
     NSString *string = [ALBUMURL stringByAppendingFormat:@"%@&page=%ld&per_page=20&scope=album", self.searchName, n];
-    NSLog(@"%@", self.searchName);
     NSString *albumString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     __block typeof(self) aSelf = self;
     [Networking recivedDataWithURLString:albumString method:@"GET" body:nil block:^(id object) {
@@ -142,14 +152,13 @@ static NSInteger n = 1;
             SearchAlbum *albumDoc = [[SearchAlbum alloc]init];
             [albumDoc setValuesForKeysWithDictionary:tempDic];
             [_albumArray addObject:albumDoc];
-            NSLog(@"%@", albumDoc.nickname);
+            [albumDoc release];
         }
         [aSelf.tableView reloadData];
     }];
 }
 
 - (void)loadAnchorData{
-    
     NSString *string = [ALBUMURL stringByAppendingFormat:@"%@&page=%ld&per_page=20&scope=user", self.searchName, n];
     NSString *albumString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     __block typeof(self) aSelf = self;
@@ -161,6 +170,7 @@ static NSInteger n = 1;
             AnchorIntroModel *anchorDoc = [[AnchorIntroModel alloc]init];
             [anchorDoc setValuesForKeysWithDictionary:tempDic];
             [_anchorArray addObject:anchorDoc];
+            [anchorDoc release];
         }
         [aSelf.tableView reloadData];
     }];
@@ -178,10 +188,10 @@ static NSInteger n = 1;
             AlbumList *audioDoc = [[AlbumList alloc]init];
             [audioDoc setValuesForKeysWithDictionary:tempDic];
             [_audioArray addObject:audioDoc];
+            [audioDoc release];
         }
         [aSelf.tableView reloadData];
     }];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -225,12 +235,13 @@ static NSInteger n = 1;
     if (0 == _segmentedControl.selectedSegmentIndex) {
         AlbumDetailViewController *albumVC = [[AlbumDetailViewController alloc]init];
         albumVC.albumId = [self.albumArray[indexPath.row] albumId];
-        NSLog(@"%@",albumVC.albumId);
         [self.navigationController pushViewController:albumVC animated:YES];
+        [albumVC release];
     } else if (1 == _segmentedControl.selectedSegmentIndex){
         AnchorInfoTableViewController *anchorVC = [[AnchorInfoTableViewController alloc]init];
         anchorVC.anchorId = [[self.anchorArray[indexPath.row] anchorUid]stringValue];
         [self.navigationController pushViewController:anchorVC animated:YES];
+        [anchorVC release];
     } else {
         [[SingleModel shareSingleModel].playC initWithAvplayer:indexPath.row albumList:[NSMutableArray arrayWithArray: self.audioArray] sAlbum:nil];
         self.navigationController.tabBarController.selectedIndex = 2;
@@ -238,8 +249,8 @@ static NSInteger n = 1;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    //    [_searchBar resignFirstResponder];
-    [self.view endEditing:YES];
+        [self resignFirstResponder];
+        [self.view endEditing:YES];
 }
 
 @end
