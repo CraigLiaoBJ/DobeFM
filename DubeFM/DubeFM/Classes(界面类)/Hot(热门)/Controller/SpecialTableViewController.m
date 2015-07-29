@@ -37,18 +37,19 @@ static  NSInteger n = 1;
 
 #pragma mark --- addTableView
 - (void)addTableView{
-    self.tableView  = [[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain]autorelease];
+    self.tableView  = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 170;
+    self.tableView.backgroundColor = CELLCOLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"CELL"];
 }
 
 #pragma mark --- loadData
 - (void)loadData{
-        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", n];
+        NSString *string = [URLSTR stringByAppendingFormat:@"&page=%ld&per_page=10", (long)n];
         __block typeof (self) aSelf = self;
         [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
             NSDictionary *dic = (NSDictionary *)object;
@@ -58,7 +59,6 @@ static  NSInteger n = 1;
                 SpecialItem *specialItem = [[SpecialItem alloc]init];
                 [specialItem setValuesForKeysWithDictionary:tempDic];
                 [aSelf.dataArray addObject: specialItem];
-                [specialItem release];
             }
             [self.tableView reloadData];
     }];
@@ -115,14 +115,12 @@ static  NSInteger n = 1;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         SpcDetailViewController *spcDetail = [[SpcDetailViewController alloc]init];
         spcDetail.addID = [[self.dataArray[indexPath.row] specialId]stringValue];
-        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] contentType]stringValue];
+        spcDetail.spcTypeID = [[self.dataArray[indexPath.row] ctntType] stringValue];
         [self.navigationController pushViewController:spcDetail animated:YES];
-        [spcDetail release];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

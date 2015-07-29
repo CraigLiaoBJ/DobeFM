@@ -55,7 +55,7 @@
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, kWIDTH, 44)];
     _searchBar.placeholder = @"搜索";
     self.navigationItem.titleView = _searchBar;
-//    [self.navigationController.navigationBar addSubview:searchBar];
+
     _searchBar.delegate = self;
 
     _searchTableViewController = [[SearchTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -83,8 +83,6 @@
 
     //注册Cell
     [self.collectionView registerClass:[DiscoverCell class] forCellWithReuseIdentifier:@"CELL"];
-//    [flowLayout release];
-//    [_collectionView release];
 }
 
 #pragma mark --- 加载数据
@@ -148,7 +146,6 @@
             [btn setTitle:@"取消" forState:UIControlStateNormal];
         }
     }
-    NSLog(@"should begin");
     return YES;
 }
 
@@ -157,21 +154,18 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    NSLog(@"search clicked");
     [_searchBar resignFirstResponder];
 
     _searchTableViewController.searchName = searchBar.text;
+    [_searchTableViewController.tableView reloadData];
 }
 
 //点击搜索框上的 取消按钮时 调用
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    NSLog(@"cancel clicked");
-    _searchBar.text = @"";
     [_searchBar resignFirstResponder];
     [_searchTableViewController.tableView reloadData];
     [self setSearchControllerHidden:YES];
 }
-
 
 //设置隐藏方法
 - (void)setSearchControllerHidden:(BOOL)hidden{

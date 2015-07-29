@@ -45,7 +45,7 @@ static NSInteger n = 0;
 
 #pragma mark --- 加载数据
 - (void)loadData{
-    NSString *string = [URLStr stringByAppendingFormat:@"%ld&per_page=0&status=0&tag_name=", n];
+    NSString *string = [URLStr stringByAppendingFormat:@"%ld&per_page=0&status=0&tag_name=", (long)n];
     __block typeof (self) aSelf = self;
     [Networking recivedDataWithURLString:string method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
@@ -54,7 +54,6 @@ static NSInteger n = 0;
             aSelf.searchAlbum = [[SearchAlbum alloc]init];
             [aSelf.searchAlbum setValuesForKeysWithDictionary:tempDic];
             [aSelf.moreAlbumArray addObject:aSelf.searchAlbum];
-//            [_searchAlbum release];
         }
         [aSelf.tableView reloadData];
     }];

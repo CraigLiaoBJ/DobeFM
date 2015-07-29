@@ -69,10 +69,8 @@ static NSInteger h = 172;
                 continue;
             }
             [self.imagesArray addObject:scrollModel.pic];
-//            [scrollModel release];
         }
         [self addLayer];
-//        [self.collectionVC reloadData];
     }];
 }
 
@@ -87,6 +85,7 @@ static NSInteger h = 172;
     flowlayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowlayout.sectionInset = UIEdgeInsetsMake(h + 74 + 10,10,10,10);
     self.collectionVC = [[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 48) collectionViewLayout:flowlayout]autorelease];
+    self.collectionVC.backgroundColor = CELLCOLOR;
     
     //只显示轮播图数量大于3的
     if (3 <= self.imagesArray.count) {

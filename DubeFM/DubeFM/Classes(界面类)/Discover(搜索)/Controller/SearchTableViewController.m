@@ -47,11 +47,17 @@ static NSInteger n = 1;
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    _segmentedControl.selectedSegmentIndex = 0;
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.anchorArray = [NSMutableArray array];
     self.albumArray = [NSMutableArray array];
     self.audioArray = [NSMutableArray array];
+    [self refreshData];
     
     self.tableView.backgroundColor = CELLCOLOR;
     self.tableView.tableFooterView = nil;
@@ -63,20 +69,11 @@ static NSInteger n = 1;
     [self.tableView registerClass:[AlbumCell class] forCellReuseIdentifier:@"album"];
      //注册声音单元格
     [self.tableView registerClass:[AudioCell class] forCellReuseIdentifier:@"audio"];
-    [self refreshData];
     //设置分段控制器
     _segmentedControl = [[UISegmentedControl alloc]initWithItems:@[@"找专辑", @"找人", @"找声音"]];
     _segmentedControl.frame = CGRectMake(0, 64, kWIDTH, 40);
-//    _segmentedControl.selectedSegmentIndex = 0;
-    if (0 == _segmentedControl.selectedSegmentIndex) {
-        [self loadAlbumData];
-    } else if (1 == _segmentedControl.selectedSegmentIndex){
-        [self loadAnchorData];
-    } else {
-        [self loadAudioData];
-    }
-
     
+    _segmentedControl.selectedSegmentIndex = 0;
     _segmentedControl.tintColor = [UIColor orangeColor];
     [_segmentedControl addTarget:self action:@selector(didClickSegmentedControl:) forControlEvents:UIControlEventValueChanged];
     self.tableView.tableHeaderView = _segmentedControl;
@@ -86,13 +83,17 @@ static NSInteger n = 1;
 - (void)didClickSegmentedControl:(UISegmentedControl *)seg{
     if (0 == seg.selectedSegmentIndex) {
         [self loadAlbumData];
+        [self.tableView reloadData];
     } else if (1 == seg.selectedSegmentIndex){
         [self loadAnchorData];
+        [self.tableView reloadData];
     } else {
         [self loadAudioData];
+        [self.tableView reloadData];
     }
 }
 
+#pragma mark --- 刷新数据
 - (void)refreshData{
     __block SearchTableViewController *blockSelf = self;
     
@@ -106,16 +107,14 @@ static NSInteger n = 1;
             if (0 == self.segmentedControl.selectedSegmentIndex) {
                 [blockSelf.albumArray removeAllObjects];
                 [blockSelf loadAlbumData];
-                [blockSelf.tableView reloadData];
             } else if (1 == self.segmentedControl.selectedSegmentIndex){
                 [blockSelf.anchorArray removeAllObjects];
                 [blockSelf loadAnchorData];
-                [blockSelf.tableView reloadData];
             } else {
                 [blockSelf.audioArray removeAllObjects];
                 [blockSelf loadAudioData];
-                [blockSelf.tableView reloadData];
             }
+            [blockSelf.tableView reloadData];
             [blockSelf.tableView.header endRefreshing];
         });
     }];
@@ -140,6 +139,7 @@ static NSInteger n = 1;
     self.tableView.footer.autoChangeAlpha = YES;
 }
 
+#pragma mark --- 加载专辑数据
 - (void)loadAlbumData{
     NSString *string = [ALBUMURL stringByAppendingFormat:@"%@&page=%ld&per_page=20&scope=album", self.searchName, n];
     NSString *albumString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -158,6 +158,7 @@ static NSInteger n = 1;
     }];
 }
 
+#pragma mark --- 加载主播数据
 - (void)loadAnchorData{
     NSString *string = [ALBUMURL stringByAppendingFormat:@"%@&page=%ld&per_page=20&scope=user", self.searchName, n];
     NSString *albumString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -176,6 +177,7 @@ static NSInteger n = 1;
     }];
 }
 
+#pragma mark --- 加载音频数据
 - (void)loadAudioData{
     NSString *string = [ALBUMURL stringByAppendingFormat:@"%@&page=%ld&per_page=20&scope=voice", self.searchName, n];
     NSString *albumString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

@@ -12,7 +12,7 @@
 
 - (void)dealloc{
     
-    [_contentType release];
+    [_ctntType release];
     [_coverPathBig release];
     [_releasedAt release];
     [_specialId release];
@@ -22,7 +22,9 @@
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    
+    if ([key isEqualToString:@"contentType"]) {
+        self.ctntType = value;
+    }
 }
 
 @end

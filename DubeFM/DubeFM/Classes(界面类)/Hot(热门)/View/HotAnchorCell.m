@@ -26,11 +26,9 @@
     if (self = [super initWithFrame:frame]) {
         self.picView = [[[UIImageView alloc]init]autorelease];
         [self.contentView addSubview:self.picView];
-//        [_picView release];
         
         self.nameLabel = [[[UILabel alloc]init]autorelease];
         [self.contentView addSubview:self.nameLabel];
-//        [_nameLabel release];
     }
     return self;
 }

@@ -51,6 +51,11 @@
     [super dealloc];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.albumTableView deselectRowAtIndexPath:[self.albumTableView indexPathForSelectedRow] animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.imageArray = [NSMutableArray array];
@@ -70,11 +75,9 @@
     
     self.view.backgroundColor = CELLCOLOR;
     [self loadNetData];
-    //[self addScrollView];
     [self addHotAnchor];
     [self addHotVoice];
-//    [self addSpecial];
-//    [self loadSpecialData];
+
     [self addRecommendAlbum];
     
 }
@@ -96,7 +99,7 @@
                 albumVC.albumId = [miao.dataArray[index] albumId];
                 [miao.navigationController pushViewController:albumVC animated:YES];
             }
-            if (3 == [miao.dataArray[index] typeId]) {
+            if ((3 == [miao.dataArray[index] typeId])|| (1 == [miao.dataArray[index] typeId])) {
                 AnchorInfoTableViewController *anchorVC = [[[AnchorInfoTableViewController alloc]init]autorelease];
                 anchorVC.anchorId = [miao.dataArray[index] uid];
                 [miao.navigationController pushViewController:anchorVC animated:YES];

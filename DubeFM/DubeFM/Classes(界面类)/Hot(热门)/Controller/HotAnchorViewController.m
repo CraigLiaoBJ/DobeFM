@@ -55,8 +55,7 @@ static NSInteger n = 1;
 
     [self.collectionView registerClass:[HotAnchorCell class] forCellWithReuseIdentifier:@"CELL"];
      [self.view addSubview:self.collectionView];
-//    [flowLayout release];
-//    [_collectionView release];
+
 }
 
 #pragma mark --- 获取数据
@@ -70,7 +69,6 @@ static NSInteger n = 1;
             HotAnchorItem *hotAnchorItem = [[HotAnchorItem alloc]init];
             [hotAnchorItem setValuesForKeysWithDictionary:tempDic];
             [aSelf.dataArray addObject:hotAnchorItem];
-//            [hotAnchorItem release];
         }
         [aSelf.collectionView reloadData];
     }];
@@ -127,7 +125,6 @@ static NSInteger n = 1;
     AnchorInfoTableViewController *anchorDetail = [[AnchorInfoTableViewController alloc]init];
     anchorDetail.anchorId = [[self.dataArray[indexPath.row]uid]stringValue];
     [self.navigationController pushViewController:anchorDetail animated:YES];
-//    [anchorDetail release];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -136,7 +133,6 @@ static NSInteger n = 1;
      
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

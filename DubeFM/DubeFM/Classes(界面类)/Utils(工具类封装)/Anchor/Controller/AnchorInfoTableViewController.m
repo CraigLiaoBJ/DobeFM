@@ -45,7 +45,7 @@ static NSInteger i = 1;
     self.view.backgroundColor = CELLCOLOR;
     [self loadData];
     [self refreshData];
-//    [self refreshAndLoad];
+
     self.tableView = [[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped]autorelease];
     [self addHeaderImage];
     self.tableView.rowHeight = 100;
@@ -88,15 +88,14 @@ static NSInteger i = 1;
 #pragma mark --- 加载数据
 - (void)loadData{
     NSString *introString = [URLIntro stringByAppendingFormat:@"%@", self.anchorId];
-    NSString *albumString = [URLAlbum stringByAppendingFormat:@"%@/%ld/%ld", self.anchorId, i, i * 2];
-    NSString *audioString = [URLAudio stringByAppendingFormat:@"%@/%ld/%ld", self.anchorId, n, n * 30];
+    NSString *albumString = [URLAlbum stringByAppendingFormat:@"%@/%ld/%d", self.anchorId, (long)i, i * 2];
+    NSString *audioString = [URLAudio stringByAppendingFormat:@"%@/%ld/%d", self.anchorId, (long)n, n * 30];
     __block typeof(self) aSelf = self;
     [Networking recivedDataWithURLString:introString method:@"GET" body:nil block:^(id object) {
         NSDictionary *dic = (NSDictionary *)object;
         aSelf.anchorIntroModel = [[[AnchorIntroModel alloc]init]autorelease];
         [aSelf.anchorIntroModel setValuesForKeysWithDictionary:dic];
         [aSelf addHeaderImage];
-//        [_anchorIntroModel release];
     }];
     
     [Networking recivedDataWithURLString:albumString method:@"GET" body:nil block:^(id object) {

@@ -42,8 +42,8 @@
 		5E1E3B431B6728F50014FA32 /* HotVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A571B6728F40014FA32 /* HotVoiceViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E1E3B441B6728F50014FA32 /* MoreAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A591B6728F40014FA32 /* MoreAlbumTableViewController.m */; };
 		5E1E3B461B6728F50014FA32 /* scrollPH.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1E3A5B1B6728F40014FA32 /* scrollPH.png */; };
-		5E1E3B471B6728F50014FA32 /* SpcDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A5D1B6728F40014FA32 /* SpcDetailViewController.m */; };
-		5E1E3B481B6728F50014FA32 /* SpecialTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A5F1B6728F40014FA32 /* SpecialTableViewController.m */; };
+		5E1E3B471B6728F50014FA32 /* SpcDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A5D1B6728F40014FA32 /* SpcDetailViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		5E1E3B481B6728F50014FA32 /* SpecialTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A5F1B6728F40014FA32 /* SpecialTableViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5E1E3B491B6728F50014FA32 /* HotAcrListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A621B6728F40014FA32 /* HotAcrListModel.m */; };
 		5E1E3B4A1B6728F50014FA32 /* HotAlbumsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A641B6728F40014FA32 /* HotAlbumsModel.m */; };
 		5E1E3B4B1B6728F50014FA32 /* HotAnchorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1E3A661B6728F40014FA32 /* HotAnchorItem.m */; };
@@ -619,12 +619,12 @@
 		5E1E3A4E1B6728F40014FA32 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5E1E3A531B6728F40014FA32 /* HotViewController.h */,
+				5E1E3A541B6728F40014FA32 /* HotViewController.m */,
 				5E1E3A4F1B6728F40014FA32 /* hotAnchor.png */,
 				5E1E3A501B6728F40014FA32 /* HotAnchorViewController.h */,
 				5E1E3A511B6728F40014FA32 /* HotAnchorViewController.m */,
 				5E1E3A521B6728F40014FA32 /* hotView-more.png */,
-				5E1E3A531B6728F40014FA32 /* HotViewController.h */,
-				5E1E3A541B6728F40014FA32 /* HotViewController.m */,
 				5E1E3A551B6728F40014FA32 /* hotvoice.png */,
 				5E1E3A561B6728F40014FA32 /* HotVoiceViewController.h */,
 				5E1E3A571B6728F40014FA32 /* HotVoiceViewController.m */,
@@ -1348,7 +1348,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: YunLei Shi (U2J62577HB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: YunLei Shi (U2J62577HB)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1372,6 +1373,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "746d222d-f29e-4057-976f-fbdd39b847f1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1393,7 +1395,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: YunLei Shi (U2J62577HB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: YunLei Shi (U2J62577HB)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1410,6 +1413,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "746d222d-f29e-4057-976f-fbdd39b847f1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

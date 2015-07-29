@@ -21,25 +21,16 @@
 static NSInteger n = 0;
 @implementation MainAlbumTableViewController
 
-//- (void)dealloc{
-//    [_name release];
-//    [_tagName release];
-//    [_searchAlbum release];
-//    [super dealloc];
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.moreAlbumArray = [NSMutableArray array];
     self.view.backgroundColor = CELLCOLOR;
     
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    self.navigationController.navigationBar.shadowImage = [UIImage new];
 
-//    self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"%@", self.tagName];
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.rowHeight = 100;
+    self.tableView.backgroundColor = CELLCOLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self loadData];

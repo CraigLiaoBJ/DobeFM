@@ -10,7 +10,7 @@
 
 @interface SpecialItem : NSObject
 
-@property (nonatomic, retain) NSNumber *contentType;
+@property (nonatomic, retain) NSNumber *ctntType;
 @property (nonatomic, retain) NSString *coverPathBig;
 @property (nonatomic, retain) NSNumber *releasedAt;
 @property (nonatomic, retain) NSNumber *specialId;

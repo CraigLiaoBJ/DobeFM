@@ -33,11 +33,9 @@ static UIImageView *albumImage;
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.cellImageView = [[[UIImageView alloc]init]autorelease];
         [self addSubview:_cellImageView];
-//        [_cellImageView release];
         
         self.coverSmImage = [[[UIImageView alloc]init]autorelease];
         [self.cellImageView addSubview:self.coverSmImage];
-//        [_coverSmImage release];
         
         albumImage = [[UIImageView alloc]init];
         albumImage.frame = CGRectMake(100, 15, 20, 20);
@@ -46,15 +44,12 @@ static UIImageView *albumImage;
         
         self.audioTitleLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.audioTitleLabel];
-//        [_audioTitleLabel release];
         
         self.authorLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.authorLabel];
-//        [_authorLabel release];
 
         self.durationLabel = [[[UILabel alloc]init]autorelease];
         [self.cellImageView addSubview:self.durationLabel];
-//        [_durationLabel release];
         
     }
     return self;

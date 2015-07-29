@@ -44,6 +44,8 @@ static LoadDownBase *loadDownBase;//下载基类
 
 static NSMutableArray *saveLoading;//保存下载数据
 
+static  UISegmentedControl *segmentedControl;
+
 static int currentLoad = 0;
 
 - (void)viewDidLoad {
@@ -95,7 +97,7 @@ static int currentLoad = 0;
     [self.view addSubview:self.loadingTableView];
     
     //导航栏上的分段控制器
-    UISegmentedControl *segmentedControl=[[UISegmentedControl alloc] initWithItems:@[@"下载中", @"已下载"]];
+    segmentedControl=[[UISegmentedControl alloc] initWithItems:@[@"下载中", @"已下载"]];
     segmentedControl.frame = CGRectMake(0, 0, kWIDTH, 40);
 
     [segmentedControl addTarget:self action:@selector(Selectbutton:) forControlEvents:UIControlEventValueChanged];
@@ -271,7 +273,6 @@ static int currentLoad = 0;
 
         ((SaveLodingDate*)saveLoading[indexPath.row]).progress.frame = CGRectMake(70, 50, kWIDTH - 70 - 60, 10);
         
-        //cell.btn =
         ((SaveLodingDate*)saveLoading[indexPath.row]).btn.frame = CGRectMake(kWIDTH - 40 - 10, 20, 40, 20) ;
         ((SaveLodingDate*)saveLoading[indexPath.row]).btn.tag = 1000+indexPath.row;
         [cell addSubview:((SaveLodingDate*)saveLoading[indexPath.row]).btn];
@@ -281,8 +282,7 @@ static int currentLoad = 0;
         cell.titleLabel.font = [UIFont boldSystemFontOfSize:10];
         cell.titleLabel.numberOfLines = 0;
         NSURL *picurl = [NSURL URLWithString:self.dicLoading[[self.dicLoading allKeys][indexPath.row]][1]];
-//        NSData *picData  = [NSData dataWithContentsOfURL:picurl];
-//        [cell.coverImage setImage:[UIImage imageWithData:picData]];
+
         [cell.coverImage sd_setImageWithURL:picurl];
         return cell;
     }

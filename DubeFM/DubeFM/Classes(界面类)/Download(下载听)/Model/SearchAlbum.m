@@ -21,6 +21,9 @@
     if ([key isEqualToString:@"id"]) {
         self.albumId = value;
     }
+    if (([key isEqualToString:@"tracksCounts"])||([key isEqualToString:@"tracks"])) {
+        self.tracks = value;
+    }
 }
 
 @end
