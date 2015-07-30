@@ -21,11 +21,6 @@
 static NSInteger n = 1;
 @implementation HotAnchorViewController
 
-//- (void)dealloc{
-//    [_collectionView release];
-//    [super dealloc];
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
