@@ -114,6 +114,8 @@
     NSString *time = [formatter stringFromDate:confirmTimesp];
     //时间赋值
     _releaseAtLabel.text = time;
+    NSLog(@"shijian:%@", time);
+
     
     //封面图片赋值
     NSString *coverString = spcItem.coverPathBig;
